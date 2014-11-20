@@ -1,4 +1,13 @@
 
 --This line, and those below, will be ignored--
 
-A    wave2.s
+D    wave1.o
+A    p1
+A    p1/phase1.s
+A    p1/warm_test.s
+A    p1/warm.s
+A    p1/warm.lst
+A    p2
+A    p2/phase2.s
+A    p3
+D    wave2.s
