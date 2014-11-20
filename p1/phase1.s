@@ -23,16 +23,47 @@
 	mov	$0,14(rbp)
 	mov	$0,15(rbp)
 
-;;; lets add
 ;;; decode the instruction
-
 	mov	$1, r0
 	shr	r0, $26
-	and	r0, WARM(r0)
+	and	r0, WARM(wpc)
 	be	arith
 
-arith:	
+;;; snag the opcode
+arith:	mov	WARM(wpc), r0
+	shl	r0, $5
+	shr	r0, $28
+	mov			;; opcode's in r0
 
+
+add:				;op 0	00000
+adc:				;op 1	00001
+sub:				;op 2	00010
+cmp:				;op 3	00011
+eor:				;op 4	00100
+orr:				;op 5	00101
+and:				;op 6	00110
+tst:				;op 7	00111
+mul:				;op 8	01000
+mla:				;op 9	01001
+div:				;op 10	01010
+mov:				;op 11	01011
+mvn:				;op 12	01100
+swi:				;op 13	01101
+ldm:				;op 14	01110
+stm:				;op 15	01111
+
+ldr:				;op 16  10000
+str:				;op 17	10001
+ldu:				;op 18	10010
+stu:				;op 19	10011
+adr:				;op 20	10100
+	
+bf:				;op 24	11000
+bb:				;op 25	11001
+blf:				;op 26	11010
+blb:				;op 27	11011
+	
 
 
 
