@@ -10,8 +10,8 @@
 ;;; snag the opcode
 	mov	WARM(wpc),ci
 	mov 	ci,r2
-	shl	$5,r2
-	shr	$26,r2	
+	shl	$4,r2
+	shr	$27,r2	
 ;;; lets jump straight to the address
 	.origin	200
 add:				;op 0	00000
