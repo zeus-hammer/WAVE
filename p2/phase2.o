@@ -1,5 +1,6 @@
 WindObjectFile1
 File phase2.s
+Symbol REGS 32
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -8,10 +9,35 @@ Symbol SysOverlay 6
 Symbol SysPLA 7
 Symbol SysPutChar 3
 Symbol SysPutNum 4
-Symbol WARM 54
-Symbol found 45
-Symbol loop 35
-Symbol zeros 0
+Symbol WARM 48
+Symbol adc 13
+Symbol add 13
+Symbol adr 13
+Symbol and 13
+Symbol bb 13
+Symbol bf 13
+Symbol blb 13
+Symbol blf 13
+Symbol cmp 13
+Symbol div 13
+Symbol eor 13
+Symbol found 23
+Symbol ldm 13
+Symbol ldr 13
+Symbol ldu 13
+Symbol loop 13
+Symbol mla 13
+Symbol mov 13
+Symbol mul 13
+Symbol mvn 13
+Symbol orr 13
+Symbol stm 13
+Symbol str 13
+Symbol stu 13
+Symbol sub 13
+Symbol swi 13
+Symbol tst 13
+Register ci 13
 Register r0 0
 Register r1 1
 Register r10 10
@@ -29,64 +55,58 @@ Register r7 7
 Register r8 8
 Register r9 9
 Register rbp 6
-Register rega 14
+Register reg 14
 Register rip 16
 Register rsp 7
 Register wpc 15
-Memory 0 0
-Memory 1 0
-Memory 2 0
-Memory 3 0
-Memory 4 0
-Memory 5 0
-Memory 6 0
-Memory 7 0
-Memory 8 0
-Memory 9 0
-Memory a 0
-Memory b 0
-Memory c 0
-Memory d 0
-Memory e 0
-Memory f 0
-Memory 10 40198000 25
-Memory 12 180000 6
-Memory 14 49f80000 0
-Memory 16 41598000 ffffffe9
-Memory 18 48ad0000 1
-Memory 1a 180000 4
-Memory 1c 482f8000 36
-Memory 1e 48408000
-Memory 1f c0580000 5
-Memory 21 c8580000 1a
-Memory 23 480d0000 36
-Memory 25 98180000 6800000
-Memory 27 20198000 5
-Memory 29 a1580000 1
-Memory 2b 8198000 fffffff7
-Memory 2d 48050000
-Memory 2e 180000 4
-Memory 30 48180000 a
-Memory 32 180000 3
-Memory 34 180000 0
-Source 10         lea     WARM,r0
-Source 12         trap    $SysOverlay
-Source 14         mov     $0,wpc
-Source 16         lea     zeros,r10 
-Source 18         mov     1(r10), r5
-Source 1a         trap    $SysPutNum
-Source 1c         mov     WARM(wpc), r1
-Source 1e         mov     r1, r2
-Source 1f         shl     $5,r2
-Source 21         shr     $26,r2
-Source 23 loop:   mov     WARM(r10),r0
-Source 25         cmp     $0x06800000,r0
-Source 27         je      found
-Source 29         add     $1,r10
-Source 2b         jmp     loop
-Source 2d found:  mov     r10, r0
-Source 2e         trap    $SysPutNum
-Source 30         mov     $'\n, r0
-Source 32         trap    $SysPutChar
-Source 34         trap    $SysHalt
+Memory 20 0
+Memory 21 0
+Memory 22 0
+Memory 23 0
+Memory 24 0
+Memory 25 0
+Memory 26 0
+Memory 27 0
+Memory 28 0
+Memory 29 0
+Memory 2a 0
+Memory 2b 0
+Memory 2c 0
+Memory 2d 0
+Memory 2e 0
+Memory 2f 0
+Memory 0 40198000 2f
+Memory 2 41d98000 1d
+Memory 4 180000 6
+Memory 6 49af8000 30
+Memory 8 48468000
+Memory 9 c0580000 5
+Memory b c8580000 1a
+Memory d 480d0000 30
+Memory f 98180000 6800000
+Memory 11 20198000 5
+Memory 13 a1580000 1
+Memory 15 8198000 fffffff7
+Memory 17 48050000
+Memory 18 180000 4
+Memory 1a 48180000 a
+Memory 1c 180000 3
+Memory 1e 180000 0
+Source 0         lea     WARM,r0
+Source 2         lea     REGS,reg
+Source 4         trap    $SysOverlay
+Source 6         mov     WARM(wpc),ci
+Source 8         mov     ci,r2
+Source 9         shl     $5,r2
+Source b         shr     $26,r2  
+Source d loop:   mov     WARM(r10),r0
+Source f         cmp     $0x06800000,r0
+Source 11         je      found
+Source 13         add     $1,r10
+Source 15         jmp     loop
+Source 17 found:  mov     r10, r0
+Source 18         trap    $SysPutNum
+Source 1a         mov     $'\n, r0
+Source 1c         trap    $SysPutChar
+Source 1e         trap    $SysHalt
 End
