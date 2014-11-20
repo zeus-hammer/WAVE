@@ -1,0 +1,7 @@
+;;; Phase 1 of final project
+;;; (c) 2014 modsoussi
+	.requ	wpc,r11
+	mov	$0,wpc
+	mov	$1000,r0
+	trap	$SysOverlay
+	trap	$SysHalt
