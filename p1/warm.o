@@ -47,7 +47,7 @@ Memory 3 6800003
 Memory 4 6800000
 Source 0         swi     #SysGetNum
 Source 1         swi     #SysPutNum
-Source 2         mov     r0, #10
+Source 2         mov     r0,#10
 Source 3         swi     #SysPutChar
 Source 4         swi     #SysHalt
 End
