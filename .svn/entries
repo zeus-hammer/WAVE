@@ -26,7 +26,38 @@ svn+ssh://16drs1@eringer.cs.williams.edu/home/cs-students/16mds4/svn/project
 
 9a94c954-23b9-4d73-9e50-fe91b11dd478
 
-warm.lst
+warm.o
+file
+8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+deleted
+
+.gitignore
+file
+0
+
+
+add
+
+warm_test.s
 file
 8
 
@@ -74,8 +105,29 @@ file
 
 deleted
 
-p1
-dir
+warm.lst
+file
+8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+deleted
 
 wave1.o
 file
@@ -101,10 +153,10 @@ file
 
 deleted
 
-p2
+p1
 dir
 
-p3
+p2
 dir
 
 wave1.s~
@@ -131,6 +183,9 @@ file
 
 deleted
 
+p3
+dir
+
 wave2.s~
 file
 8
@@ -155,7 +210,7 @@ file
 
 deleted
 
-wave1.lst
+wave1.s
 file
 8
 
@@ -179,7 +234,7 @@ file
 
 deleted
 
-wave1.s
+wave1.lst
 file
 8
 
@@ -263,52 +318,4 @@ bdf378c0906246a2cc21e1a9477d129d
 
 .git
 dir
-
-warm.o
-file
-8
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-deleted
-
-warm_test.s
-file
-8
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-deleted
 

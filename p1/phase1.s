@@ -2,41 +2,36 @@
 ;;; (c) d.r.smith modsoussi bijan
 
 	.requ	wpc, r15
+	.requ	reg_a, r14
 	lea	WARM,r0
+	lea	table,reg_a
 	trap	$SysOverlay
 	
 	mov	$0,wpc
-	mov	$0,(rbp)
-	mov	$0,1(rbp)
-	mov	$0,2(rbp)
-	mov	$0,3(rbp)
-	mov	$0,4(rbp)
-	mov	$0,5(rbp)
-	mov	$0,6(rbp)
-	mov	$0,7(rbp)
-	mov	$0,8(rbp)
-	mov	$0,9(rbp)
-	mov	$0,10(rbp)
-	mov	$0,11(rbp)
-	mov	$0,12(rbp)
-	mov	$0,13(rbp)
-	mov	$0,14(rbp)
-	mov	$0,15(rbp)
-
-;;; decode the instruction
-	mov	$1, r0
-	shr	r0, $26
-	and	r0, WARM(wpc)
-	be	arith
-
+	mov	$0,(wpc)
+	mov	$0,1(wpc)
+	mov	$0,2(wcp)
+	mov	$0,3(wpc)
+	mov	$0,4(wpc)
+	mov	$0,5(wpc)
+	mov	$0,6(wpc)
+	mov	$0,7(wpc)
+	mov	$0,8(wpc)
+	mov	$0,9(wpc)
+	mov	$0,10(wpc)
+	mov	$0,11(wpc)
+	mov	$0,12(wpc)
+	mov	$0,13(wpc)
+	mov	$0,14(wpc)
+	mov	$0,15(wpc)
 ;;; snag the opcode
-arith:	mov	WARM(wpc), r0
-	shl	r0, $5
-	shr	r0, $28
-	mov			;; opcode's in r0
-
-
+	mov	WARM(wpc), r1
+	mov	r1, r2
+	shl	r2,$5
+	shr	r2,$26
+;;; we have the opcode in r2, now what do we do with it?
 add:				;op 0	00000
+	
 adc:				;op 1	00001
 sub:				;op 2	00010
 cmp:				;op 3	00011
@@ -66,7 +61,8 @@ blb:				;op 27	11011
 	
 
 
-
+table:
+	.data	1,2,3,4,5,6,7,8,9,10,11,12,13
 	
 	
 loop:	mov	WARM(r10),r0
