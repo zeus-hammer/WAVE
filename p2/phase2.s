@@ -97,7 +97,7 @@ loop:	mov	WARM(r10),r0
 	jmp	loop
 found:	mov	r10, r0
 	trap	$SysPutNum
-	mov	$'\n, r0
+	mov	$'\n', r0
 	trap	$SysPutChar
 	trap	$SysHalt
 REGS:
