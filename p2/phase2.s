@@ -37,8 +37,16 @@ imd:
 	
 rim:
 
-rsr:
-
+rsr:	mov	$0xE, work1
+	and 	ci, work1	; work1 now has shreg in it
+	mov	ci, work2	; work2 has current instruction in it
+	shl	$22, work2
+	shr	$26, work2	; work2 now has address of srcreg2 in it
+	mov 	ci, work3
+	shl	$20, work3
+	shr	$30, work3	; work3 now has shop in it
+	
+	
 rpm:	
 
 	
@@ -49,6 +57,8 @@ rpm:
 	mov	ci,work0
 
 
+SHOP:
+	.data	lsl, lsr, asr, ror
 
 ADDR:
 	.data 	imd, imd, imd, imd, rim, rsr, rpm
