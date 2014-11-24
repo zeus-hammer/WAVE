@@ -6,6 +6,8 @@
 	.requ	op, r11
 	.requ	src, r10
 	.requ	dst, r9
+	.requ	src2, r8
+	.requ	shr, r5
 	
 	.requ	work0, r1
 	.requ	work1, r2
@@ -38,38 +40,49 @@ imd:
 	shr	
 rim:
 
-rsr:	mov	$0xE, work1
-	and 	ci, work1	; work1 now has shreg in it
-	mov	ci, work2	; work2 has current instruction in it
-	shl	$22, work2
-	shr	$26, work2	; work2 now has address of srcreg2 in it
+;;; Register Shifted by Register Mode;;;
+rsr:	mov	$0xE, shr	; shr := 15
+	and 	ci, shr		; shr := shr & ci; to get shift register
+	mov	ci, src2	
+	shl	$23, src2
+	shr	$28, src2	; src2 has src2 register 
 	mov 	ci, work3
-	shl	$20, work3
-	shr	$30, work3	; work3 now has shop in it
-	
+	shl	$21, work3
+	shr	$30, work3	; work3 now has the shift op code
+	mov	SHOP(work3), rip
 	
 rpm:	
-
-	
 	mov 	ci,op
 	shl	$4,op
 	shr	$27,op
 	mov	INSTR(op), rip
-	mov	ci,work0
-
 
 SHOP:
 	.data	lsl, lsr, asr, ror
 
+lsl:	shl	shr, src2
+	mov     INSTR(op), rip
+
+lsr:	shr	shr, src2
+	mov     INSTR(op), rip
+
+asr:	sar	shr, src2
+	mov     INSTR(op), rip
+
+ror:	mov	src2, work1
+	mov	$32, work3	
+	sub	shr, work3	;work3 := 32-shr
+	shl	work3, work1	;work1 is low shr bits shifted (32-shr) to the left
+	shr	shr, src2	;work2 is the highest (32-shr) bits shifted shr to the right
+	add	work1, src2
+	mov     INSTR(op), rip	
+	
 ADDR:
 	.data 	imd, imd, imd, imd, rim, rsr, rpm
 
 ls:
 
 branch:	
-
-	
-
 
 add:
 
@@ -93,7 +106,7 @@ mla:
 	
 div:
 	
-mov:
+mov:	
 	
 mvn:
 	
