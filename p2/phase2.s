@@ -4,7 +4,8 @@
 	.requ	reg, r14
 	.requ	ci, r13
 	.requ	op, r11
-	.requ	src, r10
+	.requ	src1, r10
+	.requ	src2, r8
 	.requ	dst, r9
 	
 	.requ	work0, r1
@@ -14,7 +15,8 @@
 	
 		
  	.equ	maskT, 0xc000000 	;27 and 26th bit
-	.equ	maskA, 0x7800		;1 in 14,13,12th bits
+	.equ	maskA, 0x7800		;1 in 14,13,12th bit
+	.equ	maskSC, $63
 	
 	lea	WARM,r0
 	lea	REGS,reg
@@ -28,16 +30,42 @@ fetch:	mov	WARM(wpc),ci
 	shr	$31, work0	;work 0 holds the type
  	mov	TYPE(work0), rip
 arith:
+	mov 	ci,op
+	shl	$4,op
+	shr	$27,op
 	mov 	$maskA, work0
 	and 	work0, ci
 	shr	$14, work0	;work 0 holds the addressing mode
 	mov	ADDR(work0), rip
 
-imd:
+imd:	
 	
-rim:
+rim:	mov	ci, work0
+	shl	$22, work0
+	shr	$28, work0 	;now we have src reg 2 in work0
+	mov	work0, src2
+	mov	ci, work0
+	and	$maskSC, work0	;work0 now has the shift count
 
-rsr:
+	mov	ci, work1
+	shl	$20, work1
+	shr	$30, work1	;work1 now has the shop
+	mov 	SHOPRIM(work1),rip
+rimlsl:	shl	work0, src2
+	mov	INSTR(op), rip
+rimlsr:	shr	work0, src2
+	mov	INSTR(op), rip
+rimasr:	sar	work0, src2
+	mov	INSTR(op), rip
+rimror:	mov	$32, work3
+	sub	work0, work3	;work3 contains the ammount to shift to hold the rotated stuff
+	mov	src2, work4	
+	shl	work3, work4	;work4 has the rotated bits
+	shr	work0, src2
+	add	work4, src2
+	mov	INSTR(op), rip
+
+rsr:	
 
 rpm:	
 
@@ -117,4 +145,6 @@ INSTR:
 TYPE:
 	.data	arith, arith, ls, branch
 
+SHOPRIM:
+	.data rimlsl, rimlsr, rimasr, rimror
 WARM:	 
