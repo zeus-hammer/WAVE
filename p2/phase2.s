@@ -6,13 +6,10 @@
 	.requ	op, r11
 	.requ	src, r10
 	.requ	dst, r9
-<<<<<<< HEAD
 	.requ 	rhs, r8
-=======
 	.requ	src2, r8
 	.requ	shr, r5
->>>>>>> 5f81736c5adb03c7a6ce0e0b17b23de5da257ebd
-	
+
 	.requ	work0, r1
 	.requ	work1, r2
 	.requ	work2, r3
@@ -50,13 +47,12 @@ imd:
 	shr	$19, dst
 	and	$mask4, dst
 	mov	ci, work0
-<<<<<<< HEAD
+	
 	and	$maskExp, work0	;exponent
 	shr	$9, work0
 	mov	ci, rhs
 	and	$maskValue, rhs	;value
 	shl	work0, rhs
-=======
 	shr	
 rim:
 
@@ -72,19 +68,16 @@ rsr:	mov	$0xE, shr	; shr := 15
 	mov	SHOP(work3), rip
 	
 rpm:	
->>>>>>> 5f81736c5adb03c7a6ce0e0b17b23de5da257ebd
 	mov 	ci,op
 	shl	$4,op
 	shr	$27,op
 	mov	INSTR(op), rip
-<<<<<<< HEAD
 	mov	ci,work0
 rim:
 
 rsr:
 
 rpm:
-=======
 
 SHOP:
 	.data	lsl, lsr, asr, ror
@@ -105,19 +98,12 @@ ror:	mov	src2, work1
 	shr	shr, src2	;work2 is the highest (32-shr) bits shifted shr to the right
 	add	work1, src2
 	mov     INSTR(op), rip	
-	
-ADDR:
-	.data 	imd, imd, imd, imd, rim, rsr, rpm
->>>>>>> 5f81736c5adb03c7a6ce0e0b17b23de5da257ebd
 
 ls:
 
 branch:	
 
-<<<<<<< HEAD
 ;;; INSTRUCTIONS
-=======
->>>>>>> 5f81736c5adb03c7a6ce0e0b17b23de5da257ebd
 add:
 	add	REGS(src), rhs
 	mov	rhs, REGS(dst)
