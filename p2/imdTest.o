@@ -41,8 +41,6 @@ Register v4 7
 Register v5 8
 Register v6 9
 Register v7 10
-Memory 0 3
-Memory 1 80201
-Source 0         add     r0, r0, #3
-Source 1         add     r1, r0, #2
+Memory 0 80201
+Source 0         add     r1, r0, #2
 End
