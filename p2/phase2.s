@@ -15,6 +15,7 @@
 		
  	.equ	maskT, 0xc000000 	;27 and 26th bit
 	.equ	maskA, 0x7800		;1 in 14,13,12th bits
+	.equ	mask4, 0xE
 	
 	lea	WARM,r0
 	lea	REGS,reg
@@ -24,17 +25,17 @@
 ;;; decipher type
 fetch:	mov	WARM(wpc),ci
  	mov	$maskT, work0
-	and	work0, ci
+	and	ci, work0
 	shr	$31, work0	;work 0 holds the type
  	mov	TYPE(work0), rip
 arith:
 	mov 	$maskA, work0
-	and 	work0, ci
+	and 	ci,work0
 	shr	$14, work0	;work 0 holds the addressing mode
 	mov	ADDR(work0), rip
-
 imd:
-	
+	mov	ci, work0
+	shr	
 rim:
 
 rsr:
