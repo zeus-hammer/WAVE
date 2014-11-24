@@ -1,7 +1,7 @@
 WindObjectFile1
 File phase2.s
-Symbol INSTR 204
-Symbol REGS 188
+Symbol INSTR 36
+Symbol REGS 20
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -10,36 +10,35 @@ Symbol SysOverlay 6
 Symbol SysPLA 7
 Symbol SysPutChar 3
 Symbol SysPutNum 4
-Symbol WARM 232
-Symbol adc 25
-Symbol add 19
-Symbol adr 139
-Symbol and 55
-Symbol bb 151
-Symbol bf 145
-Symbol blb 163
-Symbol blf 157
-Symbol cmp 37
-Symbol div 79
-Symbol eor 43
-Symbol found 179
-Symbol ldm 103
-Symbol ldr 115
-Symbol ldu 127
-Symbol loop 169
-Symbol mla 73
-Symbol mov 85
-Symbol mul 67
-Symbol mvn 91
-Symbol orr 49
-Symbol stm 109
-Symbol str 121
-Symbol stu 133
-Symbol sub 31
-Symbol swi 97
-Symbol tst 61
+Symbol WARM 64
+Symbol adc 20
+Symbol add 20
+Symbol adr 20
+Symbol and 20
+Symbol bb 20
+Symbol bf 20
+Symbol blb 20
+Symbol blf 20
+Symbol cmp 20
+Symbol div 20
+Symbol eor 20
+Symbol ldm 20
+Symbol ldr 20
+Symbol ldu 20
+Symbol mask27 8388608
+Symbol mla 20
+Symbol mov 20
+Symbol mul 20
+Symbol mvn 20
+Symbol orr 20
+Symbol stm 20
+Symbol str 20
+Symbol stu 20
+Symbol sub 20
+Symbol swi 20
+Symbol tst 20
 Register ci 13
-Register op 2
+Register op 11
 Register r0 0
 Register r1 1
 Register r10 10
@@ -60,239 +59,72 @@ Register rbp 6
 Register reg 14
 Register rip 16
 Register rsp 7
+Register type 10
 Register wpc 15
-Memory bc 0
-Memory bd 0
-Memory be 0
-Memory bf 0
-Memory c0 0
-Memory c1 0
-Memory c2 0
-Memory c3 0
-Memory c4 0
-Memory c5 0
-Memory c6 0
-Memory c7 0
-Memory c8 0
-Memory c9 0
-Memory ca 0
-Memory cb 0
-Memory cc 13
-Memory cd 19
-Memory ce 1f
-Memory cf 25
-Memory d0 2b
-Memory d1 31
-Memory d2 37
-Memory d3 3d
-Memory d4 43
-Memory d5 49
-Memory d6 4f
-Memory d7 55
-Memory d8 5b
-Memory d9 61
-Memory da 67
-Memory db 6d
-Memory dc 73
-Memory dd 79
-Memory de 7f
-Memory df 85
-Memory e0 8b
-Memory e1 0
-Memory e2 0
-Memory e3 0
-Memory e4 91
-Memory e5 97
-Memory e6 9d
-Memory e7 a3
-Memory 0 40198000 e7
-Memory 2 41d98000 b9
-Memory 4 40598000 c7
+Memory 14 0
+Memory 15 0
+Memory 16 0
+Memory 17 0
+Memory 18 0
+Memory 19 0
+Memory 1a 0
+Memory 1b 0
+Memory 1c 0
+Memory 1d 0
+Memory 1e 0
+Memory 1f 0
+Memory 20 0
+Memory 21 0
+Memory 22 0
+Memory 23 0
+Memory 24 14
+Memory 25 14
+Memory 26 14
+Memory 27 14
+Memory 28 14
+Memory 29 14
+Memory 2a 14
+Memory 2b 14
+Memory 2c 14
+Memory 2d 14
+Memory 2e 14
+Memory 2f 14
+Memory 30 14
+Memory 31 14
+Memory 32 14
+Memory 33 14
+Memory 34 14
+Memory 35 14
+Memory 36 14
+Memory 37 14
+Memory 38 14
+Memory 39 0
+Memory 3a 0
+Memory 3b 0
+Memory 3c 14
+Memory 3d 14
+Memory 3e 14
+Memory 3f 14
+Memory 0 40198000 3f
+Memory 2 41d98000 11
+Memory 4 41798000 1f
 Memory 6 180000 6
-Memory 8 40998000 a
-Memory a 49af8000 e8
-Memory c 48468000
-Memory d c0580000 4
-Memory f c8580000 1b
-Memory 11 4e490000 cc
-Memory 13 48180000 0
-Memory 15 180000 4
-Memory 17 180000 0
-Memory 19 48180000 1
-Memory 1b 180000 4
-Memory 1d 180000 0
-Memory 1f 48180000 2
-Memory 21 180000 4
-Memory 23 180000 0
-Memory 25 48180000 3
-Memory 27 180000 4
-Memory 29 180000 0
-Memory 2b 48180000 4
-Memory 2d 180000 4
-Memory 2f 180000 0
-Memory 31 48180000 5
-Memory 33 180000 4
-Memory 35 180000 0
-Memory 37 48180000 6
-Memory 39 180000 4
-Memory 3b 180000 0
-Memory 3d 48180000 7
-Memory 3f 180000 4
-Memory 41 180000 0
-Memory 43 48180000 8
-Memory 45 180000 4
-Memory 47 180000 0
-Memory 49 48180000 9
-Memory 4b 180000 4
-Memory 4d 180000 0
-Memory 4f 48180000 a
-Memory 51 180000 4
-Memory 53 180000 0
-Memory 55 48180000 b
-Memory 57 180000 4
-Memory 59 180000 0
-Memory 5b 48180000 c
-Memory 5d 180000 4
-Memory 5f 180000 0
-Memory 61 48180000 d
-Memory 63 180000 4
-Memory 65 180000 0
-Memory 67 48180000 e
-Memory 69 180000 4
-Memory 6b 180000 0
-Memory 6d 48180000 f
-Memory 6f 180000 4
-Memory 71 180000 0
-Memory 73 48180000 10
-Memory 75 180000 4
-Memory 77 180000 0
-Memory 79 48180000 11
-Memory 7b 180000 4
-Memory 7d 180000 0
-Memory 7f 48180000 12
-Memory 81 180000 4
-Memory 83 180000 0
-Memory 85 48180000 13
-Memory 87 180000 4
-Memory 89 180000 0
-Memory 8b 48180000 14
-Memory 8d 180000 4
-Memory 8f 180000 0
-Memory 91 48180000 15
-Memory 93 180000 4
-Memory 95 180000 0
-Memory 97 48180000 16
-Memory 99 180000 4
-Memory 9b 180000 0
-Memory 9d 48180000 17
-Memory 9f 180000 4
-Memory a1 180000 0
-Memory a3 48180000 18
-Memory a5 180000 4
-Memory a7 180000 0
-Memory a9 480d0000 e8
-Memory ab 98180000 6800000
-Memory ad 20198000 5
-Memory af a1580000 1
-Memory b1 8198000 fffffff7
-Memory b3 48050000
-Memory b4 180000 4
-Memory b6 48180000 a
-Memory b8 180000 3
-Memory ba 180000 0
+Memory 8 48180000 800000
+Memory a 49af8000 40
+Memory c 49668000
+Memory d 49468000
+Memory e c1780000 4
+Memory 10 c9780000 1b
+Memory 12 4e4d8000 24
 Source 0         lea     WARM,r0
 Source 2         lea     REGS,reg
 Source 4         lea     INSTR,op
 Source 6         trap    $SysOverlay
-Source 8         lea     add,r4
+Source 8         mov     $mask27, r0
 Source a         mov     WARM(wpc),ci
 Source c         mov     ci,op
-Source d         shl     $4,op
-Source f         shr     $27,op
-Source 11         mov     INSTR(op), rip
-Source 13 add:    mov     $0,r0           ;op 0   00000
-Source 15         trap    $SysPutNum
-Source 17         trap    $SysHalt
-Source 19 adc:    mov     $1, r0          ;op 1   00001
-Source 1b         trap    $SysPutNum
-Source 1d         trap    $SysHalt                
-Source 1f sub:    mov     $2, r0          ;op 2   00010
-Source 21         trap    $SysPutNum
-Source 23         trap    $SysHalt        
-Source 25 cmp:    mov     $3, r0          ;op 3   00011
-Source 27         trap    $SysPutNum
-Source 29         trap    $SysHalt        
-Source 2b eor:    mov     $4, r0          ;op 4   00100
-Source 2d         trap    $SysPutNum
-Source 2f         trap    $SysHalt        
-Source 31 orr:    mov     $5, r0          ;op 5   00101
-Source 33         trap    $SysPutNum
-Source 35         trap    $SysHalt        
-Source 37 and:    mov     $6, r0          ;op 6   00110
-Source 39         trap    $SysPutNum
-Source 3b         trap    $SysHalt        
-Source 3d tst:    mov     $7, r0          ;op 7   00111
-Source 3f         trap    $SysPutNum
-Source 41         trap    $SysHalt        
-Source 43 mul:    mov     $8, r0          ;op 8   01000
-Source 45         trap    $SysPutNum
-Source 47         trap    $SysHalt        
-Source 49 mla:    mov     $9, r0          ;op 9   01001
-Source 4b         trap    $SysPutNum
-Source 4d         trap    $SysHalt        
-Source 4f div:    mov     $10, r0         ;op 10  01010
-Source 51         trap    $SysPutNum
-Source 53         trap    $SysHalt        
-Source 55 mov:    mov     $11, r0         ;op 11  01011
-Source 57         trap    $SysPutNum
-Source 59         trap    $SysHalt        
-Source 5b mvn:    mov     $12, r0         ;op 12  01100
-Source 5d         trap    $SysPutNum
-Source 5f         trap    $SysHalt        
-Source 61 swi:    mov     $13, r0         ;op 13  01101
-Source 63         trap    $SysPutNum
-Source 65         trap    $SysHalt        
-Source 67 ldm:    mov     $14, r0         ;op 14  01110
-Source 69         trap    $SysPutNum
-Source 6b         trap    $SysHalt        
-Source 6d stm:    mov     $15, r0         ;op 15  01111
-Source 6f         trap    $SysPutNum
-Source 71         trap    $SysHalt        
-Source 73 ldr:    mov     $16, r0         ;op 16  10000
-Source 75         trap    $SysPutNum
-Source 77         trap    $SysHalt                
-Source 79 str:    mov     $17, r0         ;op 17  10001
-Source 7b         trap    $SysPutNum
-Source 7d         trap    $SysHalt                
-Source 7f ldu:    mov     $18, r0         ;op 18  10010
-Source 81         trap    $SysPutNum
-Source 83         trap    $SysHalt                
-Source 85 stu:    mov     $19, r0         ;op 19  10011
-Source 87         trap    $SysPutNum
-Source 89         trap    $SysHalt                
-Source 8b adr:    mov     $20, r0         ;op 20  10100
-Source 8d         trap    $SysPutNum
-Source 8f         trap    $SysHalt                
-Source 91 bf:     mov     $21, r0         ;op 24  11000
-Source 93         trap    $SysPutNum
-Source 95         trap    $SysHalt                
-Source 97 bb:     mov     $22, r0         ;op 25  11001
-Source 99         trap    $SysPutNum
-Source 9b         trap    $SysHalt                
-Source 9d blf:    mov     $23, r0         ;op 26  11010
-Source 9f         trap    $SysPutNum
-Source a1         trap    $SysHalt                
-Source a3 blb:    mov     $24, r0         ;op 27  11011
-Source a5         trap    $SysPutNum
-Source a7         trap    $SysHalt                
-Source a9 loop:   mov     WARM(r10),r0
-Source ab         cmp     $0x06800000,r0
-Source ad         je      found
-Source af         add     $1,r10
-Source b1         jmp     loop
-Source b3 found:  mov     r10, r0
-Source b4         trap    $SysPutNum
-Source b6         mov     $'\n, r0
-Source b8         trap    $SysPutChar
-Source ba         trap    $SysHalt
+Source d         mov     ci,type
+Source e         shl     $4,op
+Source 10         shr     $27,op
+Source 12         mov     INSTR(op), rip
 End
