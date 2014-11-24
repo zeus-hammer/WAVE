@@ -45,7 +45,7 @@ rsr:	mov	$0xE, work1
 	mov 	ci, work3
 	shl	$20, work3
 	shr	$30, work3	; work3 now has shop in it
-	
+	mov	SHOP(work3), rip
 	
 rpm:	
 
@@ -60,6 +60,14 @@ rpm:
 SHOP:
 	.data	lsl, lsr, asr, ror
 
+lsl:	shl	$work1,	work2
+
+lsr:	shr	$work1, work2
+
+asr:	sar	$work1, work2
+
+ror:	
+	
 ADDR:
 	.data 	imd, imd, imd, imd, rim, rsr, rpm
 
