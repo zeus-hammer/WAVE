@@ -51,31 +51,30 @@ rsr:	mov	$0xE, shr	; shr := 15
 	mov	SHOP(work3), rip
 	
 rpm:	
-
-	
 	mov 	ci,op
 	shl	$4,op
 	shr	$27,op
 	mov	INSTR(op), rip
-	mov	ci,work0
-
 
 SHOP:
 	.data	lsl, lsr, asr, ror
 
-lsl:	shl	$shr, src2
+lsl:	shl	shr, src2
+	mov     INSTR(op), rip
 
-lsr:	shr	$shr, src2
+lsr:	shr	shr, src2
+	mov     INSTR(op), rip
 
-asr:	sar	$shr, src2
+asr:	sar	shr, src2
+	mov     INSTR(op), rip
 
 ror:	mov	src2, work1
 	mov	$32, work3	
 	sub	shr, work3	;work3 := 32-shr
-	shl	$work3, work1	;work1 is low shr bits shifted (32-shr) to the left
-	shr	$shr, src2	;work2 is the highest (32-shr) bits shifted shr to the right
+	shl	work3, work1	;work1 is low shr bits shifted (32-shr) to the left
+	shr	shr, src2	;work2 is the highest (32-shr) bits shifted shr to the right
 	add	work1, src2
-	
+	mov     INSTR(op), rip	
 	
 ADDR:
 	.data 	imd, imd, imd, imd, rim, rsr, rpm
@@ -83,9 +82,6 @@ ADDR:
 ls:
 
 branch:	
-
-	
-
 
 add:
 
@@ -109,7 +105,7 @@ mla:
 	
 div:
 	
-mov:
+mov:	
 	
 mvn:
 	
