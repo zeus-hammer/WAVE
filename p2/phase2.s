@@ -117,32 +117,8 @@ rsr:	mov	$mask4, shiftC	; shiftC := 15
 	shr	$30, work0	; work0 now has the shift op code
 	mov	SHOP(work0), rip
 
-;;; Register Product Mode
-;;; 8 INSTRUCTIONS
-rpm:	mov	$mask4, work0
-	and	ci, work0	; work0 now has src reg 3
-	mov	ci, rhs
-	shl	$22, rhs
-	shr	$28, rhs	; rhs now has src reg 2
-	mov	REGS(rhs), rhs	; rhs now has whatever was stored in the correspondent register
-	mov	REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
-	mul	work0, rhs
 
-
-
-;;; thoughts and possible improvements?
-;;;
-;;;
-;;;
-;;;
-;;;
-;;; 
-;;; -------------------------END ADDRESSING MODES--------------------------
-
-
-	
-
-;;; --------------------------BEGIN SHIFTING MODES-------------------------
+	;;; --------------------------BEGIN SHIFTING MODES-------------------------
 
 	
 ;;; logical shift left
@@ -183,6 +159,29 @@ ror:	mov	rhs, work0
 ;;;
 ;;; -------------------------END SHIFTING MODES----------------------
 
+;;; Register Product Mode
+;;; 8 INSTRUCTIONS
+rpm:	mov	$mask4, work0
+	and	ci, work0	; work0 now has src reg 3
+	mov	ci, rhs
+	shl	$22, rhs
+	shr	$28, rhs	; rhs now has src reg 2
+	mov	REGS(rhs), rhs	; rhs now has whatever was stored in the correspondent register
+	mov	REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
+	mul	work0, rhs
+;;; thoughts and possible improvements?
+;;;
+;;;
+;;;
+;;;
+;;;
+;;; 
+;;; -------------------------END ADDRESSING MODES--------------------------
+
+
+	
+
+
 
 
 ;;; -------------------------BEGIN OPERATIONS------------------------------------
@@ -200,11 +199,8 @@ add:	add	REGS(lhs), rhs
 	jmp 	fetch
 
 ;;; thoughts and possible improvements?
-;;;
-;;;
-;;;
-;;;
-;;;
+;;; not really, this seems like the most straghtforward
+;;; we can do
 
 	
 
@@ -217,8 +213,7 @@ adc:
 ;;;
 ;;;
 ;;;
-
-
+	
 ;;; 5 INSTRUCTIONS
 sub:	mov	REGS(lhs), work0
 	sub	rhs, work0
@@ -226,9 +221,9 @@ sub:	mov	REGS(lhs), work0
 	add	$1, wpc
 	jmp 	fetch
 ;;; thoughts and improvements?
-;;;
-;;;
-;;;
+;;;	generally, sub and divide do the opposite of what we want them to
+;;;	it would be easier if we didn't have to move into work reg's to get
+;;;	things done
 ;;;
 ;;;
 	
@@ -296,14 +291,12 @@ mul:	mul	REGS(lhs), rhs
 ;;;
 	
 	
-;;; -1 INSTRUCTIONS
-div:	div	REGS(lhs), rhs
-	mov	rhs, REGS(dst)
+;;; 4 INSTRUCTIONS
+div:	mov 	REGS(lhs), work0
+	div	rhs, work0
+	mov	work0, REGS(dst)
 	add	$1, wpc
 	jmp	fetch
-
-
-
 
 	
 ;;; thoughts and improvements?

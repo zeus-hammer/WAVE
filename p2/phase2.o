@@ -1,9 +1,9 @@
 WindObjectFile1
 File phase2.s
-Symbol ADDR 188
-Symbol INSTR 156
-Symbol REGS 140
-Symbol SHOP 195
+Symbol ADDR 197
+Symbol INSTR 165
+Symbol REGS 149
+Symbol SHOP 204
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -12,27 +12,27 @@ Symbol SysOverlay 6
 Symbol SysPLA 7
 Symbol SysPutChar 3
 Symbol SysPutNum 4
-Symbol TYPE 184
-Symbol WARM 199
+Symbol TYPE 193
+Symbol WARM 208
 Symbol adc 123
 Symbol add 115
-Symbol adr 140
+Symbol adr 149
 Symbol and 132
 Symbol arith 15
 Symbol asr 90
-Symbol bb 140
-Symbol bf 140
-Symbol blb 140
-Symbol blf 140
+Symbol bb 149
+Symbol bf 149
+Symbol blb 149
+Symbol blf 149
 Symbol branch 37
 Symbol cmp 132
 Symbol div 140
 Symbol eor 132
 Symbol fetch 6
 Symbol imd 37
-Symbol ldm 140
-Symbol ldr 140
-Symbol ldu 140
+Symbol ldm 149
+Symbol ldr 149
+Symbol ldu 149
 Symbol ls 37
 Symbol lsl 84
 Symbol lsr 87
@@ -42,23 +42,24 @@ Symbol maskExp 7936
 Symbol maskShift 63
 Symbol maskT 201326592
 Symbol maskValue 511
-Symbol mov 140
+Symbol mov 149
 Symbol mul 132
-Symbol mvn 140
+Symbol mvn 149
 Symbol orr 132
 Symbol rim 48
 Symbol ror 93
 Symbol rpm 102
 Symbol rsr 65
-Symbol stm 140
-Symbol str 140
-Symbol stu 140
+Symbol stm 149
+Symbol str 149
+Symbol stu 149
 Symbol sub 123
-Symbol swi 140
+Symbol swi 149
 Symbol tst 132
 Register ci 14
 Register cond 8
 Register dst 11
+Register lhs 12
 Register op 13
 Register r0 0
 Register r1 1
@@ -81,19 +82,9 @@ Register rhs 10
 Register rip 16
 Register rsp 7
 Register shiftC 9
-Register src 12
 Register work0 0
 Register work1 1
 Register wpc 15
-Memory 8c 0
-Memory 8d 0
-Memory 8e 0
-Memory 8f 0
-Memory 90 0
-Memory 91 0
-Memory 92 0
-Memory 93 0
-Memory 94 0
 Memory 95 0
 Memory 96 0
 Memory 97 0
@@ -101,57 +92,66 @@ Memory 98 0
 Memory 99 0
 Memory 9a 0
 Memory 9b 0
-Memory 9c 73
-Memory 9d 7b
-Memory 9e 7b
-Memory 9f 84
-Memory a0 84
-Memory a1 84
-Memory a2 84
-Memory a3 84
-Memory a4 84
-Memory a5 0
-Memory a6 8c
-Memory a7 8c
-Memory a8 8c
-Memory a9 8c
-Memory aa 8c
-Memory ab 8c
-Memory ac 8c
-Memory ad 8c
-Memory ae 8c
+Memory 9c 0
+Memory 9d 0
+Memory 9e 0
+Memory 9f 0
+Memory a0 0
+Memory a1 0
+Memory a2 0
+Memory a3 0
+Memory a4 0
+Memory a5 73
+Memory a6 7b
+Memory a7 7b
+Memory a8 84
+Memory a9 84
+Memory aa 84
+Memory ab 84
+Memory ac 84
+Memory ad 84
+Memory ae 0
 Memory af 8c
-Memory b0 8c
-Memory b1 0
-Memory b2 0
-Memory b3 0
-Memory b4 8c
-Memory b5 8c
-Memory b6 8c
-Memory b7 8c
-Memory b8 f
-Memory b9 f
-Memory ba 25
-Memory bb 25
-Memory bc 25
-Memory bd 25
-Memory be 25
-Memory bf 25
-Memory c0 30
-Memory c1 41
-Memory c2 66
-Memory c3 54
-Memory c4 57
-Memory c5 5a
-Memory c6 5d
-Memory 0 40198000 c6
-Memory 2 41198000 89
+Memory b0 95
+Memory b1 95
+Memory b2 95
+Memory b3 95
+Memory b4 95
+Memory b5 95
+Memory b6 95
+Memory b7 95
+Memory b8 95
+Memory b9 95
+Memory ba 0
+Memory bb 0
+Memory bc 0
+Memory bd 95
+Memory be 95
+Memory bf 95
+Memory c0 95
+Memory c1 f
+Memory c2 f
+Memory c3 25
+Memory c4 25
+Memory c5 25
+Memory c6 25
+Memory c7 25
+Memory c8 25
+Memory c9 30
+Memory ca 41
+Memory cb 66
+Memory cc 54
+Memory cd 57
+Memory ce 5a
+Memory cf 5d
+Memory 0 40198000 cf
+Memory 2 41198000 92
 Memory 4 180000 6
-Memory 6 49cf8000 c7
+Memory 6 49cf8000 d0
 Memory 8 48180000 c000000
 Memory a 80070000
 Memory b c8180000 1f
-Memory d 4e480000 b8
+Memory d 4e480000 c1
 Memory f 49a70000
 Memory 10 c1b80000 4
 Memory 12 c9b80000 1b
@@ -164,69 +164,74 @@ Memory 1c 81980000 f
 Memory 1e 49670000
 Memory 1f c9780000 13
 Memory 21 81780000 f
-Memory 23 4e480000 bc
+Memory 23 4e480000 c5
 Memory 25 48070000
 Memory 26 80180000 1f00
 Memory 28 c8180000 9
 Memory 2a 49470000
 Memory 2b 81580000 1ff
 Memory 2d c1400000
-Memory 2e 4e4e8000 9c
+Memory 2e 4e4e8000 a5
 Memory 30 49470000
 Memory 31 c1580000 16
 Memory 33 c9580000 1c
-Memory 35 494d0000 8c
+Memory 35 494d0000 95
 Memory 37 49270000
 Memory 38 81380000 3f
 Memory 3a 48070000
 Memory 3b c0180000 14
 Memory 3d c8180000 1e
-Memory 3f 4e480000 c3
+Memory 3f 4e480000 cc
 Memory 41 49380000 f
 Memory 43 81270000
-Memory 44 492c8000 8c
+Memory 44 492c8000 95
 Memory 46 49470000
 Memory 47 c1580000 16
 Memory 49 c9580000 1c
-Memory 4b 494d0000 8c
+Memory 4b 494d0000 95
 Memory 4d 48070000
 Memory 4e c0180000 14
 Memory 50 c8180000 1e
-Memory 52 4e480000 c3
+Memory 52 4e480000 cc
 Memory 54 c1448000
-Memory 55 4e4e8000 9c
+Memory 55 4e4e8000 a5
 Memory 57 c9448000
-Memory 58 4e4e8000 9c
+Memory 58 4e4e8000 a5
 Memory 5a d1448000
-Memory 5b 4e4e8000 9c
+Memory 5b 4e4e8000 a5
 Memory 5d 48050000
 Memory 5e 48380000 20
 Memory 60 a8248000
 Memory 61 c0008000
 Memory 62 c9448000
 Memory 63 a1400000
-Memory 64 4e4e8000 9c
+Memory 64 4e4e8000 a5
 Memory 66 48180000 f
 Memory 68 80070000
 Memory 69 49470000
 Memory 6a c1580000 16
 Memory 6c c9580000 1c
-Memory 6e 494d0000 8c
-Memory 70 48080000 8c
+Memory 6e 494d0000 95
+Memory 70 48080000 95
 Memory 72 b1400000
-Memory 73 a14e0000 8c
-Memory 75 4b650000 8c
+Memory 73 a14e0000 95
+Memory 75 4b650000 95
 Memory 77 a1f80000 1
 Memory 79 8198000 ffffff8c
-Memory 7b 480e0000 8c
+Memory 7b 480e0000 95
 Memory 7d a8050000
-Memory 7e 4b600000 8c
+Memory 7e 4b600000 95
 Memory 80 a1f80000 1
 Memory 82 8198000 ffffff83
-Memory 84 b14e0000 8c
-Memory 86 4b650000 8c
+Memory 84 b14e0000 95
+Memory 86 4b650000 95
 Memory 88 a1f80000 1
 Memory 8a 8198000 ffffff7b
+Memory 8c 480e0000 95
+Memory 8e b8050000
+Memory 8f 4b600000 95
+Memory 91 a1f80000 1
+Memory 93 8198000 ffffff72
 Source 0         lea     WARM,work0
 Source 2         lea     REGS, cond
 Source 4         trap    $SysOverlay
@@ -241,9 +246,9 @@ Source 12         shr     $27,op
 Source 14         mov     $maskA, work0
 Source 16         and     ci,work0
 Source 17         shr     $12, work0      ;work 0 holds the addressing mode
-Source 19         mov     ci, src         ;get dst and src
-Source 1a         shr     $15, src
-Source 1c         and     $mask4, src
+Source 19         mov     ci, lhs         ;get dst and lhs
+Source 1a         shr     $15, lhs
+Source 1c         and     $mask4, lhs
 Source 1e         mov     ci, dst
 Source 1f         shr     $19, dst
 Source 21         and     $mask4, dst
@@ -297,17 +302,22 @@ Source 6c         shr     $28, rhs        ; rhs now has src reg 2
 Source 6e         mov     REGS(rhs), rhs  ; rhs now has whatever was stored in the correspondent register
 Source 70         mov     REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
 Source 72         mul     work0, rhs
-Source 73 add:    add     REGS(src), rhs
+Source 73 add:    add     REGS(lhs), rhs
 Source 75         mov     rhs, REGS(dst)
 Source 77         add     $1, wpc
 Source 79         jmp     fetch
-Source 7b sub:    mov     REGS(src), work0
+Source 7b sub:    mov     REGS(lhs), work0
 Source 7d         sub     rhs, work0
 Source 7e         mov     work0, REGS(dst)
 Source 80         add     $1, wpc
 Source 82         jmp     fetch
-Source 84 mul:    mul     REGS(src), rhs
+Source 84 mul:    mul     REGS(lhs), rhs
 Source 86         mov     rhs, REGS(dst)
 Source 88         add     $1, wpc
 Source 8a         jmp     fetch
+Source 8c div:    mov     REGS(lhs), work0
+Source 8e         div     rhs, work0
+Source 8f         mov     work0, REGS(dst)
+Source 91         add     $1, wpc
+Source 93         jmp     fetch
 End
