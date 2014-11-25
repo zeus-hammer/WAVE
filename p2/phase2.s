@@ -186,7 +186,12 @@ ror:	mov	rhs, work0
 
 
 ;;; -------------------------BEGIN OPERATIONS------------------------------------
-
+;;; operations finished and tested with all three cases:
+;;; add
+;;; sub
+;;; mul
+;;; mla
+;;; div
 	
 ;;; 4 INSTRUCTIONS
 add:	add	REGS(lhs), rhs
