@@ -81,15 +81,9 @@ asr:	sar	shiftC, rhs
 ;;; rotate right shift
 ror:	mov	rhs, work0
 	mov	$32, work1	
-<<<<<<< HEAD
-	sub	shiftC, work1	;work1 := 32-shr
-	shl	work0, work0	;work0 is low shiftC bits shifted (32-shr) to the left
-	shr	shiftC, rhs	;rhs is the highest (32-shr) bits shifted shiftC to the right
-=======
 	sub	shiftC, work1	;work3 := 32-shr
 	shl	work1, work0	;work1 is low shr bits shifted (32-shr) to the left
 	shr	shiftC, rhs	;work2 is the highest (32-shr) bits shifted shr to the right
->>>>>>> master
 	add	work0, rhs
 	mov     INSTR(op), rip	
 ;;; Register Product Mode
