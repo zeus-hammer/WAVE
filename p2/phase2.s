@@ -124,11 +124,11 @@ add:	add	REGS(src), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp 	fetch
-	
 adc:
 	
-sub:	sub	REGS(src), rhs
-	mov	rhs, REGS(dst)
+sub:	mov	REGS(src), work0
+	sub	rhs, work0
+	mov	work0, REGS(dst)
 	add	$1, wpc
 	jmp 	fetch
 
