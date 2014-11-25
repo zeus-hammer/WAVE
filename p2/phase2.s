@@ -3,7 +3,7 @@
 	.requ	wpc, r15
 	.requ	ci, r14
 	.requ	op, r13
-	.requ	src, r12
+	.requ	lhs, r12
 	.requ	dst, r11
 	.requ 	rhs, r10
 	.requ	shiftC, r9
@@ -53,9 +53,9 @@ arith:	mov 	ci,op
 	mov 	$maskA, work0
 	and 	ci,work0
 	shr	$12, work0	;work 0 holds the addressing mode
-	mov     ci, src		;get dst and src
-	shr     $15, src
-	and     $mask4, src
+	mov     ci, lhs		;get dst and lhs
+	shr     $15, lhs
+	and     $mask4, lhs
 	mov     ci, dst
 	shr     $19, dst
 	and     $mask4, dst
@@ -189,7 +189,7 @@ ror:	mov	rhs, work0
 
 	
 ;;; 4 INSTRUCTIONS
-add:	add	REGS(src), rhs
+add:	add	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp 	fetch
@@ -215,7 +215,7 @@ adc:
 
 
 ;;; 5 INSTRUCTIONS
-sub:	mov	REGS(src), work0
+sub:	mov	REGS(lhs), work0
 	sub	rhs, work0
 	mov	work0, REGS(dst)
 	add	$1, wpc
@@ -240,7 +240,7 @@ cmp:
 	
 ;;; -1 INSTRUCTIONS
 eor:
-;;; thoughts and improvements?
+;;; thoughts and improvepments?
 ;;;
 ;;;
 ;;;
@@ -279,7 +279,7 @@ tst:
 	
 
 ;;; 4 INSTRUCTIONS
-mul:	mul	REGS(src), rhs
+mul:	mul	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp	fetch
@@ -292,9 +292,17 @@ mul:	mul	REGS(src), rhs
 	
 	
 ;;; -1 INSTRUCTIONS
-div:
+div:	div	REGS(lhs), rhs
+	mov	rhs, REGS(dst)
+	add	$1, wpc
+	jmp	fetch
+
+
+
+
+	
 ;;; thoughts and improvements?
-;;;
+;;;	
 ;;;
 ;;;
 ;;;
