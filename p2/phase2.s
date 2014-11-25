@@ -11,7 +11,6 @@
 	.requ	ccr, r4
 	.requ	work0, r1
  	.requ	work1, r2
-
 		
  	.equ	maskT, 0xc000000 	;27 and 26th bit
 	.equ	maskA, 0x7800		;1 in 14,13,12th bit
