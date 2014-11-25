@@ -7,21 +7,20 @@
 	.requ	dst, r11
 	.requ 	rhs, r10
 	.requ	shiftC, r9
-	.requ	cond, r8
+	.requ	wccr, r8
 	.requ	work0, r0
  	.requ	work1, r1
 		
  	.equ	maskT, 0xc000000 	;27 and 26th bit
 	.equ	maskA, 0x7800		;1 in 14,13,12th bit
 	.equ	maskShift, 0x3F
-	.equ	mask4, 0xf
+	.equ	maskLow4, 0xf
+	.equ	maskHigh4, 0xf0000000
 	.equ	maskValue, 0x1ff
 	.equ	maskExp, 0x1f00
 	
 	lea	WARM,work0
-	lea	REGS, cond
 	trap	$SysOverlay
-	
 
 ;;; --------------------BEGIN FETCHING THE INSTRUCTION----------------
 ;;; 5 INSTRUCTIONS
@@ -55,10 +54,10 @@ arith:	mov 	ci,op
 	shr	$12, work0	;work 0 holds the addressing mode
 	mov     ci, lhs		;get dst and lhs
 	shr     $15, lhs
-	and     $mask4, lhs
+	and     $maskLow4, lhs
 	mov     ci, dst
 	shr     $19, dst
-	and     $mask4, dst
+	and     $maskLow4, dst
 	mov	ADDR(work0), rip
 
 ;;; LOAD/STORE
@@ -105,7 +104,7 @@ rim:	mov	ci, rhs
 
 ;;; Register Shifted by Register Mode
 ;;; 11 INSTRUCTIONS
-rsr:	mov	$mask4, shiftC	; shiftC := 15
+rsr:	mov	$maskLow4, shiftC	; shiftC := 15
 	and 	ci, shiftC	; shiftC := shiftC & ci; to get shift register
 	mov	REGS(shiftC), shiftC ; shiftC now has whatever was stored in the 
 	mov	ci, rhs	
@@ -160,7 +159,7 @@ ror:	mov	rhs, work0
 
 ;;; Register Product Mode
 ;;; 8 INSTRUCTIONS
-rpm:	mov	$mask4, work0
+rpm:	mov	$maskLow4, work0
 	and	ci, work0	; work0 now has src reg 3
 	mov	ci, rhs
 	shl	$22, rhs
@@ -190,6 +189,12 @@ rpm:	mov	$mask4, work0
 ;;; mul
 ;;; mla
 ;;; div
+
+
+;;; thoughts and improvements for all operations:
+;;; the adding one to the wpc is a terrible monkey patch
+;;; how can we jump back up with a reloaded wpc in one instruction?
+
 	
 ;;; 4 INSTRUCTION(S)	
 add:	add	REGS(lhs), rhs
@@ -200,7 +205,6 @@ add:	add	REGS(lhs), rhs
 ;;; thoughts and possible improvements?
 ;;; not really, this seems like the most straghtforward
 ;;; we can do
-
 	
 
 
@@ -229,8 +233,12 @@ sub:	mov	REGS(lhs), work0
 ;;;
 	
 	
-;;; -1 INSTRUCTION(S)	
-cmp:
+;;; 5 INSTRUCTION(S)	
+cmp:	mov 	REGS(lhs), work0
+	sub 	rhs, work0
+	mov	ccr, wccr
+	add	$1, wpc
+	jmp 	fetch
 ;;; thoughts and improvements?
 ;;;
 ;;;
@@ -240,7 +248,8 @@ cmp:
 
 	
 ;;; -1 INSTRUCTION(S)	
-eor:
+eor:	
+
 ;;; thoughts and improvepments?
 ;;;
 ;;;
@@ -260,7 +269,9 @@ orr:
 	
 
 ;;; -1 INSTRUCTION(S)	
-and:
+and: 
+
+	
 ;;; thoughts and improvements?
 ;;;
 ;;;
@@ -308,11 +319,10 @@ div:	mov 	REGS(lhs), work0
 ;;;
 	
 	
-;;; 1 INSTRUCTION(S)
+;;; 3 INSTRUCTION(S)
 mov:	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp 	fetch
-
 ;;; thoughts and improvements?
 ;;; as simple as it gets
 	
