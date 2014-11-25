@@ -4,7 +4,8 @@
 	.requ	reg, r14
 	.requ	ci, r13
 	.requ	op, r11
-	.requ	src, r10
+	.requ	src1, r10
+	.requ	src2, r8
 	.requ	dst, r9
 	.requ 	rhs, r8
 	.requ	src2, r8
@@ -16,10 +17,15 @@
 	.requ	work3, r4
 		
  	.equ	maskT, 0xc000000 	;27 and 26th bit
+<<<<<<< HEAD
+	.equ	maskA, 0x7800		;1 in 14,13,12th bit
+	.equ	maskSC, $63
+=======
 	.equ	maskA, 0x7800		;1 in 14,13,12th bits
 	.equ	mask4, 0xf
 	.equ	maskValue, 0x1ff
 	.equ	maskExp, 0x1f00
+>>>>>>> master
 	
 	lea	WARM,r0
 	lea	REGS,reg
@@ -34,10 +40,47 @@ fetch:	mov	WARM(wpc),ci
  	mov	TYPE(work0), rip
 ;;; INSTRUCTION TYPES
 arith:
+	mov 	ci,op
+	shl	$4,op
+	shr	$27,op
 	mov 	$maskA, work0
 	and 	ci,work0
 	shr	$14, work0	;work 0 holds the addressing mode
 	mov	ADDR(work0), rip
+<<<<<<< HEAD
+
+imd:	
+	
+rim:	mov	ci, work0
+	shl	$22, work0
+	shr	$28, work0 	;now we have src reg 2 in work0
+	mov	work0, src2
+	mov	ci, work0
+	and	$maskSC, work0	;work0 now has the shift count
+
+	mov	ci, work1
+	shl	$20, work1
+	shr	$30, work1	;work1 now has the shop
+	mov 	SHOPRIM(work1),rip
+rimlsl:	shl	work0, src2
+	mov	INSTR(op), rip
+rimlsr:	shr	work0, src2
+	mov	INSTR(op), rip
+rimasr:	sar	work0, src2
+	mov	INSTR(op), rip
+rimror:	mov	$32, work3
+	sub	work0, work3	;work3 contains the ammount to shift to hold the rotated stuff
+	mov	src2, work4	
+	shl	work3, work4	;work4 has the rotated bits
+	shr	work0, src2
+	add	work4, src2
+	mov	INSTR(op), rip
+
+rsr:	
+
+rpm:	
+
+=======
 ;;; ADDRESSING MODES
 imd:
 	mov	ci, src
@@ -66,6 +109,7 @@ rsr:	mov	$0xE, shr	; shr := 15
 	shl	$21, work3
 	shr	$30, work3	; work3 now has the shift op code
 	mov	SHOP(work3), rip
+>>>>>>> master
 	
 rpm:	
 	mov 	ci,op
@@ -164,4 +208,6 @@ TYPE:
 ADDR:
 	.data 	imd, imd, imd, imd, rim, rsr, rpm
 
+SHOPRIM:
+	.data rimlsl, rimlsr, rimasr, rimror
 WARM:	 
