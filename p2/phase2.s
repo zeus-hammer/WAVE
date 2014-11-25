@@ -67,6 +67,8 @@ rsr:	mov	$mask4, shiftC	; shiftC := 15
 	mov 	ci, work0
 	shl	$20, work0
 	shr	$30, work0	; work3 now has the shift op code
+	mov	REGS(rhs), rhs	; rhs now has whatever was stored in src reg 2
+	mov	REGS(shiftC), shiftC ; shiftC now has whatever was stored in the correspondent reg
 	mov	SHOP(work0), rip
 ;;; logical shift left
 lsl:	shl	shiftC, rhs
@@ -89,9 +91,13 @@ ror:	mov	rhs, work0
 rpm:	mov	$mask4, work0
 	and	ci, work0	; work0 now has src reg 3
 	mov	ci, rhs
-	shr	$22, rhs
+	shl	$22, rhs
 	shr	$28, rhs	; rhs now has src reg 2
-	mul	
+	mov	REGS(rhs), rhs	; rhs now has whatever was stored in the correspondent register
+	mov	REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
+	mul	work0, rhs
+	mov	INSTR(op), rip
+
 ls:
 	
 branch:	
@@ -104,12 +110,10 @@ add:	add	REGS(src), rhs
 adc:
 	
 
-sub:
-	
-
 sub:	sub	REGS(src), rhs
 	mov	rhs, REGS(dst)
-
+	add	$1, wpc
+	jmp 	fetch
 cmp:
 	
 eor:
@@ -120,10 +124,16 @@ and:
 	
 tst:
 	
-mul:	mul	REGS(src), rhs
+mul:	mov	REGS(rhs), rhs
+	mul	REGS(src), rhs
 	mov	rhs, REGS(dst)
+	add	$1, wpc
+	jmp	fetch
 	
-mla:	
+mla:	add	REGS(src), rhs
+	mov	rhs, REGS(dst)
+	add	$1, wpc
+	jmp 	fetch
 	
 div:
 	
