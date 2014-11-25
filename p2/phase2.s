@@ -21,9 +21,6 @@
 	.equ	maskExp, 0x1f00
 	
 	lea	WARM,r0
-	lea	REGS,reg
-	lea	INSTR,op
-	
 	trap	$SysOverlay
 ;;; decipher type
 fetch:	mov	WARM(wpc),ci
@@ -86,7 +83,7 @@ asr:	sar	shiftC, rhs
 ror:	mov	rhs, work0
 	mov	$32, work1	
 	sub	shiftC, work1	;work3 := 32-shr
-	shl	work3, work0	;work1 is low shr bits shifted (32-shr) to the left
+	shl	work1, work0	;work1 is low shr bits shifted (32-shr) to the left
 	shr	shiftC, rhs	;work2 is the highest (32-shr) bits shifted shr to the right
 	add	work0, rhs
 	mov     INSTR(op), rip	
@@ -98,6 +95,8 @@ branch:
 ;;; INSTRUCTIONS
 add:	add	REGS(src), rhs
 	mov	rhs, REGS(dst)
+	add	$1, wpc
+	jmp 	fetch
 adc:
 	
 sub:	sub	REGS(src), rhs
