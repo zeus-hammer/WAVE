@@ -60,8 +60,8 @@ rim:	mov	ci, rhs
 	shr	$30, work0	;work1 now has the shop
 	mov 	SHOP(work0),rip
 ;;; Register Shifted by Register Mode;;;
-rsr:	mov	$mask4, shiftC	; shr := 15
-	and 	ci, shiftC	; shr := shr & ci; to get shift register
+rsr:	mov	$mask4, shiftC	; shiftC := 15
+	and 	ci, shiftC	; shiftC := shiftC & ci; to get shift register
 	mov	ci, rhs	
 	shl	$22, rhs
 	shr	$28, rhs	; rhs has src2 register
@@ -81,14 +81,26 @@ asr:	sar	shiftC, rhs
 ;;; rotate right shift
 ror:	mov	rhs, work0
 	mov	$32, work1	
+<<<<<<< HEAD
+	sub	shiftC, work1	;work1 := 32-shr
+	shl	work0, work0	;work0 is low shiftC bits shifted (32-shr) to the left
+	shr	shiftC, rhs	;rhs is the highest (32-shr) bits shifted shiftC to the right
+=======
 	sub	shiftC, work1	;work3 := 32-shr
 	shl	work1, work0	;work1 is low shr bits shifted (32-shr) to the left
 	shr	shiftC, rhs	;work2 is the highest (32-shr) bits shifted shr to the right
+>>>>>>> master
 	add	work0, rhs
 	mov     INSTR(op), rip	
 ;;; Register Product Mode
-rpm:
+rpm:	mov	$mask4, work0
+	and	ci, work0	; work0 now has src reg 3
+	mov	ci, rhs
+	shr	$22, rhs
+	shr	$28, rhs	; rhs now has src reg 2
+	mul	
 ls:
+	
 branch:	
 
 ;;; INSTRUCTIONS
@@ -98,8 +110,13 @@ add:	add	REGS(src), rhs
 	jmp 	fetch
 adc:
 	
+
+sub:
+	
+
 sub:	sub	REGS(src), rhs
 	mov	rhs, REGS(dst)
+
 cmp:
 	
 eor:
@@ -110,9 +127,10 @@ and:
 	
 tst:
 	
-mul:
+mul:	mul	REGS(src), rhs
+	mov	rhs, REGS(dst)
 	
-mla:
+mla:	
 	
 div:
 	
