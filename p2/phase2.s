@@ -103,7 +103,7 @@ add:	add	REGS(src), rhs
 	jmp 	fetch
 adc:
 	
-sub:	sub	
+sub:
 	
 cmp:
 	
