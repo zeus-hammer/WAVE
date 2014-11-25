@@ -8,11 +8,10 @@
 	.requ	dst, r9
 	.requ 	rhs, r8
 	.requ	shiftC, r5
-
+	.requ	ccr, r4
 	.requ	work0, r1
-	.requ	work1, r2
-	.requ	work2, r3
-	.requ	work3, r4
+ 	.requ	work1, r2
+
 		
  	.equ	maskT, 0xc000000 	;27 and 26th bit
 	.equ	maskA, 0x7800		;1 in 14,13,12th bit
@@ -60,20 +59,20 @@ rim:	mov	ci, rhs
 	shr	$28, rhs 	;now we have src reg 2 in rhs
 	mov	ci, shiftC
 	and	$maskShift, shiftC	;sc now has the shift count
-	mov	ci, work1
-	shl	$20, work1
-	shr	$30, work1	;work1 now has the shop
-	mov 	SHOP(work1),rip
+	mov	ci, work0
+	shl	$20, work0
+	shr	$30, work0	;work1 now has the shop
+	mov 	SHOP(work0),rip
 ;;; Register Shifted by Register Mode;;;
 rsr:	mov	$mask4, shiftC	; shr := 15
 	and 	ci, shiftC	; shr := shr & ci; to get shift register
 	mov	ci, rhs	
 	shl	$22, rhs
 	shr	$28, rhs	; rhs has src2 register
-	mov 	ci, work3
-	shl	$20, work3
-	shr	$30, work3	; work3 now has the shift op code
-	mov	SHOP(work3), rip
+	mov 	ci, work0
+	shl	$20, work0
+	shr	$30, work0	; work3 now has the shift op code
+	mov	SHOP(work0), rip
 ;;; logical shift left
 lsl:	shl	shiftC, rhs
 	mov     INSTR(op), rip
@@ -84,12 +83,12 @@ lsr:	shr	shiftC, rhs
 asr:	sar	shiftC, rhs
 	mov     INSTR(op), rip
 ;;; rotate right shift
-ror:	mov	rhs, work1
-	mov	$32, work3	
-	sub	shiftC, work3	;work3 := 32-shr
-	shl	work3, work1	;work1 is low shr bits shifted (32-shr) to the left
+ror:	mov	rhs, work0
+	mov	$32, work1	
+	sub	shiftC, work1	;work3 := 32-shr
+	shl	work3, work0	;work1 is low shr bits shifted (32-shr) to the left
 	shr	shiftC, rhs	;work2 is the highest (32-shr) bits shifted shr to the right
-	add	work1, rhs
+	add	work0, rhs
 	mov     INSTR(op), rip	
 ;;; Register Product Mode
 rpm:
@@ -99,12 +98,10 @@ branch:
 ;;; INSTRUCTIONS
 add:	add	REGS(src), rhs
 	mov	rhs, REGS(dst)
-	add	$1, wpc
-	jmp 	fetch
 adc:
 	
-sub:	sub	
-	
+sub:	sub	REGS(src), rhs
+	mov	rhs, REGS(dst)
 cmp:
 	
 eor:
