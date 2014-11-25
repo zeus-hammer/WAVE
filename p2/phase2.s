@@ -1,16 +1,15 @@
 ;;; emulator for warm - phase 2
 ;;; (c) d.r.smith modsoussi bijan
 	.requ	wpc, r15
-	.requ	reg, r14
-	.requ	ci, r13
-	.requ	op, r11
-	.requ	src, r10
-	.requ	dst, r9
-	.requ 	rhs, r8
-	.requ	shiftC, r5
-	.requ	ccr, r4
-	.requ	work0, r1
- 	.requ	work1, r2
+	.requ	ci, r14
+	.requ	op, r13
+	.requ	src, r12
+	.requ	dst, r11
+	.requ 	rhs, r10
+	.requ	shiftC, r9
+	.requ	ccr, r8
+	.requ	work0, r0
+ 	.requ	work1, r1
 		
  	.equ	maskT, 0xc000000 	;27 and 26th bit
 	.equ	maskA, 0x7800		;1 in 14,13,12th bit
