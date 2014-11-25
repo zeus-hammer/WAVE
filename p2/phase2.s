@@ -97,72 +97,46 @@ rpm:	mov	$mask4, work0
 	mov	REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
 	mul	work0, rhs
 	mov	INSTR(op), rip
-
 ls:
-	
 branch:	
-
 ;;; INSTRUCTIONS
 add:	add	REGS(src), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp 	fetch
 adc:
-	
-
 sub:	sub	REGS(src), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp 	fetch
 cmp:
-	
 eor:
-	
 orr:
-	
 and:
-	
 tst:
-	
-mul:	mov	REGS(rhs), rhs
-	mul	REGS(src), rhs
+mul:	mul	REGS(src), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp	fetch
-	
 mla:	add	REGS(src), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp 	fetch
 	
 div:
-	
 mov:	
-	
 mvn:
-	
 swi:
-	
 ldm:
-	
 stm:
-	
 ldr:
-	
 str:
-	
 ldu:
-	
 stu:
-	
 adr:
-	
 bf:
-	
 bb:
-	
 blf:
-	
 blb:
 
 REGS:

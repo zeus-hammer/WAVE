@@ -296,8 +296,8 @@ Source 64         and     ci, work0       ; work0 now has src reg 3
 Source 65         mov     ci, rhs
 Source 66         shl     $22, rhs
 Source 68         shr     $28, rhs        ; rhs now has src reg 2
-Source 6a         mov     REGS(rhs), rhs
-Source 6c         mov     REGS(work0), work0
+Source 6a         mov     REGS(rhs), rhs  ; rhs now has whatever was stored in the correspondent register
+Source 6c         mov     REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
 Source 6e         mul     work0, rhs
 Source 6f         mov     INSTR(op), rip
 Source 71 add:    add     REGS(src), rhs
