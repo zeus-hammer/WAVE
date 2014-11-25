@@ -26,6 +26,12 @@
 	trap	$SysOverlay
 
 ;;; --------------------BEGIN FETCHING THE INSTRUCTION-------------------
+
+;;; we should double up on these. one for after the wCCR has been set for the
+;;; first time and one for before. cause if the wCCR never gets set, we can
+;;; skip all the cc deciphering cause itll just pretty much be an always
+;;; statement
+
 ;;; 5 INSTRUCTIONS
 fetch:	mov	WARM(wpc),ci
 	mov	ci, work0
@@ -42,18 +48,30 @@ type:	mov	$maskT, work0	;decipher type
 	shr	$31, work0	;work 0 holds the type
  	mov	TYPE(work0), rip ;jump on type
 	
-never:
 ;;; increment the program counter and start the loop all over again
-	add 	$1, wpc
+never:	add 	$1, wpc
 	jmp 	fetch
-eq:
+	
 ;;; check if the zero bit is set in the last wCCR
+eq:	mv	wCCR, work0
+	and 	$4, work0
+;;; if > 0, we execute, if not, we increment wpc and try again
+	;; code here
+	;; code here
 	
+;;; check if the zero bit is not set in wCCR	
+ne:	mv	wCCR, work0
+	and 	$4, work0
+;;; if equal to zero, we execute, if not we inc wpc
+	;; code here
+	;; code here
+
 	
-ne:
-;;; check if the zero bit is not set in wCCR
+;;; check if the negative bit is set	
 lt:
-;;; check if the negative bit is set
+
+	;; code here
+	;; code here
 le:
 ;;; check if negative and zero are set
 ge:
@@ -213,14 +231,6 @@ rpm:	mov	$maskLow4, work0
 
 
 ;;; -------------------------BEGIN OPERATIONS------------------------------------
-;;; operations finished and tested with all three cases:
-;;; add
-;;; sub
-;;; mul
-;;; mla
-;;; div
-
-
 ;;; thoughts and improvements for all operations:
 ;;; the adding one to the wpc is a terrible monkey patch
 ;;; how can we jump back up with a reloaded wpc in one instruction?
@@ -329,7 +339,6 @@ bb:
 blf:
 
 blb:
-
 
 
 ;;; thoughts and improvements?
