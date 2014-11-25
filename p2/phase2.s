@@ -215,6 +215,7 @@ adc:
 ;;;
 	
 ;;; 5 INSTRUCTIONS
+;;; backwards (like div)
 sub:	mov	REGS(lhs), work0
 	sub	rhs, work0
 	mov	work0, REGS(dst)
@@ -267,7 +268,6 @@ and:
 ;;;
 ;;;
 	
-
 ;;; -1 INSTRUCTIONS
 tst:
 ;;; thoughts and improvements?
@@ -277,7 +277,6 @@ tst:
 ;;;
 ;;;
 	
-
 ;;; 4 INSTRUCTIONS
 mul:	mul	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
@@ -291,7 +290,8 @@ mul:	mul	REGS(lhs), rhs
 ;;;
 	
 	
-;;; 4 INSTRUCTIONS
+;;; 5 INSTRUCTIONS
+;;; backwards (like sub)
 div:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	work0, REGS(dst)
