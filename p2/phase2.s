@@ -7,7 +7,9 @@
 	.requ	dst, r11
 	.requ 	rhs, r10
 	.requ	shiftC, r9
-	.requ	wccr, r8
+	.requ	wCCR, r8
+	.requ	cond, r5
+	.requ	setCC, r4
 	.requ	work0, r0
  	.requ	work1, r1
 		
@@ -18,25 +20,56 @@
 	.equ	maskHigh4, 0xf0000000
 	.equ	maskValue, 0x1ff
 	.equ	maskExp, 0x1f00
+	.equ	maskSetCC, 0x10000000
 	
 	lea	WARM,work0
 	trap	$SysOverlay
 
-;;; --------------------BEGIN FETCHING THE INSTRUCTION----------------
+;;; --------------------BEGIN FETCHING THE INSTRUCTION-------------------
 ;;; 5 INSTRUCTIONS
 fetch:	mov	WARM(wpc),ci
- 	mov	$maskT, work0	;decipher type
+	mov	ci, work0
+	shr	$29, work0	;high 3 condition bits in work0
+	cmovg	COND(work0), rip
+
+
+	mov	$maskSetCC, setCC
+	and	ci, setCC	; set if setCC > 0
+
+
+type:	mov	$maskT, work0	;decipher type
 	and	ci, work0
 	shr	$31, work0	;work 0 holds the type
  	mov	TYPE(work0), rip ;jump on type
-
+	
+never:
+;;; increment the program counter and start the loop all over again
+	add 	$1, wpc
+	jmp 	fetch
+eq:
+;;; check if the zero bit is set in the last wCCR
+	
+	
+ne:
+;;; check if the zero bit is not set in wCCR
+lt:
+;;; check if the negative bit is set
+le:
+;;; check if negative and zero are set
+ge:
+;;; check if negative is not set
+gt:
+;;; check if negative and zero are not set
+COND:
+	.data	always, 0, eq, ne, lt, le, ge, gt
+	
 	
 ;;; thoughts and improvements?
 ;;;
 ;;;
 ;;;
 ;;; 
-;;; --------------------END FETCH--------------------------------------
+;;; ----------------------END FETCH--------------------------------------
 
 	
 ;;; types of instructions:
@@ -236,7 +269,7 @@ sub:	mov	REGS(lhs), work0
 ;;; 5 INSTRUCTION(S)	
 cmp:	mov 	REGS(lhs), work0
 	sub 	rhs, work0
-	mov	ccr, wccr
+	mov	ccr, wCCR
 	add	$1, wpc
 	jmp 	fetch
 ;;; thoughts and improvements?
@@ -456,13 +489,15 @@ blb:
 ;;;
 ;;;
 	
-
+	
 REGS:
 	.data	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 INSTR:
 	.data 	add,adc,sub,cmp,eor,orr,and,tst,mul,0,div,mov,mvn,swi,ldm,stm,ldr,str,ldu,stu,adr,0,0,0,bf,bb,blf,blb
 TYPE:
 	.data	arith, arith, ls, branch
+COND:
+	.data	always, never, eq, ne, lt, le, ge, gt
 ADDR:
 	.data 	imd, imd, imd, imd, rim, rsr, rpm
 SHOP:
