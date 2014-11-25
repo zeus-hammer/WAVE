@@ -117,8 +117,7 @@ rsr:	mov	$mask4, shiftC	; shiftC := 15
 	shr	$30, work0	; work0 now has the shift op code
 	mov	SHOP(work0), rip
 
-
-	;;; --------------------------BEGIN SHIFTING MODES-------------------------
+;;; --------------------------BEGIN SHIFTING MODES-------------------------
 
 	
 ;;; logical shift left
@@ -192,7 +191,7 @@ rpm:	mov	$mask4, work0
 ;;; mla
 ;;; div
 	
-;;; 4 INSTRUCTIONS
+;;; 4 INSTRUCTION(S)	
 add:	add	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
@@ -204,7 +203,8 @@ add:	add	REGS(lhs), rhs
 
 	
 
-;;; -1 INSTRUCTIONS
+
+;;; -1 INSTRUCTION(S)	
 adc:
 
 ;;; thoughts and improvements?
@@ -214,7 +214,7 @@ adc:
 ;;;
 ;;;
 	
-;;; 5 INSTRUCTIONS
+;;; 5 INSTRUCTION(S)
 ;;; backwards (like div)
 sub:	mov	REGS(lhs), work0
 	sub	rhs, work0
@@ -229,7 +229,7 @@ sub:	mov	REGS(lhs), work0
 ;;;
 	
 	
-;;; -1 INSTRUCTIONS
+;;; -1 INSTRUCTION(S)	
 cmp:
 ;;; thoughts and improvements?
 ;;;
@@ -239,7 +239,7 @@ cmp:
 ;;;
 
 	
-;;; -1 INSTRUCTIONS
+;;; -1 INSTRUCTION(S)	
 eor:
 ;;; thoughts and improvepments?
 ;;;
@@ -249,7 +249,7 @@ eor:
 ;;;
 
 
-;;; -1 INSTRUCTIONS
+;;; -1 INSTRUCTION(S)	
 orr:
 ;;; thoughts and improvements?
 ;;;
@@ -259,7 +259,7 @@ orr:
 ;;;
 	
 
-;;; -1 INSTRUCTIONS
+;;; -1 INSTRUCTION(S)	
 and:
 ;;; thoughts and improvements?
 ;;;
@@ -268,7 +268,8 @@ and:
 ;;;
 ;;;
 	
-;;; -1 INSTRUCTIONS
+;;; -1 INSTRUCTION(S)
+	
 tst:
 ;;; thoughts and improvements?
 ;;;
@@ -277,7 +278,7 @@ tst:
 ;;;
 ;;;
 	
-;;; 4 INSTRUCTIONS
+;;; 4 INSTRUCTION(S)
 mul:	mul	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
@@ -290,7 +291,7 @@ mul:	mul	REGS(lhs), rhs
 ;;;
 	
 	
-;;; 5 INSTRUCTIONS
+;;; 5 INSTRUCTION(S)
 ;;; backwards (like sub)
 div:	mov 	REGS(lhs), work0
 	div	rhs, work0
@@ -307,17 +308,16 @@ div:	mov 	REGS(lhs), work0
 ;;;
 	
 	
-;;; -1 INSTRUCTIONS	
-mov:
+;;; 1 INSTRUCTION(S)
+mov:	mov	rhs, REGS(dst)
+	add	$1, wpc
+	jmp 	fetch
+
 ;;; thoughts and improvements?
-;;;
-;;;
-;;;
-;;;
-;;;
+;;; as simple as it gets
 	
 
-;;; -1 INSTRUCTIONS
+;;; -1 INSTRUCTION(S)
 mvn:
 ;;; thoughts and improvements?
 ;;;
@@ -327,7 +327,7 @@ mvn:
 ;;;
 	
 
-;;; -1 INSTRUCTIONS	
+;;; -1 INSTRUCTION(S)	
 swi:
 ;;; thoughts and improvements?
 ;;;
@@ -337,7 +337,7 @@ swi:
 ;;;
 	
 	
-;;; -1 INSTRUCTIONS	
+;;; -1 INSTRUCTION(S)		
 ldm:
 ;;; thoughts and improvements?
 ;;;
@@ -347,7 +347,7 @@ ldm:
 ;;;
 	
 	
-;;; -1 INSTRUCTIONS
+;;; -1 INSTRUCTION(S)		
 stm:
 ;;; thoughts and improvements?
 ;;;
@@ -357,7 +357,7 @@ stm:
 ;;;
 	
 
-;;; -1 INSTRUCTIONS	
+;;; -1 INSTRUCTION(S)		
 ldr:
 ;;; thoughts and improvements?
 ;;;
@@ -367,7 +367,7 @@ ldr:
 ;;;
 	
 
-;;; -1 INSTRUCTIONS	
+;;; -1 INSTRUCTION(S)		
 str:
 ;;; thoughts and improvements?
 ;;;
@@ -377,7 +377,7 @@ str:
 ;;;
 	
 
-;;; -1 INSTRUCTIONS	
+;;; -1 INSTRUCTION(S)		
 ldu:
 ;;; thoughts and improvements?
 ;;;
@@ -387,7 +387,7 @@ ldu:
 ;;;
 	
 
-;;; -1 INSTRUCTIONS
+;;; -1 INSTRUCTION(S)	
 stu:
 ;;; thoughts and improvements?
 ;;;
@@ -397,7 +397,7 @@ stu:
 ;;;
 	
 
-;;; -1 INSTRUCTIONS	
+;;; -1 INSTRUCTION(S)		
 adr:
 ;;; thoughts and improvements?
 ;;;
@@ -407,7 +407,7 @@ adr:
 ;;;
 	
 
-;;; -1 INSTRUCTIONS	
+;;; -1 INSTRUCTION(S)		
 bf:
 ;;; thoughts and improvements?
 ;;;
@@ -417,7 +417,7 @@ bf:
 ;;;
 	
 
-;;; -1 INSTRUCTIONS	
+;;; -1 INSTRUCTION(S)		
 bb:
 ;;; thoughts and improvements?
 ;;;
@@ -427,7 +427,7 @@ bb:
 ;;;
 	
 
-;;; -1 INSTRUCTIONS
+;;; -1 INSTRUCTION(S)		
 blf:
 ;;; thoughts and improvements?
 ;;;
@@ -437,7 +437,7 @@ blf:
 ;;;
 	
 
-;;; -1 INSTRUCTIONS	
+;;; -1 INSTRUCTION(S)		
 blb:
 ;;; thoughts and improvements?
 ;;;
