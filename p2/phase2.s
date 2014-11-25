@@ -17,15 +17,12 @@
 	.requ	work3, r4
 		
  	.equ	maskT, 0xc000000 	;27 and 26th bit
-<<<<<<< HEAD
 	.equ	maskA, 0x7800		;1 in 14,13,12th bit
-	.equ	maskSC, $63
-=======
+	.equ	maskSC, 0x3F
 	.equ	maskA, 0x7800		;1 in 14,13,12th bits
 	.equ	mask4, 0xf
 	.equ	maskValue, 0x1ff
 	.equ	maskExp, 0x1f00
->>>>>>> master
 	
 	lea	WARM,r0
 	lea	REGS,reg
@@ -38,7 +35,7 @@ fetch:	mov	WARM(wpc),ci
 	and	ci, work0
 	shr	$31, work0	;work 0 holds the type
  	mov	TYPE(work0), rip
-;;; INSTRUCTION TYPES
+;;; instruction types
 arith:
 	mov 	ci,op
 	shl	$4,op
@@ -47,42 +44,8 @@ arith:
 	and 	ci,work0
 	shr	$14, work0	;work 0 holds the addressing mode
 	mov	ADDR(work0), rip
-<<<<<<< HEAD
-
+;;; immediate mode
 imd:	
-	
-rim:	mov	ci, work0
-	shl	$22, work0
-	shr	$28, work0 	;now we have src reg 2 in work0
-	mov	work0, src2
-	mov	ci, work0
-	and	$maskSC, work0	;work0 now has the shift count
-
-	mov	ci, work1
-	shl	$20, work1
-	shr	$30, work1	;work1 now has the shop
-	mov 	SHOPRIM(work1),rip
-rimlsl:	shl	work0, src2
-	mov	INSTR(op), rip
-rimlsr:	shr	work0, src2
-	mov	INSTR(op), rip
-rimasr:	sar	work0, src2
-	mov	INSTR(op), rip
-rimror:	mov	$32, work3
-	sub	work0, work3	;work3 contains the ammount to shift to hold the rotated stuff
-	mov	src2, work4	
-	shl	work3, work4	;work4 has the rotated bits
-	shr	work0, src2
-	add	work4, src2
-	mov	INSTR(op), rip
-
-rsr:	
-
-rpm:	
-
-=======
-;;; ADDRESSING MODES
-imd:
 	mov	ci, src
 	shr	$15, src
 	and	$mask4, src
@@ -96,11 +59,23 @@ imd:
 	mov	ci, rhs
 	and	$maskValue, rhs	;value
 	shl	work0, rhs
-	shr	
-rim:
+	shr
+	
+;;; register shifted immediate mode
+rim:	mov	ci, shr
+	shl	$23, shr
+	shr	$28, shr 	;now we have src reg 2 in shr
+	mov	work0, shr2
+	mov	ci, shr
+	and	$maskSC, shr	;work0 now has the shift count
 
+	mov	ci, work1
+	shl	$20, work1
+	shr	$30, work1	;work1 now has the shop
+	mov 	SHOP(work1),rip
+	
 ;;; Register Shifted by Register Mode;;;
-rsr:	mov	$0xE, shr	; shr := 15
+rsr:	mov	$mask4, shr	; shr := 15
 	and 	ci, shr		; shr := shr & ci; to get shift register
 	mov	ci, src2	
 	shl	$23, src2
@@ -109,22 +84,7 @@ rsr:	mov	$0xE, shr	; shr := 15
 	shl	$21, work3
 	shr	$30, work3	; work3 now has the shift op code
 	mov	SHOP(work3), rip
->>>>>>> master
-	
-rpm:	
-	mov 	ci,op
-	shl	$4,op
-	shr	$27,op
-	mov	INSTR(op), rip
-	mov	ci,work0
-rim:
 
-rsr:
-
-rpm:
-
-SHOP:
-	.data	lsl, lsr, asr, ror
 
 lsl:	shl	shr, src2
 	mov     INSTR(op), rip
@@ -142,6 +102,18 @@ ror:	mov	src2, work1
 	shr	shr, src2	;work2 is the highest (32-shr) bits shifted shr to the right
 	add	work1, src2
 	mov     INSTR(op), rip	
+
+;;; Register Product Mode
+	
+rpm:
+
+
+	
+	mov 	ci,op
+	shl	$4,op
+	shr	$27,op
+	mov	INSTR(op), rip
+	mov	ci,work0
 
 ls:
 
@@ -207,7 +179,6 @@ TYPE:
 	.data	arith, arith, ls, branch
 ADDR:
 	.data 	imd, imd, imd, imd, rim, rsr, rpm
-
-SHOPRIM:
-	.data rimlsl, rimlsr, rimasr, rimror
+SHOP:
+	.data	lsl, lsr, asr, ror
 WARM:	 
