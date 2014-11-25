@@ -132,7 +132,7 @@ sub:	mov	REGS(src), work0
 	add	$1, wpc
 	jmp 	fetch
 	
-
+cmp:	
 eor:
 orr:
 and:
