@@ -116,38 +116,28 @@ rpm:	mov	$mask4, work0
 	mov	REGS(rhs), rhs	; rhs now has whatever was stored in the correspondent register
 	mov	REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
 	mul	work0, rhs
-	mov	INSTR(op), rip
-	
 ;;; Operations
-	
 add:	add	REGS(src), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp 	fetch
 adc:
-	
 sub:	mov	REGS(src), work0
 	sub	rhs, work0
 	mov	work0, REGS(dst)
 	add	$1, wpc
 	jmp 	fetch
-	
 cmp:	
 eor:
 orr:
-and:
+and:				
 tst:
+
 mul:	mul	REGS(src), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp	fetch
 
-	
-mla:	add	REGS(src), rhs
-	mov	rhs, REGS(dst)
-	add	$1, wpc
-	jmp 	fetch
-	
 div:
 mov:	
 mvn:
@@ -167,7 +157,7 @@ blb:
 REGS:
 	.data	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 INSTR:
-	.data 	add,adc,sub,cmp,eor,orr,and,tst,mul,mla,div,mov,mvn,swi,ldm,stm,ldr,str,ldu,stu,adr,0,0,0,bf,bb,blf,blb
+	.data 	add,adc,sub,cmp,eor,orr,and,tst,mul,0,div,mov,mvn,swi,ldm,stm,ldr,str,ldu,stu,adr,0,0,0,bf,bb,blf,blb
 TYPE:
 	.data	arith, arith, ls, branch
 ADDR:
