@@ -1,7 +1,8 @@
 WindObjectFile1
 File phase2.s
-Symbol INSTR 36
-Symbol REGS 20
+Symbol ADDR 103
+Symbol INSTR 71
+Symbol REGS 55
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -10,34 +11,48 @@ Symbol SysOverlay 6
 Symbol SysPLA 7
 Symbol SysPutChar 3
 Symbol SysPutNum 4
-Symbol WARM 64
-Symbol adc 20
-Symbol add 20
-Symbol adr 20
-Symbol and 20
-Symbol bb 20
-Symbol bf 20
-Symbol blb 20
-Symbol blf 20
-Symbol cmp 20
-Symbol div 20
-Symbol eor 20
-Symbol ldm 20
-Symbol ldr 20
-Symbol ldu 20
-Symbol mask27 8388608
-Symbol mla 20
-Symbol mov 20
-Symbol mul 20
-Symbol mvn 20
-Symbol orr 20
-Symbol stm 20
-Symbol str 20
-Symbol stu 20
-Symbol sub 20
-Symbol swi 20
-Symbol tst 20
+Symbol TYPE 99
+Symbol WARM 110
+Symbol adc 55
+Symbol add 51
+Symbol adr 55
+Symbol and 55
+Symbol arith 17
+Symbol bb 55
+Symbol bf 55
+Symbol blb 55
+Symbol blf 55
+Symbol branch 51
+Symbol cmp 55
+Symbol div 55
+Symbol eor 55
+Symbol fetch 8
+Symbol imd 24
+Symbol ldm 55
+Symbol ldr 55
+Symbol ldu 55
+Symbol ls 51
+Symbol mask4 15
+Symbol maskA 30720
+Symbol maskExp 7936
+Symbol maskT 201326592
+Symbol maskValue 511
+Symbol mla 55
+Symbol mov 55
+Symbol mul 55
+Symbol mvn 55
+Symbol orr 55
+Symbol rim 51
+Symbol rpm 51
+Symbol rsr 51
+Symbol stm 55
+Symbol str 55
+Symbol stu 55
+Symbol sub 55
+Symbol swi 55
+Symbol tst 55
 Register ci 13
+Register dst 9
 Register op 11
 Register r0 0
 Register r1 1
@@ -57,74 +72,132 @@ Register r8 8
 Register r9 9
 Register rbp 6
 Register reg 14
+Register rhs 8
 Register rip 16
 Register rsp 7
-Register type 10
+Register src 10
+Register work0 1
+Register work1 2
+Register work2 3
+Register work3 4
 Register wpc 15
-Memory 14 0
-Memory 15 0
-Memory 16 0
-Memory 17 0
-Memory 18 0
-Memory 19 0
-Memory 1a 0
-Memory 1b 0
-Memory 1c 0
-Memory 1d 0
-Memory 1e 0
-Memory 1f 0
-Memory 20 0
-Memory 21 0
-Memory 22 0
-Memory 23 0
-Memory 24 14
-Memory 25 14
-Memory 26 14
-Memory 27 14
-Memory 28 14
-Memory 29 14
-Memory 2a 14
-Memory 2b 14
-Memory 2c 14
-Memory 2d 14
-Memory 2e 14
-Memory 2f 14
-Memory 30 14
-Memory 31 14
-Memory 32 14
-Memory 33 14
-Memory 34 14
-Memory 35 14
-Memory 36 14
-Memory 37 14
-Memory 38 14
+Memory 37 0
+Memory 38 0
 Memory 39 0
 Memory 3a 0
 Memory 3b 0
-Memory 3c 14
-Memory 3d 14
-Memory 3e 14
-Memory 3f 14
-Memory 0 40198000 3f
-Memory 2 41d98000 11
-Memory 4 41798000 1f
+Memory 3c 0
+Memory 3d 0
+Memory 3e 0
+Memory 3f 0
+Memory 40 0
+Memory 41 0
+Memory 42 0
+Memory 43 0
+Memory 44 0
+Memory 45 0
+Memory 46 0
+Memory 47 33
+Memory 48 37
+Memory 49 37
+Memory 4a 37
+Memory 4b 37
+Memory 4c 37
+Memory 4d 37
+Memory 4e 37
+Memory 4f 37
+Memory 50 37
+Memory 51 37
+Memory 52 37
+Memory 53 37
+Memory 54 37
+Memory 55 37
+Memory 56 37
+Memory 57 37
+Memory 58 37
+Memory 59 37
+Memory 5a 37
+Memory 5b 37
+Memory 5c 0
+Memory 5d 0
+Memory 5e 0
+Memory 5f 37
+Memory 60 37
+Memory 61 37
+Memory 62 37
+Memory 63 11
+Memory 64 11
+Memory 65 33
+Memory 66 33
+Memory 67 18
+Memory 68 18
+Memory 69 18
+Memory 6a 18
+Memory 6b 33
+Memory 6c 33
+Memory 6d 33
+Memory 0 40198000 6d
+Memory 2 41d98000 34
+Memory 4 41798000 42
 Memory 6 180000 6
-Memory 8 48180000 800000
-Memory a 49af8000 40
-Memory c 49668000
-Memory d 49468000
-Memory e c1780000 4
-Memory 10 c9780000 1b
-Memory 12 4e4d8000 24
+Memory 8 49af8000 6e
+Memory a 48380000 c000000
+Memory c 80268000
+Memory d c8380000 1f
+Memory f 4e488000 63
+Memory 11 48380000 7800
+Memory 13 80268000
+Memory 14 c8380000 e
+Memory 16 4e488000 67
+Memory 18 49468000
+Memory 19 c9580000 f
+Memory 1b 81580000 f
+Memory 1d 49268000
+Memory 1e c9380000 13
+Memory 20 81380000 f
+Memory 22 48268000
+Memory 23 80380000 1f00
+Memory 25 c8380000 9
+Memory 27 49068000
+Memory 28 81180000 1ff
+Memory 2a c1008000
+Memory 2b 49668000
+Memory 2c c1780000 4
+Memory 2e c9780000 1b
+Memory 30 4e4d8000 47
+Memory 32 48268000
+Memory 33 a10d0000 37
+Memory 35 4b240000 37
 Source 0         lea     WARM,r0
 Source 2         lea     REGS,reg
 Source 4         lea     INSTR,op
 Source 6         trap    $SysOverlay
-Source 8         mov     $mask27, r0
-Source a         mov     WARM(wpc),ci
-Source c         mov     ci,op
-Source d         mov     ci,type
-Source e         shl     $4,op
-Source 10         shr     $27,op
-Source 12         mov     INSTR(op), rip
+Source 8 fetch:  mov     WARM(wpc),ci
+Source a         mov     $maskT, work0
+Source c         and     ci, work0
+Source d         shr     $31, work0      ;work 0 holds the type
+Source f         mov     TYPE(work0), rip
+Source 11         mov     $maskA, work0
+Source 13         and     ci,work0
+Source 14         shr     $14, work0      ;work 0 holds the addressing mode
+Source 16         mov     ADDR(work0), rip
+Source 18         mov     ci, src
+Source 19         shr     $15, src
+Source 1b         and     $mask4, src
+Source 1d         mov     ci, dst
+Source 1e         shr     $19, dst
+Source 20         and     $mask4, dst
+Source 22         mov     ci, work0
+Source 23         and     $maskExp, work0 ;exponent
+Source 25         shr     $9, work0
+Source 27         mov     ci, rhs
+Source 28         and     $maskValue, rhs ;value
+Source 2a         shl     work0, rhs
+Source 2b         mov     ci,op
+Source 2c         shl     $4,op
+Source 2e         shr     $27,op
+Source 30         mov     INSTR(op), rip
+Source 32         mov     ci,work0
+Source 33         add     REGS(src), rhs
+Source 35         mov     rhs, REGS(dst)
 End
