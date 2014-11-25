@@ -131,14 +131,12 @@ sub:	mov	REGS(src), work0
 	mov	work0, REGS(dst)
 	add	$1, wpc
 	jmp 	fetch
-
 	
-cmp:
+
 eor:
 orr:
 and:
 tst:
-	
 mul:	mul	REGS(src), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
