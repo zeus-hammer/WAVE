@@ -1,9 +1,9 @@
 WindObjectFile1
 File phase2.s
-Symbol ADDR 195
-Symbol INSTR 163
-Symbol REGS 147
-Symbol SHOP 202
+Symbol ADDR 197
+Symbol INSTR 165
+Symbol REGS 149
+Symbol SHOP 204
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -12,53 +12,53 @@ Symbol SysOverlay 6
 Symbol SysPLA 7
 Symbol SysPutChar 3
 Symbol SysPutNum 4
-Symbol TYPE 191
-Symbol WARM 206
-Symbol adc 121
-Symbol add 113
-Symbol adr 147
-Symbol and 129
-Symbol arith 13
-Symbol asr 86
-Symbol bb 147
-Symbol bf 147
-Symbol blb 147
-Symbol blf 147
-Symbol branch 113
-Symbol cmp 129
-Symbol div 147
-Symbol eor 129
-Symbol fetch 4
-Symbol imd 35
-Symbol ldm 147
-Symbol ldr 147
-Symbol ldu 147
-Symbol ls 113
-Symbol lsl 80
-Symbol lsr 83
+Symbol TYPE 193
+Symbol WARM 208
+Symbol adc 125
+Symbol add 117
+Symbol adr 149
+Symbol and 133
+Symbol arith 15
+Symbol asr 90
+Symbol bb 149
+Symbol bf 149
+Symbol blb 149
+Symbol blf 149
+Symbol branch 37
+Symbol cmp 133
+Symbol div 149
+Symbol eor 133
+Symbol fetch 6
+Symbol imd 37
+Symbol ldm 149
+Symbol ldr 149
+Symbol ldu 149
+Symbol ls 37
+Symbol lsl 84
+Symbol lsr 87
 Symbol mask4 15
 Symbol maskA 30720
 Symbol maskExp 7936
 Symbol maskShift 63
 Symbol maskT 201326592
 Symbol maskValue 511
-Symbol mla 139
-Symbol mov 147
-Symbol mul 129
-Symbol mvn 147
-Symbol orr 129
-Symbol rim 46
-Symbol ror 89
-Symbol rpm 98
-Symbol rsr 61
-Symbol stm 147
-Symbol str 147
-Symbol stu 147
-Symbol sub 121
-Symbol swi 147
-Symbol tst 129
-Register ccr 8
+Symbol mla 141
+Symbol mov 149
+Symbol mul 133
+Symbol mvn 149
+Symbol orr 133
+Symbol rim 48
+Symbol ror 93
+Symbol rpm 102
+Symbol rsr 65
+Symbol stm 149
+Symbol str 149
+Symbol stu 149
+Symbol sub 125
+Symbol swi 149
+Symbol tst 133
 Register ci 14
+Register cond 8
 Register dst 11
 Register op 13
 Register r0 0
@@ -86,8 +86,6 @@ Register src 12
 Register work0 0
 Register work1 1
 Register wpc 15
-Memory 93 0
-Memory 94 0
 Memory 95 0
 Memory 96 0
 Memory 97 0
@@ -102,219 +100,223 @@ Memory 9f 0
 Memory a0 0
 Memory a1 0
 Memory a2 0
-Memory a3 71
-Memory a4 79
-Memory a5 79
-Memory a6 81
-Memory a7 81
-Memory a8 81
-Memory a9 81
-Memory aa 81
-Memory ab 81
-Memory ac 8b
-Memory ad 93
-Memory ae 93
-Memory af 93
-Memory b0 93
-Memory b1 93
-Memory b2 93
-Memory b3 93
-Memory b4 93
-Memory b5 93
-Memory b6 93
-Memory b7 93
-Memory b8 0
-Memory b9 0
+Memory a3 0
+Memory a4 0
+Memory a5 75
+Memory a6 7d
+Memory a7 7d
+Memory a8 85
+Memory a9 85
+Memory aa 85
+Memory ab 85
+Memory ac 85
+Memory ad 85
+Memory ae 8d
+Memory af 95
+Memory b0 95
+Memory b1 95
+Memory b2 95
+Memory b3 95
+Memory b4 95
+Memory b5 95
+Memory b6 95
+Memory b7 95
+Memory b8 95
+Memory b9 95
 Memory ba 0
-Memory bb 93
-Memory bc 93
-Memory bd 93
-Memory be 93
-Memory bf d
-Memory c0 d
-Memory c1 71
-Memory c2 71
-Memory c3 23
-Memory c4 23
-Memory c5 23
-Memory c6 23
-Memory c7 2e
-Memory c8 3d
-Memory c9 62
-Memory ca 50
-Memory cb 53
-Memory cc 56
-Memory cd 59
-Memory 0 40198000 cd
-Memory 2 180000 6
-Memory 4 49cf8000 ce
-Memory 6 48180000 c000000
-Memory 8 80070000
-Memory 9 c8180000 1f
-Memory b 4e480000 bf
-Memory d 49a70000
-Memory e c1b80000 4
-Memory 10 c9b80000 1b
-Memory 12 48180000 7800
-Memory 14 80070000
-Memory 15 c8180000 c
-Memory 17 49870000
-Memory 18 c9980000 f
-Memory 1a 81980000 f
-Memory 1c 49670000
-Memory 1d c9780000 13
-Memory 1f 81780000 f
-Memory 21 4e480000 c3
-Memory 23 48070000
-Memory 24 80180000 1f00
-Memory 26 c8180000 9
-Memory 28 49470000
-Memory 29 81580000 1ff
-Memory 2b c1400000
-Memory 2c 4e4e8000 a3
-Memory 2e 49470000
-Memory 2f c1580000 16
-Memory 31 c9580000 1c
-Memory 33 49270000
-Memory 34 81380000 3f
-Memory 36 48070000
-Memory 37 c0180000 14
-Memory 39 c8180000 1e
-Memory 3b 4e480000 ca
-Memory 3d 49380000 f
-Memory 3f 81270000
-Memory 40 49470000
-Memory 41 c1580000 16
-Memory 43 c9580000 1c
-Memory 45 48070000
-Memory 46 c0180000 14
-Memory 48 c8180000 1e
-Memory 4a 494d0000 93
-Memory 4c 492c8000 93
-Memory 4e 4e480000 ca
-Memory 50 c1448000
-Memory 51 4e4e8000 a3
-Memory 53 c9448000
-Memory 54 4e4e8000 a3
-Memory 56 d1448000
-Memory 57 4e4e8000 a3
-Memory 59 48050000
-Memory 5a 48380000 20
-Memory 5c a8248000
-Memory 5d c0008000
-Memory 5e c9448000
-Memory 5f a1400000
-Memory 60 4e4e8000 a3
-Memory 62 48180000 f
-Memory 64 80070000
-Memory 65 49470000
-Memory 66 c1580000 16
-Memory 68 c9580000 1c
-Memory 6a 494d0000 93
-Memory 6c 48080000 93
-Memory 6e b1400000
-Memory 6f 4e4e8000 a3
-Memory 71 a14e0000 93
-Memory 73 4b650000 93
-Memory 75 a1f80000 1
-Memory 77 8198000 ffffff8c
-Memory 79 a94e0000 93
-Memory 7b 4b650000 93
-Memory 7d a1f80000 1
-Memory 7f 8198000 ffffff84
-Memory 81 494d0000 93
-Memory 83 b14e0000 93
-Memory 85 4b650000 93
-Memory 87 a1f80000 1
-Memory 89 8198000 ffffff7a
-Memory 8b a14e0000 93
-Memory 8d 4b650000 93
-Memory 8f a1f80000 1
-Memory 91 8198000 ffffff72
-Source 0         lea     WARM,r0
-Source 2         trap    $SysOverlay
-Source 4 fetch:  mov     WARM(wpc),ci
-Source 6         mov     $maskT, work0
-Source 8         and     ci, work0
-Source 9         shr     $31, work0      ;work 0 holds the type
-Source b         mov     TYPE(work0), rip
-Source d arith:  mov     ci,op
-Source e         shl     $4,op
-Source 10         shr     $27,op
-Source 12         mov     $maskA, work0
-Source 14         and     ci,work0
-Source 15         shr     $12, work0      ;work 0 holds the addressing mode
-Source 17         mov     ci, src         ;get dst and src
-Source 18         shr     $15, src
-Source 1a         and     $mask4, src
-Source 1c         mov     ci, dst
-Source 1d         shr     $19, dst
-Source 1f         and     $mask4, dst
-Source 21         mov     ADDR(work0), rip
-Source 23 imd:    mov     ci, work0
-Source 24         and     $maskExp, work0 ;exponent
-Source 26         shr     $9, work0
-Source 28         mov     ci, rhs
-Source 29         and     $maskValue, rhs ;value
-Source 2b         shl     work0, rhs      ;shifted value in rhs
-Source 2c         mov     INSTR(op), rip  
-Source 2e rim:    mov     ci, rhs
-Source 2f         shl     $22, rhs
-Source 31         shr     $28, rhs        ;now we have src reg 2 in rhs
-Source 33         mov     ci, shiftC
-Source 34         and     $maskShift, shiftC      ;sc now has the shift count
-Source 36         mov     ci, work0
-Source 37         shl     $20, work0
-Source 39         shr     $30, work0      ;work1 now has the shop
-Source 3b         mov     SHOP(work0),rip
-Source 3d rsr:    mov     $mask4, shiftC  ; shiftC := 15
-Source 3f         and     ci, shiftC      ; shiftC := shiftC & ci; to get shift register
-Source 40         mov     ci, rhs 
-Source 41         shl     $22, rhs
-Source 43         shr     $28, rhs        ; rhs has src2 register
-Source 45         mov     ci, work0
-Source 46         shl     $20, work0
-Source 48         shr     $30, work0      ; work3 now has the shift op code
-Source 4a         mov     REGS(rhs), rhs  ; rhs now has whatever was stored in src reg 2
-Source 4c         mov     REGS(shiftC), shiftC ; shiftC now has whatever was stored in the correspondent reg
-Source 4e         mov     SHOP(work0), rip
-Source 50 lsl:    shl     shiftC, rhs
-Source 51         mov     INSTR(op), rip
-Source 53 lsr:    shr     shiftC, rhs
-Source 54         mov     INSTR(op), rip
-Source 56 asr:    sar     shiftC, rhs
-Source 57         mov     INSTR(op), rip
-Source 59 ror:    mov     rhs, work0
-Source 5a         mov     $32, work1      
-Source 5c         sub     shiftC, work1   ;work3 := 32-shr
-Source 5d         shl     work1, work0    ;work1 is low shr bits shifted (32-shr) to the left
-Source 5e         shr     shiftC, rhs     ;work2 is the highest (32-shr) bits shifted shr to the right
-Source 5f         add     work0, rhs
-Source 60         mov     INSTR(op), rip  
-Source 62 rpm:    mov     $mask4, work0
-Source 64         and     ci, work0       ; work0 now has src reg 3
-Source 65         mov     ci, rhs
-Source 66         shl     $22, rhs
-Source 68         shr     $28, rhs        ; rhs now has src reg 2
-Source 6a         mov     REGS(rhs), rhs  ; rhs now has whatever was stored in the correspondent register
-Source 6c         mov     REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
-Source 6e         mul     work0, rhs
-Source 6f         mov     INSTR(op), rip
-Source 71 add:    add     REGS(src), rhs
-Source 73         mov     rhs, REGS(dst)
-Source 75         add     $1, wpc
-Source 77         jmp     fetch
-Source 79 sub:    sub     REGS(src), rhs
-Source 7b         mov     rhs, REGS(dst)
-Source 7d         add     $1, wpc
-Source 7f         jmp     fetch
-Source 81 mul:    mov     REGS(rhs), rhs
-Source 83         mul     REGS(src), rhs
-Source 85         mov     rhs, REGS(dst)
-Source 87         add     $1, wpc
-Source 89         jmp     fetch
-Source 8b mla:    add     REGS(src), rhs
-Source 8d         mov     rhs, REGS(dst)
-Source 8f         add     $1, wpc
-Source 91         jmp     fetch
+Memory bb 0
+Memory bc 0
+Memory bd 95
+Memory be 95
+Memory bf 95
+Memory c0 95
+Memory c1 f
+Memory c2 f
+Memory c3 25
+Memory c4 25
+Memory c5 25
+Memory c6 25
+Memory c7 25
+Memory c8 25
+Memory c9 30
+Memory ca 41
+Memory cb 66
+Memory cc 54
+Memory cd 57
+Memory ce 5a
+Memory cf 5d
+Memory 0 40198000 cf
+Memory 2 41198000 92
+Memory 4 180000 6
+Memory 6 49cf8000 d0
+Memory 8 48180000 c000000
+Memory a 80070000
+Memory b c8180000 1f
+Memory d 4e480000 c1
+Memory f 49a70000
+Memory 10 c1b80000 4
+Memory 12 c9b80000 1b
+Memory 14 48180000 7800
+Memory 16 80070000
+Memory 17 c8180000 c
+Memory 19 49870000
+Memory 1a c9980000 f
+Memory 1c 81980000 f
+Memory 1e 49670000
+Memory 1f c9780000 13
+Memory 21 81780000 f
+Memory 23 4e480000 c5
+Memory 25 48070000
+Memory 26 80180000 1f00
+Memory 28 c8180000 9
+Memory 2a 49470000
+Memory 2b 81580000 1ff
+Memory 2d c1400000
+Memory 2e 4e4e8000 a5
+Memory 30 49470000
+Memory 31 c1580000 16
+Memory 33 c9580000 1c
+Memory 35 494d0000 95
+Memory 37 49270000
+Memory 38 81380000 3f
+Memory 3a 48070000
+Memory 3b c0180000 14
+Memory 3d c8180000 1e
+Memory 3f 4e480000 cc
+Memory 41 49380000 f
+Memory 43 81270000
+Memory 44 492c8000 95
+Memory 46 49470000
+Memory 47 c1580000 16
+Memory 49 c9580000 1c
+Memory 4b 494d0000 95
+Memory 4d 48070000
+Memory 4e c0180000 14
+Memory 50 c8180000 1e
+Memory 52 4e480000 cc
+Memory 54 c1448000
+Memory 55 4e4e8000 a5
+Memory 57 c9448000
+Memory 58 4e4e8000 a5
+Memory 5a d1448000
+Memory 5b 4e4e8000 a5
+Memory 5d 48050000
+Memory 5e 48380000 20
+Memory 60 a8248000
+Memory 61 c0008000
+Memory 62 c9448000
+Memory 63 a1400000
+Memory 64 4e4e8000 a5
+Memory 66 48180000 f
+Memory 68 80070000
+Memory 69 49470000
+Memory 6a c1580000 16
+Memory 6c c9580000 1c
+Memory 6e 494d0000 95
+Memory 70 48080000 95
+Memory 72 b1400000
+Memory 73 4e4e8000 a5
+Memory 75 a14e0000 95
+Memory 77 4b650000 95
+Memory 79 a1f80000 1
+Memory 7b 8198000 ffffff8a
+Memory 7d a94e0000 95
+Memory 7f 4b650000 95
+Memory 81 a1f80000 1
+Memory 83 8198000 ffffff82
+Memory 85 b14e0000 95
+Memory 87 4b650000 95
+Memory 89 a1f80000 1
+Memory 8b 8198000 ffffff7a
+Memory 8d a14e0000 95
+Memory 8f 4b650000 95
+Memory 91 a1f80000 1
+Memory 93 8198000 ffffff72
+Source 0         lea     WARM,work0
+Source 2         lea     REGS, cond
+Source 4         trap    $SysOverlay
+Source 6 fetch:  mov     WARM(wpc),ci
+Source 8         mov     $maskT, work0   ;decipher type
+Source a         and     ci, work0
+Source b         shr     $31, work0      ;work 0 holds the type
+Source d         mov     TYPE(work0), rip ;jump on type
+Source f arith:  mov     ci,op
+Source 10         shl     $4,op
+Source 12         shr     $27,op
+Source 14         mov     $maskA, work0
+Source 16         and     ci,work0
+Source 17         shr     $12, work0      ;work 0 holds the addressing mode
+Source 19         mov     ci, src         ;get dst and src
+Source 1a         shr     $15, src
+Source 1c         and     $mask4, src
+Source 1e         mov     ci, dst
+Source 1f         shr     $19, dst
+Source 21         and     $mask4, dst
+Source 23         mov     ADDR(work0), rip
+Source 25 imd:    mov     ci, work0
+Source 26         and     $maskExp, work0 ;exponent
+Source 28         shr     $9, work0
+Source 2a         mov     ci, rhs
+Source 2b         and     $maskValue, rhs ;value
+Source 2d         shl     work0, rhs      ;shifted value in rhs
+Source 2e         mov     INSTR(op), rip
+Source 30 rim:    mov     ci, rhs
+Source 31         shl     $22, rhs
+Source 33         shr     $28, rhs        ;now we have src reg 2 in rhs
+Source 35         mov     REGS(rhs), rhs  ;rhs now has the value that was in register number rhs
+Source 37         mov     ci, shiftC
+Source 38         and     $maskShift, shiftC      ;shift count has the bits number to shift
+Source 3a         mov     ci, work0
+Source 3b         shl     $20, work0
+Source 3d         shr     $30, work0      ;work1 now has the shop
+Source 3f         mov     SHOP(work0),rip
+Source 41 rsr:    mov     $mask4, shiftC  ; shiftC := 15
+Source 43         and     ci, shiftC      ; shiftC := shiftC & ci; to get shift register
+Source 44         mov     REGS(shiftC), shiftC ; shiftC now has whatever was stored in the 
+Source 46         mov     ci, rhs 
+Source 47         shl     $22, rhs
+Source 49         shr     $28, rhs        ; rhs has src2 register
+Source 4b         mov     REGS(rhs), rhs  ; rhs now has whatever was stored in src reg 2
+Source 4d         mov     ci, work0
+Source 4e         shl     $20, work0
+Source 50         shr     $30, work0      ; work3 now has the shift op code
+Source 52         mov     SHOP(work0), rip
+Source 54 lsl:    shl     shiftC, rhs
+Source 55         mov     INSTR(op), rip
+Source 57 lsr:    shr     shiftC, rhs
+Source 58         mov     INSTR(op), rip
+Source 5a asr:    sar     shiftC, rhs
+Source 5b         mov     INSTR(op), rip
+Source 5d ror:    mov     rhs, work0
+Source 5e         mov     $32, work1      
+Source 60         sub     shiftC, work1   ;work3 := 32-shr
+Source 61         shl     work1, work0    ;work1 is low shr bits shifted (32-shr) to the left
+Source 62         shr     shiftC, rhs     ;work2 is the highest (32-shr) bits shifted shr to the right
+Source 63         add     work0, rhs
+Source 64         mov     INSTR(op), rip
+Source 66 rpm:    mov     $mask4, work0
+Source 68         and     ci, work0       ; work0 now has src reg 3
+Source 69         mov     ci, rhs
+Source 6a         shl     $22, rhs
+Source 6c         shr     $28, rhs        ; rhs now has src reg 2
+Source 6e         mov     REGS(rhs), rhs  ; rhs now has whatever was stored in the correspondent register
+Source 70         mov     REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
+Source 72         mul     work0, rhs
+Source 73         mov     INSTR(op), rip
+Source 75 add:    add     REGS(src), rhs
+Source 77         mov     rhs, REGS(dst)
+Source 79         add     $1, wpc
+Source 7b         jmp     fetch
+Source 7d sub:    sub     REGS(src), rhs
+Source 7f         mov     rhs, REGS(dst)
+Source 81         add     $1, wpc
+Source 83         jmp     fetch
+Source 85 mul:    mul     REGS(src), rhs
+Source 87         mov     rhs, REGS(dst)
+Source 89         add     $1, wpc
+Source 8b         jmp     fetch
+Source 8d mla:    add     REGS(src), rhs
+Source 8f         mov     rhs, REGS(dst)
+Source 91         add     $1, wpc
+Source 93         jmp     fetch
 End
