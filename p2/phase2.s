@@ -20,13 +20,20 @@
 	
 	lea	WARM,r0
 	trap	$SysOverlay
+
+	
 ;;; decipher type
+	
 fetch:	mov	WARM(wpc),ci
  	mov	$maskT, work0
 	and	ci, work0
 	shr	$31, work0	;work 0 holds the type
  	mov	TYPE(work0), rip
+
+
+	
 ;;; instruction types
+	
 arith:	mov 	ci,op
 	shl	$4,op
 	shr	$27,op
@@ -40,15 +47,23 @@ arith:	mov 	ci,op
 	shr     $19, dst
 	and     $mask4, dst
 	mov	ADDR(work0), rip
+
+
+	
 ;;; immediate mode
+	
 imd:	mov	ci, work0
 	and	$maskExp, work0	;exponent
 	shr	$9, work0
 	mov	ci, rhs
 	and	$maskValue, rhs	;value
 	shl	work0, rhs	;shifted value in rhs
-	mov     INSTR(op), rip	
+	mov     INSTR(op), rip
+
+
+	
 ;;; register shifted immediate mode
+
 rim:	mov	ci, rhs
 	shl	$22, rhs
 	shr	$28, rhs 	;now we have src reg 2 in rhs
@@ -58,7 +73,11 @@ rim:	mov	ci, rhs
 	shl	$20, work0
 	shr	$30, work0	;work1 now has the shop
 	mov 	SHOP(work0),rip
+
+
+	
 ;;; Register Shifted by Register Mode;;;
+	
 rsr:	mov	$mask4, shiftC	; shiftC := 15
 	and 	ci, shiftC	; shiftC := shiftC & ci; to get shift register
 	mov	ci, rhs	
@@ -70,24 +89,41 @@ rsr:	mov	$mask4, shiftC	; shiftC := 15
 	mov	REGS(rhs), rhs	; rhs now has whatever was stored in src reg 2
 	mov	REGS(shiftC), shiftC ; shiftC now has whatever was stored in the correspondent reg
 	mov	SHOP(work0), rip
+
+
+	
 ;;; logical shift left
+	
 lsl:	shl	shiftC, rhs
 	mov     INSTR(op), rip
+
+
+	
 ;;; logical shift right
 lsr:	shr	shiftC, rhs
 	mov     INSTR(op), rip
+
+	
+	
 ;;; arithmetic shift right
+
 asr:	sar	shiftC, rhs
 	mov     INSTR(op), rip
+
+	
 ;;; rotate right shift
+	
 ror:	mov	rhs, work0
 	mov	$32, work1	
 	sub	shiftC, work1	;work3 := 32-shr
 	shl	work1, work0	;work1 is low shr bits shifted (32-shr) to the left
 	shr	shiftC, rhs	;work2 is the highest (32-shr) bits shifted shr to the right
 	add	work0, rhs
-	mov     INSTR(op), rip	
+	mov     INSTR(op), rip
+
+	
 ;;; Register Product Mode
+	
 rpm:	mov	$mask4, work0
 	and	ci, work0	; work0 now has src reg 3
 	mov	ci, rhs
@@ -98,26 +134,45 @@ rpm:	mov	$mask4, work0
 	mul	work0, rhs
 	mov	INSTR(op), rip
 ls:
-branch:	
-;;; INSTRUCTIONS
+branch:
+
+
+
+	
+;;; OPERATIONS
+	
 add:	add	REGS(src), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp 	fetch
+
+	
 adc:
+
+
+	
 sub:	sub	REGS(src), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp 	fetch
+
+
+	
 cmp:
 eor:
 orr:
 and:
 tst:
+
+
+	
 mul:	mul	REGS(src), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp	fetch
+
+
+	
 mla:	add	REGS(src), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
