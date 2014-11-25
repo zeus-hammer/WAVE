@@ -11,7 +11,6 @@
 	.requ	ccr, r4
 	.requ	work0, r1
  	.requ	work1, r2
-
 		
  	.equ	maskT, 0xc000000 	;27 and 26th bit
 	.equ	maskA, 0x7800		;1 in 14,13,12th bit
@@ -21,9 +20,6 @@
 	.equ	maskExp, 0x1f00
 	
 	lea	WARM,r0
-	lea	REGS,reg
-	lea	INSTR,op
-	
 	trap	$SysOverlay
 ;;; decipher type
 fetch:	mov	WARM(wpc),ci
@@ -85,9 +81,15 @@ asr:	sar	shiftC, rhs
 ;;; rotate right shift
 ror:	mov	rhs, work0
 	mov	$32, work1	
+<<<<<<< HEAD
 	sub	shiftC, work1	;work1 := 32-shr
 	shl	work0, work0	;work0 is low shiftC bits shifted (32-shr) to the left
 	shr	shiftC, rhs	;rhs is the highest (32-shr) bits shifted shiftC to the right
+=======
+	sub	shiftC, work1	;work3 := 32-shr
+	shl	work1, work0	;work1 is low shr bits shifted (32-shr) to the left
+	shr	shiftC, rhs	;work2 is the highest (32-shr) bits shifted shr to the right
+>>>>>>> master
 	add	work0, rhs
 	mov     INSTR(op), rip	
 ;;; Register Product Mode
@@ -104,6 +106,8 @@ branch:
 ;;; INSTRUCTIONS
 add:	add	REGS(src), rhs
 	mov	rhs, REGS(dst)
+	add	$1, wpc
+	jmp 	fetch
 adc:
 	
 
