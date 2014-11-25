@@ -239,18 +239,26 @@ cmp:
 ;;;
 
 	
-;;; -1 INSTRUCTION(S)	
-eor:
+;;; 5 INSTRUCTION(S)	
+eor:	xor	REGS(lhs),rhs
+	mov 	rhs, REGS(dst)
+	mov 	ccr, wccr
+	add	$1, wpc
+	jmp 	fetch
 ;;; thoughts and improvepments?
-;;;
+;;;	
 ;;;
 ;;;
 ;;;
 ;;;
 
 
-;;; -1 INSTRUCTION(S)	
-orr:
+;;; 5 INSTRUCTION(S)	
+orr:	or	REGS(lhs), rhs
+	mov	rhs, REGS(dst)
+	mov	ccr, wccr
+	add	$1, wpc
+	jmp	fetch
 ;;; thoughts and improvements?
 ;;;
 ;;;
@@ -259,8 +267,12 @@ orr:
 ;;;
 	
 
-;;; -1 INSTRUCTION(S)	
-and:
+;;; 4 INSTRUCTION(S)	
+and:	and	REGS(lhs), rhs
+	mov 	rhs, REGS(dst)
+	mov	ccr, wccr
+	add	$1, wpc
+	jmp 	fetch
 ;;; thoughts and improvements?
 ;;;
 ;;;
@@ -268,9 +280,12 @@ and:
 ;;;
 ;;;
 	
-;;; -1 INSTRUCTION(S)
+;;; 4 INSTRUCTION(S)
 	
-tst:
+tst:	test	REGS(lhs), rhs
+	mov 	ccr, wccr
+	add	$1, wpc
+	jmp	fetch
 ;;; thoughts and improvements?
 ;;;
 ;;;
@@ -297,9 +312,7 @@ div:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	work0, REGS(dst)
 	add	$1, wpc
-	jmp	fetch
-
-	
+	jmp	fetch	
 ;;; thoughts and improvements?
 ;;;	
 ;;;
