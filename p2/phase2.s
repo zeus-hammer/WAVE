@@ -118,7 +118,7 @@ rsr:	mov	$mask4, shiftC	; shiftC := 15
 	mov	SHOP(work0), rip
 
 
-	;;; --------------------------BEGIN SHIFTING MODES-------------------------
+;;; --------------------------BEGIN SHIFTING MODES-------------------------
 
 	
 ;;; logical shift left
@@ -308,7 +308,7 @@ div:	mov 	REGS(lhs), work0
 	
 	
 ;;; -1 INSTRUCTIONS	
-mov:
+mov:	mov	rhs, REGS(dst)
 ;;; thoughts and improvements?
 ;;;
 ;;;
