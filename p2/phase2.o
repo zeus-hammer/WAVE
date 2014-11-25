@@ -1,9 +1,9 @@
 WindObjectFile1
 File phase2.s
-Symbol ADDR 199
-Symbol INSTR 167
-Symbol REGS 151
-Symbol SHOP 206
+Symbol ADDR 203
+Symbol INSTR 171
+Symbol REGS 155
+Symbol SHOP 210
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -12,27 +12,27 @@ Symbol SysOverlay 6
 Symbol SysPLA 7
 Symbol SysPutChar 3
 Symbol SysPutNum 4
-Symbol TYPE 195
-Symbol WARM 210
+Symbol TYPE 199
+Symbol WARM 214
 Symbol adc 123
 Symbol add 115
-Symbol adr 151
+Symbol adr 155
 Symbol and 132
 Symbol arith 15
 Symbol asr 90
-Symbol bb 151
-Symbol bf 151
-Symbol blb 151
-Symbol blf 151
+Symbol bb 155
+Symbol bf 155
+Symbol blb 155
+Symbol blf 155
 Symbol branch 37
 Symbol cmp 132
 Symbol div 140
 Symbol eor 132
 Symbol fetch 6
 Symbol imd 37
-Symbol ldm 151
-Symbol ldr 151
-Symbol ldu 151
+Symbol ldm 155
+Symbol ldr 155
+Symbol ldu 155
 Symbol ls 37
 Symbol lsl 84
 Symbol lsr 87
@@ -44,17 +44,17 @@ Symbol maskT 201326592
 Symbol maskValue 511
 Symbol mov 149
 Symbol mul 132
-Symbol mvn 151
+Symbol mvn 155
 Symbol orr 132
 Symbol rim 48
 Symbol ror 93
 Symbol rpm 102
 Symbol rsr 65
-Symbol stm 151
-Symbol str 151
-Symbol stu 151
+Symbol stm 155
+Symbol str 155
+Symbol stu 155
 Symbol sub 123
-Symbol swi 151
+Symbol swi 155
 Symbol tst 132
 Register ci 14
 Register cond 8
@@ -85,10 +85,6 @@ Register shiftC 9
 Register work0 0
 Register work1 1
 Register wpc 15
-Memory 97 0
-Memory 98 0
-Memory 99 0
-Memory 9a 0
 Memory 9b 0
 Memory 9c 0
 Memory 9d 0
@@ -101,57 +97,61 @@ Memory a3 0
 Memory a4 0
 Memory a5 0
 Memory a6 0
-Memory a7 73
-Memory a8 7b
-Memory a9 7b
-Memory aa 84
-Memory ab 84
-Memory ac 84
-Memory ad 84
+Memory a7 0
+Memory a8 0
+Memory a9 0
+Memory aa 0
+Memory ab 73
+Memory ac 7b
+Memory ad 7b
 Memory ae 84
 Memory af 84
-Memory b0 0
-Memory b1 8c
-Memory b2 95
-Memory b3 97
-Memory b4 97
-Memory b5 97
-Memory b6 97
-Memory b7 97
-Memory b8 97
-Memory b9 97
-Memory ba 97
-Memory bb 97
-Memory bc 0
-Memory bd 0
-Memory be 0
-Memory bf 97
-Memory c0 97
-Memory c1 97
-Memory c2 97
-Memory c3 f
-Memory c4 f
-Memory c5 25
-Memory c6 25
-Memory c7 25
-Memory c8 25
+Memory b0 84
+Memory b1 84
+Memory b2 84
+Memory b3 84
+Memory b4 0
+Memory b5 8c
+Memory b6 95
+Memory b7 9b
+Memory b8 9b
+Memory b9 9b
+Memory ba 9b
+Memory bb 9b
+Memory bc 9b
+Memory bd 9b
+Memory be 9b
+Memory bf 9b
+Memory c0 0
+Memory c1 0
+Memory c2 0
+Memory c3 9b
+Memory c4 9b
+Memory c5 9b
+Memory c6 9b
+Memory c7 f
+Memory c8 f
 Memory c9 25
 Memory ca 25
-Memory cb 30
-Memory cc 41
-Memory cd 66
-Memory ce 54
-Memory cf 57
-Memory d0 5a
-Memory d1 5d
-Memory 0 40198000 d1
-Memory 2 41198000 94
+Memory cb 25
+Memory cc 25
+Memory cd 25
+Memory ce 25
+Memory cf 30
+Memory d0 41
+Memory d1 66
+Memory d2 54
+Memory d3 57
+Memory d4 5a
+Memory d5 5d
+Memory 0 40198000 d5
+Memory 2 41198000 98
 Memory 4 180000 6
-Memory 6 49cf8000 d2
+Memory 6 49cf8000 d6
 Memory 8 48180000 c000000
 Memory a 80070000
 Memory b c8180000 1f
-Memory d 4e480000 c3
+Memory d 4e480000 c7
 Memory f 49a70000
 Memory 10 c1b80000 4
 Memory 12 c9b80000 1b
@@ -164,75 +164,77 @@ Memory 1c 81980000 f
 Memory 1e 49670000
 Memory 1f c9780000 13
 Memory 21 81780000 f
-Memory 23 4e480000 c7
+Memory 23 4e480000 cb
 Memory 25 48070000
 Memory 26 80180000 1f00
 Memory 28 c8180000 9
 Memory 2a 49470000
 Memory 2b 81580000 1ff
 Memory 2d c1400000
-Memory 2e 4e4e8000 a7
+Memory 2e 4e4e8000 ab
 Memory 30 49470000
 Memory 31 c1580000 16
 Memory 33 c9580000 1c
-Memory 35 494d0000 97
+Memory 35 494d0000 9b
 Memory 37 49270000
 Memory 38 81380000 3f
 Memory 3a 48070000
 Memory 3b c0180000 14
 Memory 3d c8180000 1e
-Memory 3f 4e480000 ce
+Memory 3f 4e480000 d2
 Memory 41 49380000 f
 Memory 43 81270000
-Memory 44 492c8000 97
+Memory 44 492c8000 9b
 Memory 46 49470000
 Memory 47 c1580000 16
 Memory 49 c9580000 1c
-Memory 4b 494d0000 97
+Memory 4b 494d0000 9b
 Memory 4d 48070000
 Memory 4e c0180000 14
 Memory 50 c8180000 1e
-Memory 52 4e480000 ce
+Memory 52 4e480000 d2
 Memory 54 c1448000
-Memory 55 4e4e8000 a7
+Memory 55 4e4e8000 ab
 Memory 57 c9448000
-Memory 58 4e4e8000 a7
+Memory 58 4e4e8000 ab
 Memory 5a d1448000
-Memory 5b 4e4e8000 a7
+Memory 5b 4e4e8000 ab
 Memory 5d 48050000
 Memory 5e 48380000 20
 Memory 60 a8248000
 Memory 61 c0008000
 Memory 62 c9448000
 Memory 63 a1400000
-Memory 64 4e4e8000 a7
+Memory 64 4e4e8000 ab
 Memory 66 48180000 f
 Memory 68 80070000
 Memory 69 49470000
 Memory 6a c1580000 16
 Memory 6c c9580000 1c
-Memory 6e 494d0000 97
-Memory 70 48080000 97
+Memory 6e 494d0000 9b
+Memory 70 48080000 9b
 Memory 72 b1400000
-Memory 73 a14e0000 97
-Memory 75 4b650000 97
+Memory 73 a14e0000 9b
+Memory 75 4b650000 9b
 Memory 77 a1f80000 1
 Memory 79 8198000 ffffff8c
-Memory 7b 480e0000 97
+Memory 7b 480e0000 9b
 Memory 7d a8050000
-Memory 7e 4b600000 97
+Memory 7e 4b600000 9b
 Memory 80 a1f80000 1
 Memory 82 8198000 ffffff83
-Memory 84 b14e0000 97
-Memory 86 4b650000 97
+Memory 84 b14e0000 9b
+Memory 86 4b650000 9b
 Memory 88 a1f80000 1
 Memory 8a 8198000 ffffff7b
-Memory 8c 480e0000 97
+Memory 8c 480e0000 9b
 Memory 8e b8050000
-Memory 8f 4b600000 97
+Memory 8f 4b600000 9b
 Memory 91 a1f80000 1
 Memory 93 8198000 ffffff72
-Memory 95 4b650000 97
+Memory 95 4b650000 9b
+Memory 97 a1f80000 1
+Memory 99 8198000 ffffff6c
 Source 0         lea     WARM,work0
 Source 2         lea     REGS, cond
 Source 4         trap    $SysOverlay
@@ -322,4 +324,6 @@ Source 8f         mov     work0, REGS(dst)
 Source 91         add     $1, wpc
 Source 93         jmp     fetch
 Source 95 mov:    mov     rhs, REGS(dst)
+Source 97         add     $1, wpc
+Source 99         jmp     fetch
 End
