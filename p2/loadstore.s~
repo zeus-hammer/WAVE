@@ -1,0 +1,6 @@
+;;; load store
+
+loadstore:
+;;; move the dest reg int dst
+	mov	ci, work0
+	
