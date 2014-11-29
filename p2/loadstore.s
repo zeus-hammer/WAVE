@@ -43,13 +43,15 @@ asrIndex:
 	mov	rhs(work1), lhs
 	mov	OPind(op), rip
 rorIndex:			;rotate work1 shiftC
-	mov	$32, 
+	mov	work1, lhs
+	shr	shiftC, lhs	;lhs now has shifted version, now just grab the wrap around
+	mov	$32, work0
+	sub	shiftC, work0	;work0 now has 32-shiftC
+	shl	work0, work1	;work1 has the wrap around
+	add	lhs, work1	;put wrap around and shift together
 	mov	rhs(work1), lhs
 	mov	OPind(op), rip
 
-asrIndex:
-
-rorIndex:	
 	
 ;;; going to take work1, shift by shiftC, add to rhs, put in lhs
 ;;; go to individual shifting mode, shift work1 by work3, then work0(work1) into lhs and OPind(work), rip for the jump table
