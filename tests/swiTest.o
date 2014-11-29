@@ -1,5 +1,5 @@
 WarmObjectFile2
-File movTest2.s
+File swiTest.s
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -40,20 +40,14 @@ Register v4 7
 Register v5 8
 Register v6 9
 Register v7 10
-Memory 0 5800003
-Memory 1 5804003
-Memory 2 201
-Memory 3 4080003
-Memory 4 490e040
-Memory 5 5190201
-Memory 6 5194041
-Memory 7 5195440
-Source 0         mov     r0, #3          ;3 in r0
-Source 1         mov     r0, r0, lsl #3  ;24 in r0
-Source 2         add     r0, r0, #2
-Source 3         mul     r1, r0, #3      
-Source 4         mla     r2, r1, r1, r0  
-Source 5         div     r3, r2, #2      
-Source 6         div     r3, r2, r1, lsl #1 
-Source 7         div     r3, r2, r1, lsr r0 
+Memory 0 6800601
+Memory 1 6800009
+Memory 2 6800801
+Memory 3 6800011
+Memory 4 6800209
+Source 0         swi     #8      
+Source 1         swi     #9
+Source 2         swi     #16
+Source 3         swi     #17
+Source 4         swi     #18
 End

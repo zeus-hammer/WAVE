@@ -1,4 +1,4 @@
-;;; emulator for warm - phase2p
+;;; emulator for warm - phase 2
 ;;; (c) d.r.smith modsoussi bijan
 	.requ	wpc, r15
 	.requ	ci, r14
@@ -21,6 +21,7 @@
 	
 	lea	WARM,work0
 	trap	$SysOverlay
+
 ;;; --------------------BEGIN FETCHING THE INSTRUCTION-------------------
 
 ;;; we should double up on these. one for after the wCCR has been set for the
@@ -32,45 +33,38 @@
 fetch:	mov	WARM(wpc),ci
 	mov	ci, work0
 	shr	$29, work0	;high 3 condition bits in work0
-;;; to do it or not to do it. that is the question	
-	cmovg	COND(work0), rip
+	cmovg	COND(work0,wRRC), rip
+;;; to do it or not to do it. that is the question
+	
 ;;; snag the opcode
 getop:	mov 	ci,op
 	shl	$3,op
-	shr	$26,op
+	shr	$27,op
 ;;; switch on the opcode
 	mov	TYPE(op), rip
-never:	mov	NEVER(wCCR),rip
-equal:	mov	EQ(wCCR),rip
-ne:	mov	NE(wCCR),rip
-lesst:	mov	LT(wCCR),rip
-lesse:	mov	LE(wCCR),rip
-greate:	mov	GE(wCCR),rip
-gt:	mov	GT(wCCR),rip
 ;;; ----------------------END FETCH--------------------------------------
 ;;; ARITH
 ;;; 13 INSTRUCTIONS
-noDST:	mov     ci, lhs		;get dst and lhs
+full:	mov     ci, lhs		;get dst and lhs
 	shr     $15, lhs
 	and     $maskLow4, lhs
-	jmp 	oRHS
-ALL3:	mov     ci, lhs		;get dst and lhs
-	shr     $15, lhs
-	and     $maskLow4, lhs
-oDST:	mov     ci, dst
+odst:	mov     ci, dst
 	shr     $19, dst
 	and     $maskLow4, dst
-oRHS:	mov 	$maskA, work0
+orhs:	mov 	$maskA, work0
 	and 	ci,work0
 	shr	$12, work0	;work 0 holds the addressing mode
 	mov	ADDR(work0), rip
-;;; LOAD STORE
-ls:
-;;; BRANCHING
+ls:	
 branch:
+
+
 ;;; -------------------END INSTRUCTION TYPES------------------------------
+
+	
 	
 ;;; -------------------BEGIN ADDRESSING MODES------------------------------
+	
 ;;; Immediate Mode
 ;;; 7 INSTRUCTIONS
 imd:	mov	ci, work0
@@ -80,6 +74,7 @@ imd:	mov	ci, work0
 	and	$maskValue, rhs	;value
 	shl	work0, rhs	;shifted value in rhs
 	mov     INSTR(op), rip
+	
 ;;; Register Shifted by Immediate Mode
 ;;; 10 INSTRUCTIONS
 rim:	mov	ci, rhs
@@ -92,6 +87,7 @@ rim:	mov	ci, rhs
 	shl	$20, work0
 	shr	$30, work0	;work1 now has the shop
 	mov 	SHOP(work0),rip
+
 ;;; Register Shifted by Register Mode
 ;;; 11 INSTRUCTIONS
 rsr:	mov	$maskLow4, shiftC	; shiftC := 15
@@ -106,18 +102,22 @@ rsr:	mov	$maskLow4, shiftC	; shiftC := 15
 	shr	$30, work0	; work0 now has the shift op code
 	mov	SHOP(work0), rip
 ;;; --------------------------BEGIN SHIFTING MODES-------------------------
+	
 ;;; logical shift left
 ;;; 2 INSTRUCTIONS
 lsl:	shl	shiftC, rhs
 	mov     INSTR(op), rip
+
 ;;; logical shift right
 ;;; 2 INSTRUCTIONS
 lsr:	shr	shiftC, rhs
 	mov     INSTR(op), rip
+
 ;;; arithmetic shift right
 ;;; 2 INSTRUCTIONS
 asr:	sar	shiftC, rhs
 	mov     INSTR(op), rip
+	
 ;;; rotate right shift
 ;;; 7 INSTRUCTIONS
 ror:	mov	rhs, work0
@@ -127,7 +127,9 @@ ror:	mov	rhs, work0
 	shr	shiftC, rhs	;work2 is the highest (32-shr) bits shifted shr to the right
 	add	work0, rhs
 	mov     INSTR(op), rip
+
 ;;; -------------------------END SHIFTING MODES----------------------
+	
 ;;; Register Product Mode
 ;;; 8 INSTRUCTIONS
 rpm:	mov	$maskLow4, work0
@@ -139,15 +141,21 @@ rpm:	mov	$maskLow4, work0
 	mov	REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
 	mul	work0, rhs
 ;;; -------------------------END ADDRESSING MODES--------------------------
+
+
 ;;; -------------------------BEGIN OPERATIONS------------------------------------
 ;;; thoughts and improvements for all operations:
+;;; the adding one to the wpc is a terrible monkey patch
+;;; how can we jump back up with a reloaded wpc in one instruction?
+
+	
 ;;; 4 INSTRUCTION(S)	
 add:	add	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp 	fetch
-
 adc:
+
 ;;; 5 INSTRUCTION(S)
 ;;; backwards (like div)
 sub:	mov	REGS(lhs), work0
@@ -156,26 +164,41 @@ sub:	mov	REGS(lhs), work0
 	add	$1, wpc
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)	
+cmp:	mov 	REGS(lhs), work0
+	sub 	rhs, work0
+	mov	ccr, wCCR
+	add	$1, wpc
+	jmp 	fetch
+;;; 5 INSTRUCTION(S)	
 eor:	xor	REGS(lhs),rhs
 	mov 	rhs, REGS(dst)
+	mov 	ccr, wccr
 	add	$1, wpc
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)	
 orr:	or	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
+	mov	ccr, wccr
 	add	$1, wpc
 	jmp	fetch
 ;;; 4 INSTRUCTION(S)	
 and:	and	REGS(lhs), rhs
 	mov 	rhs, REGS(dst)
+	mov	ccr, wccr
 	add	$1, wpc
 	jmp 	fetch
+;;; 4 INSTRUCTION(S)
+tst:	test	REGS(lhs), rhs
+	mov 	ccr, wccr
+	add	$1, wpc
+	jmp	fetch
 ;;; 4 INSTRUCTION(S)
 mul:	mul	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp	fetch
 ;;; 5 INSTRUCTION(S)
+;;; backwards (like sub)
 div:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	work0, REGS(dst)
@@ -186,7 +209,7 @@ mov:	mov	rhs, REGS(dst)
 	add	$1, wpc
 	jmp 	fetch
 mvn:
-swi:	trap 	rhs
+swi:
 ldm:
 stm:
 ldr:
@@ -198,102 +221,14 @@ bf:
 bb:
 blf:
 blb:
-
-
-;;; second set of instrucions. for use when we don't 
-addCC:	add	REGS(lhs), rhs
-	mov	ccr,wCCR	
-	mov	rhs, REGS(dst)
-	add	$1, wpc
-	jmp 	fetch
-adcCC:
-;;; 5 INSTRUCTION(S)
-;;; backwards (like div)
-subCC:	mov	REGS(lhs), work0
-	sub	rhs, work0
-	mov	ccr,wCCR
-	mov	work0, REGS(dst)
-	add	$1, wpc
-	jmp 	fetch
-;;; 5 INSTRUCTION(S)	
-cmpCC:	mov 	REGS(lhs), work0
-	sub 	rhs, work0
-	mov	ccr, wCCR
-	add	$1, wpc
-	jmp 	fetch
-;;; 5 INSTRUCTION(S)	
-eorCC:	xor	REGS(lhs),rhs
-	mov 	ccr, wCCR	
-	mov 	rhs, REGS(dst)
-	add	$1, wpc
-	jmp 	fetch
-;;; 5 INSTRUCTION(S)	
-orrCC:	or	REGS(lhs), rhs
-	mov	ccr, wCCR	
-	mov	rhs, REGS(dst)
-	add	$1, wpc
-	jmp	fetch
-;;; 4 INSTRUCTION(S)	
-andCC:	and	REGS(lhs), rhs
-	mov	ccr, wCCR	
-	mov 	rhs, REGS(dst)
-	add	$1, wpc
-	jmp 	fetch
-;;; 4 INSTRUCTION(S)
-tstCC:	test	REGS(lhs), rhs
-	mov 	ccr, wCCR
-	add	$1, wpc
-	jmp	fetch
-;;; 4 INSTRUCTION(S)
-mulCC:	mul	REGS(lhs), rhs
-	mov	ccr,wCCR	
-	mov	rhs, REGS(dst)
-	add	$1, wpc
-	jmp	fetch
-;;; backwards (like sub)
-divCC:	mov 	REGS(lhs), work0
-	div	rhs, work0
-	mov	ccr,wCCR		
-	mov	work0, REGS(dst)
-	add	$1, wpc
-	jmp	fetch	
-;;; 3 INSTRUCTION(S)
-movCC:	mov	rhs, REGS(dst)
-;;; 	and	rhs,rhs
-	mov	ccr,wCCR			
-	add	$1, wpc
-	jmp 	fetch
-mvnCC:
-swiCC:	trap	rhs
-ldmCC:
-ldrCC:
-strCC:
-lduCC:
-stuCC:
-done:	trap	$SysHalt
-	
 REGS:
 	.data	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 INSTR:
-	.data 	add,adc,sub,0,eor,orr,and,0,mul,0,div,mov,mvn,swi,ldm,stm,ldr,str,ldu,stu,adr,0,0,0,bf,bb,blf,blb,0,0,0,0,addCC,adcCC,subCC,cmpCC,eorCC,orrCC,andCC,tstCC,mulCC,0,divCC,movCC,mvnCC,swiCC,ldmCC,0,ldrCC,strCC,lduCC,stuCC
+	.data 	add,adc,sub,cmp,eor,orr,and,tst,mul,0,div,mov,mvn,swi,ldm,stm,ldr,str,ldu,stu,adr,0,0,0,bf,bb,blf,blb
 TYPE:
-	.data	ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,oDST,oDST,oRHS,ALL3,ls,ls,ls,ls,ls,ls,0,0,0,branch,branch,branch,branch,0,0,0,0,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,noDST,ALL3,ALL3,0,ALL3,oDST,oDST,oRHS,ALL3,ls,ls,ls,ls,ls,ls,0,0,0,branch,branch,branch,branch
+	.data	full,full,full,full,full,full,full,full,full,0,full,jdst,jdst,jrhs,full,ls,ls,ls,ls,ls,ls,0,0,0,branch,branch,branch,branch,0,0,0,0,full,full,full,full,full,full,full,full,full,0,full,jdst,jdst,jrhs,full,ls,ls,ls,ls,ls,ls,0,0,0,branch,branch,branch,branch
 COND:
-	.data	0,never,equal,ne,lesst,lesse,greate,gt
-NEVER:
-	.data   done,done,done,done,done,done,done,done,done,done,done,done,done,done,done,done
-EQ:
-	.data	done,done,done,done,getop,getop,getop,done,done,done,done,done,done,getop,getop,getop
-NE:
-	.data	getop,getop,getop,getop,done,done,done,getop,getop,getop,getop,getop,getop,done,done,done
-LT:
-	.data	done,getop,done,getop,done,getop,done,getop,getop,done,getop,getop,done,getop,done,getop
-LE:
-	.data	done,getop,done,getop,getop,getop,getop,getop,getop,done,getop,getop,done,getop,getop,getop
-GE:
-	.data	getop,done,getop,done,getop,done,getop,done,getop,done,getop,done,getop,done,getop,done
-GT:
-	.data	getop,done,getop,done,done,done,done,done,done,getop,done,done,getop,done,done,done
+	.data	always, never, eq, ne, lt, le, ge, gt
 ADDR:
 	.data 	imd, imd, imd, imd, rim, rsr, rpm
 SHOP:

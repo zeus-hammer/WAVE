@@ -1,0 +1,8 @@
+;;; testing condition codes
+;;; (c) drsmith
+
+	mov 	r0, #10
+	swi	$SysPutNum
+	
+
+

@@ -1,0 +1,242 @@
+WarmObjectFile2
+File phase2test.s
+Symbol SysEntropy 5
+Symbol SysGetChar 1
+Symbol SysGetNum 2
+Symbol SysHalt 0
+Symbol SysOverlay 6
+Symbol SysPLA 7
+Symbol SysPutChar 3
+Symbol SysPutNum 4
+Symbol eight 46
+Symbol five 25
+Symbol four 20
+Symbol heaven 93
+Symbol nine 74
+Symbol one 4
+Symbol seven 39
+Symbol six 32
+Symbol three 15
+Symbol two 9
+Symbol zero 0
+Register a1 0
+Register a2 1
+Register a3 2
+Register a4 3
+Register ccr 16
+Register fp 11
+Register lr 14
+Register pc 15
+Register r0 0
+Register r1 1
+Register r10 10
+Register r11 11
+Register r12 12
+Register r13 13
+Register r14 14
+Register r15 15
+Register r2 2
+Register r3 3
+Register r4 4
+Register r5 5
+Register r6 6
+Register r7 7
+Register r8 8
+Register r9 9
+Register sp 13
+Register v1 4
+Register v2 5
+Register v3 6
+Register v4 7
+Register v5 8
+Register v6 9
+Register v7 10
+Memory 0 8043c0
+Memory 1 6800401
+Memory 2 5800205
+Memory 3 6800003
+Memory 4 5880001
+Memory 5 5804040
+Memory 6 6800401
+Memory 7 5800205
+Memory 8 6800003
+Memory 9 5880001
+Memory a 5904040
+Memory b c080
+Memory c 6800401
+Memory d 5800205
+Memory e 6800003
+Memory f 5800001
+Memory 10 4001
+Memory 11 6800401
+Memory 12 5800205
+Memory 13 6800003
+Memory 14 5881801
+Memory 15 5009401
+Memory 16 6800401
+Memory 17 5800205
+Memory 18 6800003
+Memory 19 6080005
+Memory 1a 108001
+Memory 1b 6180000
+Memory 1c 40140c0
+Memory 1d 6800401
+Memory 1e 5800205
+Memory 1f 6800003
+Memory 20 6080401
+Memory 21 6100000
+Memory 22 5980001
+Memory 23 481e081
+Memory 24 6800401
+Memory 25 5800205
+Memory 26 6800003
+Memory 27 588434c
+Memory 28 588484c
+Memory 29 590001d
+Memory 2a 5805442
+Memory 2b 6800401
+Memory 2c 5800205
+Memory 2d 6800003
+Memory 2e 5880001
+Memory 2f 6100001
+Memory 30 5984c5f
+Memory 31 6200201
+Memory 32 5a80003
+Memory 33 6300003
+Memory 34 5b80401
+Memory 35 6400401
+Memory 36 5c80005
+Memory 37 6500005
+Memory 38 5d80203
+Memory 39 6600203
+Memory 3a c080
+Memory 3b 40c0
+Memory 3c 4100
+Memory 3d 4140
+Memory 3e 4180
+Memory 3f c1c0
+Memory 40 4200
+Memory 41 4240
+Memory 42 4280
+Memory 43 42c0
+Memory 44 4300
+Memory 45 6004000
+Memory 46 5805005
+Memory 47 6800401
+Memory 48 5800205
+Memory 49 6800003
+Memory 4a 5884340
+Memory 4b 310800f
+Memory 4c 2190007
+Memory 4d 2818001
+Memory 4e 6800401
+Memory 4f 5800205
+Memory 50 6800003
+Memory 51 5800411
+Memory 52 6800003
+Memory 53 580006f
+Memory 54 6800003
+Memory 55 5800237
+Memory 56 6800003
+Memory 57 5800065
+Memory 58 6800003
+Memory 59 5800021
+Memory 5a 6800003
+Memory 5b 5800205
+Memory 5c 6800003
+Memory 5d 6800000
+Source 0 zero:   adc     r0,r0,pc         
+Source 1         swi     #SysPutNum
+Source 2         mov     r0,#'\n
+Source 3         swi     #SysPutChar
+Source 4 one:    mov     r1,#1
+Source 5         mov     r0,r1
+Source 6         swi     #SysPutNum
+Source 7         mov     r0,#'\n
+Source 8         swi     #SysPutChar
+Source 9 two:    mov     r1,#1
+Source a         mov     r2,r1
+Source b         add     r0,r1,r2
+Source c         swi     #SysPutNum
+Source d         mov     r0,#'\n
+Source e         swi     #SysPutChar
+Source f three:  mov     r0,#1
+Source 10         add     r0,r0,r0,lsl #1
+Source 11         swi     #SysPutNum
+Source 12         mov     r0,#'\n
+Source 13         swi     #SysPutChar
+Source 14 four:   mov     r1,#4096
+Source 15         div     r0,r1,#1024
+Source 16         swi     #SysPutNum
+Source 17         mov     r0,#'\n
+Source 18         swi     #SysPutChar
+Source 19 five:   mvn     r1,#5           ; test of move inverted
+Source 1a         add     r2,r1,#1
+Source 1b         mvn     r3,#0
+Source 1c         mul     r0,r2,r3
+Source 1d         swi     #SysPutNum
+Source 1e         mov     r0,#'\n
+Source 1f         swi     #SysPutChar
+Source 20 six:    mvn     r1,#4           ; r1 has -5
+Source 21         mvn     r2,#0           ; r2 has -1
+Source 22         mov     r3,#1           ; r3 has 1
+Source 23         mla     r0,r3,r2,r1     ; r0 has 6
+Source 24         swi     #SysPutNum
+Source 25         mov     r0,#'\n
+Source 26         swi     #SysPutChar
+Source 27 seven:  mov     r1,sp,lsl #12
+Source 28         mov     r1,r1,asr #12
+Source 29         mov     r2,#29
+Source 2a         mov     r0,r1,lsr r2
+Source 2b         swi     #SysPutNum
+Source 2c         mov     r0,#'\n
+Source 2d         swi     #SysPutChar
+Source 2e eight:  mov     r1,#1
+Source 2f         mvn     r2,#1
+Source 30         mov     r3,r1,ror #31
+Source 31         mvn     r4,#2
+Source 32         mov     r5,#3
+Source 33         mvn     r6,#3
+Source 34         mov     r7,#4
+Source 35         mvn     r8,#4
+Source 36         mov     r9,#5
+Source 37         mvn     r10,#5
+Source 38         mov     r11,#6
+Source 39         mvn     r12,#6
+Source 3a         add     r0,r1,r2
+Source 3b         add     r0,r0,r3
+Source 3c         add     r0,r0,r4
+Source 3d         add     r0,r0,r5
+Source 3e         add     r0,r0,r6
+Source 3f         add     r0,r1,r7
+Source 40         add     r0,r0,r8
+Source 41         add     r0,r0,r9
+Source 42         add     r0,r0,r10
+Source 43         add     r0,r0,r11
+Source 44         add     r0,r0,r12
+Source 45         mvn     r0,r0
+Source 46         mov     r0,r0,lsl r5
+Source 47         swi     #SysPutNum
+Source 48         mov     r0,#'\n
+Source 49         swi     #SysPutChar
+Source 4a nine:   mov     r1,sp
+Source 4b         and     r2,r1,#0b1111
+Source 4c         eor     r3,r2,#0b0111
+Source 4d         orr     r0,r3,#1
+Source 4e         swi     #SysPutNum
+Source 4f         mov     r0,#'\n
+Source 50         swi     #SysPutChar
+Source 51         mov     r0,#'D
+Source 52         swi     #SysPutChar
+Source 53         mov     r0,#'o
+Source 54         swi     #SysPutChar
+Source 55         mov     r0,#'n
+Source 56         swi     #SysPutChar
+Source 57         mov     r0,#'e
+Source 58         swi     #SysPutChar
+Source 59         mov     r0,#'!
+Source 5a         swi     #SysPutChar
+Source 5b         mov     r0,#'\n
+Source 5c         swi     #SysPutChar
+Source 5d heaven: swi     #SysHalt
+End

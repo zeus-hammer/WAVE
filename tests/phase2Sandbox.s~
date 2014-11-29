@@ -1,0 +1,6 @@
+;;; emulator for warm - phase2p
+;;; (c) d.r.smith modsoussi bijan
+	.equ	3, maskA
+	
+	lea	WARM,work0
+	trap	$SysOverlay
