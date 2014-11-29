@@ -12,8 +12,8 @@ branch:	mov	ci, work0
 branch:	add	ci, wpc
 	mul	$mask23to0, wpc
 	
+	shr	$22, ci		;ccr now has a 1 in the z if we are doing a bl
 	mov	ci, ccr
-	shr	$22, ccr	;ccr now has a 1 in the z if we are doing a bl
 	jne	fetch
 ;;; now we are in the link part
 	mov	wpc, wlr
