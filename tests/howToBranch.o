@@ -1,5 +1,5 @@
 WarmObjectFile2
-File eorTest.s
+File howToBranch.s
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -8,6 +8,8 @@ Symbol SysOverlay 6
 Symbol SysPLA 7
 Symbol SysPutChar 3
 Symbol SysPutNum 4
+Symbol end 4
+Symbol loop 1
 Register a1 0
 Register a2 1
 Register a3 2
@@ -40,12 +42,16 @@ Register v4 7
 Register v5 8
 Register v6 9
 Register v7 10
-Memory 0 5800201
-Memory 1 62000001
-Memory 2 46800401
-Memory 3 66800000
-Source 0         mov     r0, #2
-Source 1         eorne   r0, r0, #1
-Source 2         swieq   #SysPutNum
-Source 3         swine   #SysHalt
+Memory 0 15800000
+Memory 1 6c000003
+Memory 2 15800001
+Memory 3 cfffffe
+Memory 4 6800401
+Memory 5 6800000
+Source 0         movs    r0,#0   
+Source 1 loop:   bne     end
+Source 2         movs    r0, #1
+Source 3         b       loop
+Source 4 end:    swi     #SysPutNum
+Source 5         swi     #SysHalt        
 End

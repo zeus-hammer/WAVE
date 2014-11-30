@@ -1,0 +1,1060 @@
+WarmObjectFile2
+File clone2-documented.as
+Symbol OPCB 24
+Symbol OPCCMP 3
+Symbol OPCLDR 16
+Symbol OPCMOV 11
+Symbol OPCSWI 13
+Symbol OPCTST 7
+Symbol SysEntropy 5
+Symbol SysGetChar 1
+Symbol SysGetNum 2
+Symbol SysHalt 0
+Symbol SysOverlay 6
+Symbol SysPLA 7
+Symbol SysPutChar 3
+Symbol SysPutNum 4
+Symbol adcstr 409
+Symbol addstr 405
+Symbol adrstr 485
+Symbol alstr 383
+Symbol andstr 429
+Symbol asrstr 375
+Symbol blstr 491
+Symbol bstr 489
+Symbol cmpstr 417
+Symbol codedone 109
+Symbol comma 253
+Symbol contab 288
+Symbol data 256
+Symbol datadone 126
+Symbol dataloop 112
+Symbol datastr 498
+Symbol divstr 445
+Symbol done 149
+Symbol end 671
+Symbol eorstr 421
+Symbol eqstr 387
+Symbol finistr 657
+Symbol gestr 399
+Symbol gtstr 402
+Symbol headstr1 512
+Symbol headstr2 567
+Symbol illstr 494
+Symbol kneestr 648
+Symbol ldmstr 461
+Symbol ldrstr 469
+Symbol ldustr 477
+Symbol lestr 396
+Symbol loop 6
+Symbol lrstr 361
+Symbol lslstr 367
+Symbol lsrstr 371
+Symbol ltstr 393
+Symbol mlastr 441
+Symbol movstr 449
+Symbol mulstr 437
+Symbol mvnstr 453
+Symbol nestr 390
+Symbol nl 247
+Symbol nvstr 384
+Symbol optab 256
+Symbol orrstr 425
+Symbol pcstr 364
+Symbol putcmt 228
+Symbol putdec 208
+Symbol puthx 195
+Symbol putlabel 165
+Symbol putopcode 152
+Symbol putreg 172
+Symbol puts 240
+Symbol putshx 176
+Symbol r0str 316
+Symbol r10str 346
+Symbol r11str 350
+Symbol r12str 354
+Symbol r1str 319
+Symbol r2str 322
+Symbol r3str 325
+Symbol r4str 328
+Symbol r5str 331
+Symbol r6str 334
+Symbol r7str 337
+Symbol r8str 340
+Symbol r9str 343
+Symbol regtab 300
+Symbol rorstr 379
+Symbol shoptab 296
+Symbol spstr 358
+Symbol start 0
+Symbol stmstr 465
+Symbol stringloop 129
+Symbol strings 316
+Symbol stringstr 504
+Symbol strstr 473
+Symbol stustr 481
+Symbol substr 413
+Symbol swistr 457
+Symbol tab 250
+Symbol torsostr 628
+Symbol tststr 433
+Register a1 0
+Register a2 1
+Register a3 2
+Register a4 3
+Register ccr 16
+Register fp 11
+Register lr 14
+Register pc 15
+Register r0 0
+Register r1 1
+Register r10 10
+Register r11 11
+Register r12 12
+Register r13 13
+Register r14 14
+Register r15 15
+Register r2 2
+Register r3 3
+Register r4 4
+Register r5 5
+Register r6 6
+Register r7 7
+Register r8 8
+Register r9 9
+Register sp 13
+Register v1 4
+Register v2 5
+Register v3 6
+Register v4 7
+Register v5 8
+Register v6 9
+Register v7 10
+Memory 100 195
+Memory 101 199
+Memory 102 19d
+Memory 103 1a1
+Memory 104 1a5
+Memory 105 1a9
+Memory 106 1ad
+Memory 107 1b1
+Memory 108 1b5
+Memory 109 1b9
+Memory 10a 1bd
+Memory 10b 1c1
+Memory 10c 1c5
+Memory 10d 1c9
+Memory 10e 1cd
+Memory 10f 1d1
+Memory 110 1d5
+Memory 111 1d9
+Memory 112 1dd
+Memory 113 1e1
+Memory 114 1e5
+Memory 115 1ee
+Memory 116 1ee
+Memory 117 1ee
+Memory 118 1e9
+Memory 119 1e9
+Memory 11a 1eb
+Memory 11b 1eb
+Memory 11c 1ee
+Memory 11d 1ee
+Memory 11e 1ee
+Memory 11f 1ee
+Memory 120 17f
+Memory 121 180
+Memory 122 183
+Memory 123 186
+Memory 124 189
+Memory 125 18c
+Memory 126 18f
+Memory 127 192
+Memory 128 16f
+Memory 129 173
+Memory 12a 177
+Memory 12b 17b
+Memory 12c 13c
+Memory 12d 13f
+Memory 12e 142
+Memory 12f 145
+Memory 130 148
+Memory 131 14b
+Memory 132 14e
+Memory 133 151
+Memory 134 154
+Memory 135 157
+Memory 136 15a
+Memory 137 15e
+Memory 138 162
+Memory 139 166
+Memory 13a 169
+Memory 13b 16c
+Memory 13c 72
+Memory 13d 30
+Memory 13e 0
+Memory 13f 72
+Memory 140 31
+Memory 141 0
+Memory 142 72
+Memory 143 32
+Memory 144 0
+Memory 145 72
+Memory 146 33
+Memory 147 0
+Memory 148 72
+Memory 149 34
+Memory 14a 0
+Memory 14b 72
+Memory 14c 35
+Memory 14d 0
+Memory 14e 72
+Memory 14f 36
+Memory 150 0
+Memory 151 72
+Memory 152 37
+Memory 153 0
+Memory 154 72
+Memory 155 38
+Memory 156 0
+Memory 157 72
+Memory 158 39
+Memory 159 0
+Memory 15a 72
+Memory 15b 31
+Memory 15c 30
+Memory 15d 0
+Memory 15e 72
+Memory 15f 31
+Memory 160 31
+Memory 161 0
+Memory 162 72
+Memory 163 31
+Memory 164 32
+Memory 165 0
+Memory 166 73
+Memory 167 70
+Memory 168 0
+Memory 169 6c
+Memory 16a 72
+Memory 16b 0
+Memory 16c 70
+Memory 16d 63
+Memory 16e 0
+Memory 16f 6c
+Memory 170 73
+Memory 171 6c
+Memory 172 0
+Memory 173 6c
+Memory 174 73
+Memory 175 72
+Memory 176 0
+Memory 177 61
+Memory 178 73
+Memory 179 72
+Memory 17a 0
+Memory 17b 72
+Memory 17c 6f
+Memory 17d 72
+Memory 17e 0
+Memory 17f 0
+Memory 180 6e
+Memory 181 76
+Memory 182 0
+Memory 183 65
+Memory 184 71
+Memory 185 0
+Memory 186 6e
+Memory 187 65
+Memory 188 0
+Memory 189 6c
+Memory 18a 74
+Memory 18b 0
+Memory 18c 6c
+Memory 18d 65
+Memory 18e 0
+Memory 18f 67
+Memory 190 65
+Memory 191 0
+Memory 192 67
+Memory 193 74
+Memory 194 0
+Memory 195 61
+Memory 196 64
+Memory 197 64
+Memory 198 0
+Memory 199 61
+Memory 19a 64
+Memory 19b 63
+Memory 19c 0
+Memory 19d 73
+Memory 19e 75
+Memory 19f 62
+Memory 1a0 0
+Memory 1a1 63
+Memory 1a2 6d
+Memory 1a3 70
+Memory 1a4 0
+Memory 1a5 65
+Memory 1a6 6f
+Memory 1a7 72
+Memory 1a8 0
+Memory 1a9 6f
+Memory 1aa 72
+Memory 1ab 72
+Memory 1ac 0
+Memory 1ad 61
+Memory 1ae 6e
+Memory 1af 64
+Memory 1b0 0
+Memory 1b1 74
+Memory 1b2 73
+Memory 1b3 74
+Memory 1b4 0
+Memory 1b5 6d
+Memory 1b6 75
+Memory 1b7 6c
+Memory 1b8 0
+Memory 1b9 6d
+Memory 1ba 6c
+Memory 1bb 61
+Memory 1bc 0
+Memory 1bd 64
+Memory 1be 69
+Memory 1bf 76
+Memory 1c0 0
+Memory 1c1 6d
+Memory 1c2 6f
+Memory 1c3 76
+Memory 1c4 0
+Memory 1c5 6d
+Memory 1c6 76
+Memory 1c7 6e
+Memory 1c8 0
+Memory 1c9 73
+Memory 1ca 77
+Memory 1cb 69
+Memory 1cc 0
+Memory 1cd 6c
+Memory 1ce 64
+Memory 1cf 6d
+Memory 1d0 0
+Memory 1d1 73
+Memory 1d2 74
+Memory 1d3 6d
+Memory 1d4 0
+Memory 1d5 6c
+Memory 1d6 64
+Memory 1d7 72
+Memory 1d8 0
+Memory 1d9 73
+Memory 1da 74
+Memory 1db 72
+Memory 1dc 0
+Memory 1dd 6c
+Memory 1de 64
+Memory 1df 75
+Memory 1e0 0
+Memory 1e1 73
+Memory 1e2 74
+Memory 1e3 75
+Memory 1e4 0
+Memory 1e5 61
+Memory 1e6 64
+Memory 1e7 72
+Memory 1e8 0
+Memory 1e9 62
+Memory 1ea 0
+Memory 1eb 62
+Memory 1ec 6c
+Memory 1ed 0
+Memory 1ee 3f
+Memory 1ef 3f
+Memory 1f0 3f
+Memory 1f1 0
+Memory 1f2 2e
+Memory 1f3 64
+Memory 1f4 61
+Memory 1f5 74
+Memory 1f6 61
+Memory 1f7 0
+Memory 1f8 2e
+Memory 1f9 73
+Memory 1fa 74
+Memory 1fb 72
+Memory 1fc 69
+Memory 1fd 6e
+Memory 1fe 67
+Memory 1ff 0
+Memory 200 41
+Memory 201 20
+Memory 202 63
+Memory 203 6c
+Memory 204 6f
+Memory 205 6e
+Memory 206 65
+Memory 207 20
+Memory 208 70
+Memory 209 72
+Memory 20a 6f
+Memory 20b 67
+Memory 20c 72
+Memory 20d 61
+Memory 20e 6d
+Memory 20f 20
+Memory 210 66
+Memory 211 6f
+Memory 212 72
+Memory 213 20
+Memory 214 74
+Memory 215 68
+Memory 216 65
+Memory 217 20
+Memory 218 47
+Memory 219 72
+Memory 21a 65
+Memory 21b 61
+Memory 21c 74
+Memory 21d 20
+Memory 21e 43
+Memory 21f 6c
+Memory 220 61
+Memory 221 73
+Memory 222 73
+Memory 223 20
+Memory 224 6f
+Memory 225 66
+Memory 226 20
+Memory 227 32
+Memory 228 30
+Memory 229 31
+Memory 22a 30
+Memory 22b 2c
+Memory 22c 20
+Memory 22d 62
+Memory 22e 79
+Memory 22f 20
+Memory 230 44
+Memory 231 75
+Memory 232 61
+Memory 233 6e
+Memory 234 65
+Memory 235 2e
+Memory 236 0
+Memory 237 54
+Memory 238 68
+Memory 239 65
+Memory 23a 20
+Memory 23b 6f
+Memory 23c 75
+Memory 23d 74
+Memory 23e 70
+Memory 23f 75
+Memory 240 74
+Memory 241 20
+Memory 242 6f
+Memory 243 66
+Memory 244 20
+Memory 245 74
+Memory 246 68
+Memory 247 69
+Memory 248 73
+Memory 249 20
+Memory 24a 70
+Memory 24b 72
+Memory 24c 6f
+Memory 24d 67
+Memory 24e 72
+Memory 24f 61
+Memory 250 6d
+Memory 251 20
+Memory 252 73
+Memory 253 68
+Memory 254 6f
+Memory 255 75
+Memory 256 6c
+Memory 257 64
+Memory 258 20
+Memory 259 62
+Memory 25a 65
+Memory 25b 20
+Memory 25c 74
+Memory 25d 68
+Memory 25e 65
+Memory 25f 20
+Memory 260 73
+Memory 261 61
+Memory 262 6d
+Memory 263 65
+Memory 264 20
+Memory 265 61
+Memory 266 73
+Memory 267 20
+Memory 268 74
+Memory 269 68
+Memory 26a 65
+Memory 26b 20
+Memory 26c 73
+Memory 26d 6f
+Memory 26e 75
+Memory 26f 72
+Memory 270 63
+Memory 271 65
+Memory 272 2e
+Memory 273 0
+Memory 274 54
+Memory 275 61
+Memory 276 62
+Memory 277 6c
+Memory 278 65
+Memory 279 73
+Memory 27a 20
+Memory 27b 6f
+Memory 27c 66
+Memory 27d 20
+Memory 27e 70
+Memory 27f 6f
+Memory 280 69
+Memory 281 6e
+Memory 282 74
+Memory 283 65
+Memory 284 72
+Memory 285 73
+Memory 286 2e
+Memory 287 0
+Memory 288 53
+Memory 289 74
+Memory 28a 72
+Memory 28b 69
+Memory 28c 6e
+Memory 28d 67
+Memory 28e 73
+Memory 28f 2e
+Memory 290 0
+Memory 291 41
+Memory 292 6c
+Memory 293 6c
+Memory 294 20
+Memory 295 74
+Memory 296 6f
+Memory 297 6c
+Memory 298 64
+Memory 299 20
+Memory 29a 6f
+Memory 29b 75
+Memory 29c 74
+Memory 29d 2e
+Memory 29e 0
+Memory 0 a078200
+Memory 1 d0000e3
+Memory 2 a078235
+Memory 3 d0000e1
+Memory 4 a1780fc
+Memory 5 a0fbffb
+Memory 6 1180c080
+Memory 7 cc000066
+Memory 8 8188000
+Memory 9 5804040
+Memory a d00009b
+Memory b 580021d
+Memory c 6800003
+Memory d d0000ed
+Memory e 5a044d7
+Memory f 322001f
+Memory 10 d000088
+Memory 11 d0000e9
+Memory 12 11820603
+Memory 13 8c000007
+Memory 14 60030ff
+Memory 15 301c000
+Memory 16 5804008
+Memory 17 c808
+Memory 18 d00008d
+Memory 19 c000051
+Memory 1a 11820003
+Memory 1b 4c000009
+Memory 1c 11820007
+Memory 1d 4c000007
+Memory 1e 1182000d
+Memory 1f 4c000005
+Memory 20 58044d3
+Memory 21 300000f
+Memory 22 d00008a
+Memory 23 d0000da
+Memory 24 1182000b
+Memory 25 cc000005
+Memory 26 58044cf
+Memory 27 300000f
+Memory 28 d000084
+Memory 29 d0000d4
+Memory 2a 11820801
+Memory 2b cc000023
+Memory 2c 13019c01
+Memory 2d 6c000009
+Memory 2e 5800023
+Memory 2f 6800003
+Memory 30 30181ff
+Memory 31 5a844c9
+Memory 32 32a803f
+Memory 33 5805005
+Memory 34 d00007c
+Memory 35 c000035
+Memory 36 58044c6
+Memory 37 300000f
+Memory 38 d000074
+Memory 39 d0000c4
+Memory 3a 5a844cc
+Memory 3b 132a8003
+Memory 3c 11828001
+Memory 3d ec00000e
+Memory 3e 58044ca
+Memory 3f 3000003
+Memory 40 8000128
+Memory 41 d0000af
+Memory 42 11828001
+Memory 43 4c000006
+Memory 44 5800023
+Memory 45 6800003
+Memory 46 301803f
+Memory 47 d000089
+Memory 48 c000022
+Memory 49 5800a01
+Memory 4a 6800003
+Memory 4b 1301800f
+Memory 4c d000060
+Memory 4d c00001d
+Memory 4e 580005b
+Memory 4f 6800003
+Memory 50 5a8000f
+Memory 51 302c4cf
+Memory 52 d00005a
+Memory 53 d0000aa
+Memory 54 13019c01
+Memory 55 6c000007
+Memory 56 5800023
+Memory 57 6800003
+Memory 58 58040d2
+Memory 59 5804812
+Memory 5a d000056
+Memory 5b c00000d
+Memory 5c 58044c6
+Memory 5d 300000f
+Memory 5e d00004e
+Memory 5f d00009e
+Memory 60 58044ca
+Memory 61 3000003
+Memory 62 8000128
+Memory 63 d00008d
+Memory 64 5800023
+Memory 65 6800003
+Memory 66 301801f
+Memory 67 d000069
+Memory 68 580005d
+Memory 69 6800003
+Memory 6a d00008d
+Memory 6b 88001
+Memory 6c cffff9a
+Memory 6d a078207
+Memory 6e d000076
+Memory 6f a1780cd
+Memory 70 1180c080
+Memory 71 cc00000d
+Memory 72 5804040
+Memory 73 d000032
+Memory 74 580021d
+Memory 75 6800003
+Memory 76 d000084
+Memory 77 a07817b
+Memory 78 d000078
+Memory 79 d000081
+Memory 7a 9008001
+Memory 7b d00002a
+Memory 7c d00007b
+Memory 7d cfffff3
+Memory 7e a07820a
+Memory 7f d000065
+Memory 80 a17821f
+Memory 81 1180c080
+Memory 82 cc000013
+Memory 83 5804040
+Memory 84 d000021
+Memory 85 580021d
+Memory 86 6800003
+Memory 87 d000073
+Memory 88 a078170
+Memory 89 d000067
+Memory 8a d000070
+Memory 8b 5800211
+Memory 8c 6800003
+Memory 8d 19008001
+Memory 8e 4c000003
+Memory 8f 6800003
+Memory 90 cfffffd
+Memory 91 5800211
+Memory 92 6800003
+Memory 93 d000064
+Memory 94 cffffed
+Memory 95 a0781fc
+Memory 96 d00004e
+Memory 97 6800000
+Memory 98 9f6bfff
+Memory 99 7e80003
+Memory 9a 8020100
+Memory 9b d000055
+Memory 9c 58844dd
+Memory 9d 8008120
+Memory 9e d000052
+Memory 9f 1309b801
+Memory a0 4c000003
+Memory a1 5800073
+Memory a2 6800003
+Memory a3 7680003
+Memory a4 97e8001
+Memory a5 9f6bfff
+Memory a6 986bfff
+Memory a7 580060f
+Memory a8 6800003
+Memory a9 9068001
+Memory aa d000019
+Memory ab 97e8001
+Memory ac 9f6bfff
+Memory ad 800012c
+Memory ae d000042
+Memory af 97e8001
+Memory b0 9f6bfff
+Memory b1 11800000
+Memory b2 cc000005
+Memory b3 6704000
+Memory b4 580002d
+Memory b5 6800003
+Memory b6 70001
+Memory b7 11800205
+Memory b8 8c000009
+Memory b9 986bfff
+Memory ba 5800803
+Memory bb 6800003
+Memory bc 580060f
+Memory bd 6800003
+Memory be 9068001
+Memory bf d000004
+Memory c0 c000002
+Memory c1 d00000f
+Memory c2 97e8001
+Memory c3 9f6bfff
+Memory c4 1180000f
+Memory c5 8c000006
+Memory c6 986bfff
+Memory c7 5804404
+Memory c8 dfffffb
+Memory c9 9068001
+Memory ca 300000f
+Memory cb 11800205
+Memory cc 80000803
+Memory cd c0000057
+Memory ce 6800003
+Memory cf 97e8001
+Memory d0 9f6bfff
+Memory d1 11800000
+Memory d2 cc000005
+Memory d3 6704000
+Memory d4 580002d
+Memory d5 6800003
+Memory d6 70001
+Memory d7 11800205
+Memory d8 8c000009
+Memory d9 986bfff
+Memory da 5000205
+Memory db dfffff5
+Memory dc 8068000
+Memory dd 5700205
+Memory de 4770205
+Memory df 9068001
+Memory e0 1004380
+Memory e1 803
+Memory e2 6800003
+Memory e3 97e8001
+Memory e4 9f6bfff
+Memory e5 986bfff
+Memory e6 580003b
+Memory e7 6800003
+Memory e8 6800003
+Memory e9 6800003
+Memory ea 5800a01
+Memory eb 6800003
+Memory ec 9068001
+Memory ed d000003
+Memory ee d000009
+Memory ef 97e8001
+Memory f0 7e81609
+Memory f1 5d84000
+Memory f2 c000002
+Memory f3 6800003
+Memory f4 19058001
+Memory f5 6cfffffe
+Memory f6 7681611
+Memory f7 5800205
+Memory f8 6800003
+Memory f9 5f84380
+Memory fa 5800009
+Memory fb 6800003
+Memory fc 5f84380
+Memory fd 580040b
+Memory fe 6800003
+Memory ff 5f84380
+Source 0 start:  adr     r0,headstr1
+Source 1         bl      putcmt
+Source 2         adr     r0,headstr2
+Source 3         bl      putcmt
+Source 4         adr     r2,data
+Source 5         adr     r1,start
+Source 6 loop:   cmp     r1,r2
+Source 7         bge     codedone
+Source 8         ldr     r3,[r1]         ; r3 holds the current instruction
+Source 9         mov     r0,r1
+Source a         bl      putlabel
+Source b         mov     r0,#':
+Source c         swi     #SysPutChar
+Source d         bl      tab
+Source e         mov     r4,r3,lsr#23    ; grab opcode bits
+Source f         and     r4,r4,#0x1f     ;    into r4
+Source 10         bl      putopcode
+Source 11         bl      tab
+Source 12         cmp     r4,#OPCB
+Source 13         blt     _over2
+Source 14         mvn     r0,#0xff000000  ; compute displacement
+Source 15         and     r0,r3,r0
+Source 16         mov     r0,r0,lsl#8
+Source 17         add     r0,r1,r0,asr#8  ; add displacement to pc
+Source 18         bl      putlabel        ; print the label
+Source 19         b       _eoln
+Source 1a _over2: cmp     r4,#OPCCMP
+Source 1b         beq     _skipdest
+Source 1c         cmp     r4,#OPCTST
+Source 1d         beq     _skipdest
+Source 1e         cmp     r4,#OPCSWI
+Source 1f         beq     _skipdest
+Source 20         mov     r0,r3,lsr#19    ; get destination register
+Source 21         and     r0,r0,#0xf
+Source 22         bl      putreg
+Source 23         bl      comma
+Source 24 _skipdest: cmp  r4,#OPCMOV
+Source 25         bge     _skiplhs
+Source 26         mov     r0,r3,lsr#15
+Source 27         and     r0,r0,#0xf
+Source 28         bl      putreg
+Source 29         bl      comma
+Source 2a _skiplhs: cmp   r4,#OPCLDR
+Source 2b         bge     _ldst
+Source 2c         ands    r0,r3,#0x4000
+Source 2d         bne     _regrhs
+Source 2e         mov     r0,#'\#
+Source 2f         swi     #SysPutChar
+Source 30         and     r0,r3,#0x1ff
+Source 31         mov     r5,r3,lsr#9
+Source 32         and     r5,r5,#0x3f
+Source 33         mov     r0,r0,lsl r5
+Source 34         bl      putshx
+Source 35         b       _eoln
+Source 36         mov     r0,r3,lsr#6
+Source 37         and     r0,r0,#0xf
+Source 38         bl      putreg
+Source 39         bl      comma
+Source 3a         mov     r5,r3,lsr#12
+Source 3b         ands    r5,r5,#0x3
+Source 3c         cmp     r5,#1
+Source 3d         bgt     _printreg
+Source 3e         mov     r0,r3,lsr#10
+Source 3f         and     r0,r0,#0x3
+Source 40         ldr     r0,[r0,#shoptab]
+Source 41         bl      puts
+Source 42         cmp     r5,#1
+Source 43         beq     _printreg0
+Source 44         mov     r0,#'\#
+Source 45         swi     #SysPutChar
+Source 46         and     r0,r3,#0x3f
+Source 47         bl      putdec
+Source 48         b       _eoln
+Source 49 _printreg0: mov r0,#'\ 
+Source 4a         swi     #SysPutChar
+Source 4b         ands    r0,r3,#0xf
+Source 4c         bl      putreg
+Source 4d         b       _eoln
+Source 4e _ldst:  mov     r0,#'[
+Source 4f         swi     #SysPutChar
+Source 50         mov     r5,#15
+Source 51         and     r0,r5,r3,lsr #15
+Source 52         bl      putreg
+Source 53         bl      comma
+Source 54         ands    r0,r3,#0x4000   ; check the shop bit
+Source 55         bne     _ldstshop
+Source 56         mov     r0,#'#
+Source 57         swi     #SysPutChar
+Source 58         mov     r0,r3,lsl#18    ; sign extend displacement
+Source 59         mov     r0,r0,asr#18
+Source 5a         bl      putshx
+Source 5b         b       _ldstfini
+Source 5c         mov     r0,r3,lsr#6
+Source 5d         and     r0,r0,#0xf
+Source 5e         bl      putreg
+Source 5f         bl      comma   
+Source 60         mov     r0,r3,lsr#10
+Source 61         and     r0,r0,#3
+Source 62         ldr     r0,[r0,#shoptab]
+Source 63         bl      puts
+Source 64         mov     r0,#'\#
+Source 65         swi     #SysPutChar
+Source 66         and     r0,r3,#0x1f
+Source 67         bl      putdec
+Source 68         mov     r0,#']
+Source 69         swi     #SysPutChar
+Source 6a _eoln:  bl      nl
+Source 6b         add     r1,r1,#1
+Source 6c         b       loop
+Source 6d         adr     r0,torsostr
+Source 6e         bl      putcmt
+Source 6f         adr     r2,strings
+Source 70 dataloop: cmp   r1,r2
+Source 71         bge     datadone
+Source 72         mov     r0,r1
+Source 73         bl      putlabel
+Source 74         mov     r0,#':
+Source 75         swi     #SysPutChar
+Source 76         bl      tab
+Source 77         adr     r0,datastr
+Source 78         bl      puts
+Source 79         bl      tab
+Source 7a         ldu     r0,[r1,#1]
+Source 7b         bl      putlabel
+Source 7c         bl      nl
+Source 7d         b       dataloop
+Source 7e         adr     r0,kneestr
+Source 7f         bl      putcmt
+Source 80         adr     r2,end
+Source 81 stringloop:     cmp     r1,r2
+Source 82         bge     done
+Source 83         mov     r0,r1
+Source 84         bl      putlabel
+Source 85         mov     r0,#':
+Source 86         swi     #SysPutChar
+Source 87         bl      tab
+Source 88         adr     r0,stringstr
+Source 89         bl      puts
+Source 8a         bl      tab
+Source 8b         mov     r0,#'\"
+Source 8c         swi     #SysPutChar
+Source 8d _loop:  ldus    r0,[r1,#1]
+Source 8e         beq     _over
+Source 8f         swi     #SysPutChar
+Source 90         b       _loop
+Source 91 _over:  mov     r0,#'\"
+Source 92         swi     #SysPutChar
+Source 93         bl      nl
+Source 94         b       stringloop
+Source 95 done:   adr     r0,finistr
+Source 96         bl      putcmt
+Source 97         swi     #SysHalt
+Source 98         stu     lr,[sp,#-1]
+Source 99         stm     sp,#0x3         ; save registers 0 and 1
+Source 9a         ldr     r0,[r4,#optab]
+Source 9b         bl      puts            ;print base
+Source 9c         mov     r1,r3,lsr #29
+Source 9d         ldr     r0,[r1,#contab] ;grab condition code
+Source 9e         bl      puts            ;print
+Source 9f         ands    r1,r3,#0x10000000 ; s bit
+Source a0         beq     _fini
+Source a1         mov     r0,#'s          ; print s-bit
+Source a2         swi     #SysPutChar
+Source a3         ldm     sp,#0x3         ; restore the registers
+Source a4         ldu     pc,[sp,#1]      ; return
+Source a5         stu     lr,[sp,#-1]     ; save lr (call puthx)
+Source a6         stu     r0,[sp,#-1]     ; save r0, we're about to trash it
+Source a7         mov     r0,#'x
+Source a8         swi     #SysPutChar
+Source a9         ldu     r0,[sp,#1]      ; restore the number
+Source aa         bl      puthx           ; print in hex
+Source ab         ldu     pc,[sp,#1]      ; return
+Source ac         stu     lr,[sp,#-1]     ; save lr (calls putdec)
+Source ad         ldr     r0,[r0,#regtab] ; get register name
+Source ae         bl      puts            ; print
+Source af         ldu     pc,[sp,#1]      ; return
+Source b0 putshx: stu     lr,[sp,#-1]     ; save return address (recursive)
+Source b1         cmp     r0,#0           ; check for sign
+Source b2         bge     _pos
+Source b3         mvn     lr,r0
+Source b4         mov     r0,#'-          ; negative sign
+Source b5         swi     #SysPutChar
+Source b6         add     r0,lr,#1        ; inverted bits
+Source b7         cmp     r0,#10
+Source b8         blt     _dec
+Source b9         stu     r0,[sp,#-1]
+Source ba         mov     r0,#'0
+Source bb         swi     #SysPutChar
+Source bc         mov     r0,#'x
+Source bd         swi     #SysPutChar
+Source be         ldu     r0,[sp,#1]
+Source bf         bl      puthx
+Source c0         b       _fini
+Source c1 _dec:   bl      putdec
+Source c2 _fini:  ldu     pc,[sp,#1]
+Source c3 puthx:  stu     lr,[sp,#-1]     ; save return address (recursive)
+Source c4         cmp     r0,#0xf         ; is this a big number?
+Source c5         blt     _print          ; no: branch to non-recursive part
+Source c6         stu     r0,[sp,#-1]     ; save r0
+Source c7         mov     r0,r0,lsr#4     ; divide by 16
+Source c8         bl      puthx           ; print leftmost digits recursively
+Source c9         ldu     r0,[sp,#1]      ; restore r0
+Source ca         and     r0,r0,#0xf      ; mod by 16
+Source cb _print: cmp     r0,#10          ; is this a letter?
+Source cc         addlt   r0,r0,#'0       ; no: add '0'
+Source cd         addge   r0,r0,#87       ; yes: add 'a'-10
+Source ce         swi     #SysPutChar     ; print it!
+Source cf         ldu     pc,[sp,#1]
+Source d0 putdec: stu     lr,[sp,#-1]     ; save lr (recursive)
+Source d1         cmp     r0,#0           ; check for sign
+Source d2         bge     _pos
+Source d3         mvn     lr,r0
+Source d4         mov     r0,#'-          ; negative sign
+Source d5         swi     #SysPutChar
+Source d6         add     r0,lr,#1        ; inverted bits
+Source d7 _pos:   cmp     r0,#10          ; a multidigit value?
+Source d8         blt     _print          ; no: just print
+Source d9         stu     r0,[sp,#-1]     ; yes: save r0
+Source da         div     r0,r0,#10       ; divide by 10
+Source db         bl      putdec          ;  and print leftmost digits
+Source dc         ldr     r0,[sp]         ; restore r0 copy
+Source dd         div     lr,r0,#10       ; compute r0 mod 10...using lr!
+Source de         mul     lr,lr,#10       ; this is missing right digit
+Source df         ldu     r0,[sp,#1]      ; recover r0, again
+Source e0         sub     r0,r0,lr        ; subtract, for rightmost digit
+Source e1 _print: add     r0,r0,#'0       ; offset by '0'
+Source e2         swi     #SysPutChar     ; print it
+Source e3         ldu     pc,[sp,#1]      ; return
+Source e4 putcmt: stu     lr,[sp,#-1]
+Source e5         stu     r0,[sp,#-1]
+Source e6         mov     r0,#0x3b
+Source e7         swi     #SysPutChar
+Source e8         swi     #SysPutChar
+Source e9         swi     #SysPutChar
+Source ea         mov     r0,#'\ 
+Source eb         swi     #SysPutChar     
+Source ec         ldu     r0,[sp,#1]
+Source ed         bl      puts
+Source ee         bl      nl
+Source ef         ldu     pc,[sp,#1]
+Source f0 puts:   stm     sp,#0x4800
+Source f1         mov     r11,r0
+Source f2         b       _enter
+Source f3 _loop:  swi     #SysPutChar
+Source f4 _enter: ldus    r0,[r11,#1]
+Source f5         bne     _loop
+Source f6         ldm     sp,#0x8800
+Source f7 nl:     mov     r0,#'\n
+Source f8         swi     #SysPutChar
+Source f9         mov     pc,lr
+Source fa tab:    mov     r0,#'\t
+Source fb         swi     #SysPutChar
+Source fc         mov     pc,lr
+Source fd comma:  mov     r0,#',
+Source fe         swi     #SysPutChar
+Source ff         mov     pc,lr
+End

@@ -47,5 +47,5 @@ Memory 3 4996080
 Source 0         add     r0, r0, #2      ;2 should be in r0
 Source 1         mul     r1, r0, #3      ;6 should be in r1
 Source 2         mla     r2, r1, r1, r0  ;18 should be in r2 (6*2)+6
-Source 3         mla     r3, r2, r2, r0
+Source 3         mla     r3, r2, r2, r0  ;54 should be in r3 (18*2)+18
 End

@@ -1,5 +1,5 @@
 WarmObjectFile2
-File mulTest3.s
+File divTest4.s
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -41,11 +41,11 @@ Register v5 8
 Register v6 9
 Register v7 10
 Memory 0 5800201
-Memory 1 14000001
+Memory 1 5000001
 Memory 2 6800401
 Memory 3 6800000
 Source 0         mov     r0, #2
-Source 1         muls    r0, r0, #1
+Source 1         div     r0,r0, #1
 Source 2         swi     #SysPutNum
 Source 3         swi     #SysHalt
 End

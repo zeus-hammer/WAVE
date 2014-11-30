@@ -1,0 +1,108 @@
+WarmObjectFile2
+File binary.as
+Symbol SysEntropy 5
+Symbol SysGetChar 1
+Symbol SysGetNum 2
+Symbol SysHalt 0
+Symbol SysOverlay 6
+Symbol SysPLA 7
+Symbol SysPutChar 3
+Symbol SysPutNum 4
+Symbol main 0
+Symbol newline 28
+Symbol putbin 6
+Register a1 0
+Register a2 1
+Register a3 2
+Register a4 3
+Register ccr 16
+Register fp 11
+Register lr 14
+Register pc 15
+Register r0 0
+Register r1 1
+Register r10 10
+Register r11 11
+Register r12 12
+Register r13 13
+Register r14 14
+Register r15 15
+Register r2 2
+Register r3 3
+Register r4 4
+Register r5 5
+Register r6 6
+Register r7 7
+Register r8 8
+Register r9 9
+Register sp 13
+Register v1 4
+Register v2 5
+Register v3 6
+Register v4 7
+Register v5 8
+Register v6 9
+Register v7 10
+Memory 0 16800201
+Memory 1 4c000004
+Memory 2 d000004
+Memory 3 d000019
+Memory 4 cfffffc
+Memory 5 6800000
+Memory 6 9f6bfff
+Memory 7 7e80203
+Memory 8 5900a01
+Memory 9 15884000
+Memory a 8c000006
+Memory b 4c00000d
+Memory c 11110001
+Memory d 4c00000d
+Memory e 15884041
+Memory f ccfffffd
+Memory 10 5800031
+Memory 11 6800003
+Memory 12 11110001
+Memory 13 4c000007
+Memory 14 15884041
+Memory 15 8cfffffb
+Memory 16 5800803
+Memory 17 cfffffa
+Memory 18 5800803
+Memory 19 6800003
+Memory 1a 7680203
+Memory 1b 97e8001
+Memory 1c 5800205
+Memory 1d 6800003
+Memory 1e 5f84380
+Source 0 _loop:  swis    #SysGetNum
+Source 1         beq     _done
+Source 2         bl      putbin
+Source 3         bl      newline
+Source 4         b       _loop
+Source 5 _done:  swi     #SysHalt
+Source 6 putbin: stu     lr,[sp,#-1]
+Source 7         stm     sp,#0x6
+Source 8         mov     r2,#32
+Source 9         movs    r1,r0
+Source a         blt     _neg
+Source b         beq     _zero
+Source c _skipz: subs    r2,r2,#1
+Source d         beq     _done
+Source e         movs    r1,r1,lsl#1
+Source f         bge     _skipz
+Source 10 _neg:   mov     r0,#'1
+Source 11 _prt:   swi     #SysPutChar
+Source 12         subs    r2,r2,#1
+Source 13         beq     _done
+Source 14         movs    r1,r1,lsl #1
+Source 15         blt     _neg
+Source 16         mov     r0,#'0
+Source 17         b       _prt
+Source 18 _zero:  mov     r0,#'0
+Source 19         swi     #SysPutChar
+Source 1a         ldm     sp,#0x6 
+Source 1b         ldu     pc,[sp,#1]
+Source 1c         mov     r0,#10
+Source 1d         swi     #SysPutChar
+Source 1e         mov     pc,lr
+End

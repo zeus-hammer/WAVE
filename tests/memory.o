@@ -1,0 +1,197 @@
+WarmObjectFile2
+File memory.as
+Symbol SysEntropy 5
+Symbol SysGetChar 1
+Symbol SysGetNum 2
+Symbol SysHalt 0
+Symbol SysOverlay 6
+Symbol SysPLA 7
+Symbol SysPutChar 3
+Symbol SysPutNum 4
+Symbol addres 69
+Symbol main 0
+Symbol multiple 1
+Symbol negupdate 48
+Symbol posupdate 32
+Symbol stdLoadStore 23
+Register a1 0
+Register a2 1
+Register a3 2
+Register a4 3
+Register ccr 16
+Register fp 11
+Register lr 14
+Register pc 15
+Register r0 0
+Register r1 1
+Register r10 10
+Register r11 11
+Register r12 12
+Register r13 13
+Register r14 14
+Register r15 15
+Register r2 2
+Register r3 3
+Register r4 4
+Register r5 5
+Register r6 6
+Register r7 7
+Register r8 8
+Register r9 9
+Register sp 13
+Register v1 4
+Register v2 5
+Register v3 6
+Register v4 7
+Register v5 8
+Register v6 9
+Register v7 10
+Memory 0 6000000
+Memory 1 5a80005
+Memory 2 5c00601
+Memory 3 5c80009
+Memory 4 58808ff
+Memory 5 7804040
+Memory 6 5a80000
+Memory 7 5c00000
+Memory 8 6000000
+Memory 9 1000601
+Memory a 7004040
+Memory b 5804140
+Memory c 6800401
+Memory d 5800205
+Memory e 6800003
+Memory f 5804200
+Memory 10 6800401
+Memory 11 5800205
+Memory 12 6800003
+Memory 13 5804240
+Memory 14 6800401
+Memory 15 5800205
+Memory 16 6800003
+Memory 17 5880037
+Memory 18 5800000
+Memory 19 8883f9c
+Memory 1a 5880000
+Memory 1b 8083f9c
+Memory 1c 5804040
+Memory 1d 6800401
+Memory 1e 5800205
+Memory 1f 6800003
+Memory 20 618003f
+Memory 21 5880021
+Memory 22 9898001
+Memory 23 5804040
+Memory 24 6800401
+Memory 25 5800205
+Memory 26 6800003
+Memory 27 9098001
+Memory 28 5804040
+Memory 29 6800401
+Memory 2a 5800205
+Memory 2b 6800003
+Memory 2c 58040c0
+Memory 2d 6800401
+Memory 2e 5800205
+Memory 2f 6800003
+Memory 30 5900001
+Memory 31 5880063
+Memory 32 9893ffa
+Memory 33 5804080
+Memory 34 6800401
+Memory 35 5800205
+Memory 36 6800003
+Memory 37 5804040
+Memory 38 6800401
+Memory 39 5800205
+Memory 3a 6800003
+Memory 3b 5880000
+Memory 3c 9093ffa
+Memory 3d 5804080
+Memory 3e 6800401
+Memory 3f 5800205
+Memory 40 6800003
+Memory 41 5804040
+Memory 42 6800401
+Memory 43 5800205
+Memory 44 6800003
+Memory 45 608003f
+Memory 46 5900003
+Memory 47 a00c080
+Memory 48 6800401
+Memory 49 6800000
+Source 0 main:   mvn     r0,#0
+Source 1         mov     r5,#5
+Source 2         mov     r8,#8
+Source 3         mov     r9,#9
+Source 4         mov     r1,#0xff0
+Source 5         stm     r0,r1
+Source 6         mov     r5,#0
+Source 7         mov     r8,#0
+Source 8         mvn     r0,#0
+Source 9         sub     r0,r0,#8
+Source a         ldm     r0,r1
+Source b         mov     r0,r5
+Source c         swi     #SysPutNum ; first value, 5
+Source d         mov     r0,#10
+Source e         swi     #SysPutChar
+Source f         mov     r0,r8
+Source 10         swi     #SysPutNum ; second value, 8
+Source 11         mov     r0,#10
+Source 12         swi     #SysPutChar
+Source 13         mov     r0,r9   ; third value, 9
+Source 14         swi     #SysPutNum
+Source 15         mov     r0,#10
+Source 16         swi     #SysPutChar
+Source 17         mov     r1,#55
+Source 18         mov     r0,#0
+Source 19         str     r1,[r0,#-100]
+Source 1a         mov     r1,#0
+Source 1b         ldr     r1,[r0,#-100]
+Source 1c         mov     r0,r1
+Source 1d         swi     #SysPutNum      ; fourth value, 55
+Source 1e         mov     r0,#10
+Source 1f         swi     #SysPutChar
+Source 20         mvn     r3,#0x3f
+Source 21         mov     r1,#33
+Source 22         stu     r1,[r3,#1]
+Source 23         mov     r0,r1
+Source 24         swi     #SysPutNum ; fifth value, 33
+Source 25         mov     r0,#10
+Source 26         swi     #SysPutChar
+Source 27         ldu     r1,[r3,#1]
+Source 28         mov     r0,r1
+Source 29         swi     #SysPutNum      ; sixth value, 0
+Source 2a         mov     r0,#10
+Source 2b         swi     #SysPutChar
+Source 2c         mov     r0,r3           ; value 7, highmem 0xffffc2, 16,777,154
+Source 2d         swi     #SysPutNum
+Source 2e         mov     r0,#10
+Source 2f         swi     #SysPutChar
+Source 30         mov     r2,#1
+Source 31         mov     r1,#99
+Source 32         stu     r1,[r2,#-6]
+Source 33         mov     r0,r2
+Source 34         swi     #SysPutNum
+Source 35         mov     r0,#10
+Source 36         swi     #SysPutChar
+Source 37         mov     r0,r1
+Source 38         swi     #SysPutNum
+Source 39         mov     r0,#10
+Source 3a         swi     #SysPutChar
+Source 3b         mov     r1,#0
+Source 3c         ldu     r1,[r2,#-6]
+Source 3d         mov     r0,r2
+Source 3e         swi     #SysPutNum
+Source 3f         mov     r0,#10
+Source 40         swi     #SysPutChar
+Source 41         mov     r0,r1
+Source 42         swi     #SysPutNum
+Source 43         mov     r0,#10
+Source 44         swi     #SysPutChar
+Source 45 addres: mvn     r1,#0x3f
+Source 46         mov     r2,#3
+Source 47         adr     r0,[r1,r2,lsl #0]
+Source 48         swi     #SysPutNum
+Source 49         swi     #SysHalt
+End

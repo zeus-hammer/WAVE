@@ -1,5 +1,5 @@
 WarmObjectFile2
-File mulTest3.s
+File addTest.s
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -40,12 +40,12 @@ Register v4 7
 Register v5 8
 Register v6 9
 Register v7 10
-Memory 0 5800201
-Memory 1 14000001
-Memory 2 6800401
-Memory 3 6800000
-Source 0         mov     r0, #2
-Source 1         muls    r0, r0, #1
-Source 2         swi     #SysPutNum
-Source 3         swi     #SysHalt
+Memory 0 1
+Memory 1 80003
+Memory 2 10c041
+Memory 3 195480
+Source 0         add     r0, r0, #1      ;1 should be in r0
+Source 1         add     r1, r0, #3      ;4 should be in r1
+Source 2         add     r2, r1, r1, lsl #1 ;8 + 4 = 12 should be in r2
+Source 3         add     r3, r2, r2, lsr r0 ;12 + 6 = 18 should be in r3
 End

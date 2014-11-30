@@ -1,5 +1,5 @@
 WarmObjectFile2
-File divTest4.s
+File clone.as
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -40,12 +40,39 @@ Register v4 7
 Register v5 8
 Register v6 9
 Register v7 10
-Memory 0 5800201
-Memory 1 5000001
-Memory 2 6800401
-Memory 3 6800000
-Source 0         mov     r0, #2
-Source 1         div     r0, r0, #1
-Source 2         swi     #SysPutNum
-Source 3         swi     #SysHalt
+Memory 0 5880000
+Memory 1 a178022
+Memory 2 1180c080
+Memory 3 c6800000
+Memory 4 5800009
+Memory 5 6800003
+Memory 6 5800217
+Memory 7 6800003
+Memory 8 5800419
+Memory 9 6800003
+Memory a 5800061
+Memory b 6800003
+Memory c 580041d
+Memory d 6800003
+Memory e 5800061
+Memory f 6800003
+Memory 10 5800009
+Memory 11 6800003
+Memory 12 5800803
+Memory 13 6800003
+Memory 14 5800231
+Memory 15 6800003
+Memory 16 8188000
+Memory 17 5a00a01
+Memory 18 11818000
+Memory 19 c5800803
+Memory 1a 85800031
+Memory 1b 6800003
+Memory 1c 59840c1
+Memory 1d 11220001
+Memory 1e ecfffffa
+Memory 1f 5800205
+Memory 20 6800003
+Memory 21 88001
+Memory 22 cffffe0
 End

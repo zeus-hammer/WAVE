@@ -1,0 +1,158 @@
+WarmObjectFile2
+File lfsr.as
+Symbol SysEntropy 5
+Symbol SysGetChar 1
+Symbol SysGetNum 2
+Symbol SysHalt 0
+Symbol SysOverlay 6
+Symbol SysPLA 7
+Symbol SysPutChar 3
+Symbol SysPutNum 4
+Symbol main 6
+Symbol nextInt 35
+Symbol ntaps 1
+Symbol perline 16
+Symbol seed 30
+Symbol setSeed 31
+Symbol taps 2
+Register a1 0
+Register a2 1
+Register a3 2
+Register a4 3
+Register ccr 16
+Register fp 11
+Register lr 14
+Register pc 15
+Register r0 0
+Register r1 1
+Register r10 10
+Register r11 11
+Register r12 12
+Register r13 13
+Register r14 14
+Register r15 15
+Register r2 2
+Register r3 3
+Register r4 4
+Register r5 5
+Register r6 6
+Register r7 7
+Register r8 8
+Register r9 9
+Register sp 13
+Register v1 4
+Register v2 5
+Register v3 6
+Register v4 7
+Register v5 8
+Register v6 9
+Register v7 10
+Memory 1 4
+Memory 2 7
+Memory 3 5
+Memory 4 4
+Memory 5 3
+Memory 1e 0
+Memory 0 c000006
+Memory 6 6800201
+Memory 7 5884000
+Memory 8 5900801
+Memory 9 d000016
+Memory a 6800401
+Memory b 1110001
+Memory c 5800a01
+Memory d 6800003
+Memory e d000015
+Memory f 6800401
+Memory 10 986bfff
+Memory 11 11110001
+Memory 12 45900801
+Memory 13 45800205
+Memory 14 46800003
+Memory 15 65800a01
+Memory 16 66800003
+Memory 17 9068001
+Memory 18 11804040
+Memory 19 6cfffff5
+Memory 1a 11810801
+Memory 1b 65800205
+Memory 1c 66800003
+Memory 1d 6800000
+Memory 1f 98ebfff
+Memory 20 887bffe
+Memory 21 90e8001
+Memory 22 5f84380
+Memory 23 7e802ff
+Memory 24 80fbfdd
+Memory 25 a17bfdd
+Memory 26 5980000
+Memory 27 827bff7
+Memory 28 11088001
+Memory 29 8c000006
+Memory 2a 8314040
+Memory 2b 5a80001
+Memory 2c 32ad506
+Memory 2d 219c140
+Memory 2e cfffffa
+Memory 2f 6400000
+Memory 30 5b8001f
+Memory 31 13bc180
+Memory 32 5c05607
+Memory 33 5a04101
+Memory 34 2a240c0
+Memory 35 3024200
+Memory 36 887bfe8
+Memory 37 76802ff
+Memory 38 5f84380
+Source 0         b       main
+Source 6 main:   swi     #SysGetNum
+Source 7         mov     r1,r0
+Source 8         mov     r2,#perline
+Source 9         bl      setSeed
+Source a         swi     #SysPutNum
+Source b         sub     r2,r2,#1
+Source c         mov     r0,#'\ 
+Source d         swi     #SysPutChar
+Source e _loop:  bl      nextInt
+Source f         swi     #SysPutNum
+Source 10         stu     r0,[sp,#-1]
+Source 11         subs    r2,r2,#1
+Source 12         moveq   r2,#perline
+Source 13         moveq   r0,#'\n
+Source 14         swieq   #SysPutChar
+Source 15         movne   r0,#'\ 
+Source 16         swine   #SysPutChar
+Source 17         ldu     r0,[sp,#1]
+Source 18         cmp     r0,r1
+Source 19         bne     _loop
+Source 1a         cmp     r2,#perline
+Source 1b         movne   r0,#'\n
+Source 1c         swine   #SysPutChar
+Source 1d         swi     #SysHalt
+Source 1f setSeed: stu    r1,[sp,#-1]
+Source 20         str     r0,seed
+Source 21         ldu     r1,[sp,#1]
+Source 22         mov     pc,lr
+Source 23 nextInt:stm     sp,#0x1fe
+Source 24         ldr     r1,ntaps        ; number of taps
+Source 25         adr     r2,taps         ; tap pointer
+Source 26         mov     r3,#0           ; sum of taps
+Source 27         ldr     r4,seed         ; grab seed
+Source 28 _loop:  subs    r1,r1,#1        ; look at the next tap
+Source 29         blt     _done
+Source 2a         ldr     r6,[r2,r1,lsl#0]        ; grab the current tap
+Source 2b         mov     r5,#1
+Source 2c         and     r5,r5,r4,lsr r6 ; shift seed and mask low bit
+Source 2d         eor     r3,r3,r5        ; add into running sum
+Source 2e         b       _loop
+Source 2f _done:  mvn     r8,#0
+Source 30         mov     r7,#31
+Source 31         sub     r7,r7,r6        ; find the width of the generator
+Source 32         mov     r8,r8,lsr r7
+Source 33         mov     r4,r4,lsl #1
+Source 34         orr     r4,r4,r3
+Source 35         and     r0,r4,r8
+Source 36         str     r0,seed
+Source 37         ldm     sp,#0x1fe
+Source 38         mov     pc,lr
+End

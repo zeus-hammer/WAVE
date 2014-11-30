@@ -1,0 +1,117 @@
+WarmObjectFile2
+File stm.as
+Symbol SysEntropy 5
+Symbol SysGetChar 1
+Symbol SysGetNum 2
+Symbol SysHalt 0
+Symbol SysOverlay 6
+Symbol SysPLA 7
+Symbol SysPutChar 3
+Symbol SysPutNum 4
+Register a1 0
+Register a2 1
+Register a3 2
+Register a4 3
+Register ccr 16
+Register fp 11
+Register lr 14
+Register pc 15
+Register r0 0
+Register r1 1
+Register r10 10
+Register r11 11
+Register r12 12
+Register r13 13
+Register r14 14
+Register r15 15
+Register r2 2
+Register r3 3
+Register r4 4
+Register r5 5
+Register r6 6
+Register r7 7
+Register r8 8
+Register r9 9
+Register sp 13
+Register v1 4
+Register v2 5
+Register v3 6
+Register v4 7
+Register v5 8
+Register v6 9
+Register v7 10
+Memory 0 5800419
+Memory 1 5880065
+Memory 2 8b013
+Memory 3 5900233
+Memory 4 7880007
+Memory 5 6800401
+Memory 6 5800205
+Memory 7 6800003
+Memory 8 5804040
+Memory 9 6800401
+Memory a 5800205
+Memory b 6800003
+Memory c 5804080
+Memory d 6800401
+Memory e 5800205
+Memory f 6800003
+Memory 10 8078051
+Memory 11 6800401
+Memory 12 5800205
+Memory 13 6800003
+Memory 14 807804e
+Memory 15 6800401
+Memory 16 5800205
+Memory 17 6800003
+Memory 18 807804b
+Memory 19 6800401
+Memory 1a 5800205
+Memory 1b 6800003
+Memory 1c 8078048
+Memory 1d 6800401
+Memory 1e 5800205
+Memory 1f 6800003
+Memory 20 8078045
+Memory 21 6800401
+Memory 22 5800205
+Memory 23 6800003
+Memory 24 6800000
+Source 0         mov     r0,#100
+Source 1         mov     r1,#101
+Source 2         add     r1,r1,#0x13000000
+Source 3         mov     r2,#102
+Source 4         stm     r1,#7
+Source 5         swi     #SysPutNum
+Source 6         mov     r0,#'\n
+Source 7         swi     #SysPutChar
+Source 8         mov     r0,r1
+Source 9         swi     #SysPutNum
+Source a         mov     r0,#'\n
+Source b         swi     #SysPutChar
+Source c         mov     r0,r2
+Source d         swi     #SysPutNum
+Source e         mov     r0,#'\n
+Source f         swi     #SysPutChar
+Source 10         ldr     r0,97
+Source 11         swi     #SysPutNum
+Source 12         mov     r0,#'\n
+Source 13         swi     #SysPutChar
+Source 14         ldr     r0,98
+Source 15         swi     #SysPutNum
+Source 16         mov     r0,#'\n
+Source 17         swi     #SysPutChar
+Source 18         ldr     r0,99
+Source 19         swi     #SysPutNum      
+Source 1a         mov     r0,#'\n
+Source 1b         swi     #SysPutChar
+Source 1c         ldr     r0,100
+Source 1d         swi     #SysPutNum      
+Source 1e         mov     r0,#'\n
+Source 1f         swi     #SysPutChar
+Source 20         ldr     r0,101
+Source 21         swi     #SysPutNum
+Source 22         mov     r0,#'\n
+Source 23         swi     #SysPutChar
+Source 24         swi     #SysHalt
+End

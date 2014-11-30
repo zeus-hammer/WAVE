@@ -1,0 +1,792 @@
+WarmObjectFile2
+File maze.as
+Symbol SysEntropy 5
+Symbol SysGetChar 1
+Symbol SysGetNum 2
+Symbol SysHalt 0
+Symbol SysOverlay 6
+Symbol SysPLA 7
+Symbol SysPutChar 3
+Symbol SysPutNum 4
+Symbol add 242
+Symbol colorMaze 19
+Symbol finish 3
+Symbol freeMem 11
+Symbol get 269
+Symbol getDist 214
+Symbol head 6
+Symbol isValid 279
+Symbol isWall 205
+Symbol length 10
+Symbol line 9
+Symbol lines 8
+Symbol main 12
+Symbol maze 363
+Symbol nl 237
+Symbol pack 202
+Symbol phase2 331
+Symbol printSolution 296
+Symbol put 273
+Symbol putCoord 117
+Symbol puts 130
+Symbol queue 4
+Symbol queueEnd 5
+Symbol queueNeighbors 138
+Symbol readMaze 305
+Symbol remove 253
+Symbol setDist 218
+Symbol solveMaze 89
+Symbol split 194
+Symbol start 2
+Symbol tail 7
+Symbol visit 230
+Symbol visited 225
+Register a1 0
+Register a2 1
+Register a3 2
+Register a4 3
+Register ccr 16
+Register fp 11
+Register lr 14
+Register pc 15
+Register r0 0
+Register r1 1
+Register r10 10
+Register r11 11
+Register r12 12
+Register r13 13
+Register r14 14
+Register r15 15
+Register r2 2
+Register r3 3
+Register r4 4
+Register r5 5
+Register r6 6
+Register r7 7
+Register r8 8
+Register r9 9
+Register sp 13
+Register v1 4
+Register v2 5
+Register v3 6
+Register v4 7
+Register v5 8
+Register v6 9
+Register v7 10
+Memory 2 0
+Memory 3 0
+Memory 4 0
+Memory 5 0
+Memory 6 0
+Memory 7 0
+Memory 8 0
+Memory 9 0
+Memory a 0
+Memory b 16b
+Memory 0 d00000c
+Memory 1 6800000
+Memory c 9f6bfff
+Memory d d000124
+Memory e d00004b
+Memory f 11800001
+Memory 10 4d000003
+Memory 11 d000117
+Memory 12 97e8001
+Memory 13 9f6bfff
+Memory 14 7e8027f
+Memory 15 807bfee
+Memory 16 d0000ac
+Memory 17 d0000bf
+Memory 18 5a04040
+Memory 19 5a84080
+Memory 1a 1318001
+Memory 1b 5800215
+Memory 1c d0000f5
+Memory 1d 11830000
+Memory 1e 8c000039
+Memory 1f 10a0001
+Memory 20 5904140
+Memory 21 d0000f6
+Memory 22 11800000
+Memory 23 4c00000a
+Memory 24 d0000a9
+Memory 25 11800000
+Memory 26 6c000007
+Memory 27 d0000ba
+Memory 28 11800000
+Memory 29 4c000004
+Memory 2a d0000ac
+Memory 2b 1181c180
+Memory 2c 4cffffec
+Memory 2d 5884100
+Memory 2e 128001
+Memory 2f d0000e8
+Memory 30 11800000
+Memory 31 4c00000a
+Memory 32 d00009b
+Memory 33 11800000
+Memory 34 6c000007
+Memory 35 d0000ac
+Memory 36 11800000
+Memory 37 4c000004
+Memory 38 d00009e
+Memory 39 1181c180
+Memory 3a 4cffffde
+Memory 3b a0001
+Memory 3c 5904140
+Memory 3d d0000da
+Memory 3e 11800000
+Memory 3f 4c00000a
+Memory 40 d00008d
+Memory 41 11800000
+Memory 42 6c000007
+Memory 43 d00009e
+Memory 44 11800000
+Memory 45 4c000004
+Memory 46 d000090
+Memory 47 1181c180
+Memory 48 4cffffd0
+Memory 49 5884100
+Memory 4a 1128001
+Memory 4b d0000cc
+Memory 4c 11800000
+Memory 4d 4c00000a
+Memory 4e d00007f
+Memory 4f 11800000
+Memory 50 6c000007
+Memory 51 d000090
+Memory 52 11800000
+Memory 53 4c000004
+Memory 54 d000082
+Memory 55 1181c180
+Memory 56 4cffffc2
+Memory 57 768027f
+Memory 58 97e8001
+Memory 59 9f6bfff
+Memory 5a 7e80207
+Memory 5b 807bfa7
+Memory 5c d000066
+Memory 5d 5980000
+Memory 5e d000094
+Memory 5f d00009e
+Memory 60 11800000
+Memory 61 4c000011
+Memory 62 d00007f
+Memory 63 11800000
+Memory 64 6cfffffb
+Memory 65 d000081
+Memory 66 d000074
+Memory 67 d000063
+Memory 68 5804010
+Memory 69 5804410
+Memory 6a 827bf99
+Memory 6b 11824000
+Memory 6c 4c000004
+Memory 6d d00001d
+Memory 6e cfffff1
+Memory 6f 97e8001
+Memory 70 5800001
+Memory 71 c000002
+Memory 72 5800000
+Memory 73 7680207
+Memory 74 97e8001
+Memory 75 986bfff
+Memory 76 580005b
+Memory 77 6800003
+Memory 78 5804040
+Memory 79 6800401
+Memory 7a 580040b
+Memory 7b 6800003
+Memory 7c 5804080
+Memory 7d 6800401
+Memory 7e 580005d
+Memory 7f 6800003
+Memory 80 9068001
+Memory 81 5f84380
+Memory 82 7e80003
+Memory 83 5884000
+Memory 84 19008001
+Memory 85 4c000003
+Memory 86 6800003
+Memory 87 cfffffd
+Memory 88 7680003
+Memory 89 5f84380
+Memory 8a 9f6bfff
+Memory 8b 7e8001f
+Memory 8c d00003e
+Memory 8d 5a04040
+Memory 8e 5a84080
+Memory 8f 198001
+Memory 90 10a0001
+Memory 91 5904140
+Memory 92 d000085
+Memory 93 11800000
+Memory 94 4c000008
+Memory 95 d000038
+Memory 96 11800000
+Memory 97 6c000005
+Memory 98 d000049
+Memory 99 11800000
+Memory 9a 6c000002
+Memory 9b d000057
+Memory 9c 128001
+Memory 9d 5884100
+Memory 9e d000079
+Memory 9f 11800000
+Memory a0 4c000008
+Memory a1 d00002c
+Memory a2 11800000
+Memory a3 6c000005
+Memory a4 d00003d
+Memory a5 11800000
+Memory a6 6c000002
+Memory a7 d00004b
+Memory a8 a0001
+Memory a9 5904140
+Memory aa d00006d
+Memory ab 11800000
+Memory ac 4c000008
+Memory ad d000020
+Memory ae 11800000
+Memory af 6c000005
+Memory b0 d000031
+Memory b1 11800000
+Memory b2 6c000002
+Memory b3 d00003f
+Memory b4 1128001
+Memory b5 5884100
+Memory b6 d000061
+Memory b7 11800000
+Memory b8 4c000008
+Memory b9 d000014
+Memory ba 11800000
+Memory bb 6c000005
+Memory bc d000025
+Memory bd 11800000
+Memory be 6c000002
+Memory bf d000033
+Memory c0 768001f
+Memory c1 97e8001
+Memory c2 5884000
+Memory c3 5904000
+Memory c4 5984000
+Memory c5 5884448
+Memory c6 30880ff
+Memory c7 31100ff
+Memory c8 59844d0
+Memory c9 5f84380
+Memory ca 2814048
+Memory cb 28040d0
+Memory cc 5f84380
+Memory cd 9f6bfff
+Memory ce d00003f
+Memory cf 30000ff
+Memory d0 11800a01
+Memory d1 4c000003
+Memory d2 5800001
+Memory d3 c000002
+Memory d4 5800000
+Memory d5 97e8001
+Memory d6 9f6bfff
+Memory d7 d000036
+Memory d8 5984411
+Memory d9 97e8001
+Memory da 9f6bfff
+Memory db 7e8001f
+Memory dc d000031
+Memory dd 28040d1
+Memory de d000033
+Memory df 768001f
+Memory e0 97e8001
+Memory e1 9f6bfff
+Memory e2 d00002b
+Memory e3 5804410
+Memory e4 3000001
+Memory e5 97e8001
+Memory e6 9f6bfff
+Memory e7 986bfff
+Memory e8 d000025
+Memory e9 2802001
+Memory ea d000027
+Memory eb 9068001
+Memory ec 97e8001
+Memory ed 986bfff
+Memory ee 5800205
+Memory ef 6800003
+Memory f0 9068001
+Memory f1 5f84380
+Memory f2 9f6bfff
+Memory f3 7e80007
+Memory f4 dffffd6
+Memory f5 80fbf12
+Memory f6 9808001
+Memory f7 807bf0e
+Memory f8 1180c000
+Memory f9 e80fbf0b
+Memory fa 88fbf0d
+Memory fb 7680007
+Memory fc 97e8001
+Memory fd 9f6bfff
+Memory fe 807bf08
+Memory ff 80fbf08
+Memory 100 11804040
+Memory 101 6c000003
+Memory 102 5800000
+Memory 103 c000009
+Memory 104 9080001
+Memory 105 817bf00
+Memory 106 11804080
+Memory 107 e807befd
+Memory 108 887befe
+Memory 109 5804040
+Memory 10a dffffb8
+Memory 10b 5800001
+Memory 10c 97e8001
+Memory 10d 807befc
+Memory 10e 8004040
+Memory 10f 8004080
+Memory 110 5f84380
+Memory 111 99ebfff
+Memory 112 81fbef7
+Memory 113 819c040
+Memory 114 881c080
+Memory 115 91e8001
+Memory 116 5f84380
+Memory 117 7e80603
+Memory 118 11808000
+Memory 119 8c00000c
+Memory 11a 81fbeee
+Memory 11b 1180c0c0
+Memory 11c cc000009
+Memory 11d 11810000
+Memory 11e 8c000007
+Memory 11f 81fbeeb
+Memory 120 821c040
+Memory 121 11814100
+Memory 122 cc000003
+Memory 123 5800001
+Memory 124 c000002
+Memory 125 5800000
+Memory 126 7680603
+Memory 127 5f84380
+Memory 128 7e8000f
+Memory 129 a0f8042
+Memory 12a 19008001
+Memory 12b 8c000004
+Memory 12c 300007f
+Memory 12d 6800003
+Memory 12e cfffffc
+Memory 12f 768000f
+Memory 130 5f84380
+Memory 131 9f6bfff
+Memory 132 7e800ff
+Memory 133 80fbed8
+Memory 134 5900000
+Memory 135 6800001
+Memory 136 19808001
+Memory 137 8c000005
+Memory 138 11800205
+Memory 139 6cfffffc
+Memory 13a 110001
+Memory 13b cfffffa
+Memory 13c 897becc
+Memory 13d 807bece
+Memory 13e 100c000
+Memory 13f 88fbeca
+Memory 140 8c080
+Memory 141 88001
+Memory 142 88fbec8
+Memory 143 8c080
+Memory 144 88fbec0
+Memory 145 88fbec1
+Memory 146 88fbec1
+Memory 147 8c000
+Memory 148 88fbec3
+Memory 149 1088001
+Memory 14a 88fbebb
+Memory 14b a0f8020
+Memory 14c 817bebc
+Memory 14d 81fbebc
+Memory 14e 827bebc
+Memory 14f 5b00000
+Memory 150 9898001
+Memory 151 5a80000
+Memory 152 19008001
+Memory 153 8c000016
+Memory 154 11800205
+Memory 155 4c000011
+Memory 156 11800053
+Memory 157 4c000008
+Memory 158 11800223
+Memory 159 6c00000b
+Memory 15a 282c188
+Memory 15b 887bea8
+Memory 15c 5800a01
+Memory 15d 880bfff
+Memory 15e c000006
+Memory 15f 282c188
+Memory 160 887bea2
+Memory 161 5800a01
+Memory 162 880bfff
+Memory 163 c000001
+Memory 164 2a8001
+Memory 165 cffffed
+Memory 166 9aa0001
+Memory 167 330001
+Memory 168 cffffe8
+Memory 169 76800ff
+Memory 16a 97e8001
+Source 0         bl      main            ; do the main routine and quit
+Source 1         swi     #SysHalt
+Source c main:   stu     lr,[sp,#-1]
+Source d         bl      readMaze        ; read in the maze
+Source e         bl      solveMaze
+Source f         cmp     r0,#1
+Source 10         bleq    colorMaze
+Source 11         bl      printSolution   ; print out the solution
+Source 12         ldu     pc,[sp,#1]
+Source 13         stu     lr,[sp,#-1]
+Source 14         stm     sp,#0xfe
+Source 15         ldr     r0,finish
+Source 16         bl      split
+Source 17         bl      getDist
+Source 18 _loop:  mov     r4,r1
+Source 19         mov     r5,r2
+Source 1a         sub     r6,r3,#1
+Source 1b         mov     r0,#'*
+Source 1c         bl      put
+Source 1d         cmp     r6,#0
+Source 1e         blt     _done
+Source 1f _north: sub     r1,r4,#1
+Source 20         mov     r2,r5
+Source 21         bl      isValid
+Source 22         cmp     r0,#0
+Source 23         beq     _east
+Source 24         bl      isWall
+Source 25         cmp     r0,#0
+Source 26         bne     _east
+Source 27         bl      visited
+Source 28         cmp     r0,#0
+Source 29         beq     _east
+Source 2a         bl      getDist
+Source 2b         cmp     r3,r6
+Source 2c         beq     _loop
+Source 2d _east:  mov     r1,r4
+Source 2e         add     r2,r5,#1
+Source 2f         bl      isValid
+Source 30         cmp     r0,#0
+Source 31         beq     _south
+Source 32         bl      isWall
+Source 33         cmp     r0,#0
+Source 34         bne     _south
+Source 35         bl      visited
+Source 36         cmp     r0,#0
+Source 37         beq     _south
+Source 38         bl      getDist
+Source 39         cmp     r3,r6
+Source 3a         beq     _loop
+Source 3b _south: add     r1,r4,#1
+Source 3c         mov     r2,r5
+Source 3d         bl      isValid
+Source 3e         cmp     r0,#0
+Source 3f         beq     _west
+Source 40         bl      isWall
+Source 41         cmp     r0,#0
+Source 42         bne     _west
+Source 43         bl      visited
+Source 44         cmp     r0,#0
+Source 45         beq     _west
+Source 46         bl      getDist
+Source 47         cmp     r3,r6
+Source 48         beq     _loop
+Source 49 _west:  mov     r1,r4
+Source 4a         sub     r2,r5,#1
+Source 4b         bl      isValid
+Source 4c         cmp     r0,#0
+Source 4d         beq     _done
+Source 4e         bl      isWall
+Source 4f         cmp     r0,#0
+Source 50         bne     _done
+Source 51         bl      visited
+Source 52         cmp     r0,#0
+Source 53         beq     _done
+Source 54         bl      getDist
+Source 55         cmp     r3,r6
+Source 56         beq     _loop
+Source 57 _done:  ldm     sp,#0xfe
+Source 58         ldu     pc,[sp,#1]
+Source 59         stu     lr,[sp,#-1]
+Source 5a         stm     sp,#0xe
+Source 5b         ldr     r0,start        ; add starting location to queue
+Source 5c         bl      split
+Source 5d         mov     r3,#0           ; distance zero
+Source 5e         bl      add
+Source 5f         bl      remove
+Source 60         cmp     r0,#0           ; if queue runs dry, r0 is zero
+Source 61         beq     _done
+Source 62         bl      visited         ; if we've already visited this place, loop
+Source 63         cmp     r0,#0
+Source 64         bne     _loop
+Source 65         bl      visit           ; no? visit it, then
+Source 66         bl      setDist
+Source 67         bl      pack
+Source 68         mov     r0,r0,lsl#16
+Source 69         mov     r0,r0,lsr#16
+Source 6a         ldr     r4,finish
+Source 6b         cmp     r4,r0           ; have we finished?
+Source 6c         beq     _madeit         ; yes: make solution
+Source 6d         bl      queueNeighbors  ;  enqueue all suitable neighbors
+Source 6e         b       _loop
+Source 6f         ldu     pc,[sp,#1]
+Source 70         mov     r0,#1
+Source 71         b       _fini
+Source 72         mov     r0,#0
+Source 73 _fini:  ldm     sp,#0xe
+Source 74         ldu     pc,[sp,#1]
+Source 75         stu     r0,[sp,#-1]
+Source 76         mov     r0,#'[
+Source 77         swi     #SysPutChar
+Source 78         mov     r0,r1
+Source 79         swi     #SysPutNum
+Source 7a         mov     r0,#',
+Source 7b         swi     #SysPutChar
+Source 7c         mov     r0,r2
+Source 7d         swi     #SysPutNum
+Source 7e         mov     r0,#']
+Source 7f         swi     #SysPutChar
+Source 80         ldu     r0,[sp,#1]
+Source 81         mov     pc,lr
+Source 82 puts:   stm     sp,#0x3
+Source 83         mov     r1,r0
+Source 84 _loop:  ldus    r0,[r1,#1]
+Source 85         beq     _done
+Source 86         swi     #SysPutChar
+Source 87         b       _loop
+Source 88 _done:  ldm     sp,#0x3
+Source 89         mov     pc,lr
+Source 8a         stu     lr,[sp,#-1]
+Source 8b         stm     sp,#0x1f
+Source 8c         bl      pack
+Source 8d         mov     r4,r1
+Source 8e         mov     r5,r2
+Source 8f         add     r3,r3,#1        ; increase the distance to neighbors
+Source 90 _north: sub     r1,r4,#1
+Source 91         mov     r2,r5
+Source 92         bl      isValid
+Source 93         cmp     r0,#0
+Source 94         beq     _east
+Source 95         bl      isWall
+Source 96         cmp     r0,#0
+Source 97         bne     _east
+Source 98         bl      visited
+Source 99         cmp     r0,#0
+Source 9a         bne     _east
+Source 9b         bl      add
+Source 9c _east:  add     r2,r5,#1
+Source 9d         mov     r1,r4
+Source 9e         bl      isValid
+Source 9f         cmp     r0,#0
+Source a0         beq     _south
+Source a1         bl      isWall
+Source a2         cmp     r0,#0
+Source a3         bne     _south
+Source a4         bl      visited
+Source a5         cmp     r0,#0
+Source a6         bne     _south
+Source a7         bl      add
+Source a8 _south: add     r1,r4,#1
+Source a9         mov     r2,r5
+Source aa         bl      isValid
+Source ab         cmp     r0,#0
+Source ac         beq     _west
+Source ad         bl      isWall
+Source ae         cmp     r0,#0
+Source af         bne     _west
+Source b0         bl      visited
+Source b1         cmp     r0,#0
+Source b2         bne     _west
+Source b3         bl      add
+Source b4 _west:  sub     r2,r5,#1
+Source b5         mov     r1,r4
+Source b6         bl      isValid
+Source b7         cmp     r0,#0
+Source b8         beq     _fini
+Source b9         bl      isWall
+Source ba         cmp     r0,#0
+Source bb         bne     _fini
+Source bc         bl      visited
+Source bd         cmp     r0,#0
+Source be         bne     _fini
+Source bf         bl      add
+Source c0         ldm     sp,#0x1f
+Source c1         ldu     pc,[sp,#1]
+Source c2 split:  mov     r1,r0
+Source c3         mov     r2,r0
+Source c4         mov     r3,r0
+Source c5         mov     r1,r1,lsr#8
+Source c6         and     r1,r1,#0xff
+Source c7         and     r2,r2,#0xff
+Source c8         mov     r3,r3,lsr#16
+Source c9         mov     pc,lr
+Source ca pack:   orr     r0,r2,r1,lsl#8
+Source cb         orr     r0,r0,r3,lsl#16
+Source cc         mov     pc,lr
+Source cd isWall: stu     lr,[sp,#-1]
+Source ce         bl      get
+Source cf         and     r0,r0,#0xff
+Source d0         cmp     r0,#'\ 
+Source d1         beq     _no
+Source d2         mov     r0,#1
+Source d3         b       _fini
+Source d4 _no:    mov     r0,#0
+Source d5 _fini:  ldu     pc,[sp,#1]
+Source d6         stu     lr,[sp,#-1]
+Source d7         bl      get
+Source d8         mov     r3,r0,lsr#17
+Source d9         ldu     pc,[sp,#1]
+Source da setDist:stu     lr,[sp,#-1]
+Source db         stm     sp,#0x1f
+Source dc         bl      get
+Source dd         orr     r0,r0,r3,lsl#17
+Source de         bl      put
+Source df         ldm     sp,#0x1f
+Source e0         ldu     pc,[sp,#1]
+Source e1 visited:stu     lr,[sp,#-1]
+Source e2         bl      get
+Source e3         mov     r0,r0,lsr#16
+Source e4         and     r0,r0,#1
+Source e5         ldu     pc,[sp,#1]
+Source e6 visit:  stu     lr,[sp,#-1]
+Source e7         stu     r0,[sp,#-1]
+Source e8         bl      get
+Source e9         orr     r0,r0,#0x10000
+Source ea         bl      put
+Source eb         ldu     r0,[sp,#1]
+Source ec         ldu     pc,[sp,#1]
+Source ed nl:     stu     r0,[sp,#-1]
+Source ee         mov     r0,#'\n
+Source ef         swi     #SysPutChar
+Source f0         ldu     r0,[sp,#1]
+Source f1         mov     pc,lr
+Source f2 add:    stu     lr,[sp,#-1]
+Source f3         stm     sp,#0x7
+Source f4         bl      pack            ; pack values r1 & r2 & r3 into r0
+Source f5         ldr     r1,tail         ; store r0
+Source f6         stu     r0,[r1,#1]      ; at tail
+Source f7         ldr     r0,queueEnd     ; check against end
+Source f8         cmp     r1,r0           ; if
+Source f9         ldrgt   r1,queue        ;  tail >= end: tail = queue
+Source fa         str     r1,tail         ; save tail back
+Source fb         ldm     sp,#0x7
+Source fc         ldu     pc,[sp,#1]
+Source fd         stu     lr,[sp,#-1]
+Source fe         ldr     r0,head
+Source ff         ldr     r1,tail
+Source 100         cmp     r0,r1
+Source 101         bne     _fetch
+Source 102         mov     r0,#0
+Source 103         b       _fini
+Source 104 _fetch: ldu     r1,[r0,#1]
+Source 105         ldr     r2,queueEnd
+Source 106         cmp     r0,r2
+Source 107         ldrgt   r0,queue
+Source 108         str     r0,head
+Source 109         mov     r0,r1
+Source 10a         bl      split
+Source 10b         mov     r0,#1
+Source 10c _fini:  ldu     pc,[sp,#1]
+Source 10d get:    ldr     r0,line
+Source 10e         ldr     r0,[r0,r1,lsl#0]
+Source 10f         ldr     r0,[r0,r2,lsl#0]
+Source 110         mov     pc,lr
+Source 111 put:    stu     r3,[sp,#-1]
+Source 112         ldr     r3,line
+Source 113         ldr     r3,[r3,r1,lsl#0]
+Source 114         str     r0,[r3,r2,lsl#0]
+Source 115         ldu     r3,[sp,#1]
+Source 116         mov     pc,lr
+Source 117         stm     sp,#0x18        ; save regs
+Source 118         cmp     r1,#0           ; row < 0?
+Source 119         blt     _no
+Source 11a         ldr     r3,lines
+Source 11b         cmp     r1,r3           ; row >= lines in maze?
+Source 11c         bge     _no
+Source 11d         cmp     r2,#0           ; column < 0?
+Source 11e         blt     _no
+Source 11f         ldr     r3,length
+Source 120         ldr     r4,[r3,r1,lsl#0]
+Source 121         cmp     r2,r4           ; column < length[row]?
+Source 122         bge     _no
+Source 123 _yes:   mov     r0,#1           ; return true
+Source 124         b       _done
+Source 125 _no:    mov     r0,#0
+Source 126 _done:  ldm     sp,#0x18
+Source 127         mov     pc,lr
+Source 128         stm     sp,#0xf
+Source 129         adr     r1,maze
+Source 12a _loop:  ldus    r0,[r1,#1]
+Source 12b         blt     _done
+Source 12c         and     r0,r0,#0x7f
+Source 12d         swi     #SysPutChar
+Source 12e         b       _loop
+Source 12f _done:  ldm     sp,#0xf
+Source 130         mov     pc,lr
+Source 131         stu     lr,[sp,#-1]
+Source 132         stm     sp,#0xff
+Source 133         ldr     r1,freeMem
+Source 134         mov     r2,#0           ; line counter
+Source 135 _loop:  swi     #SysGetChar
+Source 136         stus    r0,[r1,#1]
+Source 137         blt     _done
+Source 138         cmp     r0,#'\n
+Source 139         bne     _loop
+Source 13a         add     r2,r2,#1
+Source 13b         b       _loop
+Source 13c _done:  str     r2,lines
+Source 13d         ldr     r0,freeMem      ; compute (for later) size of maze data
+Source 13e         sub     r0,r1,r0
+Source 13f         str     r1,line         ; compute the base of line pointer array
+Source 140         add     r1,r1,r2
+Source 141         add     r1,r1,#1        ; in case of EOF on final line (see below)
+Source 142         str     r1,length       ; compute the base of the length array
+Source 143         add     r1,r1,r2
+Source 144         str     r1,queue        ; compute the base of the queue
+Source 145         str     r1,head         ; head of queue
+Source 146         str     r1,tail         ; tail of queue (empty when equal to head)
+Source 147         add     r1,r1,r0        ; reserve a visit to every cell
+Source 148         str     r1,freeMem      ; recompute free memory
+Source 149         sub     r1,r1,#1        ; compute end of queue
+Source 14a         str     r1,queueEnd
+Source 14b phase2: adr     r1,maze         ; r1 will point to maze data
+Source 14c         ldr     r2,lines
+Source 14d         ldr     r3,line
+Source 14e         ldr     r4,length
+Source 14f         mov     r6,#0           ; row counter
+Source 150 _lloop: stu     r1,[r3,#1]      ; save memory pointer for current line
+Source 151         mov     r5,#0           ; clear width counter
+Source 152 _loop:  ldus    r0,[r1,#1]      ; scan char
+Source 153         blt     _done
+Source 154         cmp     r0,#'\n         ; check for newline
+Source 155         beq     _eoln           ; end of line mark
+Source 156         cmp     r0,#'S          ; start mark
+Source 157         beq     _start          ; capture location
+Source 158         cmp     r0,#'F          ; finish mark
+Source 159         bne     _plain          ; capture location
+Source 15a _finish:orr     r0,r5,r6,lsl#8  ; store in row|col form
+Source 15b         str     r0,finish
+Source 15c         mov     r0,#'\ 
+Source 15d         str     r0,[r1,#-1]
+Source 15e         b       _plain
+Source 15f _start: orr     r0,r5,r6,lsl#8  ; store in row|col form
+Source 160         str     r0,start
+Source 161         mov     r0,#'\ 
+Source 162         str     r0,[r1,#-1]
+Source 163         b       _plain
+Source 164 _plain: add     r5,r5,#1        ; count non-space
+Source 165         b       _loop           ; loop if not at end
+Source 166 _eoln:  stu     r5,[r4,#1]      ; store line length
+Source 167         add     r6,r6,#1        ; increment line number
+Source 168         b       _lloop          ; read next line
+Source 169         ldm     sp,#0xff
+Source 16a         ldu     pc,[sp,#1]
+End

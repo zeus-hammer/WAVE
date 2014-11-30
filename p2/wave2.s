@@ -10,23 +10,37 @@
 	.requ	wCCR, r8
 	.requ	cond, r5
 	.requ	alwaysZ, r4
+	.requ	wlr, r3
 	.requ	work0, r0
  	.requ	work1, r1
 		
 	.equ	maskA, 0x7800		;1 in 14,13,12th bit
 	.equ	maskShift, 0x3F
 	.equ	maskLow4, 0xf
-	.equ	maskHigh4, 0xf0000000
 	.equ	maskValue, 0x1ff
 	.equ	maskExp, 0x1f00
 	.equ	flip, 0xffffffff
+	.equ	mask23to0, 0xffffff
 
 	lea	WARM,work0
 	trap	$SysOverlay
+	
+;;; SADS/WORRIES
+;;; -the wpc being used in instructions
+;;; -mov's into the pc
+;;; -anding the address of the wpc to make sure we don't
+;;; -wrap out
+;;; -linking? how does the lr actually get accessed
+;;; -how do we know we're getting back from the last call stack?
+;;; HAPPIES
+;;; -we can save multiple instructions by fucking up the ci
+;;; 	on it's last go-round. applies in:
+;;; 	shifting, dst src, shopcode etc..
+	
+
 ;;; --------------------BEGIN FETCHING THE INSTRUCTION-------------------
 ;;; 5 INSTRUCTIONS
 fetch:	mov	WARM(wpc),ci
-	add	$1, wpc
 	mov	ci, work0
 	shr	$29, work0	;high 3 condition bits in work0
 ;;; to do it or not to do it. that is the question	
@@ -65,7 +79,14 @@ oRHS:	mov 	$maskA, work0
 ;;; LOAD STORE
 ls:
 ;;; BRANCHING
-branch:
+branch:	add 	ci, wpc
+	and	$mask23to0, wpc
+	shr	$22,ci
+	mov	ci,ccr	
+	jne	fetch
+	mov	wpc, wlr
+	add	$1, wlr
+	jmp	fetch
 ;;; -------------------END INSTRUCTION TYPES------------------------------
 ;;; -------------------BEGIN ADDRESSING MODES------------------------------
 ;;; Immediate Mode
@@ -141,6 +162,7 @@ rpm:	mov	$maskLow4, work0
 ;;; 4 INSTRUCTION(S)	
 add:	add	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
+	add	$1, wpc
 	jmp 	fetch
 adc:	mov	wCCR, work0
 	shr	$2, work0
@@ -148,43 +170,53 @@ adc:	mov	wCCR, work0
 	add	REGS(lhs), rhs
 	add	work0, rhs
 	mov 	rhs, REGS(dst)
+	add	$1, wpc
 	jmp	fetch
 ;;; 5 INSTRUCTION(S)
 ;;; backwards (like div)
 sub:	mov	REGS(lhs), work0
 	sub	rhs, work0
 	mov	work0, REGS(dst)
+	add	$1, wpc
 	jmp 	fetch
 ;;; 4 INSTRUCTION(S)	
 eor:	xor	REGS(lhs),rhs
 	mov 	rhs, REGS(dst)
+	add	$1, wpc
 	jmp 	fetch
 ;;; 4 INSTRUCTION(S)	
 orr:	or	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
+	add	$1, wpc	
 	jmp	fetch
 ;;; 3 INSTRUCTION(S)	
 and:	and	REGS(lhs), rhs
 	mov 	rhs, REGS(dst)
+	add	$1, wpc	
 	jmp 	fetch
 ;;; 4 INSTRUCTION(S)
 mul:	mul	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
+	add	$1, wpc	
 	jmp	fetch
 ;;; 5 INSTRUCTION(S)
 div:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	work0, REGS(dst)
+	add	$1, wpc	
 	jmp	fetch	
 ;;; 3 INSTRUCTION(S)
 mov:	mov	rhs, REGS(dst)
+	add	$1, wpc	
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)
 mvn:	xor	$flip,rhs
 	mov	rhs, REGS(dst)
+	add	$1, wpc	
 	jmp	fetch
 swi:	mov	REGS(alwaysZ), work0
 	trap 	rhs
+	add	$1, wpc	
 	jmp	fetch
 ldm:
 stm:
@@ -193,10 +225,6 @@ str:
 ldu:	
 stu:
 adr:
-bf:
-bb:
-blf:
-blb:
 ;;; second set of instrucions. for use when we don't 
 addCC:	add	REGS(lhs), rhs
 	mov	ccr,wCCR	
@@ -209,50 +237,61 @@ subCC:	mov	REGS(lhs), work0
 	sub	rhs, work0
 	mov	ccr,wCCR
 	mov	work0, REGS(dst)
+	add	$1, wpc	
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)	
 cmpCC:	mov 	REGS(lhs), work0
 	sub 	rhs, work0
 	mov	ccr, wCCR
+	add	$1, wpc		
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)	
 eorCC:	xor	REGS(lhs),rhs
 	mov 	ccr, wCCR	
 	mov 	rhs, REGS(dst)
+	add	$1, wpc		
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)	
 orrCC:	or	REGS(lhs), rhs
 	mov	ccr, wCCR	
 	mov	rhs, REGS(dst)
+	add	$1, wpc		
 	jmp	fetch
 ;;; 4 INSTRUCTION(S)	
 andCC:	and	REGS(lhs), rhs
 	mov	ccr, wCCR	
 	mov 	rhs, REGS(dst)
+	add	$1, wpc		
 	jmp 	fetch
 ;;; 4 INSTRUCTION(S)
 tstCC:	test	REGS(lhs), rhs
 	mov 	ccr, wCCR
+	add	$1, wpc		
 	jmp	fetch
 ;;; 4 INSTRUCTION(S)
 mulCC:	mul	REGS(lhs), rhs
 	mov	ccr,wCCR	
 	mov	rhs, REGS(dst)
+	add	$1, wpc		
 	jmp	fetch
-;;; backwards (like sub)
+;;; 6 backwards (like sub)
 divCC:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	ccr,wCCR		
 	mov	work0, REGS(dst)
+	add	$1, wpc		
 	jmp	fetch
-;;; 3 INSTRUCTION(S)
+;;; 4 INSTRUCTION(S)
 movCC:	mov	rhs, REGS(dst)
 ;;; 	and	rhs,rhs
 	mov	ccr,wCCR
+	add	$1, wpc	
 	jmp	fetch
+;;; 4 INSTRUCTIONS
 mvnCC:	xor	$flip,rhs
 	mov	rhs, REGS(dst)
-	jmp	fetch
+	add	$1, wpc
+	jmp	fetch	
 swiCC:	trap	rhs
 ldmCC:
 ldrCC:
@@ -264,7 +303,7 @@ next:	add	$1, wpc
 REGS:
 	.data	0,0,0,0,0,0,0,0,0,0,0,0,0,0x00ffffff,0,0
 INSTR:
-	.data 	add,adc,sub,0,eor,orr,and,0,mul,0,div,mov,mvn,swi,ldm,stm,ldr,str,ldu,stu,adr,0,0,0,bf,bb,blf,blb,0,0,0,0,addCC,adcCC,subCC,cmpCC,eorCC,orrCC,andCC,tstCC,mulCC,0,divCC,movCC,mvnCC,swiCC,ldmCC,0,ldrCC,strCC,lduCC,stuCC
+	.data 	add,adc,sub,0,eor,orr,and,0,mul,0,div,mov,mvn,swi,ldm,stm,ldr,str,ldu,stu,adr,0,0,0,0,0,0,0,0,0,0,0,addCC,adcCC,subCC,cmpCC,eorCC,orrCC,andCC,tstCC,mulCC,0,divCC,movCC,mvnCC,swiCC,ldmCC,0,ldrCC,strCC,lduCC,stuCC
 TYPE:
 	.data	ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,oDST,oDST,oRHS,ALL3,ls,ls,ls,ls,ls,ls,0,0,0,branch,branch,branch,branch,0,0,0,0,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,noDST,ALL3,ALL3,0,ALL3,oDST,oDST,oRHS,ALL3,ls,ls,ls,ls,ls,ls,0,0,0,branch,branch,branch,branch
 COND:

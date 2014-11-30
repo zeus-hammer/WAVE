@@ -1,5 +1,5 @@
 WarmObjectFile2
-File warm.s
+File eorTest.s
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -40,14 +40,12 @@ Register v4 7
 Register v5 8
 Register v6 9
 Register v7 10
-Memory 0 6800201
-Memory 1 6800401
-Memory 2 5800205
-Memory 3 6800003
-Memory 4 6800000
-Source 0         swi     #SysGetNum
-Source 1         swi     #SysPutNum
-Source 2         mov     r0,#10
-Source 3         swi     #SysPutChar
-Source 4         swi     #SysHalt
+Memory 0 5800201
+Memory 1 2000001
+Memory 2 46800401
+Memory 3 66800000
+Source 0         mov     r0, #2
+Source 1         eor     r0, r0, #1
+Source 2         swieq   #SysPutNum
+Source 3         swine   #SysHalt
 End

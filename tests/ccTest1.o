@@ -1,5 +1,5 @@
 WarmObjectFile2
-File ../tests/ccTest1.s
+File ccTest1.s
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -40,8 +40,8 @@ Register v4 7
 Register v5 8
 Register v6 9
 Register v7 10
-Memory 0 15804001
+Memory 0 15800000
 Memory 1 65800001
-Source 0         movs    r0, r0, lsl #1
+Source 0         movs    r0, #0
 Source 1         movne   r0, #1
 End

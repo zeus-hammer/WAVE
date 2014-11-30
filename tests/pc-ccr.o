@@ -1,0 +1,164 @@
+WarmObjectFile2
+File pc-ccr.as
+Symbol SysEntropy 5
+Symbol SysGetChar 1
+Symbol SysGetNum 2
+Symbol SysHalt 0
+Symbol SysOverlay 6
+Symbol SysPLA 7
+Symbol SysPutChar 3
+Symbol SysPutNum 4
+Symbol five 37
+Symbol four 28
+Symbol one 8
+Symbol six 50
+Symbol three 22
+Symbol two 14
+Symbol zero 0
+Register a1 0
+Register a2 1
+Register a3 2
+Register a4 3
+Register ccr 16
+Register fp 11
+Register lr 14
+Register pc 15
+Register r0 0
+Register r1 1
+Register r10 10
+Register r11 11
+Register r12 12
+Register r13 13
+Register r14 14
+Register r15 15
+Register r2 2
+Register r3 3
+Register r4 4
+Register r5 5
+Register r6 6
+Register r7 7
+Register r8 8
+Register r9 9
+Register sp 13
+Register v1 4
+Register v2 5
+Register v3 6
+Register v4 7
+Register v5 8
+Register v6 9
+Register v7 10
+Memory 0 15800001
+Memory 1 7e81e01
+Memory 2 7680001
+Memory 3 580441c
+Memory 4 6800401
+Memory 5 11800000
+Memory 6 5800205
+Memory 7 6800003
+Memory 8 7e81e01
+Memory 9 7680001
+Memory a 580441e
+Memory b 6800401
+Memory c 5800205
+Memory d 6800003
+Memory e 15880000
+Memory f 16004040
+Memory 10 7e81e01
+Memory 11 7680001
+Memory 12 580441e
+Memory 13 6800401
+Memory 14 5800205
+Memory 15 6800003
+Memory 16 5880201
+Memory 17 11808001
+Memory 18 808000
+Memory 19 6800401
+Memory 1a 5800205
+Memory 1b 6800003
+Memory 1c 6083e01
+Memory 1d 10008001
+Memory 1e 7e81e01
+Memory 1f 7680001
+Memory 20 580441a
+Memory 21 3000401
+Memory 22 6800401
+Memory 23 5800205
+Memory 24 6800003
+Memory 25 5800005
+Memory 26 7f8201
+Memory 27 c000003
+Memory 28 c000004
+Memory 29 c000005
+Memory 2a 5800021
+Memory 2b c000004
+Memory 2c 5800035
+Memory 2d c000002
+Memory 2e 580003f
+Memory 2f 6800003
+Memory 30 5800205
+Memory 31 6800003
+Memory 32 5800201
+Memory 33 30db
+Memory 34 7fc000
+Memory 35 c000003
+Memory 36 5800203
+Memory 37 6800401
+Memory 38 6800000
+Source 0 zero:   movs    r0,#1           ; ccr: nzcv
+Source 1         stm     sp,#0x8000      ; save ccr+pc to stack top
+Source 2         ldm     sp,#0x0001      ; grap ccr+pc
+Source 3         mov     r0,r0,lsr #28   ; just ccr
+Source 4         swi     #SysPutNum      ; write 0
+Source 5         cmp     r0,#0           ; ccr: nZcv
+Source 6         mov     r0,#'\n
+Source 7         swi     #SysPutChar
+Source 8 one:    stm     sp,#0x8000      ; save ccr+pc to stack top
+Source 9         ldm     sp,#0x0001      ; grap ccr+pc
+Source a         mov     r0,r0,lsr #30   ; just ccr
+Source b         swi     #SysPutNum      ; write 1
+Source c         mov     r0,#'\n
+Source d         swi     #SysPutChar
+Source e two:    movs    r1,#0           ; ccr: nZcv
+Source f         mvns    r0,r1           ; ccr: Nzcv
+Source 10         stm     sp,#0x8000      ; save ccr+pc to stack top
+Source 11         ldm     sp,#0x0001      ; grap ccr+pc
+Source 12         mov     r0,r0,lsr #30   ; just ccr
+Source 13         swi     #SysPutNum      ; write 2
+Source 14         mov     r0,#'\n
+Source 15         swi     #SysPutChar
+Source 16 three:  mov     r1,#2
+Source 17         cmp     r1,#1           ; ccr: nzCv
+Source 18         adc     r0,r1,#0
+Source 19         swi     #SysPutNum      ; write 3
+Source 1a         mov     r0,#'\n
+Source 1b         swi     #SysPutChar
+Source 1c four:   mvn     r1,#0x80000000  ; wow, that's small
+Source 1d         adds    r0,r1,#1        ; ccr: NzcV
+Source 1e         stm     sp,#0x8000      ; save ccr+pc to stack top
+Source 1f         ldm     sp,#0x0001      ; grap ccr+pc
+Source 20         mov     r0,r0,lsr #26   ; just ccr
+Source 21         and     r0,r0,#4        ; just V
+Source 22         swi     #SysPutNum      ; write 4
+Source 23         mov     r0,#'\n
+Source 24         swi     #SysPutChar
+Source 25 five:   mov     r0,#5
+Source 26         add     pc,pc,#2
+Source 27         b       _x
+Source 28         b       _y
+Source 29         b       _z
+Source 2a _x:     mov     r0,#'!
+Source 2b         b       _common
+Source 2c _y:     mov     r0,#'5
+Source 2d         b       _common
+Source 2e _z:     mov     r0,#'?
+Source 2f _common: swi    #SysPutChar
+Source 30         mov     r0,#'\n
+Source 31         swi     #SysPutChar
+Source 32 six:    mov     r0,#2
+Source 33         add     r0,r0,#0xdb000000
+Source 34         add     pc,pc,r0
+Source 35         b       _woops
+Source 36         mov     r0,#6
+Source 37         swi     #SysPutNum
+Source 38         swi     #SysHalt
+End

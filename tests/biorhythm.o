@@ -1,0 +1,882 @@
+WarmObjectFile2
+File biorhythm.as
+Symbol SysEntropy 5
+Symbol SysGetChar 1
+Symbol SysGetNum 2
+Symbol SysHalt 0
+Symbol SysOverlay 6
+Symbol SysPLA 7
+Symbol SysPutChar 3
+Symbol SysPutNum 4
+Symbol add 471
+Symbol bior 240
+Symbol birthday 1
+Symbol cube 508
+Symbol cycle 216
+Symbol emot 217
+Symbol fabs 384
+Symbol firstYear 7
+Symbol float 373
+Symbol fneg 381
+Symbol half 425
+Symbol halfpi 424
+Symbol hello 8
+Symbol join 375
+Symbol lines 21
+Symbol low16 421
+Symbol main 220
+Symbol ment 219
+Symbol mod 367
+Symbol monthTab 204
+Symbol msg 130
+Symbol mul 473
+Symbol nl 318
+Symbol output 513
+Symbol phys 218
+Symbol pi 423
+Symbol pi2 422
+Symbol print 397
+Symbol puts 337
+Symbol s1 426
+Symbol s2 427
+Symbol s3 428
+Symbol sin 429
+Symbol sin0 444
+Symbol since 345
+Symbol split 389
+Symbol sqr 504
+Symbol strcpy 331
+Symbol strlen 323
+Symbol today 4
+Register a1 0
+Register a2 1
+Register a3 2
+Register a4 3
+Register ccr 16
+Register fp 11
+Register lr 14
+Register pc 15
+Register r0 0
+Register r1 1
+Register r10 10
+Register r11 11
+Register r12 12
+Register r13 13
+Register r14 14
+Register r15 15
+Register r2 2
+Register r3 3
+Register r4 4
+Register r5 5
+Register r6 6
+Register r7 7
+Register r8 8
+Register r9 9
+Register sp 13
+Register v1 4
+Register v2 5
+Register v3 6
+Register v4 7
+Register v5 8
+Register v6 9
+Register v7 10
+Memory 1 c
+Memory 2 f
+Memory 3 7a8
+Memory 4 c
+Memory 5 9
+Memory 6 7da
+Memory 7 76d
+Memory 8 20
+Memory 9 20
+Memory a 20
+Memory b 20
+Memory c 20
+Memory d 20
+Memory e 20
+Memory f 20
+Memory 10 20
+Memory 11 20
+Memory 12 20
+Memory 13 20
+Memory 14 20
+Memory 15 20
+Memory 16 20
+Memory 17 20
+Memory 18 20
+Memory 19 48
+Memory 1a 65
+Memory 1b 72
+Memory 1c 65
+Memory 1d 27
+Memory 1e 73
+Memory 1f 20
+Memory 20 79
+Memory 21 6f
+Memory 22 75
+Memory 23 72
+Memory 24 20
+Memory 25 62
+Memory 26 69
+Memory 27 6f
+Memory 28 72
+Memory 29 68
+Memory 2a 79
+Memory 2b 74
+Memory 2c 68
+Memory 2d 6d
+Memory 2e 2c
+Memory 2f 20
+Memory 30 73
+Memory 31 74
+Memory 32 61
+Memory 33 72
+Memory 34 74
+Memory 35 69
+Memory 36 6e
+Memory 37 67
+Memory 38 20
+Memory 39 74
+Memory 3a 6f
+Memory 3b 64
+Memory 3c 61
+Memory 3d 79
+Memory 3e 3a
+Memory 3f a
+Memory 40 20
+Memory 41 20
+Memory 42 20
+Memory 43 20
+Memory 44 20
+Memory 45 20
+Memory 46 20
+Memory 47 20
+Memory 48 20
+Memory 49 20
+Memory 4a 20
+Memory 4b 20
+Memory 4c 20
+Memory 4d 20
+Memory 4e 20
+Memory 4f 20
+Memory 50 50
+Memory 51 20
+Memory 52 3d
+Memory 53 20
+Memory 54 50
+Memory 55 68
+Memory 56 79
+Memory 57 73
+Memory 58 69
+Memory 59 63
+Memory 5a 61
+Memory 5b 6c
+Memory 5c 20
+Memory 5d 20
+Memory 5e 20
+Memory 5f 20
+Memory 60 20
+Memory 61 20
+Memory 62 20
+Memory 63 4d
+Memory 64 20
+Memory 65 3d
+Memory 66 20
+Memory 67 4d
+Memory 68 65
+Memory 69 6e
+Memory 6a 74
+Memory 6b 61
+Memory 6c 6c
+Memory 6d 20
+Memory 6e 20
+Memory 6f 20
+Memory 70 20
+Memory 71 20
+Memory 72 20
+Memory 73 45
+Memory 74 20
+Memory 75 3d
+Memory 76 20
+Memory 77 45
+Memory 78 6d
+Memory 79 6f
+Memory 7a 74
+Memory 7b 69
+Memory 7c 6f
+Memory 7d 6e
+Memory 7e 61
+Memory 7f 6c
+Memory 80 a
+Memory 81 0
+Memory 82 2d
+Memory 83 20
+Memory 84 20
+Memory 85 20
+Memory 86 20
+Memory 87 20
+Memory 88 20
+Memory 89 20
+Memory 8a 20
+Memory 8b 20
+Memory 8c 20
+Memory 8d 20
+Memory 8e 20
+Memory 8f 20
+Memory 90 20
+Memory 91 20
+Memory 92 20
+Memory 93 20
+Memory 94 20
+Memory 95 20
+Memory 96 20
+Memory 97 20
+Memory 98 20
+Memory 99 20
+Memory 9a 20
+Memory 9b 20
+Memory 9c 20
+Memory 9d 20
+Memory 9e 20
+Memory 9f 20
+Memory a0 20
+Memory a1 20
+Memory a2 20
+Memory a3 20
+Memory a4 20
+Memory a5 20
+Memory a6 7c
+Memory a7 20
+Memory a8 20
+Memory a9 20
+Memory aa 20
+Memory ab 20
+Memory ac 20
+Memory ad 20
+Memory ae 20
+Memory af 20
+Memory b0 20
+Memory b1 20
+Memory b2 20
+Memory b3 20
+Memory b4 20
+Memory b5 20
+Memory b6 20
+Memory b7 20
+Memory b8 20
+Memory b9 20
+Memory ba 20
+Memory bb 20
+Memory bc 20
+Memory bd 20
+Memory be 20
+Memory bf 20
+Memory c0 20
+Memory c1 20
+Memory c2 20
+Memory c3 20
+Memory c4 20
+Memory c5 20
+Memory c6 20
+Memory c7 20
+Memory c8 20
+Memory c9 20
+Memory ca 2b
+Memory cb 0
+Memory cc 0
+Memory cd 1f
+Memory ce 3b
+Memory cf 5a
+Memory d0 78
+Memory d1 97
+Memory d2 b5
+Memory d3 d4
+Memory d4 f3
+Memory d5 111
+Memory d6 130
+Memory d7 14e
+Memory d8 5304
+Memory d9 1c
+Memory da 17
+Memory db 21
+Memory 1a5 ffff
+Memory 1a6 6487f
+Memory 1a7 3243f
+Memory 1a8 1921f
+Memory 1a9 8000
+Memory 1aa ffffd556
+Memory 1ab 222
+Memory 1ac fffffff2
+Memory 0 c0000dc
+Memory dc a07bf2c
+Memory dd d000074
+Memory de a07bf23
+Memory df d00007a
+Memory e0 5884000
+Memory e1 a07bf23
+Memory e2 d000077
+Memory e3 1004040
+Memory e4 80015
+Memory e5 d00000b
+Memory e6 986bfff
+Memory e7 5800a01
+Memory e8 6800003
+Memory e9 9068001
+Memory ea 6800401
+Memory eb d000053
+Memory ec 1
+Memory ed 11804040
+Memory ee 8cfffff7
+Memory ef 6800000
+Memory f0 9f6bfff
+Memory f1 7e8003f
+Memory f2 5a04000
+Memory f3 5884100
+Memory f4 807bfe4
+Memory f5 d00007a
+Memory f6 5a04000
+Memory f7 a0fbf8b
+Memory f8 a078109
+Memory f9 d000052
+Memory fa d000049
+Memory fb 1000003
+Memory fc 5a84801
+Memory fd 807bfdd
+Memory fe 5884100
+Memory ff d000070
+Memory 100 5804010
+Memory 101 80fbfd9
+Memory 102 5004040
+Memory 103 80f80a3
+Memory 104 d0000d5
+Memory 105 d0000a8
+Memory 106 4004140
+Memory 107 80f80a2
+Memory 108 d0000cf
+Memory 109 5884810
+Memory 10a 8c140
+Memory 10b 88001
+Memory 10c a1780f5
+Memory 10d 5980805
+Memory 10e 8994040
+Memory 10f 5884100
+Memory 110 807bfc9
+Memory 111 d00005e
+Memory 112 5804010
+Memory 113 80fbfc6
+Memory 114 5004040
+Memory 115 80f8091
+Memory 116 d0000c3
+Memory 117 d000096
+Memory 118 4004140
+Memory 119 80f8090
+Memory 11a d0000bd
+Memory 11b 5884810
+Memory 11c 8c140
+Memory 11d 88001
+Memory 11e a1780e3
+Memory 11f 8194040
+Memory 120 11818805
+Memory 121 45980219
+Memory 122 65980045
+Memory 123 8994040
+Memory 124 5884100
+Memory 125 807bfb6
+Memory 126 d000049
+Memory 127 5804010
+Memory 128 80fbfb3
+Memory 129 5004040
+Memory 12a 80f807c
+Memory 12b d0000ae
+Memory 12c d000081
+Memory 12d 4004140
+Memory 12e 80f807b
+Memory 12f d0000a8
+Memory 130 5884810
+Memory 131 8c140
+Memory 132 88001
+Memory 133 a1780ce
+Memory 134 8194040
+Memory 135 11818219
+Memory 136 8598004d
+Memory 137 e5980219
+Memory 138 45980033
+Memory 139 8994040
+Memory 13a a0780c7
+Memory 13b d000016
+Memory 13c 768003f
+Memory 13d 97e8001
+Memory 13e 986bfff
+Memory 13f 5800205
+Memory 140 6800003
+Memory 141 9068001
+Memory 142 5f84380
+Memory 143 7e80203
+Memory 144 5884000
+Memory 145 5800000
+Memory 146 19108001
+Memory 147 60000001
+Memory 148 6cfffffe
+Memory 149 7680203
+Memory 14a 5f84380
+Memory 14b 7e80007
+Memory 14c 9108001
+Memory 14d 19900001
+Memory 14e 6cfffffe
+Memory 14f 7680007
+Memory 150 5f84380
+Memory 151 98ebfff
+Memory 152 5884000
+Memory 153 19008001
+Memory 154 4c000003
+Memory 155 6800003
+Memory 156 cfffffd
+Memory 157 90e8001
+Memory 158 5f84380
+Memory 159 9f6bfff
+Memory 15a 7e8027f
+Memory 15b 8080002
+Memory 15c 827beab
+Memory 15d 108c100
+Memory 15e 8100000
+Memory 15f 1110001
+Memory 160 8180001
+Memory 161 1198001
+Memory 162 400816d
+Memory 163 4842
+Memory 164 3088003
+Memory 165 45880001
+Memory 166 65880000
+Memory 167 a27bf65
+Memory 168 8224480
+Memory 169 4100
+Memory 16a 11810201
+Memory 16b e0004040
+Memory 16c 40c0
+Memory 16d 768027f
+Memory 16e 97e8001
+Memory 16f 7e80207
+Memory 170 510c000
+Memory 171 4114000
+Memory 172 100c080
+Memory 173 7680207
+Memory 174 5f84380
+Memory 175 5804010
+Memory 176 5f84380
+Memory 177 807802e
+Memory 178 5804001
+Memory 179 1
+Memory 17a 3004080
+Memory 17b 40d0
+Memory 17c 5f84380
+Memory 17d 6004000
+Memory 17e 1
+Memory 17f 5f84380
+Memory 180 11800000
+Memory 181 86004000
+Memory 182 80002001
+Memory 183 80000001
+Memory 184 5f84380
+Memory 185 5984810
+Memory 186 98ebfff
+Memory 187 80f801e
+Memory 188 3104040
+Memory 189 309cc50
+Memory 18a 2914040
+Memory 18b 90e8001
+Memory 18c 5f84380
+Memory 18d 9f6bfff
+Memory 18e 7e8000f
+Memory 18f 11800000
+Memory 190 8dffffed
+Memory 191 8986bfff
+Memory 192 8580002d
+Memory 193 86800003
+Memory 194 89068001
+Memory 195 dfffff0
+Memory 196 58040c0
+Memory 197 6800401
+Memory 198 5800217
+Memory 199 6800003
+Memory 19a 5880203
+Memory 19b 14110205
+Memory 19c 4c000007
+Memory 19d 5804080
+Memory 19e dffffe7
+Memory 19f 58040c0
+Memory 1a0 6800401
+Memory 1a1 1088001
+Memory 1a2 ecfffff9
+Memory 1a3 768000f
+Memory 1a4 97e8001
+Memory 1ad 9f6bfff
+Memory 1ae 7e803ff
+Memory 1af 5900000
+Memory 1b0 11800000
+Memory 1b1 82110001
+Memory 1b2 8dffffcb
+Memory 1b3 80fbff5
+Memory 1b4 11804040
+Memory 1b5 c80fbff2
+Memory 1b6 c100c000
+Memory 1b7 d000005
+Memory 1b8 11810000
+Memory 1b9 6dffffc4
+Memory 1ba 76803ff
+Memory 1bb 97e8001
+Memory 1bc 9f6bfff
+Memory 1bd 7e803ff
+Memory 1be 5904000
+Memory 1bf d000039
+Memory 1c0 5984000
+Memory 1c1 5804080
+Memory 1c2 d00003a
+Memory 1c3 5a04000
+Memory 1c4 807bfe8
+Memory 1c5 58840c0
+Memory 1c6 d000013
+Memory 1c7 80fbfe4
+Memory 1c8 d00000f
+Memory 1c9 5884100
+Memory 1ca d00000f
+Memory 1cb 5884080
+Memory 1cc d00000d
+Memory 1cd 5a84000
+Memory 1ce 807bfdc
+Memory 1cf 5884100
+Memory 1d0 d000009
+Memory 1d1 5884140
+Memory 1d2 d000005
+Memory 1d3 5884080
+Memory 1d4 d000003
+Memory 1d5 76803ff
+Memory 1d6 97e8001
+Memory 1d7 4040
+Memory 1d8 5f84380
+Memory 1d9 9f6bfff
+Memory 1da 7e8021f
+Memory 1db 5c80000
+Memory 1dc 11800000
+Memory 1dd 824c8001
+Memory 1de 86004000
+Memory 1df 80000001
+Memory 1e0 11808000
+Memory 1e1 824c8001
+Memory 1e2 86084040
+Memory 1e3 80088001
+Memory 1e4 dffffa1
+Memory 1e5 5b04080
+Memory 1e6 5b840c0
+Memory 1e7 5804040
+Memory 1e8 dffff9d
+Memory 1e9 5a04080
+Memory 1ea 5a840c0
+Memory 1eb 443c140
+Memory 1ec 4024180
+Memory 1ed 5804410
+Memory 1ee 4806146
+Memory 1ef 4806107
+Memory 1f0 dffff95
+Memory 1f1 1c40c0
+Memory 1f2 dffff85
+Memory 1f3 11848000
+Memory 1f4 66004000
+Memory 1f5 60000001
+Memory 1f6 768021f
+Memory 1f7 97e8001
+Memory 1f8 9f6bfff
+Memory 1f9 5884000
+Memory 1fa dffffdf
+Memory 1fb 97e8001
+Memory 1fc 9f6bfff
+Memory 1fd 5884000
+Memory 1fe dffffdb
+Memory 1ff dffffda
+Memory 200 97e8001
+Source 0         b main
+Source dc         adr     r0,hello
+Source dd         bl      puts
+Source de         adr     r0,birthday
+Source df         bl      since
+Source e0         mov     r1,r0
+Source e1         adr     r0,today
+Source e2         bl      since
+Source e3         sub     r0,r0,r1
+Source e4         add     r1,r0,#lines
+Source e5 _loop:  bl      bior            ; print chart line
+Source e6         stu     r0,[sp,#-1]
+Source e7         mov     r0,#'\          ; space
+Source e8         swi     #SysPutChar
+Source e9         ldu     r0,[sp,#1]
+Source ea         swi     #SysPutNum      ; age in days
+Source eb         bl      nl
+Source ec         add     r0,r0,#1        ; count lines
+Source ed         cmp     r0,r1
+Source ee         blt     _loop
+Source ef         swi     #SysHalt        ; fini.
+Source f0 bior:   stu     lr,[sp,#-1]
+Source f1         stm     sp,#0x3f
+Source f2         mov     r4,r0           ; stash age in r4
+Source f3         mov     r1,r4
+Source f4         ldr     r0,cycle        ; mod the age by 58 years to avoid 16 bit overf
+Source f5         bl      mod
+Source f6         mov     r4,r0
+Source f7         adr     r1,msg
+Source f8         adr     r0,output       ; copy a clean line
+Source f9         bl      strcpy
+Source fa         bl      strlen          ; compute the radius of the line
+Source fb         sub     r0,r0,#3
+Source fc         mov     r5,r0,asr#1     ; multiplier for sine(x)
+Source fd         ldr     r0,phys
+Source fe         mov     r1,r4
+Source ff         bl      mod             ; age mode physical cycle
+Source 100         mov     r0,r0,lsl#16    ; fractional
+Source 101         ldr     r1,phys
+Source 102         div     r0,r0,r1        ;   division
+Source 103         ldr     r1,pi2          ; multiply by 2pi
+Source 104         bl      mul
+Source 105         bl      sin             ; compute sine
+Source 106         mul     r0,r0,r5        ; multiply by radius
+Source 107         ldr     r1,half         ; round
+Source 108         bl      add
+Source 109         mov     r1,r0,asr#16    ; truncate to integer
+Source 10a         add     r1,r1,r5        ; compute charcter offset
+Source 10b         add     r1,r1,#1
+Source 10c         adr     r2,output       ; place a P
+Source 10d         mov     r3,#'P
+Source 10e         str     r3,[r2,r1,lsl#0] ; in the chart
+Source 10f         mov     r1,r4           ; same as above but...
+Source 110         ldr     r0,emot
+Source 111         bl      mod
+Source 112         mov     r0,r0,lsl#16
+Source 113         ldr     r1,emot
+Source 114         div     r0,r0,r1
+Source 115         ldr     r1,pi2
+Source 116         bl      mul
+Source 117         bl      sin
+Source 118         mul     r0,r0,r5
+Source 119         ldr     r1,half
+Source 11a         bl      add
+Source 11b         mov     r1,r0,asr#16
+Source 11c         add     r1,r1,r5
+Source 11d         add     r1,r1,#1
+Source 11e         adr     r2,output
+Source 11f         ldr     r3,[r2,r1,lsl#0]
+Source 120         cmp     r3,#'P          ; if we find a P
+Source 121         moveq   r3,#'2          ;    indicate crossing
+Source 122         movne   r3,#'E          ;       otherwise place E
+Source 123         str     r3,[r2,r1,lsl#0] ; in chart
+Source 124         mov     r1,r4           ; same with mental, but
+Source 125         ldr     r0,ment
+Source 126         bl      mod
+Source 127         mov     r0,r0,lsl#16
+Source 128         ldr     r1,ment
+Source 129         div     r0,r0,r1
+Source 12a         ldr     r1,pi2
+Source 12b         bl      mul
+Source 12c         bl      sin
+Source 12d         mul     r0,r0,r5
+Source 12e         ldr     r1,half
+Source 12f         bl      add
+Source 130         mov     r1,r0,asr#16
+Source 131         add     r1,r1,r5
+Source 132         add     r1,r1,#1
+Source 133         adr     r2,output
+Source 134         ldr     r3,[r2,r1,lsl#0]
+Source 135         cmp     r3,#'2          ; either space or punct, a 2, or an M
+Source 136         movlt   r3,#'M          ; space/punct, place an M
+Source 137         movgt   r3,#'2          ; previous letter.  Place a 2
+Source 138         moveq   r3,#'3          ; previous 2, place a 3 (wow!)
+Source 139         str     r3,[r2,r1,lsl#0]
+Source 13a         adr     r0,output
+Source 13b         bl      puts            ; print the string
+Source 13c         ldm     sp,#0x3f
+Source 13d         ldu     pc,[sp,#1]      ; return
+Source 13e nl:     stu     r0,[sp,#-1]
+Source 13f         mov     r0,#'\n
+Source 140         swi     #SysPutChar
+Source 141         ldu     r0,[sp,#1]
+Source 142         mov     pc,lr
+Source 143 strlen: stm     sp,#0x6
+Source 144         mov     r1,r0
+Source 145         mov     r0,#0
+Source 146 _loop:  ldus    r2,[r1,#1]
+Source 147         addne   r0,r0,#1
+Source 148         bne     _loop
+Source 149         ldm     sp,#0x6
+Source 14a         mov     pc,lr
+Source 14b strcpy: stm     sp,#0x7
+Source 14c _loop:  ldu     r2,[r1,#1]
+Source 14d         stus    r2,[r0,#1]
+Source 14e         bne     _loop
+Source 14f _done:  ldm     sp,#0x7
+Source 150         mov     pc,lr
+Source 151 puts:   stu     r1,[sp,#-1]
+Source 152         mov     r1,r0
+Source 153 _loop:  ldus    r0,[r1,#1]
+Source 154         beq     _done
+Source 155         swi     #SysPutChar
+Source 156         b       _loop
+Source 157 _done:  ldu     r1,[sp,#1]
+Source 158         mov     pc,lr
+Source 159 since:  stu     lr,[sp,#-1]
+Source 15a         stm     sp,#0xfe
+Source 15b         ldr     r1,[r0,#2]      ; r1 = year
+Source 15c         ldr     r4,firstYear
+Source 15d         sub     r1,r1,r4
+Source 15e         ldr     r2,[r0,#0]      ; r2 = month
+Source 15f         sub     r2,r2,#1        ;  0..11
+Source 160         ldr     r3,[r0,#1]      ; r3 = day
+Source 161         sub     r3,r3,#1
+Source 162         mul     r0,r1,#365      ; r0 = running total
+Source 163         add     r0,r0,r1,asr#2  ; add in leap years
+Source 164         and     r1,r1,#0x3      ; 1 if target year is leap year
+Source 165         moveq   r1,#1
+Source 166         movne   r1,#0
+Source 167         adr     r4,monthTab     ; julian date lookup
+Source 168         ldr     r4,[r4,r2,lsr#0]
+Source 169         add     r0,r0,r4
+Source 16a         cmp     r2,#2
+Source 16b         addgt   r0,r0,r1        ; curry in another leap day after leap feb
+Source 16c         add     r0,r0,r3        ; add in days
+Source 16d         ldm     sp,#0xfe        
+Source 16e         ldu     pc,[sp,#1]
+Source 16f mod:    stm     sp,#0xe
+Source 170         div     r2,r1,r0
+Source 171         mul     r2,r2,r0
+Source 172         sub     r0,r1,r2
+Source 173         ldm     sp,#0xe
+Source 174         mov     pc,lr
+Source 175 float:  mov     r0,r0,lsl#16
+Source 176         mov     pc,lr
+Source 177 join:   ldr     r0,low16
+Source 178         mov     r0,r0,lsl#1
+Source 179         add     r0,r0,#1
+Source 17a         and     r0,r0,r2
+Source 17b         add     r0,r0,r3,lsl #16
+Source 17c         mov     pc,lr
+Source 17d fneg:   mvn     r0,r0
+Source 17e         add     r0,r0,#1
+Source 17f         mov     pc,lr
+Source 180 fabs:   cmp     r0,#0
+Source 181         mvnlt   r0,r0
+Source 182         addlt   r0,r0,#0x10000
+Source 183         addlt   r0,r0,#1
+Source 184         mov     pc,lr
+Source 185 split:  mov     r3,r0,asr#16
+Source 186         stu     r1,[sp,#-1]
+Source 187         ldr     r1,low16
+Source 188         and     r2,r0,r1
+Source 189         and     r1,r3,r1,ror #16 
+Source 18a         orr     r2,r2,r1
+Source 18b         ldu     r1,[sp,#1]
+Source 18c         mov     pc,lr
+Source 18d print:  stu     lr,[sp,#-1]
+Source 18e         stm     sp,#0xf
+Source 18f         cmp     r0,#0
+Source 190         bllt    fneg
+Source 191         stult   r0,[sp,#-1]
+Source 192         movlt   r0,#'-
+Source 193         swilt   #SysPutChar
+Source 194         ldult   r0,[sp,#1]
+Source 195         bl      split
+Source 196         mov     r0,r3
+Source 197         swi     #SysPutNum
+Source 198         mov     r0,#'.
+Source 199         swi     #SysPutChar
+Source 19a         mov     r1,#6
+Source 19b _loop:  muls    r2,r2,#10
+Source 19c         beq     _done
+Source 19d         mov     r0,r2
+Source 19e         bl      split
+Source 19f         mov     r0,r3
+Source 1a0         swi     #SysPutNum
+Source 1a1         sub     r1,r1,#1
+Source 1a2         bgt     _loop
+Source 1a3 _done:  ldm     sp,#0xf
+Source 1a4         ldu     pc,[sp,#1]
+Source 1ad sin:    stu     lr,[sp,#-1]
+Source 1ae         stm     sp,#0x3fe
+Source 1af         mov     r2,#0           ; sign of sine
+Source 1b0         cmp     r0,#0
+Source 1b1         eorlt   r2,r2,#1        ; sin(-x) = -sin(x)
+Source 1b2         bllt    fneg
+Source 1b3         ldr     r1,halfpi
+Source 1b4         cmp     r0,r1
+Source 1b5         ldrge   r1,pi
+Source 1b6         subge   r0,r1,r0
+Source 1b7         bl      sin0
+Source 1b8         cmp     r2,#0
+Source 1b9         blne    fneg
+Source 1ba         ldm     sp,#0x3fe
+Source 1bb         ldu     pc,[sp,#1]
+Source 1bc sin0:   stu     lr,[sp,#-1]
+Source 1bd         stm     sp,#0x3fe
+Source 1be         mov     r2,r0
+Source 1bf         bl      sqr
+Source 1c0         mov     r3,r0
+Source 1c1         mov     r0,r2
+Source 1c2         bl      cube
+Source 1c3         mov     r4,r0
+Source 1c4         ldr     r0,s3
+Source 1c5         mov     r1,r3
+Source 1c6         bl      mul             ; r0 = s3*x^2
+Source 1c7         ldr     r1,s2
+Source 1c8         bl      add             ; r0 = s2+s3*x^2
+Source 1c9         mov     r1,r4
+Source 1ca         bl      mul             ; r0 = r = x^3*(s2+x3*x^2)
+Source 1cb         mov     r1,r2
+Source 1cc         bl      mul             ; r0 = r5 = x*r
+Source 1cd         mov     r5,r0           
+Source 1ce         ldr     r0,s1
+Source 1cf         mov     r1,r4
+Source 1d0         bl      mul             ;s1*x^3
+Source 1d1         mov     r1,r5
+Source 1d2         bl      add
+Source 1d3         mov     r1,r2
+Source 1d4         bl      add
+Source 1d5         ldm     sp,#0x3fe
+Source 1d6         ldu     pc,[sp,#1]
+Source 1d7         add     r0,r0,r1
+Source 1d8         mov     pc,lr
+Source 1d9 mul:    stu     lr,[sp,#-1]
+Source 1da         stm     sp,#0x3e
+Source 1db         mov     r9,#0
+Source 1dc         cmp     r0,#0
+Source 1dd         eorlt   r9,r9,#1
+Source 1de         mvnlt   r0,r0
+Source 1df         addlt   r0,r0,#1
+Source 1e0         cmp     r1,#0
+Source 1e1         eorlt   r9,r9,#1
+Source 1e2         mvnlt   r1,r1
+Source 1e3         addlt   r1,r1,#1
+Source 1e4         bl      split
+Source 1e5         mov     r6,r2 ; B
+Source 1e6         mov     r7,r3 ; A
+Source 1e7         mov     r0,r1
+Source 1e8         bl      split
+Source 1e9         mov     r4,r2 ; D
+Source 1ea         mov     r5,r3 ; C
+Source 1eb         mul     r8,r7,r5 ; AC
+Source 1ec         mul     r0,r4,r6 ; BD
+Source 1ed         mov     r0,r0,lsr#16    ;we must divide by 2^16
+Source 1ee         mla     r0,r0,r5,r6    ; CB     ;this need not be shifted, but is fractional
+Source 1ef         mla     r0,r0,r4,r7    ; DA  ;this need not be shifted, but is fractional
+Source 1f0         bl      split
+Source 1f1         add     r3,r8,r3
+Source 1f2         bl      join
+Source 1f3         cmp     r9,#0
+Source 1f4         mvnne   r0,r0
+Source 1f5         addne   r0,r0,#1
+Source 1f6         ldm     sp,#0x3e
+Source 1f7         ldu     pc,[sp,#1]
+Source 1f8 sqr:    stu     lr,[sp,#-1]
+Source 1f9         mov     r1,r0
+Source 1fa         bl      mul
+Source 1fb         ldu     pc,[sp,#1]
+Source 1fc cube:   stu     lr,[sp,#-1]
+Source 1fd         mov     r1,r0
+Source 1fe         bl      mul
+Source 1ff         bl      mul
+Source 200         ldu     pc,[sp,#1]
+End

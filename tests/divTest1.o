@@ -40,16 +40,18 @@ Register v4 7
 Register v5 8
 Register v6 9
 Register v7 10
-Memory 0 201
-Memory 1 4080003
-Memory 2 490e040
-Memory 3 5190201
-Memory 4 5194041
-Memory 5 5195440
-Source 0         add     r0, r0, #2      ;2 should be in r0
-Source 1         mul     r1, r0, #3      ;6 should be in r1
-Source 2         mla     r2, r1, r1, r0  ;18 should be in r2 (6*2)+6
-Source 3         div     r3, r2, #2      ;9 should be in r3
-Source 4         div     r3, r2, r1, lsl #1 ;1 should be in r3
-Source 5         div     r3, r2, r1, lsr r0 ;18 should be in r3
+Memory 0 5800003
+Memory 1 201
+Memory 2 4080003
+Memory 3 490e040
+Memory 4 5190201
+Memory 5 5194041
+Memory 6 5195440
+Source 0         mov     r0, #3
+Source 1         add     r0, r0, #2      ;2 should be in r0
+Source 2         mul     r1, r0, #3      ;6 should be in r1
+Source 3         mla     r2, r1, r1, r0  ;18 should be in r2 (6*2)+6
+Source 4         div     r3, r2, #2      ;9 should be in r3
+Source 5         div     r3, r2, r1, lsl #1 ;1 should be in r3
+Source 6         div     r3, r2, r1, lsr r0 ;18 should be in r3
 End
