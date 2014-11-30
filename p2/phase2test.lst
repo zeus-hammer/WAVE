@@ -1,14 +1,13 @@
 WARM Assembly of phase2test.s                                           Page 1
 
 Line [ Addr ]
-0001           ; Phase 2 test.                 -*- mode: asm; compile-command: "
 0002           ; (c) 2010 duane bailey
 0003           ; This demonstrates most of instructions and modes needed for pha
 0004           ; Enjoy :-).
 0005           
 0006           ; test 0: check output, and data direct (assume r0 is 0 and condi
 0007 [0x0000]: zero:   adc     r0,r0,pc         
-     [0x0000]: 0x008043c0 = 0b00000000100000000100001111000000
+     [0x0000]: 0x008043c0 = 0b000 000001 00000000100001111000000
 0008 [0x0001]:         swi     #SysPutNum
      [0x0001]: 0x06800401 = 0b00000110100000000000010000000001
 0009           ; text 0.5: check char output, and immediate data
@@ -171,7 +170,7 @@ Line [ Addr ]
 0089 [0x0049]:         swi     #SysPutChar
      [0x0049]: 0x06800003 = 0b00000110100000000000000000000011
 0090           ; test 9: Some logic.  Or not.
-0091 [0x004a]: nine:   mov     r1,sp
+p0091 [0x004a]: nine:   mov     r1,sp
      [0x004a]: 0x05884340 = 0b00000101100010000100001101000000
 0092 [0x004b]:         and     r2,r1,#0b1111
      [0x004b]: 0x0310800f = 0b00000011000100001000000000001111
@@ -221,4 +220,4 @@ Symbols defined:
         nine=74              one=4             seven=39              six=32    
        three=15              two=9              zero=0      
 -------------------------------------------------------------------------------
-Assembled 94 instructions at 1032.97 instructions per second.
+Assembled 94 instructions at 949.49 instructions per second.
