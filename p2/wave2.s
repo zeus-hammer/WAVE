@@ -24,7 +24,6 @@
 	lea	WARM,work0
 	trap	$SysOverlay
 
-
 ;;; N.B.
 ;;; - RHS and CI are the same register, this allows us to cut the
 ;;; mv ci, rhs      instruction that was common to all addressing
@@ -47,10 +46,12 @@
 ;;; -we can save multiple instructions by fucking up the ci
 ;;; 	on it's last go-round. applies in:
 ;;; 	shifting, dst, src, shopcode etc...
-	
+	jmp	fetch
 
 ;;; --------------------BEGIN FETCHING THE INSTRUCTION-------------------
 ;;; 5 INSTRUCTIONS
+fetch3:	mov	ccr,wCCR	
+fetch2:	mov	rhs, REGS(dst)
 fetch:	mov	WARM(wpc),ci
 	mov	ci, work0
 	shr	$29, work0	;high 3 condition bits in work0
@@ -170,15 +171,13 @@ rpm:	mov	$maskLow4, work0
 ;;; thoughts and improvements for all operations:
 ;;; 4 INSTRUCTION(S)	
 add:	add	REGS(lhs), rhs
-	mov	rhs, REGS(dst)
-	jmp 	fetch
+	jmp 	fetch2
 adc:	mov	wCCR, work0
 	shr	$2, work0
 	shl	$31, work0
 	add	REGS(lhs), rhs
 	add	work0, rhs
-	mov 	rhs, REGS(dst)
-	jmp	fetch
+	jmp	fetch2
 ;;; 5 INSTRUCTION(S)
 ;;; backwards (like div)
 sub:	mov	REGS(lhs), work0
@@ -187,32 +186,26 @@ sub:	mov	REGS(lhs), work0
 	jmp 	fetch
 ;;; 4 INSTRUCTION(S)	
 eor:	xor	REGS(lhs), rhs
-	mov 	rhs, REGS(dst)
-	jmp 	fetch
+	jmp 	fetch2
 ;;; 4 INSTRUCTION(S)	
 orr:	or	REGS(lhs), rhs
-	mov	rhs, REGS(dst)
-	jmp	fetch
+	jmp	fetch2
 ;;; 3 INSTRUCTION(S)	
 and:	and	REGS(lhs), rhs
-	mov 	rhs, REGS(dst)
-	jmp 	fetch
+	jmp 	fetch2
 ;;; 4 INSTRUCTION(S)
 mul:	mul	REGS(lhs), rhs
-	mov	rhs, REGS(dst)
-	jmp	fetch
+	jmp	fetch2
 ;;; 5 INSTRUCTION(S)
 div:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	work0, REGS(dst)
 	jmp	fetch	
 ;;; 3 INSTRUCTION(S)
-mov:	mov	rhs, REGS(dst)
-	jmp 	fetch
+mov:	jmp 	fetch2
 ;;; 5 INSTRUCTION(S)
 mvn:	xor	$flip, rhs
-	mov	rhs, REGS(dst)
-	jmp	fetch
+	jmp	fetch2
 swi:	mov	REGS(alwaysZ), work0
 	trap 	rhs
 	jmp	fetch
@@ -225,10 +218,13 @@ stu:
 adr:
 ;;; second set of instrucions. for use when we don't 
 addCC:	add	REGS(lhs), rhs
-	mov	ccr,wCCR	
-	mov	rhs, REGS(dst)
-	jmp 	fetch
-adcCC:
+	jmp 	fetch3
+adcCC:	mov	wCCR, work0
+	shr	$2, work0
+	shl	$31, work0
+	add	REGS(lhs), rhs
+	add	work0, rhs
+	jmp	fetch3
 ;;; 5 INSTRUCTION(S)
 ;;; backwards (like div)
 subCC:	mov	REGS(lhs), work0
@@ -243,28 +239,19 @@ cmpCC:	mov 	REGS(lhs), work0
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)	
 eorCC:	xor	REGS(lhs), rhs
-	mov 	ccr, wCCR	
-	mov 	rhs, REGS(dst)
-	jmp 	fetch
+	jmp 	fetch3
 ;;; 5 INSTRUCTION(S)	
 orrCC:	or	REGS(lhs), rhs
-	mov	ccr, wCCR	
-	mov	rhs, REGS(dst)
-	jmp	fetch
+	jmp	fetch3
 ;;; 4 INSTRUCTION(S)	
 andCC:	and	REGS(lhs), rhs
-	mov	ccr, wCCR	
-	mov 	rhs, REGS(dst)
-	jmp 	fetch
+	jmp 	fetch3
 ;;; 4 INSTRUCTION(S)
 tstCC:	test	REGS(lhs), rhs
-	mov 	ccr, wCCR
-	jmp	fetch
+	jmp	fetch3
 ;;; 4 INSTRUCTION(S)
 mulCC:	mul	REGS(lhs), rhs
-	mov	ccr,wCCR	
-	mov	rhs, REGS(dst)
-	jmp	fetch
+	jmp	fetch3
 ;;; 6 backwards (like sub)
 divCC:	mov 	REGS(lhs), work0
 	div	rhs, work0
@@ -274,14 +261,13 @@ divCC:	mov 	REGS(lhs), work0
 ;;; 4 INSTRUCTION(S)
 movCC:	mov	rhs, REGS(dst)
 ;;; 	and	rhs,rhs
-	mov	ccr,wCCR
+	mov	ccr,wCCR			
 	jmp	fetch
 ;;; 4 INSTRUCTIONS
 mvnCC:	xor	$flip,rhs
-	mov	rhs, REGS(dst)
-	jmp	fetch	
+	jmp	fetch3
 swiCC:	trap	rhs
-	jmp 	fetch
+	jmp 	fetch3
 ldmCC:
 ldrCC:
 strCC:
