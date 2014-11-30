@@ -24,17 +24,30 @@
 
 	lea	WARM,work0
 	trap	$SysOverlay
-;;; SADS/WORRIES
+
+
+;;; N.B.
+;;; - RHS and CI are the same register, this allows us to cut the
+;;; mv ci, rhs      instruction that was common to all addressing
+;;; modes. we save an instruction with this, but it's not exactly
+;;; clear when you see RHS being manipulated and we didn't put 
+;;; anything in it. we are manipulating the CI and then throwing
+;;; it away because the next instruction gets its own CI
+	
+;;; SADS
+;;; 
 ;;; -the wpc being used in instructions
 ;;; -mov's into the pc
 ;;; -anding the address of the wpc to make sure we don't
-;;; -wrap out
+;;; 	wrap out
 ;;; -linking? how does the lr actually get accessed
 ;;; -how do we know we're getting back from the last call stack?
+	
 ;;; HAPPIES
+;;; 
 ;;; -we can save multiple instructions by fucking up the ci
 ;;; 	on it's last go-round. applies in:
-;;; 	shifting, dst src, shopcode etc..
+;;; 	shifting, dst, src, shopcode etc...
 	
 
 ;;; --------------------BEGIN FETCHING THE INSTRUCTION-------------------
@@ -82,7 +95,7 @@ ls:
 branch:	add 	ci, wpc
 	and	$mask23to0, wpc
 	shr	$22,ci
-	mov	ci,ccr	
+	mov	ci, ccr	
 	jne	fetch
 	mov	wpc, wlr
 	add	$1, wlr
@@ -94,7 +107,6 @@ branch:	add 	ci, wpc
 imd:	mov	ci, work0
 	and	$maskExp, work0	;exponent
 	shr	$9, work0
-;;; 	mov	ci, rhs
 	and	$maskValue, rhs	;value
 	shl	work0, rhs	;shifted value in rhs
 	mov     INSTR(op), rip
@@ -105,11 +117,10 @@ rim:	mov	ci, shiftC
 	mov	ci, work0
 	shl	$20, work0
 	shr	$30, work0	;work0 now has the shop
-;;; 	mov	ci, rhs
 	shl	$22, rhs
 	shr	$28, rhs 	;now we have src reg 2 in rhs
 	mov	REGS(rhs), rhs	;rhs now has the value that was in register number rhs
-	mov 	SHOP(work0),rip
+	mov 	SHOP(work0), rip
 ;;; Register Shifted by Register Mode
 ;;; 11 INSTRUCTIONS
 rsr:	mov	$maskLow4, shiftC	; shiftC := 15
@@ -118,7 +129,6 @@ rsr:	mov	$maskLow4, shiftC	; shiftC := 15
 	mov 	ci, work0
 	shl	$20, work0
 	shr	$30, work0	; work0 now has the shift op code
-;;; 	mov	ci, rhs
 	shl	$22, rhs
 	shr	$28, rhs	; rhs has rhs register
 	mov	REGS(rhs), rhs	; rhs now has whatever was stored in rhs (memory)
@@ -150,19 +160,18 @@ ror:	mov	rhs, work0
 ;;; 8 INSTRUCTIONS
 rpm:	mov	$maskLow4, work0
 	and	ci, work0	;work0 now has src reg 3
-;;; 	mov	ci, rhs
 	shl	$22, rhs
 	shr	$28, rhs	; rhs now has src reg 2
 	mov	REGS(rhs), rhs	; rhs now has whatever was stored in the correspondent register
 	mov	REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
 	mul	work0, rhs
-;;; -------------------------END ADDRESSING MODES--------------------------
+;;; -------------------------END ADDRESSING MODES-------------------------------
+	
 ;;; -------------------------BEGIN OPERATIONS------------------------------------
 ;;; thoughts and improvements for all operations:
 ;;; 4 INSTRUCTION(S)	
 add:	add	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
-;;; 	add	$1, wpc
 	jmp 	fetch
 adc:	mov	wCCR, work0
 	shr	$2, work0
@@ -170,53 +179,43 @@ adc:	mov	wCCR, work0
 	add	REGS(lhs), rhs
 	add	work0, rhs
 	mov 	rhs, REGS(dst)
-;;; 	add	$1, wpc
 	jmp	fetch
 ;;; 5 INSTRUCTION(S)
 ;;; backwards (like div)
 sub:	mov	REGS(lhs), work0
 	sub	rhs, work0
 	mov	work0, REGS(dst)
-;;; 	add	$1, wpc
 	jmp 	fetch
 ;;; 4 INSTRUCTION(S)	
-eor:	xor	REGS(lhs),rhs
+eor:	xor	REGS(lhs), rhs
 	mov 	rhs, REGS(dst)
-;;; 	add	$1, wpc
 	jmp 	fetch
 ;;; 4 INSTRUCTION(S)	
 orr:	or	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
-;;; 	add	$1, wpc	
 	jmp	fetch
 ;;; 3 INSTRUCTION(S)	
 and:	and	REGS(lhs), rhs
 	mov 	rhs, REGS(dst)
-;;; 	add	$1, wpc	
 	jmp 	fetch
 ;;; 4 INSTRUCTION(S)
 mul:	mul	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
-;;; 	add	$1, wpc	
 	jmp	fetch
 ;;; 5 INSTRUCTION(S)
 div:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	work0, REGS(dst)
-;;; 	add	$1, wpc	
 	jmp	fetch	
 ;;; 3 INSTRUCTION(S)
 mov:	mov	rhs, REGS(dst)
-;;; 	add	$1, wpc	
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)
-mvn:	xor	$flip,rhs
+mvn:	xor	$flip, rhs
 	mov	rhs, REGS(dst)
-;;; 	add	$1, wpc	
 	jmp	fetch
 swi:	mov	REGS(alwaysZ), work0
 	trap 	rhs
-;;; 	add	$1, wpc	
 	jmp	fetch
 ldm:
 stm:
@@ -237,63 +236,53 @@ subCC:	mov	REGS(lhs), work0
 	sub	rhs, work0
 	mov	ccr,wCCR
 	mov	work0, REGS(dst)
-;;; 	add	$1, wpc	
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)	
 cmpCC:	mov 	REGS(lhs), work0
 	sub 	rhs, work0
 	mov	ccr, wCCR
-;;; 	add	$1, wpc		
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)	
-eorCC:	xor	REGS(lhs),rhs
+eorCC:	xor	REGS(lhs), rhs
 	mov 	ccr, wCCR	
 	mov 	rhs, REGS(dst)
-;;; 	add	$1, wpc		
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)	
 orrCC:	or	REGS(lhs), rhs
 	mov	ccr, wCCR	
 	mov	rhs, REGS(dst)
-;;; 	add	$1, wpc		
 	jmp	fetch
 ;;; 4 INSTRUCTION(S)	
 andCC:	and	REGS(lhs), rhs
 	mov	ccr, wCCR	
 	mov 	rhs, REGS(dst)
-;;; 	add	$1, wpc		
 	jmp 	fetch
 ;;; 4 INSTRUCTION(S)
 tstCC:	test	REGS(lhs), rhs
 	mov 	ccr, wCCR
-;;; 	add	$1, wpc		
 	jmp	fetch
 ;;; 4 INSTRUCTION(S)
 mulCC:	mul	REGS(lhs), rhs
 	mov	ccr,wCCR	
 	mov	rhs, REGS(dst)
-;;; 	add	$1, wpc		
 	jmp	fetch
 ;;; 6 backwards (like sub)
 divCC:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	ccr,wCCR		
 	mov	work0, REGS(dst)
-;;; 	add	$1, wpc		
 	jmp	fetch
 ;;; 4 INSTRUCTION(S)
 movCC:	mov	rhs, REGS(dst)
 ;;; 	and	rhs,rhs
 	mov	ccr,wCCR
-	add	$1, wpc	
 	jmp	fetch
 ;;; 4 INSTRUCTIONS
 mvnCC:	xor	$flip,rhs
 	mov	rhs, REGS(dst)
-;;; 	add	$1, wpc
 	jmp	fetch	
 swiCC:	trap	rhs
-	
+	jmp 	fetch
 ldmCC:
 ldrCC:
 strCC:
