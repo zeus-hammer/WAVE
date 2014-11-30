@@ -2,10 +2,10 @@
 ;;; (c) d.r.smith modsoussi bijan
 	.requ	wpc, r15
 	.requ	ci, r14
+	.requ	rhs, r14
 	.requ	op, r13
 	.requ	lhs, r12
 	.requ	dst, r11
-	.requ 	rhs, r10
 	.requ	shiftC, r9
 	.requ	wCCR, r8
 	.requ	cond, r5
@@ -24,7 +24,6 @@
 
 	lea	WARM,work0
 	trap	$SysOverlay
-	
 ;;; SADS/WORRIES
 ;;; -the wpc being used in instructions
 ;;; -mov's into the pc
@@ -45,7 +44,7 @@ fetch:	mov	WARM(wpc),ci
 	shr	$29, work0	;high 3 condition bits in work0
 ;;; to do it or not to do it. that is the question	
 	cmovg	COND(work0), rip
-;;; snag the opcode
+;;; yes, we do it
 getop:	mov 	ci,op
 	shl	$3,op
 	shr	$26,op
@@ -75,6 +74,7 @@ oDST:	mov     ci, dst
 oRHS:	mov 	$maskA, work0
 	and 	ci,work0
 	shr	$12, work0	;work 0 holds the addressing mode
+	add	$1, wpc
 	mov	ADDR(work0), rip
 ;;; LOAD STORE
 ls:
@@ -94,34 +94,34 @@ branch:	add 	ci, wpc
 imd:	mov	ci, work0
 	and	$maskExp, work0	;exponent
 	shr	$9, work0
-	mov	ci, rhs
+;;; 	mov	ci, rhs
 	and	$maskValue, rhs	;value
 	shl	work0, rhs	;shifted value in rhs
 	mov     INSTR(op), rip
 ;;; Register Shifted by Immediate Mode
 ;;; 10 INSTRUCTIONS
-rim:	mov	ci, rhs
-	shl	$22, rhs
-	shr	$28, rhs 	;now we have src reg 2 in rhs
-	mov	REGS(rhs), rhs	;rhs now has the value that was in register number rhs
-	mov	ci, shiftC
+rim:	mov	ci, shiftC
 	and	$maskShift, shiftC	;shift count has the bits number to shift
 	mov	ci, work0
 	shl	$20, work0
-	shr	$30, work0	;work1 now has the shop
+	shr	$30, work0	;work0 now has the shop
+;;; 	mov	ci, rhs
+	shl	$22, rhs
+	shr	$28, rhs 	;now we have src reg 2 in rhs
+	mov	REGS(rhs), rhs	;rhs now has the value that was in register number rhs
 	mov 	SHOP(work0),rip
 ;;; Register Shifted by Register Mode
 ;;; 11 INSTRUCTIONS
 rsr:	mov	$maskLow4, shiftC	; shiftC := 15
 	and 	ci, shiftC	; shiftC := shiftC & ci; to get shift register
 	mov	REGS(shiftC), shiftC ; shiftC now has whatever was stored in the 
-	mov	ci, rhs	
-	shl	$22, rhs
-	shr	$28, rhs	; rhs has rhs register
-	mov	REGS(rhs), rhs	; rhs now has whatever was stored in rhs (memory)
 	mov 	ci, work0
 	shl	$20, work0
 	shr	$30, work0	; work0 now has the shift op code
+;;; 	mov	ci, rhs
+	shl	$22, rhs
+	shr	$28, rhs	; rhs has rhs register
+	mov	REGS(rhs), rhs	; rhs now has whatever was stored in rhs (memory)
 	mov	SHOP(work0), rip
 ;;; --------------------------BEGIN SHIFTING MODES-------------------------
 ;;; logical shift left
@@ -149,8 +149,8 @@ ror:	mov	rhs, work0
 ;;; Register Product Mode
 ;;; 8 INSTRUCTIONS
 rpm:	mov	$maskLow4, work0
-	and	ci, work0	; work0 now has src reg 3
-	mov	ci, rhs
+	and	ci, work0	;work0 now has src reg 3
+;;; 	mov	ci, rhs
 	shl	$22, rhs
 	shr	$28, rhs	; rhs now has src reg 2
 	mov	REGS(rhs), rhs	; rhs now has whatever was stored in the correspondent register
@@ -162,7 +162,7 @@ rpm:	mov	$maskLow4, work0
 ;;; 4 INSTRUCTION(S)	
 add:	add	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
-	add	$1, wpc
+;;; 	add	$1, wpc
 	jmp 	fetch
 adc:	mov	wCCR, work0
 	shr	$2, work0
@@ -170,53 +170,53 @@ adc:	mov	wCCR, work0
 	add	REGS(lhs), rhs
 	add	work0, rhs
 	mov 	rhs, REGS(dst)
-	add	$1, wpc
+;;; 	add	$1, wpc
 	jmp	fetch
 ;;; 5 INSTRUCTION(S)
 ;;; backwards (like div)
 sub:	mov	REGS(lhs), work0
 	sub	rhs, work0
 	mov	work0, REGS(dst)
-	add	$1, wpc
+;;; 	add	$1, wpc
 	jmp 	fetch
 ;;; 4 INSTRUCTION(S)	
 eor:	xor	REGS(lhs),rhs
 	mov 	rhs, REGS(dst)
-	add	$1, wpc
+;;; 	add	$1, wpc
 	jmp 	fetch
 ;;; 4 INSTRUCTION(S)	
 orr:	or	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
-	add	$1, wpc	
+;;; 	add	$1, wpc	
 	jmp	fetch
 ;;; 3 INSTRUCTION(S)	
 and:	and	REGS(lhs), rhs
 	mov 	rhs, REGS(dst)
-	add	$1, wpc	
+;;; 	add	$1, wpc	
 	jmp 	fetch
 ;;; 4 INSTRUCTION(S)
 mul:	mul	REGS(lhs), rhs
 	mov	rhs, REGS(dst)
-	add	$1, wpc	
+;;; 	add	$1, wpc	
 	jmp	fetch
 ;;; 5 INSTRUCTION(S)
 div:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	work0, REGS(dst)
-	add	$1, wpc	
+;;; 	add	$1, wpc	
 	jmp	fetch	
 ;;; 3 INSTRUCTION(S)
 mov:	mov	rhs, REGS(dst)
-	add	$1, wpc	
+;;; 	add	$1, wpc	
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)
 mvn:	xor	$flip,rhs
 	mov	rhs, REGS(dst)
-	add	$1, wpc	
+;;; 	add	$1, wpc	
 	jmp	fetch
 swi:	mov	REGS(alwaysZ), work0
 	trap 	rhs
-	add	$1, wpc	
+;;; 	add	$1, wpc	
 	jmp	fetch
 ldm:
 stm:
@@ -237,49 +237,49 @@ subCC:	mov	REGS(lhs), work0
 	sub	rhs, work0
 	mov	ccr,wCCR
 	mov	work0, REGS(dst)
-	add	$1, wpc	
+;;; 	add	$1, wpc	
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)	
 cmpCC:	mov 	REGS(lhs), work0
 	sub 	rhs, work0
 	mov	ccr, wCCR
-	add	$1, wpc		
+;;; 	add	$1, wpc		
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)	
 eorCC:	xor	REGS(lhs),rhs
 	mov 	ccr, wCCR	
 	mov 	rhs, REGS(dst)
-	add	$1, wpc		
+;;; 	add	$1, wpc		
 	jmp 	fetch
 ;;; 5 INSTRUCTION(S)	
 orrCC:	or	REGS(lhs), rhs
 	mov	ccr, wCCR	
 	mov	rhs, REGS(dst)
-	add	$1, wpc		
+;;; 	add	$1, wpc		
 	jmp	fetch
 ;;; 4 INSTRUCTION(S)	
 andCC:	and	REGS(lhs), rhs
 	mov	ccr, wCCR	
 	mov 	rhs, REGS(dst)
-	add	$1, wpc		
+;;; 	add	$1, wpc		
 	jmp 	fetch
 ;;; 4 INSTRUCTION(S)
 tstCC:	test	REGS(lhs), rhs
 	mov 	ccr, wCCR
-	add	$1, wpc		
+;;; 	add	$1, wpc		
 	jmp	fetch
 ;;; 4 INSTRUCTION(S)
 mulCC:	mul	REGS(lhs), rhs
 	mov	ccr,wCCR	
 	mov	rhs, REGS(dst)
-	add	$1, wpc		
+;;; 	add	$1, wpc		
 	jmp	fetch
 ;;; 6 backwards (like sub)
 divCC:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	ccr,wCCR		
 	mov	work0, REGS(dst)
-	add	$1, wpc		
+;;; 	add	$1, wpc		
 	jmp	fetch
 ;;; 4 INSTRUCTION(S)
 movCC:	mov	rhs, REGS(dst)
@@ -290,14 +290,17 @@ movCC:	mov	rhs, REGS(dst)
 ;;; 4 INSTRUCTIONS
 mvnCC:	xor	$flip,rhs
 	mov	rhs, REGS(dst)
-	add	$1, wpc
+;;; 	add	$1, wpc
 	jmp	fetch	
 swiCC:	trap	rhs
+	
 ldmCC:
 ldrCC:
 strCC:
 lduCC:
 stuCC:
+	
+;;; no we don't do it
 next:	add	$1, wpc
 	jmp	fetch
 REGS:
