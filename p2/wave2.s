@@ -8,9 +8,8 @@
 	.requ	dst, r11
 	.requ	shiftC, r9
 	.requ	wCCR, r8
-	.requ	cond, r5
-	.requ	alwaysZ, r4
-	.requ	wlr, r3
+	.requ	alwaysZ, r5
+	.requ	wlr, r4
 	.requ	work0, r0
  	.requ	work1, r1
 		
