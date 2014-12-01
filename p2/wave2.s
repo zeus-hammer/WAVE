@@ -17,10 +17,12 @@
 	.equ	maskShift, 0x3F
 	.equ	maskLow4, 0xf
 	.equ	maskValue, 0x1ff
-	.equ	maskExp, 0x1f00
+	.equ	maskExp, 0x3e00
 	.equ	flip, 0xffffffff
 	.equ	mask23to0, 0xffffff
-
+	.equ	maskLow13, 0x3fff
+	
+	lea	REGS, work0
 	lea	WARM,work0
 	trap	$SysOverlay
 
@@ -90,7 +92,17 @@ oRHS:	mov 	$maskA, work0
 	add	$1, wpc
 	mov	ADDR(work0), rip
 ;;; LOAD STORE
-ls:
+ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
+	shr	$15, lhs
+	and	$maskLow4, lhs 	;lhs now has base register in it
+	mov	ci, dst
+	shr	$19, dst
+	and 	$maskLow4, dst 	;dst now has dst register
+	mov	$maskA, work0
+	and	ci, work0
+	shr	$12, work0 	;work0 now has addressing mode
+	add	$1, wpc
+	mov	lsADDR(work0), rip 
 ;;; BRANCHING
 branch:	add 	ci, wpc
 	and	$mask23to0, wpc
@@ -102,6 +114,11 @@ branch:	add 	ci, wpc
 	jmp	fetch
 ;;; -------------------END INSTRUCTION TYPES------------------------------
 ;;; -------------------BEGIN ADDRESSING MODES------------------------------
+;;; Signed offset mode for load store
+soff:	and $maskLow13, rhs
+	shl	$18, rhs
+	sar	$18, rhs 	; rhs now has the signed offset from base register
+	mov	INSTR(op), rip
 ;;; Immediate Mode
 ;;; 7 INSTRUCTIONS
 imd:	mov	ci, work0
@@ -209,13 +226,68 @@ mvn:	xor	$flip, rhs
 swi:	mov	REGS(alwaysZ), work0
 	trap 	rhs
 	jmp	fetch
-ldm:
-stm:
-ldr:
-str:
-ldu:	
-stu:
-adr:
+ldm:	mov	$15, work0 	;work0 holds reg number
+	mov	$0, work1 	;work1 holds memory number
+	shl	$16, ci
+	jl	lloading
+lshifting:
+	shl	$1, ci
+	sub	$1, work0
+	jg	lshifting
+lloading:
+	mov	0(dst, work1), REGS(work0)
+	add	$1, work1
+	cmp	$0, ci
+	jne	lshifting
+	jmp 	fetch
+stm:	mov 	$0, work1 		;work1 holds memory offset
+	mov	REGS(dst), dst
+	and	$0xffffff, dst
+	shr	$1, dst
+	lea	WARM, work0
+	add	work0, dst
+	mov	$0, work0 	;work0 holds register number
+	cmp	$0, ci
+	jg 	sloading
+sshifting:
+	add 	$1, work0
+	shr	$1, ci
+	je 	fetch
+sloading:
+	mov	REGS(work0), 0(dst, work1)
+	add 	$1, work1
+	cmp 	$0, ci
+	jne 	sshifting
+ldr:	mov	REGS(lhs), lhs
+	lea	WARM, work0
+	add	work0, lhs
+	mov	0(lhs, rhs), REGS(dst)
+	jmp 	fetch
+str:	mov	REGS(lhs), lhs
+	lea	WARM, work0
+	add	work0, lhs
+	mov	REGS(dst), 0(lhs, rhs)
+	jmp	fetch
+ldu:	mov	REGS(lhs), lhs
+	cmp	0, rhs
+	jg	posldu
+	mov	0(lhs, rhs), REGS(dst)
+	lea	0(lhs, rhs), REGS(lhs)
+	jmp 	fetch
+posldu:	mov	REGS(lhs), REGS(dst)
+	lea	0(lhs, rhs), REGS(lhs)
+	jmp 	fetch
+stu:	mov 	REGS(lhs), lhs
+	cmp 	$0, rhs
+	jg 	posstu
+	mov 	REGS(dst), 0(lhs, rhs)
+	lea 	0(lhs, rhs), REGS(lhs)
+	jmp 	fetch
+posstu:	mov 	REGS(dst), REGS(lhs)
+	lea 	0(lhs, rhs), REGS(lhs)
+	jmp 	fetch
+adr:	lea	0(lhs, rhs), REGS(dst)
+	jmp	fetch
 ;;; second set of instrucions. for use when we don't 
 addCC:	add	REGS(lhs), rhs
 	jmp 	fetch3
@@ -303,4 +375,6 @@ ADDR:
 	.data 	imd, imd, imd, imd, rim, rsr, rpm
 SHOP:
 	.data	lsl, lsr, asr, ror
+lsADDR:
+	.data	soff, soff, soff, soff, rim
 WARM:	 
