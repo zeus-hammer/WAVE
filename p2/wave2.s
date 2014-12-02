@@ -12,6 +12,8 @@
 	.requ	wlr, r4
 	.requ	work0, r0
  	.requ	work1, r1
+	.requ	WARMad, r2
+
 
 	.equ	maskA, 0x7800		;1 in 14,13,12th bit
 	.equ	maskShift, 0x3F
@@ -22,7 +24,7 @@
 	.equ	mask23to0, 0xffffff
 	.equ	maskLow13, 0x3fff
 	
-	lea	REGS, work0
+	lea	WARM, WARMad
 	lea	WARM, work0
 	trap	$SysOverlay
 
@@ -240,10 +242,9 @@ lloading:
 	cmp	$0, ci
 	jne	lshifting
 	jmp 	fetch
-stm:	mov	REGS(dst), lhs
-	and	$0xffffff, lhs
-	lea	WARM, work0
-	add	work0, lhs
+stm:	mov	REGS(dst), lhs	;lhs now has the value stored in base register
+	and	$0xffffff, lhs	;mask low 24 bits because memory in WARM is 24-bit addressable
+	add	WARMad, lhs	;offset is from WARM, not wind
 	mov	$15, work0 	;work0 holds register number
 	mov	$0, work1
 	shl	$16, ci
@@ -258,18 +259,15 @@ sloading:
 	mov	REGS(work0), 0(lhs, work1)
 	cmp 	$0, ci
 	jne 	sshifting
-done:	lea	WARM, work0
-	sub	work0, lhs
+done:	sub	WARMad, lhs
 	mov	lhs, REGS(dst)
 	jmp 	fetch
 ;;; ldr is weird. to get memory reference, it adds offset to the value in the program counter.
-;;; Also, i perform a lot of leas on WARM, i feel like if we have a register just for WARM effective address would make things a lot easier.
 ;;; We need to reimplement ldm. 
 ldr:	mov	wpc, lhs
 	sub	$1, lhs
 	add	lhs, rhs
-	lea	WARM, lhs
-	mov	0(lhs, rhs), REGS(dst)
+	mov	0(WARMad, rhs), REGS(dst)
 	jmp 	fetch
 str:	mov	REGS(lhs), lhs
 	lea	WARM, work0
