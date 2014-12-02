@@ -12,16 +12,21 @@
 	.requ	wlr, r4
 	.requ	work0, r0
  	.requ	work1, r1
-		
+	.requ	WARMad, r2
+
+
 	.equ	maskA, 0x7800		;1 in 14,13,12th bit
 	.equ	maskShift, 0x3F
 	.equ	maskLow4, 0xf
 	.equ	maskValue, 0x1ff
-	.equ	maskExp, 0x1f00
+	.equ	maskExp, 0x3e00
 	.equ	flip, 0xffffffff
 	.equ	mask23to0, 0xffffff
-
-	lea	WARM,work0
+	.equ	maskLow13, 0x3fff
+	
+	lea	REGS, work0
+	lea	WARM, WARMad
+	lea	WARM, work0
 	trap	$SysOverlay
 
 ;;; N.B.
@@ -50,9 +55,15 @@
 
 ;;; --------------------BEGIN FETCHING THE INSTRUCTION-------------------
 ;;; 5 INSTRUCTIONS
+<<<<<<< HEAD
 fetch3:	mov	ccr,wCCR	;----------------------------TOP-------------------;
 fetch2:	mov	rhs, REGS(dst)	;----------------------------TOP-------------------;
 fetch:	mov	WARM(wpc),ci	;----------------------------TOP-------------------;
+=======
+fetch3:	mov	ccr,wCCR	
+fetch2:	mov	rhs, REGS(dst)
+fetch:	mov	WARM(wpc),ci 
+>>>>>>> modev2
 	mov	ci, work0
 	shr	$29, work0	;high 3 condition bits in work0
 ;;; to do it or not to do it. that is the question	
@@ -90,7 +101,18 @@ oRHS:	mov 	$maskA, work0
 	add	$1, wpc
 	mov	ADDR(work0), rip
 ;;; LOAD STORE
-ls:
+ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
+	shr	$15, lhs
+	and	$maskLow4, lhs 	;lhs now has base register in it
+	mov	REGS(lhs), lhs	;lhs now has whatever was stored in lhs
+	mov	ci, dst
+	shr	$19, dst
+	and 	$maskLow4, dst 	;dst now has dst register
+	mov	$maskA, work0
+	and	ci, work0
+	shr	$12, work0 	;work0 now has addressing mode
+	add	$1, wpc
+	mov	lsADDR(work0), rip 
 ;;; BRANCHING
 branch:	add 	ci, wpc
 	and	$mask23to0, wpc
@@ -102,6 +124,11 @@ branch:	add 	ci, wpc
 	jmp	fetch
 ;;; -------------------END INSTRUCTION TYPES------------------------------
 ;;; -------------------BEGIN ADDRESSING MODES------------------------------
+;;; Signed offset mode for load store
+soff:	and 	$maskLow13, rhs
+	shl	$18, rhs
+	sar	$18, rhs 	; rhs now has the signed offset from base register
+	mov	INSTR(op), rip
 ;;; Immediate Mode
 ;;; 7 INSTRUCTIONS
 imd:	mov	ci, work0
@@ -209,13 +236,68 @@ mvn:	xor	$flip, rhs
 swi:	mov	REGS(alwaysZ), work0
 	trap 	rhs
 	jmp	fetch
-ldm:
-stm:
-ldr:
-str:
-ldu:	
-stu:
-adr:
+ldm:	mov	$15, work0 	;work0 holds reg number
+	mov	$0, work1 	;work1 holds memory number
+	shl	$16, ci
+	jl	lloading
+lshifting:
+	shl	$1, ci
+	sub	$1, work0
+	jg	lshifting
+lloading:
+	mov	0(dst, work1), REGS(work0)
+	add	$1, work1
+	cmp	$0, ci
+	jne	lshifting
+	jmp 	fetch
+stm:	mov	REGS(dst), lhs	;lhs now has the value stored in base register
+	and	$0xffffff, lhs	;mask low 24 bits because memory in WARM is 24-bit addressable
+	add	WARMad, lhs	;offset is from WARM, not wind
+	mov	$15, work0 	;work0 holds register number
+	mov	$0, work1
+	shl	$16, ci
+	jl 	sloading
+sshifting:
+	sub 	$1, work0
+	shl	$1, ci
+	jg 	sshifting
+	je	done
+sloading:
+	sub	$1, lhs
+	mov	REGS(work0), 0(lhs, work1)
+	cmp 	$0, ci
+	jne 	sshifting
+done:	sub	WARMad, lhs
+	mov	lhs, REGS(dst)
+	jmp 	fetch
+;;; ldr is weird. to get memory reference, it adds offset to the value in the program counter.
+;;; We need to reimplement ldm. 
+ldr:	add	lhs, rhs		;lhs has value to offset from in warm, rhs has offset
+	mov	0(WARMad, rhs), REGS(dst)
+	jmp 	fetch
+str:	add	lhs, rhs
+	mov	REGS(dst), 0(WARMad, rhs)
+	jmp	fetch
+ldu:	mov	REGS(lhs), lhs
+	cmp	0, rhs
+	jg	posldu
+	mov	0(lhs, rhs), REGS(dst)
+	lea	0(lhs, rhs), REGS(lhs)
+	jmp 	fetch
+posldu:	mov	REGS(lhs), REGS(dst)
+	lea	0(lhs, rhs), REGS(lhs)
+	jmp 	fetch
+stu:	mov 	REGS(lhs), lhs
+	cmp 	$0, rhs
+	jg 	posstu
+	mov 	REGS(dst), 0(lhs, rhs)
+	lea 	0(lhs, rhs), REGS(lhs)
+	jmp 	fetch
+posstu:	mov 	REGS(dst), REGS(lhs)
+	lea 	0(lhs, rhs), REGS(lhs)
+	jmp 	fetch
+adr:	lea	0(lhs, rhs), REGS(dst)
+	jmp	fetch
 ;;; second set of instrucions. for use when we don't 
 addCC:	add	REGS(lhs), rhs
 	jmp 	fetch3
@@ -303,4 +385,6 @@ ADDR:
 	.data 	imd, imd, imd, imd, rim, rsr, rpm
 SHOP:
 	.data	lsl, lsr, asr, ror
+lsADDR:
+	.data	soff, soff, soff, soff, rim
 WARM:	 
