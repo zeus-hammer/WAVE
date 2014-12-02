@@ -543,9 +543,9 @@ Memory 113 8198000 fffffef5
 Source 0         lea     WARM,work0
 Source 2         trap    $SysOverlay
 Source 4         jmp     fetch
-Source 6 fetch3: mov     ccr,wCCR        
-Source 7 fetch2: mov     rhs, REGS(dst)
-Source 9 fetch:  mov     WARM(wpc),ci
+Source 6 fetch3: mov     ccr,wCCR        ;----------------------------TOP-------------------;
+Source 7 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
+Source 9 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
 Source b         mov     ci, work0
 Source c         shr     $29, work0      ;high 3 condition bits in work0
 Source e         cmovg   COND(work0), rip
