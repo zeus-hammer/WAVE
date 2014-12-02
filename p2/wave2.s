@@ -55,15 +55,9 @@
 
 ;;; --------------------BEGIN FETCHING THE INSTRUCTION-------------------
 ;;; 5 INSTRUCTIONS
-<<<<<<< HEAD
 fetch3:	mov	ccr,wCCR	;----------------------------TOP-------------------;
 fetch2:	mov	rhs, REGS(dst)	;----------------------------TOP-------------------;
 fetch:	mov	WARM(wpc),ci	;----------------------------TOP-------------------;
-=======
-fetch3:	mov	ccr,wCCR	
-fetch2:	mov	rhs, REGS(dst)
-fetch:	mov	WARM(wpc),ci 
->>>>>>> modev2
 	mov	ci, work0
 	shr	$29, work0	;high 3 condition bits in work0
 ;;; to do it or not to do it. that is the question	
