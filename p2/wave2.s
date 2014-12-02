@@ -12,7 +12,7 @@
 	.requ	wlr, r4
 	.requ	work0, r0
  	.requ	work1, r1
-		
+
 	.equ	maskA, 0x7800		;1 in 14,13,12th bit
 	.equ	maskShift, 0x3F
 	.equ	maskLow4, 0xf
@@ -23,7 +23,7 @@
 	.equ	maskLow13, 0x3fff
 	
 	lea	REGS, work0
-	lea	WARM,work0
+	lea	WARM, work0
 	trap	$SysOverlay
 
 ;;; N.B.
@@ -54,7 +54,7 @@
 ;;; 5 INSTRUCTIONS
 fetch3:	mov	ccr,wCCR	
 fetch2:	mov	rhs, REGS(dst)
-fetch:	mov	WARM(wpc),ci
+fetch:	mov	WARM(wpc),ci 
 	mov	ci, work0
 	shr	$29, work0	;high 3 condition bits in work0
 ;;; to do it or not to do it. that is the question	
@@ -240,27 +240,35 @@ lloading:
 	cmp	$0, ci
 	jne	lshifting
 	jmp 	fetch
-stm:	mov 	$0, work1 		;work1 holds memory offset
-	mov	REGS(dst), dst
-	and	$0xffffff, dst
-	shr	$1, dst
-	lea	WARM, work0
-	add	work0, dst
-	mov	$0, work0 	;work0 holds register number
-	cmp	$0, ci
-	jg 	sloading
-sshifting:
-	add 	$1, work0
-	shr	$1, ci
-	je 	fetch
-sloading:
-	mov	REGS(work0), 0(dst, work1)
-	add 	$1, work1
-	cmp 	$0, ci
-	jne 	sshifting
-ldr:	mov	REGS(lhs), lhs
+stm:	mov	REGS(dst), lhs
+	and	$0xffffff, lhs
 	lea	WARM, work0
 	add	work0, lhs
+	mov	$15, work0 	;work0 holds register number
+	mov	$0, work1
+	shl	$16, ci
+	jl 	sloading
+sshifting:
+	sub 	$1, work0
+	shl	$1, ci
+	jg 	sshifting
+	je	done
+sloading:
+	sub	$1, lhs
+	mov	REGS(work0), 0(lhs, work1)
+	cmp 	$0, ci
+	jne 	sshifting
+done:	lea	WARM, work0
+	sub	work0, lhs
+	mov	lhs, REGS(dst)
+	jmp 	fetch
+;;; ldr is weird. to get memory reference, it adds offset to the value in the program counter.
+;;; Also, i perform a lot of leas on WARM, i feel like if we have a register just for WARM effective address would make things a lot easier.
+;;; We need to reimplement ldm. 
+ldr:	mov	wpc, lhs
+	sub	$1, lhs
+	add	lhs, rhs
+	lea	WARM, lhs
 	mov	0(lhs, rhs), REGS(dst)
 	jmp 	fetch
 str:	mov	REGS(lhs), lhs
