@@ -1,5 +1,5 @@
 WarmObjectFile2
-File stm.as
+File ../tests/stm.as
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
