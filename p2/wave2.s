@@ -24,6 +24,7 @@
 	.equ	mask23to0, 0xffffff
 	.equ	maskLow13, 0x3fff
 	
+	lea	REGS, work0
 	lea	WARM, WARMad
 	lea	WARM, work0
 	trap	$SysOverlay
@@ -97,6 +98,7 @@ oRHS:	mov 	$maskA, work0
 ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
 	shr	$15, lhs
 	and	$maskLow4, lhs 	;lhs now has base register in it
+	mov	REGS(lhs), lhs	;lhs now has whatever was stored in lhs
 	mov	ci, dst
 	shr	$19, dst
 	and 	$maskLow4, dst 	;dst now has dst register
@@ -117,7 +119,7 @@ branch:	add 	ci, wpc
 ;;; -------------------END INSTRUCTION TYPES------------------------------
 ;;; -------------------BEGIN ADDRESSING MODES------------------------------
 ;;; Signed offset mode for load store
-soff:	and $maskLow13, rhs
+soff:	and 	$maskLow13, rhs
 	shl	$18, rhs
 	sar	$18, rhs 	; rhs now has the signed offset from base register
 	mov	INSTR(op), rip
@@ -264,15 +266,11 @@ done:	sub	WARMad, lhs
 	jmp 	fetch
 ;;; ldr is weird. to get memory reference, it adds offset to the value in the program counter.
 ;;; We need to reimplement ldm. 
-ldr:	mov	wpc, lhs
-	sub	$1, lhs
-	add	lhs, rhs
+ldr:	add	lhs, rhs		;lhs has value to offset from in warm, rhs has offset
 	mov	0(WARMad, rhs), REGS(dst)
 	jmp 	fetch
-str:	mov	REGS(lhs), lhs
-	lea	WARM, work0
-	add	work0, lhs
-	mov	REGS(dst), 0(lhs, rhs)
+str:	add	lhs, rhs
+	mov	REGS(dst), 0(WARMad, rhs)
 	jmp	fetch
 ldu:	mov	REGS(lhs), lhs
 	cmp	0, rhs
