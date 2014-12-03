@@ -1,0 +1,9 @@
+*** ./howToBranch.out	2014-12-03 06:18:51.000000000 -0500
+--- ./wave2.out	2014-12-03 06:18:51.000000000 -0500
+***************
+*** 1 ****
+! 1
+\ No newline at end of file
+--- 1 ----
+! 0
+\ No newline at end of file
