@@ -1,6 +1,5 @@
 ;;; emulator for warm - phase2p
 ;;; (c) d.r.smith modsoussi bijan
-	.requ	wpc, r15
 	.requ	ci, r14
 	.requ	rhs, r14
 	.requ	op, r13
@@ -9,10 +8,9 @@
 	.requ	shiftC, r9
 	.requ	wCCR, r8
 	.requ	alwaysZ, r5
-	.requ	wlr, r4
 	.requ	work0, r0
  	.requ	work1, r1
-	.requ	nextI, r2
+	.requ	next, r2
 
 	.equ	maskA, 0x7800		;1 in 14,13,12th bit
 	.equ	maskShift, 0x3F
@@ -23,8 +21,9 @@
 	.equ	mask23to0, 0xffffff
 	.equ	maskLow13, 0x3fff
 
- 	mov	$15, wpc
- 	mov	$14, wlr
+
+	lea 	wpc, work0
+	lea	REGS, work0
 	lea	WARM, work0
 	trap	$SysOverlay
 
@@ -45,8 +44,8 @@
 ;;; 5 INSTRUCTIONS
 fetch3:	mov	ccr,wCCR	;--------------------TOP-------------------;
 fetch2:	mov	rhs, REGS(dst)	;--------------------TOP-------------------;
-fetch:	mov	REGS(wpc),nextI;-------------------TOP-------------------;
-	mov	WARM(nextI),ci	
+fetch:	mov	wpc,next	;--------------------TOP-------------------;
+	mov	WARM(next),ci
 	mov	ci, work0
 	shr	$29, work0	;high 3 condition bits in work0
 ;;; to do it or not to do it. that is the question	
@@ -72,7 +71,6 @@ gt:	mov	GT(wCCR),rip
 
 	
 ;;; --------------BEGIN ARITHMETIC INSTRUCTION DECODING-------------------
-
 	
 noDST:	mov     ci, lhs		;get dst and lhs
 	shr     $15, lhs
@@ -87,8 +85,6 @@ oDST:	mov     ci, dst
 oRHS:	mov 	$maskA, work0
 	and 	ci,work0
 	shr	$12, work0	;work 0 holds the addressing mode
-	add	$1, REGS(wpc)
-	and	$mask23to0, nextI
 	mov	ADDR(work0), rip
 	
 ;;; --------------------ADDRESSING MODES OF ARITHMETIC--------------------
@@ -98,6 +94,8 @@ imd:	mov	ci, work0
 	shr	$9, work0
 	and	$maskValue, rhs	;value
 	shl	work0, rhs	;shifted value in rhs
+	add	$1, wpc
+	and	$mask23to0, wpc
 	mov     INSTR(op), rip
 ;;; Register Shifted by Immediate Mode
 rim:	mov	ci, shiftC
@@ -108,6 +106,8 @@ rim:	mov	ci, shiftC
 	shl	$22, rhs
 	shr	$28, rhs 	;now we have src reg 2 in rhs
 	mov	REGS(rhs), rhs	;rhs now has the value that was in register number rhs
+	add	$1, wpc
+	and	$mask23to0, wpc
 	mov 	SHOP(work0), rip
 ;;; Register Shifted by Register Mode
 rsr:	mov	$maskLow4, shiftC	; shiftC := 15
@@ -119,6 +119,8 @@ rsr:	mov	$maskLow4, shiftC	; shiftC := 15
 	shl	$22, rhs
 	shr	$28, rhs	; rhs has rhs register
 	mov	REGS(rhs), rhs	; rhs now has whatever was stored in rhs (memory)
+	add	$1, wpc
+	and	$mask23to0, wpc
 	mov	SHOP(work0), rip
 ;;; --------------------------BEGIN SHIFTING MODES-------------------------
 ;;; logical shift left
@@ -147,9 +149,9 @@ rpm:	mov	$maskLow4, work0
 	mov	REGS(rhs), rhs	; rhs now has whatever was stored in the correspondent register
 	mov	REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
 	mul	work0, rhs
+	add	$1, wpc
+	and	$mask23to0, wpc
 ;;; -------------------------END ADDRESSING MODES-------------------
-
-
 	
 ;;; -------------------------BEGIN OPERATIONS------------------------
 
@@ -223,14 +225,14 @@ lloading:
 	jne	lshifting
 LDMdone:
 	mov	lhs, REGS(dst)
-	mov 	REGS(wpc), work0
+	mov 	wpc, work0
 	shr	$24, work0
 	mov 	work0, wCCR
 	jmp 	fetch
 ;;; 18? INSTRUCTION(S)
 stm:	mov	wCCR, work0
 	shl	$24, work0
-	add	work0, REGS(wpc)
+	add	work0, wpc
 	mov	REGS(dst), lhs	;lhs now has the value stored in base register
 	and	$mask23to0, lhs	;mask low 24 bits for wraparound
 	mov	$15, work0 	;work0 holds register number
@@ -284,7 +286,7 @@ divCC:	mov 	REGS(lhs), work0
 	mov	work0, REGS(dst)
 	jmp	fetch
 movCC:	mov	rhs, REGS(dst)
-;;; 	and	rhs,rhs
+ 	and	rhs,rhs
 	mov	ccr,wCCR			
 	jmp	fetch
 mvnCC:	xor	$flip,rhs
@@ -292,7 +294,6 @@ mvnCC:	xor	$flip,rhs
 swiCC:	trap	rhs
 	jmp 	fetch3
 ldmCC:
-
 	
 ;;; LOAD STORE
 ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
@@ -305,11 +306,12 @@ ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
 	mov	$maskA, work0
 	and	ci, work0
 	shr	$12, work0 	;work0 now has addressing mode
-	add	$1, REGS(wpc)
-	and	$mask23to0, REGS(wpc)	
+	add	$1, wpc
+	and	$mask23to0, wpc	
 	mov	lsADDR(work0), rip
-;;; LOAD STORE INSTRUCTIONS
-;;; ldr is weird. to get memory reference, it adds offset to the value in the program counter.
+;;; -------------------p-------LOAD STORE INSTRUCTIONS--------------------------------
+;;; ldr is weird. to get memory reference, it adds offset to the value
+;;;	in the program counter.
 ldr:	mov	WARM(lhs,rhs), REGS(dst)
 	jmp 	fetch
 str:	mov	REGS(dst), WARM(rhs,dst)
@@ -349,13 +351,12 @@ stuCC:
 
 	
 ;;;  ----------------------------BEGIN BRANCHING---------------------------
-b:	add 	ci, REGS(wpc)
-	and	$mask23to0, REGS(wpc)
+b:	add 	ci, wpc
+	and	$mask23to0, wpc
 	jmp	fetch
-bl:	mov	nextI, REGS(wlr)
-	add	ci, REGS(wpc)
-	and	$mask23to0, REGS(wpc)
-	add	$1, REGS(wlr)
+bl:	mov	wpc, wlr
+	add	ci, wpc
+	and	$mask23to0, wpc
 	jmp	fetch
 ;;; Signed offset mode for load store
 soff:	and 	$maskLow13, rhs
@@ -363,11 +364,15 @@ soff:	and 	$maskLow13, rhs
 	sar	$18, rhs 	; rhs now has the signed offset from base register
 	mov	INSTR(op), rip
 ;;; no we don't do it
-next:	add	$1, REGS(wpc)
-	and	$mask23to0, REGS(wpc)	
+no:	add	$1, wpc
+	and	$mask23to0, wpc
 	jmp	fetch
 REGS:
-	.data	0,0,0,0,0,0,0,0,0,0,0,0,0,0x00ffffff,0,0
+	.data	0,0,0,0,0,0,0,0,0,0,0,0,0,0x00ffffff,
+wlr:
+	.data	0
+wpc:
+	.data	0
 INSTR:
 	.data 	add,adc,sub,0,eor,orr,and,0,mul,0,div,mov,mvn,swi,ldm,stm,ldr,str,ldu,stu,adr,0,0,0,0,0,0,0,0,0,0,0,addCC,adcCC,subCC,cmpCC,eorCC,orrCC,andCC,tstCC,mulCC,0,divCC,movCC,mvnCC,swiCC,ldmCC,0,ldrCC,strCC,lduCC,stuCC
 TYPE:
@@ -375,19 +380,19 @@ TYPE:
 COND:
 	.data	0,never,equal,ne,lesst,lesse,greate,gt
 NEVER:
-	.data   next,next,next,next,next,next,next,next,next,next,next,next,next,next,next,next
+	.data   no,no,no,no,no,no,no,no,no,no,no,no,no,no,no,no
 EQ:
-	.data	next,next,next,next,getop,getop,getop,next,next,next,next,next,next,getop,getop,getop
+	.data	no,no,no,no,getop,getop,getop,no,no,no,no,no,no,getop,getop,getop
 NE:
-	.data	getop,getop,getop,getop,next,next,next,getop,getop,getop,getop,getop,getop,next,next,next
+	.data	getop,getop,getop,getop,no,no,no,getop,getop,getop,getop,getop,getop,no,no,no
 LT:
-	.data	next,getop,next,getop,next,getop,next,getop,getop,next,getop,getop,next,getop,next,getop
+	.data	no,getop,no,getop,no,getop,no,getop,getop,no,getop,getop,no,getop,no,getop
 LE:
-	.data	next,getop,next,getop,getop,getop,getop,getop,getop,next,getop,getop,next,getop,getop,getop
+	.data	no,getop,no,getop,getop,getop,getop,getop,getop,no,getop,getop,no,getop,getop,getop
 GE:
-	.data	getop,next,getop,next,getop,next,getop,next,getop,next,getop,next,getop,next,getop,next
+	.data	getop,no,getop,no,getop,no,getop,no,getop,no,getop,no,getop,no,getop,no
 GT:
-	.data	getop,next,getop,next,next,next,next,next,next,getop,next,next,getop,next,next,next
+	.data	getop,no,getop,no,no,no,no,no,no,getop,no,no,getop,no,no,no
 ADDR:
 	.data 	imd, imd, imd, imd, rim, rsr, rpm
 SHOP:
