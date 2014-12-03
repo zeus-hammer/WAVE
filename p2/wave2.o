@@ -133,6 +133,13 @@ Register wlr 4
 Register work0 0
 Register work1 1
 Register wpc 15
+<<<<<<< HEAD
+=======
+Memory 1af 0
+Memory 1b0 0
+Memory 1b1 0
+Memory 1b2 0
+>>>>>>> 0f52c56e744b376276a3a968aced7ee6a84a81e0
 Memory 1b3 0
 Memory 1b4 0
 Memory 1b5 0
@@ -669,6 +676,7 @@ Source 3c         and     ci,work0
 Source 3d         shr     $12, work0      ;work 0 holds the addressing mode
 Source 3f         add     $1, wpc
 Source 41         mov     ADDR(work0), rip
+<<<<<<< HEAD
 Source 43 ls:     mov     $15, work1
 Source 45         mov     wpc, REGS(work1) ;moving wpc into warm's pc
 Source 47         mov     ci, lhs         ;get dst and base registers, here base is lhs
@@ -753,11 +761,98 @@ Source cb         sub     rhs, work0
 Source cc         mov     work0, REGS(dst)
 Source ce         jmp     fetch
 Source d0 eor:    xor     REGS(lhs), rhs
+=======
+Source 43 ls:     mov     ci, lhs         ;get dst and base registers, here base is lhs
+Source 44         shr     $15, lhs
+Source 46         and     $maskLow4, lhs  ;lhs now has base register in it
+Source 48         mov     REGS(lhs), lhs  ;lhs now has whatever was stored in lhs
+Source 4a         mov     ci, dst
+Source 4b         shr     $19, dst
+Source 4d         and     $maskLow4, dst  ;dst now has dst register
+Source 4f         mov     $maskA, work0
+Source 51         and     ci, work0
+Source 52         shr     $12, work0      ;work0 now has addressing mode
+Source 54         add     $1, wpc
+Source 56         mov     lsADDR(work0), rip 
+Source 58 branch: add     ci, wpc
+Source 59         and     $mask23to0, wpc
+Source 5b         shr     $22,ci
+Source 5d         mov     ci, ccr 
+Source 5e         jne     fetch
+Source 60         mov     wpc, wlr
+Source 61         add     $1, wlr
+Source 63         jmp     fetch
+Source 65 soff:   and     $maskLow13, rhs
+Source 67         shl     $18, rhs
+Source 69         sar     $18, rhs        ; rhs now has the signed offset from base register
+Source 6b         mov     INSTR(op), rip
+Source 6d imd:    mov     ci, work0
+Source 6e         and     $maskExp, work0 ;exponent
+Source 70         shr     $9, work0
+Source 72         and     $maskValue, rhs ;value
+Source 74         shl     work0, rhs      ;shifted value in rhs
+Source 75         mov     INSTR(op), rip
+Source 77 rim:    mov     ci, shiftC
+Source 78         and     $maskShift, shiftC      ;shift count has the bits number to shift
+Source 7a         mov     ci, work0
+Source 7b         shl     $20, work0
+Source 7d         shr     $30, work0      ;work0 now has the shop
+Source 7f         shl     $22, rhs
+Source 81         shr     $28, rhs        ;now we have src reg 2 in rhs
+Source 83         mov     REGS(rhs), rhs  ;rhs now has the value that was in register number rhs
+Source 85         mov     SHOP(work0), rip
+Source 87 rsr:    mov     $maskLow4, shiftC       ; shiftC := 15
+Source 89         and     ci, shiftC      ; shiftC := shiftC & ci; to get shift register
+Source 8a         mov     REGS(shiftC), shiftC ; shiftC now has whatever was stored in the 
+Source 8c         mov     ci, work0
+Source 8d         shl     $20, work0
+Source 8f         shr     $30, work0      ; work0 now has the shift op code
+Source 91         shl     $22, rhs
+Source 93         shr     $28, rhs        ; rhs has rhs register
+Source 95         mov     REGS(rhs), rhs  ; rhs now has whatever was stored in rhs (memory)
+Source 97         mov     SHOP(work0), rip
+Source 99 lsl:    shl     shiftC, rhs
+Source 9a         mov     INSTR(op), rip
+Source 9c lsr:    shr     shiftC, rhs
+Source 9d         mov     INSTR(op), rip
+Source 9f asr:    sar     shiftC, rhs
+Source a0         mov     INSTR(op), rip
+Source a2 ror:    mov     rhs, work0
+Source a3         mov     $32, work1      
+Source a5         sub     shiftC, work1   ;work1 := 32-shr
+Source a6         shl     work1, work0    ;work1 is low shr bits shifted (32-shr) to the left
+Source a7         shr     shiftC, rhs     ;work2 is the highest (32-shr) bits shifted shr to the right
+Source a8         add     work0, rhs
+Source a9         mov     INSTR(op), rip
+Source ab rpm:    mov     $maskLow4, work0
+Source ad         and     ci, work0       ;work0 now has src reg 3
+Source ae         shl     $22, rhs
+Source b0         shr     $28, rhs        ; rhs now has src reg 2
+Source b2         mov     REGS(rhs), rhs  ; rhs now has whatever was stored in the correspondent register
+Source b4         mov     REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
+Source b6         mul     work0, rhs
+Source b7 add:    add     REGS(lhs), rhs
+Source b9         jmp     fetch2
+Source bb adc:    mov     wCCR, work0
+Source bc         shr     $2, work0
+Source be         shl     $31, work0
+Source c0         add     REGS(lhs), rhs
+Source c2         add     work0, rhs
+Source c3         jmp     fetch2
+Source c5 sub:    mov     REGS(lhs), work0
+Source c7         sub     rhs, work0
+Source c8         mov     work0, REGS(dst)
+Source ca         jmp     fetch
+Source cc eor:    xor     REGS(lhs), rhs
+Source ce         jmp     fetch2
+Source d0 orr:    or      REGS(lhs), rhs
+>>>>>>> 0f52c56e744b376276a3a968aced7ee6a84a81e0
 Source d2         jmp     fetch2
 Source d4 orr:    or      REGS(lhs), rhs
 Source d6         jmp     fetch2
 Source d8 and:    and     REGS(lhs), rhs
 Source da         jmp     fetch2
+<<<<<<< HEAD
 Source dc mul:    mul     REGS(lhs), rhs
 Source de         jmp     fetch2
 Source e0 div:    mov     REGS(lhs), work0
@@ -844,6 +939,94 @@ Source 183         sub     rhs, work0
 Source 184         mov     ccr, wCCR
 Source 185         jmp     fetch
 Source 187 eorCC:  xor     REGS(lhs), rhs
+=======
+Source dc div:    mov     REGS(lhs), work0
+Source de         div     rhs, work0
+Source df         mov     work0, REGS(dst)
+Source e1         jmp     fetch   
+Source e3 mov:    jmp     fetch2
+Source e5 mvn:    xor     $flip, rhs
+Source e7         jmp     fetch2
+Source e9 swi:    mov     REGS(alwaysZ), work0
+Source eb         trap    rhs
+Source ec         jmp     fetch
+Source ee ldm:    mov     $15, work0      ;work0 holds reg number
+Source f0         mov     $0, work1       ;work1 holds memory number
+Source f2         shl     $16, ci
+Source f4         jl      lloading
+Source f6         shl     $1, ci
+Source f8         sub     $1, work0
+Source fa         jg      lshifting
+Source fc         mov     0(dst, work1), REGS(work0)
+Source ff         add     $1, work1
+Source 101         cmp     $0, ci
+Source 103         jne     lshifting
+Source 105         jmp     fetch
+Source 107 stm:    mov     REGS(dst), lhs  ;lhs now has the value stored in base register
+Source 109         and     $0xffffff, lhs  ;mask low 24 bits because memory in WARM is 24-bit addressable
+Source 10b         add     WARMad, lhs     ;offset is from WARM, not wind
+Source 10c         mov     $15, work0      ;work0 holds register number
+Source 10e         mov     $0, work1
+Source 110         shl     $16, ci
+Source 112         jl      sloading
+Source 114         sub     $1, work0
+Source 116         shl     $1, ci
+Source 118         jg      sshifting
+Source 11a         je      done
+Source 11c         sub     $1, lhs
+Source 11e         mov     REGS(work0), 0(lhs, work1)
+Source 121         cmp     $0, ci
+Source 123         jne     sshifting
+Source 125 done:   sub     WARMad, lhs
+Source 126         mov     lhs, REGS(dst)
+Source 128         jmp     fetch
+Source 12a ldr:    add     lhs, rhs        ;lhs has value to offset from in warm, rhs has offset
+Source 12b         mov     0(WARMad, rhs), REGS(dst)
+Source 12e         jmp     fetch
+Source 130 str:    add     lhs, rhs
+Source 131         mov     REGS(dst), 0(WARMad, rhs)
+Source 134         jmp     fetch
+Source 136 ldu:    mov     REGS(lhs), lhs
+Source 138         cmp     0, rhs
+Source 13a         jg      posldu
+Source 13c         mov     0(lhs, rhs), REGS(dst)
+Source 13f         lea     0(lhs, rhs), REGS(lhs)
+Source 142         jmp     fetch
+Source 144 posldu: mov     REGS(lhs), REGS(dst)
+Source 147         lea     0(lhs, rhs), REGS(lhs)
+Source 14a         jmp     fetch
+Source 14c stu:    mov     REGS(lhs), lhs
+Source 14e         cmp     $0, rhs
+Source 150         jg      posstu
+Source 152         mov     REGS(dst), 0(lhs, rhs)
+Source 155         lea     0(lhs, rhs), REGS(lhs)
+Source 158         jmp     fetch
+Source 15a posstu: mov     REGS(dst), REGS(lhs)
+Source 15d         lea     0(lhs, rhs), REGS(lhs)
+Source 160         jmp     fetch
+Source 162 adr:    lea     0(lhs, rhs), REGS(dst)
+Source 165         jmp     fetch
+Source 167 addCC:  add     REGS(lhs), rhs
+Source 169         jmp     fetch3
+Source 16b adcCC:  mov     wCCR, work0
+Source 16c         shr     $2, work0
+Source 16e         shl     $31, work0
+Source 170         add     REGS(lhs), rhs
+Source 172         add     work0, rhs
+Source 173         jmp     fetch3
+Source 175 subCC:  mov     REGS(lhs), work0
+Source 177         sub     rhs, work0
+Source 178         mov     ccr,wCCR
+Source 179         mov     work0, REGS(dst)
+Source 17b         jmp     fetch
+Source 17d cmpCC:  mov     REGS(lhs), work0
+Source 17f         sub     rhs, work0
+Source 180         mov     ccr, wCCR
+Source 181         jmp     fetch
+Source 183 eorCC:  xor     REGS(lhs), rhs
+Source 185         jmp     fetch3
+Source 187 orrCC:  or      REGS(lhs), rhs
+>>>>>>> 0f52c56e744b376276a3a968aced7ee6a84a81e0
 Source 189         jmp     fetch3
 Source 18b orrCC:  or      REGS(lhs), rhs
 Source 18d         jmp     fetch3
