@@ -1,0 +1,12 @@
+;;; testing condition codes
+;;; (c) drsmith
+
+	mov 	r0, #10
+	swi	$SysPutNum
+	swi	$SysPutChar
+	swi	$SysEntropy
+	swi	$SysHalt
+	
+	
+
+

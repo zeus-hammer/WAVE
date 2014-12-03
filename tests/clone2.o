@@ -1,0 +1,1345 @@
+WarmObjectFile2
+File clone2.as
+Symbol SysEntropy 5
+Symbol SysGetChar 1
+Symbol SysGetNum 2
+Symbol SysHalt 0
+Symbol SysOverlay 6
+Symbol SysPLA 7
+Symbol SysPutChar 3
+Symbol SysPutNum 4
+Symbol x0 0
+Symbol x0f 15
+Symbol x0f0 240
+Symbol x0f1 241
+Symbol x0f2 242
+Symbol x0f3 243
+Symbol x0f4 244
+Symbol x0f5 245
+Symbol x0f6 246
+Symbol x0f7 247
+Symbol x0f8 248
+Symbol x0f9 249
+Symbol x0fa 250
+Symbol x0fb 251
+Symbol x0fc 252
+Symbol x0fd 253
+Symbol x0fe 254
+Symbol x0ff 255
+Symbol x1 1
+Symbol x10 16
+Symbol x100 256
+Symbol x101 257
+Symbol x102 258
+Symbol x103 259
+Symbol x104 260
+Symbol x105 261
+Symbol x106 262
+Symbol x107 263
+Symbol x108 264
+Symbol x109 265
+Symbol x10a 266
+Symbol x10b 267
+Symbol x10c 268
+Symbol x10d 269
+Symbol x10e 270
+Symbol x10f 271
+Symbol x11 17
+Symbol x110 272
+Symbol x111 273
+Symbol x112 274
+Symbol x113 275
+Symbol x114 276
+Symbol x115 277
+Symbol x116 278
+Symbol x117 279
+Symbol x118 280
+Symbol x119 281
+Symbol x11a 282
+Symbol x11b 283
+Symbol x11c 284
+Symbol x11d 285
+Symbol x11e 286
+Symbol x11f 287
+Symbol x12 18
+Symbol x120 288
+Symbol x121 289
+Symbol x122 290
+Symbol x123 291
+Symbol x124 292
+Symbol x125 293
+Symbol x126 294
+Symbol x127 295
+Symbol x128 296
+Symbol x129 297
+Symbol x12a 298
+Symbol x12b 299
+Symbol x12c 300
+Symbol x12d 301
+Symbol x12e 302
+Symbol x12f 303
+Symbol x13 19
+Symbol x130 304
+Symbol x131 305
+Symbol x132 306
+Symbol x133 307
+Symbol x134 308
+Symbol x135 309
+Symbol x136 310
+Symbol x137 311
+Symbol x138 312
+Symbol x139 313
+Symbol x13a 314
+Symbol x13b 315
+Symbol x13c 316
+Symbol x13f 319
+Symbol x14 20
+Symbol x142 322
+Symbol x145 325
+Symbol x148 328
+Symbol x14b 331
+Symbol x14e 334
+Symbol x15 21
+Symbol x151 337
+Symbol x154 340
+Symbol x157 343
+Symbol x15a 346
+Symbol x15e 350
+Symbol x16 22
+Symbol x162 354
+Symbol x166 358
+Symbol x169 361
+Symbol x16c 364
+Symbol x16f 367
+Symbol x17 23
+Symbol x173 371
+Symbol x177 375
+Symbol x17b 379
+Symbol x17f 383
+Symbol x18 24
+Symbol x180 384
+Symbol x183 387
+Symbol x186 390
+Symbol x189 393
+Symbol x18c 396
+Symbol x18f 399
+Symbol x19 25
+Symbol x192 402
+Symbol x195 405
+Symbol x199 409
+Symbol x19d 413
+Symbol x1a 26
+Symbol x1a1 417
+Symbol x1a5 421
+Symbol x1a9 425
+Symbol x1ad 429
+Symbol x1b 27
+Symbol x1b1 433
+Symbol x1b5 437
+Symbol x1b9 441
+Symbol x1bd 445
+Symbol x1c 28
+Symbol x1c1 449
+Symbol x1c5 453
+Symbol x1c9 457
+Symbol x1cd 461
+Symbol x1d 29
+Symbol x1d1 465
+Symbol x1d5 469
+Symbol x1d9 473
+Symbol x1dd 477
+Symbol x1e 30
+Symbol x1e1 481
+Symbol x1e5 485
+Symbol x1e9 489
+Symbol x1eb 491
+Symbol x1ee 494
+Symbol x1f 31
+Symbol x1f2 498
+Symbol x1f8 504
+Symbol x2 2
+Symbol x20 32
+Symbol x200 512
+Symbol x21 33
+Symbol x22 34
+Symbol x23 35
+Symbol x237 567
+Symbol x24 36
+Symbol x25 37
+Symbol x26 38
+Symbol x27 39
+Symbol x274 628
+Symbol x28 40
+Symbol x288 648
+Symbol x29 41
+Symbol x291 657
+Symbol x2a 42
+Symbol x2b 43
+Symbol x2c 44
+Symbol x2d 45
+Symbol x2e 46
+Symbol x2f 47
+Symbol x3 3
+Symbol x30 48
+Symbol x31 49
+Symbol x32 50
+Symbol x33 51
+Symbol x34 52
+Symbol x35 53
+Symbol x36 54
+Symbol x37 55
+Symbol x38 56
+Symbol x39 57
+Symbol x3a 58
+Symbol x3b 59
+Symbol x3c 60
+Symbol x3d 61
+Symbol x3e 62
+Symbol x3f 63
+Symbol x4 4
+Symbol x40 64
+Symbol x41 65
+Symbol x42 66
+Symbol x43 67
+Symbol x44 68
+Symbol x45 69
+Symbol x46 70
+Symbol x47 71
+Symbol x48 72
+Symbol x49 73
+Symbol x4a 74
+Symbol x4b 75
+Symbol x4c 76
+Symbol x4d 77
+Symbol x4e 78
+Symbol x4f 79
+Symbol x5 5
+Symbol x50 80
+Symbol x51 81
+Symbol x52 82
+Symbol x53 83
+Symbol x54 84
+Symbol x55 85
+Symbol x56 86
+Symbol x57 87
+Symbol x58 88
+Symbol x59 89
+Symbol x5a 90
+Symbol x5b 91
+Symbol x5c 92
+Symbol x5d 93
+Symbol x5e 94
+Symbol x5f 95
+Symbol x6 6
+Symbol x60 96
+Symbol x61 97
+Symbol x62 98
+Symbol x63 99
+Symbol x64 100
+Symbol x65 101
+Symbol x66 102
+Symbol x67 103
+Symbol x68 104
+Symbol x69 105
+Symbol x6a 106
+Symbol x6b 107
+Symbol x6c 108
+Symbol x6d 109
+Symbol x6e 110
+Symbol x6f 111
+Symbol x7 7
+Symbol x70 112
+Symbol x71 113
+Symbol x72 114
+Symbol x73 115
+Symbol x74 116
+Symbol x75 117
+Symbol x76 118
+Symbol x77 119
+Symbol x78 120
+Symbol x79 121
+Symbol x7a 122
+Symbol x7b 123
+Symbol x7c 124
+Symbol x7d 125
+Symbol x7e 126
+Symbol x7f 127
+Symbol x8 8
+Symbol x80 128
+Symbol x81 129
+Symbol x82 130
+Symbol x83 131
+Symbol x84 132
+Symbol x85 133
+Symbol x86 134
+Symbol x87 135
+Symbol x88 136
+Symbol x89 137
+Symbol x8a 138
+Symbol x8b 139
+Symbol x8c 140
+Symbol x8d 141
+Symbol x8e 142
+Symbol x8f 143
+Symbol x9 9
+Symbol x90 144
+Symbol x91 145
+Symbol x92 146
+Symbol x93 147
+Symbol x94 148
+Symbol x95 149
+Symbol x96 150
+Symbol x97 151
+Symbol x98 152
+Symbol x99 153
+Symbol x9a 154
+Symbol x9b 155
+Symbol x9c 156
+Symbol x9d 157
+Symbol x9e 158
+Symbol x9f 159
+Symbol xa 10
+Symbol xa0 160
+Symbol xa1 161
+Symbol xa2 162
+Symbol xa3 163
+Symbol xa4 164
+Symbol xa5 165
+Symbol xa6 166
+Symbol xa7 167
+Symbol xa8 168
+Symbol xa9 169
+Symbol xaa 170
+Symbol xab 171
+Symbol xac 172
+Symbol xad 173
+Symbol xae 174
+Symbol xaf 175
+Symbol xb 11
+Symbol xb0 176
+Symbol xb1 177
+Symbol xb2 178
+Symbol xb3 179
+Symbol xb4 180
+Symbol xb5 181
+Symbol xb6 182
+Symbol xb7 183
+Symbol xb8 184
+Symbol xb9 185
+Symbol xba 186
+Symbol xbb 187
+Symbol xbc 188
+Symbol xbd 189
+Symbol xbe 190
+Symbol xbf 191
+Symbol xc 12
+Symbol xc0 192
+Symbol xc1 193
+Symbol xc2 194
+Symbol xc3 195
+Symbol xc4 196
+Symbol xc5 197
+Symbol xc6 198
+Symbol xc7 199
+Symbol xc8 200
+Symbol xc9 201
+Symbol xca 202
+Symbol xcb 203
+Symbol xcc 204
+Symbol xcd 205
+Symbol xce 206
+Symbol xcf 207
+Symbol xd 13
+Symbol xd0 208
+Symbol xd1 209
+Symbol xd2 210
+Symbol xd3 211
+Symbol xd4 212
+Symbol xd5 213
+Symbol xd6 214
+Symbol xd7 215
+Symbol xd8 216
+Symbol xd9 217
+Symbol xda 218
+Symbol xdb 219
+Symbol xdc 220
+Symbol xdd 221
+Symbol xde 222
+Symbol xdf 223
+Symbol xe 14
+Symbol xe0 224
+Symbol xe1 225
+Symbol xe2 226
+Symbol xe3 227
+Symbol xe4 228
+Symbol xe5 229
+Symbol xe6 230
+Symbol xe7 231
+Symbol xe8 232
+Symbol xe9 233
+Symbol xea 234
+Symbol xeb 235
+Symbol xec 236
+Symbol xed 237
+Symbol xee 238
+Symbol xef 239
+Register a1 0
+Register a2 1
+Register a3 2
+Register a4 3
+Register ccr 16
+Register fp 11
+Register lr 14
+Register pc 15
+Register r0 0
+Register r1 1
+Register r10 10
+Register r11 11
+Register r12 12
+Register r13 13
+Register r14 14
+Register r15 15
+Register r2 2
+Register r3 3
+Register r4 4
+Register r5 5
+Register r6 6
+Register r7 7
+Register r8 8
+Register r9 9
+Register sp 13
+Register v1 4
+Register v2 5
+Register v3 6
+Register v4 7
+Register v5 8
+Register v6 9
+Register v7 10
+Memory 100 195
+Memory 101 199
+Memory 102 19d
+Memory 103 1a1
+Memory 104 1a5
+Memory 105 1a9
+Memory 106 1ad
+Memory 107 1b1
+Memory 108 1b5
+Memory 109 1b9
+Memory 10a 1bd
+Memory 10b 1c1
+Memory 10c 1c5
+Memory 10d 1c9
+Memory 10e 1cd
+Memory 10f 1d1
+Memory 110 1d5
+Memory 111 1d9
+Memory 112 1dd
+Memory 113 1e1
+Memory 114 1e5
+Memory 115 1ee
+Memory 116 1ee
+Memory 117 1ee
+Memory 118 1e9
+Memory 119 1e9
+Memory 11a 1eb
+Memory 11b 1eb
+Memory 11c 1ee
+Memory 11d 1ee
+Memory 11e 1ee
+Memory 11f 1ee
+Memory 120 17f
+Memory 121 180
+Memory 122 183
+Memory 123 186
+Memory 124 189
+Memory 125 18c
+Memory 126 18f
+Memory 127 192
+Memory 128 16f
+Memory 129 173
+Memory 12a 177
+Memory 12b 17b
+Memory 12c 13c
+Memory 12d 13f
+Memory 12e 142
+Memory 12f 145
+Memory 130 148
+Memory 131 14b
+Memory 132 14e
+Memory 133 151
+Memory 134 154
+Memory 135 157
+Memory 136 15a
+Memory 137 15e
+Memory 138 162
+Memory 139 166
+Memory 13a 169
+Memory 13b 16c
+Memory 13c 72
+Memory 13d 30
+Memory 13e 0
+Memory 13f 72
+Memory 140 31
+Memory 141 0
+Memory 142 72
+Memory 143 32
+Memory 144 0
+Memory 145 72
+Memory 146 33
+Memory 147 0
+Memory 148 72
+Memory 149 34
+Memory 14a 0
+Memory 14b 72
+Memory 14c 35
+Memory 14d 0
+Memory 14e 72
+Memory 14f 36
+Memory 150 0
+Memory 151 72
+Memory 152 37
+Memory 153 0
+Memory 154 72
+Memory 155 38
+Memory 156 0
+Memory 157 72
+Memory 158 39
+Memory 159 0
+Memory 15a 72
+Memory 15b 31
+Memory 15c 30
+Memory 15d 0
+Memory 15e 72
+Memory 15f 31
+Memory 160 31
+Memory 161 0
+Memory 162 72
+Memory 163 31
+Memory 164 32
+Memory 165 0
+Memory 166 73
+Memory 167 70
+Memory 168 0
+Memory 169 6c
+Memory 16a 72
+Memory 16b 0
+Memory 16c 70
+Memory 16d 63
+Memory 16e 0
+Memory 16f 6c
+Memory 170 73
+Memory 171 6c
+Memory 172 0
+Memory 173 6c
+Memory 174 73
+Memory 175 72
+Memory 176 0
+Memory 177 61
+Memory 178 73
+Memory 179 72
+Memory 17a 0
+Memory 17b 72
+Memory 17c 6f
+Memory 17d 72
+Memory 17e 0
+Memory 17f 0
+Memory 180 6e
+Memory 181 76
+Memory 182 0
+Memory 183 65
+Memory 184 71
+Memory 185 0
+Memory 186 6e
+Memory 187 65
+Memory 188 0
+Memory 189 6c
+Memory 18a 74
+Memory 18b 0
+Memory 18c 6c
+Memory 18d 65
+Memory 18e 0
+Memory 18f 67
+Memory 190 65
+Memory 191 0
+Memory 192 67
+Memory 193 74
+Memory 194 0
+Memory 195 61
+Memory 196 64
+Memory 197 64
+Memory 198 0
+Memory 199 61
+Memory 19a 64
+Memory 19b 63
+Memory 19c 0
+Memory 19d 73
+Memory 19e 75
+Memory 19f 62
+Memory 1a0 0
+Memory 1a1 63
+Memory 1a2 6d
+Memory 1a3 70
+Memory 1a4 0
+Memory 1a5 65
+Memory 1a6 6f
+Memory 1a7 72
+Memory 1a8 0
+Memory 1a9 6f
+Memory 1aa 72
+Memory 1ab 72
+Memory 1ac 0
+Memory 1ad 61
+Memory 1ae 6e
+Memory 1af 64
+Memory 1b0 0
+Memory 1b1 74
+Memory 1b2 73
+Memory 1b3 74
+Memory 1b4 0
+Memory 1b5 6d
+Memory 1b6 75
+Memory 1b7 6c
+Memory 1b8 0
+Memory 1b9 6d
+Memory 1ba 6c
+Memory 1bb 61
+Memory 1bc 0
+Memory 1bd 64
+Memory 1be 69
+Memory 1bf 76
+Memory 1c0 0
+Memory 1c1 6d
+Memory 1c2 6f
+Memory 1c3 76
+Memory 1c4 0
+Memory 1c5 6d
+Memory 1c6 76
+Memory 1c7 6e
+Memory 1c8 0
+Memory 1c9 73
+Memory 1ca 77
+Memory 1cb 69
+Memory 1cc 0
+Memory 1cd 6c
+Memory 1ce 64
+Memory 1cf 6d
+Memory 1d0 0
+Memory 1d1 73
+Memory 1d2 74
+Memory 1d3 6d
+Memory 1d4 0
+Memory 1d5 6c
+Memory 1d6 64
+Memory 1d7 72
+Memory 1d8 0
+Memory 1d9 73
+Memory 1da 74
+Memory 1db 72
+Memory 1dc 0
+Memory 1dd 6c
+Memory 1de 64
+Memory 1df 75
+Memory 1e0 0
+Memory 1e1 73
+Memory 1e2 74
+Memory 1e3 75
+Memory 1e4 0
+Memory 1e5 61
+Memory 1e6 64
+Memory 1e7 72
+Memory 1e8 0
+Memory 1e9 62
+Memory 1ea 0
+Memory 1eb 62
+Memory 1ec 6c
+Memory 1ed 0
+Memory 1ee 3f
+Memory 1ef 3f
+Memory 1f0 3f
+Memory 1f1 0
+Memory 1f2 2e
+Memory 1f3 64
+Memory 1f4 61
+Memory 1f5 74
+Memory 1f6 61
+Memory 1f7 0
+Memory 1f8 2e
+Memory 1f9 73
+Memory 1fa 74
+Memory 1fb 72
+Memory 1fc 69
+Memory 1fd 6e
+Memory 1fe 67
+Memory 1ff 0
+Memory 200 41
+Memory 201 20
+Memory 202 63
+Memory 203 6c
+Memory 204 6f
+Memory 205 6e
+Memory 206 65
+Memory 207 20
+Memory 208 70
+Memory 209 72
+Memory 20a 6f
+Memory 20b 67
+Memory 20c 72
+Memory 20d 61
+Memory 20e 6d
+Memory 20f 20
+Memory 210 66
+Memory 211 6f
+Memory 212 72
+Memory 213 20
+Memory 214 74
+Memory 215 68
+Memory 216 65
+Memory 217 20
+Memory 218 47
+Memory 219 72
+Memory 21a 65
+Memory 21b 61
+Memory 21c 74
+Memory 21d 20
+Memory 21e 43
+Memory 21f 6c
+Memory 220 61
+Memory 221 73
+Memory 222 73
+Memory 223 20
+Memory 224 6f
+Memory 225 66
+Memory 226 20
+Memory 227 32
+Memory 228 30
+Memory 229 31
+Memory 22a 30
+Memory 22b 2c
+Memory 22c 20
+Memory 22d 62
+Memory 22e 79
+Memory 22f 20
+Memory 230 44
+Memory 231 75
+Memory 232 61
+Memory 233 6e
+Memory 234 65
+Memory 235 2e
+Memory 236 0
+Memory 237 54
+Memory 238 68
+Memory 239 65
+Memory 23a 20
+Memory 23b 6f
+Memory 23c 75
+Memory 23d 74
+Memory 23e 70
+Memory 23f 75
+Memory 240 74
+Memory 241 20
+Memory 242 6f
+Memory 243 66
+Memory 244 20
+Memory 245 74
+Memory 246 68
+Memory 247 69
+Memory 248 73
+Memory 249 20
+Memory 24a 70
+Memory 24b 72
+Memory 24c 6f
+Memory 24d 67
+Memory 24e 72
+Memory 24f 61
+Memory 250 6d
+Memory 251 20
+Memory 252 73
+Memory 253 68
+Memory 254 6f
+Memory 255 75
+Memory 256 6c
+Memory 257 64
+Memory 258 20
+Memory 259 62
+Memory 25a 65
+Memory 25b 20
+Memory 25c 74
+Memory 25d 68
+Memory 25e 65
+Memory 25f 20
+Memory 260 73
+Memory 261 61
+Memory 262 6d
+Memory 263 65
+Memory 264 20
+Memory 265 61
+Memory 266 73
+Memory 267 20
+Memory 268 74
+Memory 269 68
+Memory 26a 65
+Memory 26b 20
+Memory 26c 73
+Memory 26d 6f
+Memory 26e 75
+Memory 26f 72
+Memory 270 63
+Memory 271 65
+Memory 272 2e
+Memory 273 0
+Memory 274 54
+Memory 275 61
+Memory 276 62
+Memory 277 6c
+Memory 278 65
+Memory 279 73
+Memory 27a 20
+Memory 27b 6f
+Memory 27c 66
+Memory 27d 20
+Memory 27e 70
+Memory 27f 6f
+Memory 280 69
+Memory 281 6e
+Memory 282 74
+Memory 283 65
+Memory 284 72
+Memory 285 73
+Memory 286 2e
+Memory 287 0
+Memory 288 53
+Memory 289 74
+Memory 28a 72
+Memory 28b 69
+Memory 28c 6e
+Memory 28d 67
+Memory 28e 73
+Memory 28f 2e
+Memory 290 0
+Memory 291 41
+Memory 292 6c
+Memory 293 6c
+Memory 294 20
+Memory 295 74
+Memory 296 6f
+Memory 297 6c
+Memory 298 64
+Memory 299 20
+Memory 29a 6f
+Memory 29b 75
+Memory 29c 74
+Memory 29d 2e
+Memory 29e 0
+Memory 0 a078200
+Memory 1 d0000e3
+Memory 2 a078235
+Memory 3 d0000e1
+Memory 4 a1780fc
+Memory 5 a0fbffb
+Memory 6 1180c080
+Memory 7 cc000066
+Memory 8 8188000
+Memory 9 5804040
+Memory a d00009b
+Memory b 580021d
+Memory c 6800003
+Memory d d0000ed
+Memory e 5a044d7
+Memory f 322001f
+Memory 10 d000088
+Memory 11 d0000e9
+Memory 12 11820603
+Memory 13 8c000007
+Memory 14 60030ff
+Memory 15 301c000
+Memory 16 5804008
+Memory 17 c808
+Memory 18 d00008d
+Memory 19 c000051
+Memory 1a 11820003
+Memory 1b 4c000009
+Memory 1c 11820007
+Memory 1d 4c000007
+Memory 1e 1182000d
+Memory 1f 4c000005
+Memory 20 58044d3
+Memory 21 300000f
+Memory 22 d00008a
+Memory 23 d0000da
+Memory 24 1182000b
+Memory 25 cc000005
+Memory 26 58044cf
+Memory 27 300000f
+Memory 28 d000084
+Memory 29 d0000d4
+Memory 2a 11820801
+Memory 2b cc000023
+Memory 2c 13019c01
+Memory 2d 6c000009
+Memory 2e 5800023
+Memory 2f 6800003
+Memory 30 30181ff
+Memory 31 5a844c9
+Memory 32 32a803f
+Memory 33 5805005
+Memory 34 d00007c
+Memory 35 c000035
+Memory 36 58044c6
+Memory 37 300000f
+Memory 38 d000074
+Memory 39 d0000c4
+Memory 3a 5a844cc
+Memory 3b 132a8003
+Memory 3c 11828001
+Memory 3d ec00000e
+Memory 3e 58044ca
+Memory 3f 3000003
+Memory 40 8000128
+Memory 41 d0000af
+Memory 42 11828001
+Memory 43 4c000006
+Memory 44 5800023
+Memory 45 6800003
+Memory 46 301803f
+Memory 47 d000089
+Memory 48 c000022
+Memory 49 5800a01
+Memory 4a 6800003
+Memory 4b 1301800f
+Memory 4c d000060
+Memory 4d c00001d
+Memory 4e 580005b
+Memory 4f 6800003
+Memory 50 5a8000f
+Memory 51 302c4cf
+Memory 52 d00005a
+Memory 53 d0000aa
+Memory 54 13019c01
+Memory 55 6c000007
+Memory 56 5800023
+Memory 57 6800003
+Memory 58 58040d2
+Memory 59 5804812
+Memory 5a d000056
+Memory 5b c00000d
+Memory 5c 58044c6
+Memory 5d 300000f
+Memory 5e d00004e
+Memory 5f d00009e
+Memory 60 58044ca
+Memory 61 3000003
+Memory 62 8000128
+Memory 63 d00008d
+Memory 64 5800023
+Memory 65 6800003
+Memory 66 301801f
+Memory 67 d000069
+Memory 68 580005d
+Memory 69 6800003
+Memory 6a d00008d
+Memory 6b 88001
+Memory 6c cffff9a
+Memory 6d a078207
+Memory 6e d000076
+Memory 6f a1780cd
+Memory 70 1180c080
+Memory 71 cc00000d
+Memory 72 5804040
+Memory 73 d000032
+Memory 74 580021d
+Memory 75 6800003
+Memory 76 d000084
+Memory 77 a07817b
+Memory 78 d000078
+Memory 79 d000081
+Memory 7a 9008001
+Memory 7b d00002a
+Memory 7c d00007b
+Memory 7d cfffff3
+Memory 7e a07820a
+Memory 7f d000065
+Memory 80 a17821f
+Memory 81 1180c080
+Memory 82 cc000013
+Memory 83 5804040
+Memory 84 d000021
+Memory 85 580021d
+Memory 86 6800003
+Memory 87 d000073
+Memory 88 a078170
+Memory 89 d000067
+Memory 8a d000070
+Memory 8b 5800211
+Memory 8c 6800003
+Memory 8d 19008001
+Memory 8e 4c000003
+Memory 8f 6800003
+Memory 90 cfffffd
+Memory 91 5800211
+Memory 92 6800003
+Memory 93 d000064
+Memory 94 cffffed
+Memory 95 a0781fc
+Memory 96 d00004e
+Memory 97 6800000
+Memory 98 9f6bfff
+Memory 99 7e80003
+Memory 9a 8020100
+Memory 9b d000055
+Memory 9c 58844dd
+Memory 9d 8008120
+Memory 9e d000052
+Memory 9f 1309b801
+Memory a0 4c000003
+Memory a1 5800073
+Memory a2 6800003
+Memory a3 7680003
+Memory a4 97e8001
+Memory a5 9f6bfff
+Memory a6 986bfff
+Memory a7 580060f
+Memory a8 6800003
+Memory a9 9068001
+Memory aa d000019
+Memory ab 97e8001
+Memory ac 9f6bfff
+Memory ad 800012c
+Memory ae d000042
+Memory af 97e8001
+Memory b0 9f6bfff
+Memory b1 11800000
+Memory b2 cc000005
+Memory b3 6704000
+Memory b4 580002d
+Memory b5 6800003
+Memory b6 70001
+Memory b7 11800205
+Memory b8 8c000009
+Memory b9 986bfff
+Memory ba 5800803
+Memory bb 6800003
+Memory bc 580060f
+Memory bd 6800003
+Memory be 9068001
+Memory bf d000004
+Memory c0 c000002
+Memory c1 d00000f
+Memory c2 97e8001
+Memory c3 9f6bfff
+Memory c4 1180000f
+Memory c5 8c000006
+Memory c6 986bfff
+Memory c7 5804404
+Memory c8 dfffffb
+Memory c9 9068001
+Memory ca 300000f
+Memory cb 11800205
+Memory cc 80000803
+Memory cd c0000057
+Memory ce 6800003
+Memory cf 97e8001
+Memory d0 9f6bfff
+Memory d1 11800000
+Memory d2 cc000005
+Memory d3 6704000
+Memory d4 580002d
+Memory d5 6800003
+Memory d6 70001
+Memory d7 11800205
+Memory d8 8c000009
+Memory d9 986bfff
+Memory da 5000205
+Memory db dfffff5
+Memory dc 8068000
+Memory dd 5700205
+Memory de 4770205
+Memory df 9068001
+Memory e0 1004380
+Memory e1 803
+Memory e2 6800003
+Memory e3 97e8001
+Memory e4 9f6bfff
+Memory e5 986bfff
+Memory e6 580003b
+Memory e7 6800003
+Memory e8 6800003
+Memory e9 6800003
+Memory ea 5800a01
+Memory eb 6800003
+Memory ec 9068001
+Memory ed d000003
+Memory ee d000009
+Memory ef 97e8001
+Memory f0 7e81609
+Memory f1 5d84000
+Memory f2 c000002
+Memory f3 6800003
+Memory f4 19058001
+Memory f5 6cfffffe
+Memory f6 7681611
+Memory f7 5800205
+Memory f8 6800003
+Memory f9 5f84380
+Memory fa 5800009
+Memory fb 6800003
+Memory fc 5f84380
+Memory fd 580040b
+Memory fe 6800003
+Memory ff 5f84380
+Source 0 x0:     adr     r0,[pc,#0x200]
+Source 1 x1:     bl      xe4
+Source 2 x2:     adr     r0,[pc,#0x235]
+Source 3 x3:     bl      xe4
+Source 4 x4:     adr     r2,[pc,#0x0fc]
+Source 5 x5:     adr     r1,[pc,#-5]
+Source 6 x6:     cmps    r1,r2,lsl#0
+Source 7 x7:     bge     x6d
+Source 8 x8:     ldr     r3,[r1,#0]
+Source 9 x9:     mov     r0,r1,lsl#0
+Source a xa:     bl      xa5
+Source b xb:     mov     r0,#0x3a
+Source c xc:     swi     #3
+Source d xd:     bl      x0fa
+Source e xe:     mov     r4,r3,lsr#23
+Source f x0f:    and     r4,r4,#0x1f
+Source 10 x10:    bl      x98
+Source 11 x11:    bl      x0fa
+Source 12 x12:    cmps    r4,#0x18
+Source 13 x13:    blt     x1a
+Source 14 x14:    mvn     r0,#-0x1000000
+Source 15 x15:    and     r0,r3,r0,lsl#0
+Source 16 x16:    mov     r0,r0,lsl#8
+Source 17 x17:    add     r0,r1,r0,asr#8
+Source 18 x18:    bl      xa5
+Source 19 x19:    b       x6a
+Source 1a x1a:    cmps    r4,#3
+Source 1b x1b:    beq     x24
+Source 1c x1c:    cmps    r4,#7
+Source 1d x1d:    beq     x24
+Source 1e x1e:    cmps    r4,#0xd
+Source 1f x1f:    beq     x24
+Source 20 x20:    mov     r0,r3,lsr#19
+Source 21 x21:    and     r0,r0,#0x0f
+Source 22 x22:    bl      xac
+Source 23 x23:    bl      x0fd
+Source 24 x24:    cmps    r4,#0xb
+Source 25 x25:    bge     x2a
+Source 26 x26:    mov     r0,r3,lsr#15
+Source 27 x27:    and     r0,r0,#0x0f
+Source 28 x28:    bl      xac
+Source 29 x29:    bl      x0fd
+Source 2a x2a:    cmps    r4,#0x10
+Source 2b x2b:    bge     x4e
+Source 2c x2c:    ands    r0,r3,#0x4000
+Source 2d x2d:    bne     x36
+Source 2e x2e:    mov     r0,#0x23
+Source 2f x2f:    swi     #3
+Source 30 x30:    and     r0,r3,#0x1ff
+Source 31 x31:    mov     r5,r3,lsr#9
+Source 32 x32:    and     r5,r5,#0x3f
+Source 33 x33:    mov     r0,r0,lsl r5
+Source 34 x34:    bl      xb0
+Source 35 x35:    b       x6a
+Source 36 x36:    mov     r0,r3,lsr#6
+Source 37 x37:    and     r0,r0,#0x0f
+Source 38 x38:    bl      xac
+Source 39 x39:    bl      x0fd
+Source 3a x3a:    mov     r5,r3,lsr#12
+Source 3b x3b:    ands    r5,r5,#3
+Source 3c x3c:    cmps    r5,#1
+Source 3d x3d:    bgt     x4b
+Source 3e x3e:    mov     r0,r3,lsr#10
+Source 3f x3f:    and     r0,r0,#3
+Source 40 x40:    ldr     r0,[r0,#0x128]
+Source 41 x41:    bl      x0f0
+Source 42 x42:    cmps    r5,#1
+Source 43 x43:    beq     x49
+Source 44 x44:    mov     r0,#0x23
+Source 45 x45:    swi     #3
+Source 46 x46:    and     r0,r3,#0x3f
+Source 47 x47:    bl      xd0
+Source 48 x48:    b       x6a
+Source 49 x49:    mov     r0,#0x20
+Source 4a x4a:    swi     #3
+Source 4b x4b:    ands    r0,r3,#0x0f
+Source 4c x4c:    bl      xac
+Source 4d x4d:    b       x6a
+Source 4e x4e:    mov     r0,#0x5b
+Source 4f x4f:    swi     #3
+Source 50 x50:    mov     r5,#0x0f
+Source 51 x51:    and     r0,r5,r3,lsr#15
+Source 52 x52:    bl      xac
+Source 53 x53:    bl      x0fd
+Source 54 x54:    ands    r0,r3,#0x4000
+Source 55 x55:    bne     x5c
+Source 56 x56:    mov     r0,#0x23
+Source 57 x57:    swi     #3
+Source 58 x58:    mov     r0,r3,lsl#18
+Source 59 x59:    mov     r0,r0,asr#18
+Source 5a x5a:    bl      xb0
+Source 5b x5b:    b       x68
+Source 5c x5c:    mov     r0,r3,lsr#6
+Source 5d x5d:    and     r0,r0,#0x0f
+Source 5e x5e:    bl      xac
+Source 5f x5f:    bl      x0fd
+Source 60 x60:    mov     r0,r3,lsr#10
+Source 61 x61:    and     r0,r0,#3
+Source 62 x62:    ldr     r0,[r0,#0x128]
+Source 63 x63:    bl      x0f0
+Source 64 x64:    mov     r0,#0x23
+Source 65 x65:    swi     #3
+Source 66 x66:    and     r0,r3,#0x1f
+Source 67 x67:    bl      xd0
+Source 68 x68:    mov     r0,#0x5d
+Source 69 x69:    swi     #3
+Source 6a x6a:    bl      x0f7
+Source 6b x6b:    add     r1,r1,#1
+Source 6c x6c:    b       x6
+Source 6d x6d:    adr     r0,[pc,#0x207]
+Source 6e x6e:    bl      xe4
+Source 6f x6f:    adr     r2,[pc,#0xcd]
+Source 70 x70:    cmps    r1,r2,lsl#0
+Source 71 x71:    bge     x7e
+Source 72 x72:    mov     r0,r1,lsl#0
+Source 73 x73:    bl      xa5
+Source 74 x74:    mov     r0,#0x3a
+Source 75 x75:    swi     #3
+Source 76 x76:    bl      x0fa
+Source 77 x77:    adr     r0,[pc,#0x17b]
+Source 78 x78:    bl      x0f0
+Source 79 x79:    bl      x0fa
+Source 7a x7a:    ldu     r0,[r1,#1]
+Source 7b x7b:    bl      xa5
+Source 7c x7c:    bl      x0f7
+Source 7d x7d:    b       x70
+Source 7e x7e:    adr     r0,[pc,#0x20a]
+Source 7f x7f:    bl      xe4
+Source 80 x80:    adr     r2,[pc,#0x21f]
+Source 81 x81:    cmps    r1,r2,lsl#0
+Source 82 x82:    bge     x95
+Source 83 x83:    mov     r0,r1,lsl#0
+Source 84 x84:    bl      xa5
+Source 85 x85:    mov     r0,#0x3a
+Source 86 x86:    swi     #3
+Source 87 x87:    bl      x0fa
+Source 88 x88:    adr     r0,[pc,#0x170]
+Source 89 x89:    bl      x0f0
+Source 8a x8a:    bl      x0fa
+Source 8b x8b:    mov     r0,#0x22
+Source 8c x8c:    swi     #3
+Source 8d x8d:    ldus    r0,[r1,#1]
+Source 8e x8e:    beq     x91
+Source 8f x8f:    swi     #3
+Source 90 x90:    b       x8d
+Source 91 x91:    mov     r0,#0x22
+Source 92 x92:    swi     #3
+Source 93 x93:    bl      x0f7
+Source 94 x94:    b       x81
+Source 95 x95:    adr     r0,[pc,#0x1fc]
+Source 96 x96:    bl      xe4
+Source 97 x97:    swi     #0
+Source 98 x98:    stu     lr,[sp,#-1]
+Source 99 x99:    stm     sp,#3
+Source 9a x9a:    ldr     r0,[r4,#0x100]
+Source 9b x9b:    bl      x0f0
+Source 9c x9c:    mov     r1,r3,lsr#29
+Source 9d x9d:    ldr     r0,[r1,#0x120]
+Source 9e x9e:    bl      x0f0
+Source 9f x9f:    ands    r1,r3,#0x10000000
+Source a0 xa0:    beq     xa3
+Source a1 xa1:    mov     r0,#0x73
+Source a2 xa2:    swi     #3
+Source a3 xa3:    ldm     sp,#3
+Source a4 xa4:    ldu     pc,[sp,#1]
+Source a5 xa5:    stu     lr,[sp,#-1]
+Source a6 xa6:    stu     r0,[sp,#-1]
+Source a7 xa7:    mov     r0,#0x78
+Source a8 xa8:    swi     #3
+Source a9 xa9:    ldu     r0,[sp,#1]
+Source aa xaa:    bl      xc3
+Source ab xab:    ldu     pc,[sp,#1]
+Source ac xac:    stu     lr,[sp,#-1]
+Source ad xad:    ldr     r0,[r0,#0x12c]
+Source ae xae:    bl      x0f0
+Source af xaf:    ldu     pc,[sp,#1]
+Source b0 xb0:    stu     lr,[sp,#-1]
+Source b1 xb1:    cmps    r0,#0
+Source b2 xb2:    bge     xb7
+Source b3 xb3:    mvn     lr,r0,lsl#0
+Source b4 xb4:    mov     r0,#0x2d
+Source b5 xb5:    swi     #3
+Source b6 xb6:    add     r0,lr,#1
+Source b7 xb7:    cmps    r0,#0xa
+Source b8 xb8:    blt     xc1
+Source b9 xb9:    stu     r0,[sp,#-1]
+Source ba xba:    mov     r0,#0x30
+Source bb xbb:    swi     #3
+Source bc xbc:    mov     r0,#0x78
+Source bd xbd:    swi     #3
+Source be xbe:    ldu     r0,[sp,#1]
+Source bf xbf:    bl      xc3
+Source c0 xc0:    b       xc2
+Source c1 xc1:    bl      xd0
+Source c2 xc2:    ldu     pc,[sp,#1]
+Source c3 xc3:    stu     lr,[sp,#-1]
+Source c4 xc4:    cmps    r0,#0x0f
+Source c5 xc5:    blt     xcb
+Source c6 xc6:    stu     r0,[sp,#-1]
+Source c7 xc7:    mov     r0,r0,lsr#4
+Source c8 xc8:    bl      xc3
+Source c9 xc9:    ldu     r0,[sp,#1]
+Source ca xca:    and     r0,r0,#0x0f
+Source cb xcb:    cmps    r0,#0xa
+Source cc xcc:    addlt   r0,r0,#0x30
+Source cd xcd:    addge   r0,r0,#0x57
+Source ce xce:    swi     #3
+Source cf xcf:    ldu     pc,[sp,#1]
+Source d0 xd0:    stu     lr,[sp,#-1]
+Source d1 xd1:    cmps    r0,#0
+Source d2 xd2:    bge     xd7
+Source d3 xd3:    mvn     lr,r0,lsl#0
+Source d4 xd4:    mov     r0,#0x2d
+Source d5 xd5:    swi     #3
+Source d6 xd6:    add     r0,lr,#1
+Source d7 xd7:    cmps    r0,#0xa
+Source d8 xd8:    blt     xe1
+Source d9 xd9:    stu     r0,[sp,#-1]
+Source da xda:    div     r0,r0,#0xa
+Source db xdb:    bl      xd0
+Source dc xdc:    ldr     r0,[sp,#0]
+Source dd xdd:    div     lr,r0,#0xa
+Source de xde:    mul     lr,lr,#0xa
+Source df xdf:    ldu     r0,[sp,#1]
+Source e0 xe0:    sub     r0,r0,lr,lsl#0
+Source e1 xe1:    add     r0,r0,#0x30
+Source e2 xe2:    swi     #3
+Source e3 xe3:    ldu     pc,[sp,#1]
+Source e4 xe4:    stu     lr,[sp,#-1]
+Source e5 xe5:    stu     r0,[sp,#-1]
+Source e6 xe6:    mov     r0,#0x3b
+Source e7 xe7:    swi     #3
+Source e8 xe8:    swi     #3
+Source e9 xe9:    swi     #3
+Source ea xea:    mov     r0,#0x20
+Source eb xeb:    swi     #3
+Source ec xec:    ldu     r0,[sp,#1]
+Source ed xed:    bl      x0f0
+Source ee xee:    bl      x0f7
+Source ef xef:    ldu     pc,[sp,#1]
+Source f0 x0f0:   stm     sp,#0x4800
+Source f1 x0f1:   mov     r11,r0,lsl#0
+Source f2 x0f2:   b       x0f4
+Source f3 x0f3:   swi     #3
+Source f4 x0f4:   ldus    r0,[r11,#1]
+Source f5 x0f5:   bne     x0f3
+Source f6 x0f6:   ldm     sp,#0x8800
+Source f7 x0f7:   mov     r0,#0xa
+Source f8 x0f8:   swi     #3
+Source f9 x0f9:   mov     pc,lr,lsl#0
+Source fa x0fa:   mov     r0,#9
+Source fb x0fb:   swi     #3
+Source fc x0fc:   mov     pc,lr,lsl#0
+Source fd x0fd:   mov     r0,#0x2c
+Source fe x0fe:   swi     #3
+Source ff x0ff:   mov     pc,lr,lsl#0
+End

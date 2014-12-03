@@ -1,0 +1,7 @@
+;;; internal wonderings about branch
+;;; (c) drsmith
+
+loop:	bne	end
+	movs	r0, #0
+	b	loop
+end	swi	#SysHalt	

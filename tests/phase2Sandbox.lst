@@ -1,0 +1,12 @@
+WIND Assembly of phase2Sandbox.s                                        Page 1
+
+Line [ Addr ]
+0001           ;;; sandbox
+0002           
+0003 [0x0000]:         trap    $0
+     [0x0000]: 00180000 00000000          
+
+-------------------------------------------------------------------------------
+Symbols defined:
+-------------------------------------------------------------------------------
+Assembled 1 instruction at 27.78 instructions per second.

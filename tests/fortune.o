@@ -1,0 +1,150 @@
+WarmObjectFile2
+File fortune.as
+Symbol SysEntropy 5
+Symbol SysGetChar 1
+Symbol SysGetNum 2
+Symbol SysHalt 0
+Symbol SysOverlay 6
+Symbol SysPLA 7
+Symbol SysPutChar 3
+Symbol SysPutNum 4
+Symbol buffer 130
+Symbol done 99
+Symbol fortune 1
+Symbol fortuneSize 81
+Symbol gets 102
+Symbol main 82
+Symbol puts 122
+Symbol read 83
+Symbol strncpy 113
+Register a1 0
+Register a2 1
+Register a3 2
+Register a4 3
+Register ccr 16
+Register fp 11
+Register lr 14
+Register pc 15
+Register r0 0
+Register r1 1
+Register r10 10
+Register r11 11
+Register r12 12
+Register r13 13
+Register r14 14
+Register r15 15
+Register r2 2
+Register r3 3
+Register r4 4
+Register r5 5
+Register r6 6
+Register r7 7
+Register r8 8
+Register r9 9
+Register sp 13
+Register v1 4
+Register v2 5
+Register v3 6
+Register v4 7
+Register v5 8
+Register v6 9
+Register v7 10
+Memory 0 c000052
+Memory 52 5980000
+Memory 53 a07802f
+Memory 54 d000012
+Memory 55 18080000
+Memory 56 8c00000d
+Memory 57 198001
+Memory 58 16800005
+Memory 59 86004000
+Memory 5a 50840c0
+Memory 5b 408c0c0
+Memory 5c 11004040
+Memory 5d 6cfffff6
+Memory 5e a0f8024
+Memory 5f a07bfa2
+Memory 60 5900051
+Memory 61 d000010
+Memory 62 cfffff1
+Memory 63 a07bf9e
+Memory 64 d000016
+Memory 65 6800000
+Memory 66 986bfff
+Memory 67 5884000
+Memory 68 16800001
+Memory 69 9808001
+Memory 6a 8c000005
+Memory 6b 11800205
+Memory 6c 6cfffffc
+Memory 6d 5800000
+Memory 6e 9808001
+Memory 6f 9068001
+Memory 70 5f84380
+Memory 71 7e8000f
+Memory 72 11110001
+Memory 73 ac000004
+Memory 74 9188001
+Memory 75 19980001
+Memory 76 6cfffffc
+Memory 77 9900001
+Memory 78 768000f
+Memory 79 5f84380
+Memory 7a 98ebfff
+Memory 7b 5884000
+Memory 7c 19008001
+Memory 7d 4c000003
+Memory 7e 6800003
+Memory 7f cfffffd
+Memory 80 90e8001
+Memory 81 5f84380
+Source 0         b       main
+Source 52         mov     r3,#0           ; number of fortunes read
+Source 53 read:   adr     r0,buffer
+Source 54         bl      gets            ; read a fortune
+Source 55         ldrs    r1,[r0]         ; check character read.  -1?
+Source 56         blt     done
+Source 57         add     r3,r3,#1        ; one more fortune
+Source 58         swis    #SysEntropy
+Source 59         mvnlt   r0,r0           ; absolute value
+Source 5a         div     r1,r0,r3
+Source 5b         mul     r1,r1,r3        ; r1 is a multiple of r3
+Source 5c         subs    r0,r0,r1        ; r0 mod r3
+Source 5d         bne     read
+Source 5e         adr     r1,buffer
+Source 5f         adr     r0,fortune
+Source 60         mov     r2,#fortuneSize ; reserved area size
+Source 61         bl      strncpy         ; copy buffer into fortune
+Source 62         b       read
+Source 63 done:   adr     r0,fortune      ; print your fortune
+Source 64         bl      puts
+Source 65         swi     #SysHalt
+Source 66 gets:   stu     r0,[sp,#-1]     ; to be restored at the end
+Source 67         mov     r1,r0
+Source 68 _loop:  swis    #SysGetChar
+Source 69         stu     r0,[r1,#1]
+Source 6a         blt     _done
+Source 6b         cmp     r0,#'\n
+Source 6c         bne     _loop
+Source 6d         mov     r0,#0
+Source 6e         stu     r0,[r1,#1]
+Source 6f _done:  ldu     r0,[sp,#1]
+Source 70         mov     pc,lr
+Source 71 strncpy:stm     sp,#0xf
+Source 72 _loop:  subs    r2,r2,#1
+Source 73         ble     _term
+Source 74         ldu     r3,[r1,#1]
+Source 75         stus    r3,[r0,#1]
+Source 76         bne     _loop
+Source 77 _term:  stu     r2,[r0,#1]      ; stores final EOLN
+Source 78 _done:  ldm     sp,#0xf
+Source 79         mov     pc,lr
+Source 7a puts:   stu     r1,[sp,#-1]
+Source 7b         mov     r1,r0
+Source 7c _loop:  ldus    r0,[r1,#1]
+Source 7d         beq     _done
+Source 7e         swi     #SysPutChar
+Source 7f         b       _loop
+Source 80 _done:  ldu     r1,[sp,#1]
+Source 81         mov     pc,lr
+End

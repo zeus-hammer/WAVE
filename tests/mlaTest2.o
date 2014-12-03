@@ -1,0 +1,51 @@
+WarmObjectFile2
+File mlaTest2.s
+Symbol SysEntropy 5
+Symbol SysGetChar 1
+Symbol SysGetNum 2
+Symbol SysHalt 0
+Symbol SysOverlay 6
+Symbol SysPLA 7
+Symbol SysPutChar 3
+Symbol SysPutNum 4
+Register a1 0
+Register a2 1
+Register a3 2
+Register a4 3
+Register ccr 16
+Register fp 11
+Register lr 14
+Register pc 15
+Register r0 0
+Register r1 1
+Register r10 10
+Register r11 11
+Register r12 12
+Register r13 13
+Register r14 14
+Register r15 15
+Register r2 2
+Register r3 3
+Register r4 4
+Register r5 5
+Register r6 6
+Register r7 7
+Register r8 8
+Register r9 9
+Register sp 13
+Register v1 4
+Register v2 5
+Register v3 6
+Register v4 7
+Register v5 8
+Register v6 9
+Register v7 10
+Memory 0 201
+Memory 1 4080003
+Memory 2 490e040
+Memory 3 4996080
+Source 0         add     r0, r0, #2      ;2 should be in r0
+Source 1         mul     r1, r0, #3      ;6 should be in r1
+Source 2         mla     r2, r1, r1, r0  ;18 should be in r2 (6*2)+6
+Source 3         mla     r3, r2, r2, r0  ;54 should be in r3 (18*2)+18
+End
