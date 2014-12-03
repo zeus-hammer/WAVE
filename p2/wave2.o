@@ -670,7 +670,7 @@ Source 3d         shr     $12, work0      ;work 0 holds the addressing mode
 Source 3f         add     $1, wpc
 Source 41         mov     ADDR(work0), rip
 Source 43 ls:     mov     $15, work1
-Source 45         mov     wpc, REGS(work1)
+Source 45         mov     wpc, REGS(work1) ;moving wpc into warm's pc
 Source 47         mov     ci, lhs         ;get dst and base registers, here base is lhs
 Source 48         shr     $15, lhs
 Source 4a         and     $maskLow4, lhs  ;lhs now has base register in it
