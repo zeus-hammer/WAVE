@@ -14,7 +14,6 @@
  	.requ	work1, r1
 	.requ	WARMad, r2
 
-
 	.equ	maskA, 0x7800		;1 in 14,13,12th bit
 	.equ	maskShift, 0x3F
 	.equ	maskLow4, 0xf
@@ -52,7 +51,6 @@
 ;;; 	on it's last go-round. applies in:
 ;;; 	shifting, dst, src, shopcode etc...
 	jmp	fetch
-
 ;;; --------------------BEGIN FETCHING THE INSTRUCTION-------------------
 ;;; 5 INSTRUCTIONS
 fetch3:	mov	ccr,wCCR	;----------------------------TOP-------------------;
@@ -78,7 +76,6 @@ greate:	mov	GE(wCCR),rip
 gt:	mov	GT(wCCR),rip
 ;;; ----------------------END FETCH--------------------------------------
 ;;; ARITH
-;;; 13 INSTRUCTIONS
 noDST:	mov     ci, lhs		;get dst and lhs
 	shr     $15, lhs
 	and     $maskLow4, lhs
@@ -124,7 +121,6 @@ soff:	and 	$maskLow13, rhs
 	sar	$18, rhs 	; rhs now has the signed offset from base register
 	mov	INSTR(op), rip
 ;;; Immediate Mode
-;;; 7 INSTRUCTIONS
 imd:	mov	ci, work0
 	and	$maskExp, work0	;exponent
 	shr	$9, work0
@@ -132,7 +128,6 @@ imd:	mov	ci, work0
 	shl	work0, rhs	;shifted value in rhs
 	mov     INSTR(op), rip
 ;;; Register Shifted by Immediate Mode
-;;; 10 INSTRUCTIONS
 rim:	mov	ci, shiftC
 	and	$maskShift, shiftC	;shift count has the bits number to shift
 	mov	ci, work0
@@ -143,7 +138,6 @@ rim:	mov	ci, shiftC
 	mov	REGS(rhs), rhs	;rhs now has the value that was in register number rhs
 	mov 	SHOP(work0), rip
 ;;; Register Shifted by Register Mode
-;;; 11 INSTRUCTIONS
 rsr:	mov	$maskLow4, shiftC	; shiftC := 15
 	and 	ci, shiftC	; shiftC := shiftC & ci; to get shift register
 	mov	REGS(shiftC), shiftC ; shiftC now has whatever was stored in the 
@@ -156,19 +150,15 @@ rsr:	mov	$maskLow4, shiftC	; shiftC := 15
 	mov	SHOP(work0), rip
 ;;; --------------------------BEGIN SHIFTING MODES-------------------------
 ;;; logical shift left
-;;; 2 INSTRUCTIONS
 lsl:	shl	shiftC, rhs
 	mov     INSTR(op), rip
 ;;; logical shift right
-;;; 2 INSTRUCTIONS
 lsr:	shr	shiftC, rhs
 	mov     INSTR(op), rip
 ;;; arithmetic shift right
-;;; 2 INSTRUCTIONS
 asr:	sar	shiftC, rhs
 	mov     INSTR(op), rip
 ;;; rotate right shift
-;;; 7 INSTRUCTIONS
 ror:	mov	rhs, work0
 	mov	$32, work1	
 	sub	shiftC, work1	;work1 := 32-shr
@@ -178,7 +168,6 @@ ror:	mov	rhs, work0
 	mov     INSTR(op), rip
 ;;; -------------------------END SHIFTING MODES----------------------
 ;;; Register Product Mode
-;;; 8 INSTRUCTIONS
 rpm:	mov	$maskLow4, work0
 	and	ci, work0	;work0 now has src reg 3
 	shl	$22, rhs
@@ -189,8 +178,6 @@ rpm:	mov	$maskLow4, work0
 ;;; -------------------------END ADDRESSING MODES-------------------------------
 	
 ;;; -------------------------BEGIN OPERATIONS------------------------------------
-;;; thoughts and improvements for all operations:
-;;; 4 INSTRUCTION(S)	
 add:	add	REGS(lhs), rhs
 	jmp 	fetch2
 adc:	mov	wCCR, work0
@@ -199,32 +186,24 @@ adc:	mov	wCCR, work0
 	add	REGS(lhs), rhs
 	add	work0, rhs
 	jmp	fetch2
-;;; 5 INSTRUCTION(S)
 ;;; backwards (like div)
 sub:	mov	REGS(lhs), work0
 	sub	rhs, work0
 	mov	work0, REGS(dst)
 	jmp 	fetch
-;;; 4 INSTRUCTION(S)	
 eor:	xor	REGS(lhs), rhs
 	jmp 	fetch2
-;;; 4 INSTRUCTION(S)	
 orr:	or	REGS(lhs), rhs
 	jmp	fetch2
-;;; 3 INSTRUCTION(S)	
 and:	and	REGS(lhs), rhs
 	jmp 	fetch2
-;;; 4 INSTRUCTION(S)
 mul:	mul	REGS(lhs), rhs
 	jmp	fetch2
-;;; 5 INSTRUCTION(S)
 div:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	work0, REGS(dst)
 	jmp	fetch	
-;;; 3 INSTRUCTION(S)
 mov:	jmp 	fetch2
-;;; 5 INSTRUCTION(S)
 mvn:	xor	$flip, rhs
 	jmp	fetch2
 swi:	mov	REGS(alwaysZ), work0
@@ -266,7 +245,7 @@ done:	sub	WARMad, lhs
 	jmp 	fetch
 ;;; ldr is weird. to get memory reference, it adds offset to the value in the program counter.
 ;;; We need to reimplement ldm. 
-ldr:	add	lhs, rhs		;lhs has value to offset from in warm, rhs has offset
+ldr:	add	lhs, rhs	;lhs has value to offset from in warm, rhs has offset
 	mov	0(WARMad, rhs), REGS(dst)
 	jmp 	fetch
 str:	add	lhs, rhs
@@ -301,45 +280,35 @@ adcCC:	mov	wCCR, work0
 	add	REGS(lhs), rhs
 	add	work0, rhs
 	jmp	fetch3
-;;; 5 INSTRUCTION(S)
 ;;; backwards (like div)
 subCC:	mov	REGS(lhs), work0
 	sub	rhs, work0
 	mov	ccr,wCCR
 	mov	work0, REGS(dst)
 	jmp 	fetch
-;;; 5 INSTRUCTION(S)	
 cmpCC:	mov 	REGS(lhs), work0
 	sub 	rhs, work0
 	mov	ccr, wCCR
 	jmp 	fetch
-;;; 5 INSTRUCTION(S)	
 eorCC:	xor	REGS(lhs), rhs
 	jmp 	fetch3
-;;; 5 INSTRUCTION(S)	
 orrCC:	or	REGS(lhs), rhs
 	jmp	fetch3
-;;; 4 INSTRUCTION(S)	
 andCC:	and	REGS(lhs), rhs
 	jmp 	fetch3
-;;; 4 INSTRUCTION(S)
 tstCC:	test	REGS(lhs), rhs
 	jmp	fetch3
-;;; 4 INSTRUCTION(S)
 mulCC:	mul	REGS(lhs), rhs
 	jmp	fetch3
-;;; 6 backwards (like sub)
 divCC:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	ccr,wCCR		
 	mov	work0, REGS(dst)
 	jmp	fetch
-;;; 4 INSTRUCTION(S)
 movCC:	mov	rhs, REGS(dst)
 ;;; 	and	rhs,rhs
 	mov	ccr,wCCR			
 	jmp	fetch
-;;; 4 INSTRUCTIONS
 mvnCC:	xor	$flip,rhs
 	jmp	fetch3
 swiCC:	trap	rhs
