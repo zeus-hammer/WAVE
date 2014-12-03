@@ -4,15 +4,15 @@
 	.requ	ci, r14
 	.requ	rhs, r14
 	.requ	op, r13
-	.requ	lhs, r12
 	.requ	dst, r11
+	.requ	lhs, r10	
 	.requ	shiftC, r9
 	.requ	wCCR, r8
 	.requ	alwaysZ, r5
 	.requ	wlr, r4
 	.requ	work0, r0
  	.requ	work1, r1
-	.requ	WARMad, r2
+	.requ	nextI, r2
 
 	.equ	maskA, 0x7800		;1 in 14,13,12th bit
 	.equ	maskShift, 0x3F
@@ -22,9 +22,9 @@
 	.equ	flip, 0xffffffff
 	.equ	mask23to0, 0xffffff
 	.equ	maskLow13, 0x3fff
-	
-	lea	REGS, work0
-	lea	WARM, WARMad
+
+ 	mov	$15, wpc
+ 	mov	$14, wlr
 	lea	WARM, work0
 	trap	$SysOverlay
 
@@ -38,24 +38,15 @@
 	
 ;;; SADS
 ;;; 
-;;; -the wpc being used in instructions
-;;; -mov's into the pc
-;;; -anding the address of the wpc to make sure we don't
-;;; 	wrap out
-;;; -linking? how does the lr actually get accessed
-;;; -how do we know we're getting back from the last call stack?
-	
 ;;; HAPPIES
 ;;; 
-;;; -we can save multiple instructions by fucking up the ci
-;;; 	on it's last go-round. applies in:
-;;; 	shifting, dst, src, shopcode etc...
 	jmp	fetch
 ;;; --------------------BEGIN FETCHING THE INSTRUCTION-------------------
 ;;; 5 INSTRUCTIONS
-fetch3:	mov	ccr,wCCR	;----------------------------TOP-------------------;
-fetch2:	mov	rhs, REGS(dst)	;----------------------------TOP-------------------;
-fetch:	mov	WARM(wpc),ci	;----------------------------TOP-------------------;
+fetch3:	mov	ccr,wCCR	;--------------------TOP-------------------;
+fetch2:	mov	rhs, REGS(dst)	;--------------------TOP-------------------;
+fetch:	mov	REGS(wpc),nextI;-------------------TOP-------------------;
+	mov	WARM(nextI),ci	
 	mov	ci, work0
 	shr	$29, work0	;high 3 condition bits in work0
 ;;; to do it or not to do it. that is the question	
@@ -74,8 +65,15 @@ lesst:	mov	LT(wCCR),rip
 lesse:	mov	LE(wCCR),rip
 greate:	mov	GE(wCCR),rip
 gt:	mov	GT(wCCR),rip
-;;; ----------------------END FETCH--------------------------------------
-;;; ARITH
+;;; ----------------------------END FETCH---------------------------------
+
+
+
+
+	
+;;; --------------BEGIN ARITHMETIC INSTRUCTION DECODING-------------------
+
+	
 noDST:	mov     ci, lhs		;get dst and lhs
 	shr     $15, lhs
 	and     $maskLow4, lhs
@@ -89,39 +87,11 @@ oDST:	mov     ci, dst
 oRHS:	mov 	$maskA, work0
 	and 	ci,work0
 	shr	$12, work0	;work 0 holds the addressing mode
-	add	$1, wpc
+	add	$1, REGS(wpc)
+	and	$mask23to0, nextI
 	mov	ADDR(work0), rip
-;;; LOAD STORE
-ls:	mov	$15, work1
-	mov	wpc, REGS(work1) ;moving wpc into warm's pc
-	mov	ci, lhs 	;get dst and base registers, here base is lhs
-	shr	$15, lhs
-	and	$maskLow4, lhs 	;lhs now has base register in it
-	mov	REGS(lhs), lhs	;lhs now has whatever was stored in lhs
-	mov	ci, dst
-	shr	$19, dst
-	and 	$maskLow4, dst 	;dst now has dst register
-	mov	$maskA, work0
-	and	ci, work0
-	shr	$12, work0 	;work0 now has addressing mode
-	add	$1, wpc
-	mov	lsADDR(work0), rip 
-;;; BRANCHING
-branch:	add 	ci, wpc
-	and	$mask23to0, wpc
-	shr	$22,ci
-	mov	ci, ccr	
-	jne	fetch
-	mov	wpc, wlr
-	add	$1, wlr
-	jmp	fetch
-;;; -------------------END INSTRUCTION TYPES------------------------------
-;;; -------------------BEGIN ADDRESSING MODES------------------------------
-;;; Signed offset mode for load store
-soff:	and 	$maskLow13, rhs
-	shl	$18, rhs
-	sar	$18, rhs 	; rhs now has the signed offset from base register
-	mov	INSTR(op), rip
+	
+;;; --------------------ADDRESSING MODES OF ARITHMETIC--------------------
 ;;; Immediate Mode
 imd:	mov	ci, work0
 	and	$maskExp, work0	;exponent
@@ -163,9 +133,9 @@ asr:	sar	shiftC, rhs
 ;;; rotate right shift
 ror:	mov	rhs, work0
 	mov	$32, work1	
-	sub	shiftC, work1	;work1 := 32-shr
-	shl	work1, work0	;work1 is low shr bits shifted (32-shr) to the left
-	shr	shiftC, rhs	;work2 is the highest (32-shr) bits shifted shr to the right
+	sub	shiftC, work1	;work0 := 32-shr
+	shl	work1, work0	;work0 is low shr bits shifted (32-shr) to the left
+	shr	shiftC, rhs	;work1 is the highest (32-shr) bits shifted shr to the right
 	add	work0, rhs
 	mov     INSTR(op), rip
 ;;; -------------------------END SHIFTING MODES----------------------
@@ -177,102 +147,108 @@ rpm:	mov	$maskLow4, work0
 	mov	REGS(rhs), rhs	; rhs now has whatever was stored in the correspondent register
 	mov	REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
 	mul	work0, rhs
-;;; -------------------------END ADDRESSING MODES-------------------------------
+;;; -------------------------END ADDRESSING MODES-------------------
+
+
 	
-;;; -------------------------BEGIN OPERATIONS------------------------------------
+;;; -------------------------BEGIN OPERATIONS------------------------
+
+;;; 2 INSTRUCTION(S)
 add:	add	REGS(lhs), rhs
 	jmp 	fetch2
+	
+;;; 6 INSTRUCTION(S)
 adc:	mov	wCCR, work0
 	shr	$2, work0
 	shl	$31, work0
 	add	REGS(lhs), rhs
 	add	work0, rhs
 	jmp	fetch2
+	
 ;;; backwards (like div)
+;;; 4 INSTRUCTION(S)
 sub:	mov	REGS(lhs), work0
 	sub	rhs, work0
 	mov	work0, REGS(dst)
 	jmp 	fetch
+
+;;; 2 INSTRUCTION(S)
 eor:	xor	REGS(lhs), rhs
 	jmp 	fetch2
+
+;;; 2 INSTRUCTION(S)	
 orr:	or	REGS(lhs), rhs
 	jmp	fetch2
+
+;;; 2 INSTRUCTION(S)	
 and:	and	REGS(lhs), rhs
 	jmp 	fetch2
+
+;;; 2 INSTRUCTION(S)	
 mul:	mul	REGS(lhs), rhs
 	jmp	fetch2
+	
+;;; 4 INSTRUCTION(S)
 div:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	work0, REGS(dst)
-	jmp	fetch	
+	jmp	fetch
+	
+;;; 1 INSTRUCTION(S)
 mov:	jmp 	fetch2
+
+;;; 2 INSTRUCTION(S)	
 mvn:	xor	$flip, rhs
 	jmp	fetch2
+
+;;; 3 INSTRUCTION(S)
 swi:	mov	REGS(alwaysZ), work0
 	trap 	rhs
 	jmp	fetch
-ldm:	mov	$15, work0 	;work0 holds reg number
-	mov	$0, work1 	;work1 holds memory number
-	shl	$16, ci
+;;; 12? INSTRUCTION(S)
+ldm:	mov	REGS(dst), lhs
+	and	$mask23to0, lhs	
+	mov	$15, work0 	;work0 holds reg number
+	shl	$16, rhs
 	jl	lloading
 lshifting:
-	shl	$1, ci
 	sub	$1, work0
+	shl	$1, rhs
 	jg	lshifting
+	je	LDMdone
 lloading:
-	mov	0(dst, work1), REGS(work0)
-	add	$1, work1
-	cmp	$0, ci
+	sub	$1, lhs
+	mov	WARM(lhs), REGS(work0)
+	cmp	$0, rhs
 	jne	lshifting
+LDMdone:
+	mov	lhs, REGS(dst)
+	mov 	REGS(wpc), work0
+	shr	$24, work0
+	mov 	work0, wCCR
 	jmp 	fetch
-stm:	mov	REGS(dst), lhs	;lhs now has the value stored in base register
-	and	$0xffffff, lhs	;mask low 24 bits because memory in WARM is 24-bit addressable
-	add	WARMad, lhs	;offset is from WARM, not wind
+;;; 18? INSTRUCTION(S)
+stm:	mov	wCCR, work0
+	shl	$24, work0
+	add	work0, REGS(wpc)
+	mov	REGS(dst), lhs	;lhs now has the value stored in base register
+	and	$mask23to0, lhs	;mask low 24 bits for wraparound
 	mov	$15, work0 	;work0 holds register number
-	mov	$0, work1
-	shl	$16, ci
+	shl	$16, rhs
 	jl 	sloading
 sshifting:
-	sub 	$1, work0
-	shl	$1, ci
-	jg 	sshifting
-	je	done
+	sub 	$1, work0	;
+	shl	$1, rhs		
+	jg 	sshifting	;is the next bit set?
+	je	STMdone
 sloading:
 	sub	$1, lhs
-	mov	REGS(work0), 0(lhs, work1)
-	cmp 	$0, ci
+	mov	REGS(work0), WARM(lhs)
+	cmp 	$0, rhs
 	jne 	sshifting
-done:	sub	WARMad, lhs
+STMdone:
 	mov	lhs, REGS(dst)
 	jmp 	fetch
-;;; ldr is weird. to get memory reference, it adds offset to the value in the program counter.
-;;; We need to reimplement ldm. 
-ldr:	add	lhs, rhs	;lhs has value to offset from in warm, rhs has offset
-	mov	0(WARMad, rhs), REGS(dst)
-	jmp 	fetch
-str:	add	lhs, rhs
-	mov	REGS(dst), 0(WARMad, rhs)
-	jmp	fetch
-ldu:	mov	REGS(lhs), lhs
-	cmp	0, rhs
-	jg	posldu
-	mov	0(lhs, rhs), REGS(dst)
-	lea	0(lhs, rhs), REGS(lhs)
-	jmp 	fetch
-posldu:	mov	REGS(lhs), REGS(dst)
-	lea	0(lhs, rhs), REGS(lhs)
-	jmp 	fetch
-stu:	mov 	REGS(lhs), lhs
-	cmp 	$0, rhs
-	jg 	posstu
-	mov 	REGS(dst), 0(lhs, rhs)
-	lea 	0(lhs, rhs), REGS(lhs)
-	jmp 	fetch
-posstu:	mov 	REGS(dst), REGS(lhs)
-	lea 	0(lhs, rhs), REGS(lhs)
-	jmp 	fetch
-adr:	lea	0(lhs, rhs), REGS(dst)
-	jmp	fetch
 ;;; second set of instrucions. for use when we don't 
 addCC:	add	REGS(lhs), rhs
 	jmp 	fetch3
@@ -316,20 +292,86 @@ mvnCC:	xor	$flip,rhs
 swiCC:	trap	rhs
 	jmp 	fetch3
 ldmCC:
-ldrCC:
-strCC:
-lduCC:
-stuCC:
+
 	
+;;; LOAD STORE
+ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
+	shr	$15, lhs
+	and	$maskLow4, lhs 	;lhs now has base register in it
+	mov	REGS(lhs), lhs	;lhs now has whatever was stored in lhs
+	mov	ci, dst
+	shr	$19, dst
+	and 	$maskLow4, dst 	;dst now has dst register
+	mov	$maskA, work0
+	and	ci, work0
+	shr	$12, work0 	;work0 now has addressing mode
+	add	$1, REGS(wpc)
+	and	$mask23to0, REGS(wpc)	
+	mov	lsADDR(work0), rip
+;;; LOAD STORE INSTRUCTIONS
+;;; ldr is weird. to get memory reference, it adds offset to the value in the program counter.
+ldr:	mov	WARM(lhs,rhs), REGS(dst)
+	jmp 	fetch
+str:	mov	REGS(dst), WARM(rhs,dst)
+	jmp	fetch
+ldu:	mov	REGS(lhs), lhs
+	cmp	0, rhs
+	jg	posldu
+	mov	WARM(lhs, rhs), REGS(dst)
+	lea	WARM(lhs, rhs), REGS(lhs)
+	jmp 	fetch
+posldu:	mov	REGS(lhs), REGS(dst)
+	lea	WARM(lhs, rhs), REGS(lhs)
+	jmp 	fetch2
+stu:	mov 	REGS(lhs), lhs
+	cmp 	$0, rhs
+	jg 	posstu
+	mov 	REGS(dst), WARM(lhs, rhs)
+	lea 	WARM(lhs, rhs), REGS(lhs)
+	jmp 	fetch
+posstu:	mov 	REGS(dst), REGS(lhs)
+	lea 	WARM(lhs, rhs), REGS(lhs)
+	jmp 	fetch
+adr:	lea	WARM(lhs, rhs), REGS(dst)
+	jmp	fetch
+ldrCC:	mov	WARM(lhs,rhs), REGS(dst)
+	jmp 	fetch2
+strCC:	mov	REGS(dst), WARM(rhs,dst)
+	jmp	fetch2
+lduCC:	mov	REGS(lhs), lhs
+	cmp	0, rhs
+	jg	posldu
+	mov	WARM(lhs, rhs), REGS(dst)
+	lea	WARM(lhs, rhs), REGS(lhs)
+	jmp 	fetch2
+stuCC:
+;;; ------------------------------END LOAD STORE--------------------------
+
+	
+;;;  ----------------------------BEGIN BRANCHING---------------------------
+b:	add 	ci, REGS(wpc)
+	and	$mask23to0, REGS(wpc)
+	jmp	fetch
+bl:	mov	nextI, REGS(wlr)
+	add	ci, REGS(wpc)
+	and	$mask23to0, REGS(wpc)
+	add	$1, REGS(wlr)
+	jmp	fetch
+;;; Signed offset mode for load store
+soff:	and 	$maskLow13, rhs
+	shl	$18, rhs
+	sar	$18, rhs 	; rhs now has the signed offset from base register
+	mov	INSTR(op), rip
 ;;; no we don't do it
-next:	add	$1, wpc
+next:	add	$1, REGS(wpc)
+	and	$mask23to0, REGS(wpc)	
 	jmp	fetch
 REGS:
 	.data	0,0,0,0,0,0,0,0,0,0,0,0,0,0x00ffffff,0,0
 INSTR:
 	.data 	add,adc,sub,0,eor,orr,and,0,mul,0,div,mov,mvn,swi,ldm,stm,ldr,str,ldu,stu,adr,0,0,0,0,0,0,0,0,0,0,0,addCC,adcCC,subCC,cmpCC,eorCC,orrCC,andCC,tstCC,mulCC,0,divCC,movCC,mvnCC,swiCC,ldmCC,0,ldrCC,strCC,lduCC,stuCC
 TYPE:
-	.data	ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,oDST,oDST,oRHS,ALL3,ls,ls,ls,ls,ls,ls,0,0,0,branch,branch,branch,branch,0,0,0,0,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,noDST,ALL3,ALL3,0,ALL3,oDST,oDST,oRHS,ALL3,ls,ls,ls,ls,ls,ls,0,0,0,branch,branch,branch,branch
+	.data	ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,oDST,oDST,oRHS,ALL3,oDST,ls,ls,ls,ls,ls,0,0,0,b,b,bl,bl,0,0,0,0,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,noDST,ALL3,ALL3,0,ALL3,oDST,oDST,oRHS,ALL3,ls,ls,ls,ls,ls,ls,0,0,0,b,b,bl,bl
 COND:
 	.data	0,never,equal,ne,lesst,lesse,greate,gt
 NEVER:
