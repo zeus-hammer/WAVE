@@ -7,7 +7,6 @@
 	.requ	lhs, r10	
 	.requ	shiftC, r9
 	.requ	wCCR, r8
-	.requ	alwaysZ, r5
 	.requ	work0, r0
  	.requ	work1, r1
 	.requ	next, r2
@@ -68,8 +67,7 @@ gt:	mov	GT(wCCR),rip
 
 	
 ;;; --------------BEGIN ARITHMETIC INSTRUCTION DECODING-------------------
-	
-noDST:	mov     ci, lhs		;get dst and lhs
+noDST:	mov     ci, lhs		
 	shr     $15, lhs
 	and     $maskLow4, lhs
 	jmp 	oRHS
@@ -83,7 +81,6 @@ oRHS:	mov 	$maskA, work0
 	and 	ci,work0
 	shr	$12, work0	;work 0 holds the addressing mode
 	mov	ADDR(work0), rip
-	
 ;;; --------------------ADDRESSING MODES OF ARITHMETIC--------------------
 ;;; Immediate Mode
 imd:	mov	ci, work0
@@ -155,7 +152,6 @@ rpm:	mov	$maskLow4, work0
 ;;; 2 INSTRUCTION(S)
 add:	add	REGS(lhs), rhs
 	jmp 	fetch2
-	
 ;;; 6 INSTRUCTION(S)
 adc:	mov	wCCR, work0
 	shr	$2, work0
@@ -163,46 +159,38 @@ adc:	mov	wCCR, work0
 	add	REGS(lhs), rhs
 	add	work0, rhs
 	jmp	fetch2
-	
 ;;; backwards (like div)
 ;;; 4 INSTRUCTION(S)
 sub:	mov	REGS(lhs), work0
 	sub	rhs, work0
 	mov	work0, REGS(dst)
 	jmp 	fetch
-
 ;;; 2 INSTRUCTION(S)
 eor:	xor	REGS(lhs), rhs
 	jmp 	fetch2
-
 ;;; 2 INSTRUCTION(S)	
 orr:	or	REGS(lhs), rhs
 	jmp	fetch2
-
 ;;; 2 INSTRUCTION(S)	
 and:	and	REGS(lhs), rhs
 	jmp 	fetch2
-
 ;;; 2 INSTRUCTION(S)	
 mul:	mul	REGS(lhs), rhs
 	jmp	fetch2
-	
 ;;; 4 INSTRUCTION(S)
 div:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	work0, REGS(dst)
 	jmp	fetch
-	
 ;;; 1 INSTRUCTION(S)
 mov:	jmp 	fetch2
-
 ;;; 2 INSTRUCTION(S)	
 mvn:	xor	$flip, rhs
 	jmp	fetch2
-
 ;;; 3 INSTRUCTION(S)
-swi:	mov	REGS(alwaysZ), work0
+swi:	mov	REGS, work0
 	trap 	rhs
+	mov	work0, REGS
 	jmp	fetch
 ;;; 12? INSTRUCTION(S)
 ldm:	mov	REGS(dst), lhs	;lhs now has the value stored in base register
@@ -226,7 +214,7 @@ LDMdone:
 ;;; 18? INSTRUCTION(S)
 stm:	mov	wCCR, work0
 	shl	$24, work0
-	add	work0, wpc
+	or	work0, wpc
 	mov	REGS(dst), lhs	;lhs now has the value stored in base register
 	and	$mask23to0, lhs	;mask low 24 bits for wraparound
 	mov	$15, work0 	;work0 holds register number
@@ -303,7 +291,7 @@ ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
 	add	$1, wpc
 	and	$mask23to0, wpc	
 	mov	lsADDR(work0), rip
-;;; -------------------p-------LOAD STORE INSTRUCTIONS--------------------------------
+;;; ---------------------LOAD STORE INSTRUCTIONS----------------------------
 ;;; ldr is weird. to get memory reference, it adds offset to the value
 ;;;	in the program counter.
 ldr:	mov	WARM(lhs,rhs), REGS(dst)
