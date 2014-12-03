@@ -95,7 +95,9 @@ oRHS:	mov 	$maskA, work0
 	add	$1, wpc
 	mov	ADDR(work0), rip
 ;;; LOAD STORE
-ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
+ls:	mov	$15, work1
+	mov	wpc, REGS(work1) ;moving wpc into warm's pc
+	mov	ci, lhs 	;get dst and base registers, here base is lhs
 	shr	$15, lhs
 	and	$maskLow4, lhs 	;lhs now has base register in it
 	mov	REGS(lhs), lhs	;lhs now has whatever was stored in lhs

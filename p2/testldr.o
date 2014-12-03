@@ -1,5 +1,5 @@
 WarmObjectFile2
-File ../tests/testldr.s
+File testldr.s
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -40,18 +40,54 @@ Register v4 7
 Register v5 8
 Register v6 9
 Register v7 10
-Memory 0 5880419
-Memory 1 888800a
-Memory 2 800800a
-Memory 3 5800000
-Memory 4 5900309
-Memory 5 897802d
-Memory 6 807802c
-Source 0         mov     r1, #100
-Source 1         str     r1,[r1, #10]
-Source 2         ldr     r0,[r1, #10]
-Source 3         mov     r0, #0
-Source 4         mov     r2, #777
-Source 5         str     r2, 50
-Source 6         ldr     r0, 50
+Memory 0 5800419
+Memory 1 6800401
+Memory 2 5800205
+Memory 3 6800003
+Memory 4 8808032
+Memory 5 5800201
+Memory 6 6800401
+Memory 7 5800205
+Memory 8 6800003
+Memory 9 5800005
+Memory a 8008032
+Memory b 6800401
+Memory c 5800205
+Memory d 6800003
+Memory e 5880219
+Memory f 88f802d
+Memory 10 5800201
+Memory 11 6800401
+Memory 12 5800205
+Memory 13 6800003
+Memory 14 8078028
+Memory 15 6800401
+Memory 16 5800205
+Memory 17 6800003
+Memory 18 6800000
+Source 0         mov     r0, #100
+Source 1         swi     #SysPutNum
+Source 2         mov     r0, #'\n
+Source 3         swi     #SysPutChar
+Source 4         str     r0,[r1, #50]
+Source 5         mov     r0, #2
+Source 6         swi     #SysPutNum
+Source 7         mov     r0, #'\n
+Source 8         swi     #SysPutChar
+Source 9         mov     r0, #5
+Source a         ldr     r0,[r1, #50]
+Source b         swi     #SysPutNum
+Source c         mov     r0, #'\n
+Source d         swi     #SysPutChar
+Source e         mov     r1, #50
+Source f         str     r1, 60
+Source 10         mov     r0, #2
+Source 11         swi     #SysPutNum
+Source 12         mov     r0, #'\n
+Source 13         swi     #SysPutChar
+Source 14         ldr     r0, 60
+Source 15         swi     #SysPutNum
+Source 16         mov     r0, #'\n
+Source 17         swi     #SysPutChar
+Source 18         swi     #SysHalt
 End
