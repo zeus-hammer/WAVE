@@ -21,9 +21,6 @@
 	.equ	mask23to0, 0xffffff
 	.equ	maskLow13, 0x3fff
 
-
-	lea 	wpc, work0
-	lea	REGS, work0
 	lea	WARM, work0
 	trap	$SysOverlay
 
@@ -208,26 +205,23 @@ swi:	mov	REGS(alwaysZ), work0
 	trap 	rhs
 	jmp	fetch
 ;;; 12? INSTRUCTION(S)
-ldm:	mov	REGS(dst), lhs
-	and	$mask23to0, lhs	
-	mov	$15, work0 	;work0 holds reg number
+ldm:	mov	REGS(dst), lhs	;lhs now has the value stored in base register
+	and	$mask23to0, lhs	;mask low 24 bits for wraparound
+	mov	$15, work0 	;work0 holds register number
 	shl	$16, rhs
-	jl	lloading
+	jl 	lloading
 lshifting:
-	sub	$1, work0
-	shl	$1, rhs
-	jg	lshifting
-	je	LDMdone
+	sub 	$1, work0	;
+	shl	$1, rhs		
+	jg 	lshifting	;is the next bit set?
+	je	STMdone
 lloading:
 	sub	$1, lhs
 	mov	WARM(lhs), REGS(work0)
-	cmp	$0, rhs
-	jne	lshifting
+	cmp 	$0, rhs
+	jne 	lshifting
 LDMdone:
 	mov	lhs, REGS(dst)
-	mov 	wpc, work0
-	shr	$24, work0
-	mov 	work0, wCCR
 	jmp 	fetch
 ;;; 18? INSTRUCTION(S)
 stm:	mov	wCCR, work0

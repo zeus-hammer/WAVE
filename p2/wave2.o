@@ -1,20 +1,20 @@
 WindObjectFile1
 File wave2.s
-Symbol ADDR 750
-Symbol ALL3 50
-Symbol COND 630
-Symbol EQ 654
-Symbol GE 718
-Symbol GT 734
-Symbol INSTR 518
-Symbol LDMdone 247
-Symbol LE 702
-Symbol LT 686
-Symbol NE 670
-Symbol NEVER 638
-Symbol REGS 502
-Symbol SHOP 757
-Symbol STMdone 288
+Symbol ADDR 741
+Symbol ALL3 46
+Symbol COND 621
+Symbol EQ 645
+Symbol GE 709
+Symbol GT 725
+Symbol INSTR 509
+Symbol LDMdone 243
+Symbol LE 693
+Symbol LT 677
+Symbol NE 661
+Symbol NEVER 629
+Symbol REGS 493
+Symbol SHOP 748
+Symbol STMdone 279
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -23,46 +23,46 @@ Symbol SysOverlay 6
 Symbol SysPLA 7
 Symbol SysPutChar 3
 Symbol SysPutNum 4
-Symbol TYPE 570
-Symbol WARM 766
-Symbol adc 169
-Symbol adcCC 296
-Symbol add 165
-Symbol addCC 292
-Symbol adr 440
-Symbol and 194
-Symbol andCC 328
-Symbol asr 135
-Symbol b 469
-Symbol bl 476
-Symbol cmpCC 314
-Symbol div 202
-Symbol divCC 340
-Symbol eor 186
-Symbol eorCC 320
-Symbol equal 31
-Symbol fetch 13
-Symbol fetch2 11
-Symbol fetch3 10
+Symbol TYPE 561
+Symbol WARM 757
+Symbol adc 165
+Symbol adcCC 287
+Symbol add 161
+Symbol addCC 283
+Symbol adr 431
+Symbol and 190
+Symbol andCC 319
+Symbol asr 131
+Symbol b 460
+Symbol bl 467
+Symbol cmpCC 305
+Symbol div 198
+Symbol divCC 331
+Symbol eor 182
+Symbol eorCC 311
+Symbol equal 27
+Symbol fetch 9
+Symbol fetch2 7
+Symbol fetch3 6
 Symbol flip -1
-Symbol getop 22
-Symbol greate 39
-Symbol gt 41
-Symbol imd 67
-Symbol ldm 220
-Symbol ldmCC 361
-Symbol ldr 386
-Symbol ldrCC 445
-Symbol ldu 396
-Symbol lduCC 455
-Symbol lesse 37
-Symbol lesst 35
-Symbol lloading 238
-Symbol ls 361
-Symbol lsADDR 761
-Symbol lshifting 230
-Symbol lsl 129
-Symbol lsr 132
+Symbol getop 18
+Symbol greate 35
+Symbol gt 37
+Symbol imd 63
+Symbol ldm 216
+Symbol ldmCC 352
+Symbol ldr 377
+Symbol ldrCC 436
+Symbol ldu 387
+Symbol lduCC 446
+Symbol lesse 33
+Symbol lesst 31
+Symbol lloading 234
+Symbol ls 352
+Symbol lsADDR 752
+Symbol lshifting 226
+Symbol lsl 125
+Symbol lsr 128
 Symbol mask23to0 16777215
 Symbol maskA 30720
 Symbol maskExp 15872
@@ -70,41 +70,41 @@ Symbol maskLow13 16383
 Symbol maskLow4 15
 Symbol maskShift 63
 Symbol maskValue 511
-Symbol mov 209
-Symbol movCC 348
-Symbol mul 198
-Symbol mulCC 336
-Symbol mvn 211
-Symbol mvnCC 354
-Symbol ne 33
-Symbol never 29
-Symbol no 494
-Symbol noDST 43
-Symbol oDST 55
-Symbol oRHS 60
-Symbol orr 190
-Symbol orrCC 324
-Symbol posldu 410
-Symbol posstu 432
-Symbol rim 83
-Symbol ror 138
-Symbol rpm 147
-Symbol rsr 105
-Symbol sloading 279
-Symbol soff 486
-Symbol sshifting 271
-Symbol stm 256
-Symbol str 391
-Symbol strCC 450
-Symbol stu 418
-Symbol stuCC 469
-Symbol sub 179
-Symbol subCC 306
-Symbol swi 215
-Symbol swiCC 358
-Symbol tstCC 332
-Symbol wlr 516
-Symbol wpc 517
+Symbol mov 205
+Symbol movCC 339
+Symbol mul 194
+Symbol mulCC 327
+Symbol mvn 207
+Symbol mvnCC 345
+Symbol ne 29
+Symbol never 25
+Symbol no 485
+Symbol noDST 39
+Symbol oDST 51
+Symbol oRHS 56
+Symbol orr 186
+Symbol orrCC 315
+Symbol posldu 401
+Symbol posstu 423
+Symbol rim 79
+Symbol ror 134
+Symbol rpm 143
+Symbol rsr 101
+Symbol sloading 270
+Symbol soff 477
+Symbol sshifting 262
+Symbol stm 247
+Symbol str 382
+Symbol strCC 441
+Symbol stu 409
+Symbol stuCC 460
+Symbol sub 175
+Symbol subCC 297
+Symbol swi 211
+Symbol swiCC 349
+Symbol tstCC 323
+Symbol wlr 507
+Symbol wpc 508
 Register alwaysZ 5
 Register ci 14
 Register dst 11
@@ -135,782 +135,772 @@ Register shiftC 9
 Register wCCR 8
 Register work0 0
 Register work1 1
+Memory 1ed 0
+Memory 1ee 0
+Memory 1ef 0
+Memory 1f0 0
+Memory 1f1 0
+Memory 1f2 0
+Memory 1f3 0
+Memory 1f4 0
+Memory 1f5 0
 Memory 1f6 0
 Memory 1f7 0
 Memory 1f8 0
 Memory 1f9 0
-Memory 1fa 0
+Memory 1fa ffffff
 Memory 1fb 0
 Memory 1fc 0
-Memory 1fd 0
-Memory 1fe 0
-Memory 1ff 0
+Memory 1fd a1
+Memory 1fe a5
+Memory 1ff af
 Memory 200 0
-Memory 201 0
-Memory 202 0
-Memory 203 ffffff
+Memory 201 b6
+Memory 202 ba
+Memory 203 be
 Memory 204 0
-Memory 205 0
-Memory 206 a5
-Memory 207 a9
-Memory 208 b3
-Memory 209 0
-Memory 20a ba
-Memory 20b be
-Memory 20c c2
-Memory 20d 0
-Memory 20e c6
-Memory 20f 0
-Memory 210 ca
-Memory 211 d1
-Memory 212 d3
-Memory 213 d7
-Memory 214 dc
-Memory 215 100
-Memory 216 182
-Memory 217 187
-Memory 218 18c
-Memory 219 1a2
-Memory 21a 1b8
+Memory 205 c2
+Memory 206 0
+Memory 207 c6
+Memory 208 cd
+Memory 209 cf
+Memory 20a d3
+Memory 20b d8
+Memory 20c f7
+Memory 20d 179
+Memory 20e 17e
+Memory 20f 183
+Memory 210 199
+Memory 211 1af
+Memory 212 0
+Memory 213 0
+Memory 214 0
+Memory 215 0
+Memory 216 0
+Memory 217 0
+Memory 218 0
+Memory 219 0
+Memory 21a 0
 Memory 21b 0
 Memory 21c 0
-Memory 21d 0
-Memory 21e 0
-Memory 21f 0
-Memory 220 0
-Memory 221 0
-Memory 222 0
-Memory 223 0
-Memory 224 0
-Memory 225 0
-Memory 226 124
-Memory 227 128
-Memory 228 132
-Memory 229 13a
-Memory 22a 140
-Memory 22b 144
-Memory 22c 148
-Memory 22d 14c
-Memory 22e 150
-Memory 22f 0
-Memory 230 154
-Memory 231 15c
-Memory 232 162
-Memory 233 166
-Memory 234 169
-Memory 235 0
-Memory 236 1bd
-Memory 237 1c2
-Memory 238 1c7
-Memory 239 1d5
-Memory 23a 32
-Memory 23b 32
-Memory 23c 32
-Memory 23d 2b
-Memory 23e 32
-Memory 23f 32
-Memory 240 32
-Memory 241 2b
-Memory 242 32
-Memory 243 32
-Memory 244 32
-Memory 245 37
-Memory 246 37
-Memory 247 3c
-Memory 248 32
-Memory 249 37
-Memory 24a 169
-Memory 24b 169
-Memory 24c 169
-Memory 24d 169
-Memory 24e 169
+Memory 21d 11b
+Memory 21e 11f
+Memory 21f 129
+Memory 220 131
+Memory 221 137
+Memory 222 13b
+Memory 223 13f
+Memory 224 143
+Memory 225 147
+Memory 226 0
+Memory 227 14b
+Memory 228 153
+Memory 229 159
+Memory 22a 15d
+Memory 22b 160
+Memory 22c 0
+Memory 22d 1b4
+Memory 22e 1b9
+Memory 22f 1be
+Memory 230 1cc
+Memory 231 2e
+Memory 232 2e
+Memory 233 2e
+Memory 234 27
+Memory 235 2e
+Memory 236 2e
+Memory 237 2e
+Memory 238 27
+Memory 239 2e
+Memory 23a 2e
+Memory 23b 2e
+Memory 23c 33
+Memory 23d 33
+Memory 23e 38
+Memory 23f 2e
+Memory 240 33
+Memory 241 160
+Memory 242 160
+Memory 243 160
+Memory 244 160
+Memory 245 160
+Memory 246 0
+Memory 247 0
+Memory 248 0
+Memory 249 1cc
+Memory 24a 1cc
+Memory 24b 1d3
+Memory 24c 1d3
+Memory 24d 0
+Memory 24e 0
 Memory 24f 0
 Memory 250 0
-Memory 251 0
-Memory 252 1d5
-Memory 253 1d5
-Memory 254 1dc
-Memory 255 1dc
-Memory 256 0
-Memory 257 0
-Memory 258 0
-Memory 259 0
-Memory 25a 32
-Memory 25b 32
-Memory 25c 32
-Memory 25d 2b
-Memory 25e 32
-Memory 25f 32
-Memory 260 2b
-Memory 261 32
-Memory 262 32
-Memory 263 0
-Memory 264 32
-Memory 265 37
-Memory 266 37
-Memory 267 3c
-Memory 268 32
-Memory 269 169
-Memory 26a 169
-Memory 26b 169
-Memory 26c 169
-Memory 26d 169
-Memory 26e 169
-Memory 26f 0
-Memory 270 0
-Memory 271 0
-Memory 272 1d5
-Memory 273 1d5
-Memory 274 1dc
-Memory 275 1dc
-Memory 276 0
-Memory 277 1d
-Memory 278 1f
-Memory 279 21
-Memory 27a 23
-Memory 27b 25
-Memory 27c 27
-Memory 27d 29
-Memory 27e 1ee
-Memory 27f 1ee
-Memory 280 1ee
-Memory 281 1ee
-Memory 282 1ee
-Memory 283 1ee
-Memory 284 1ee
-Memory 285 1ee
-Memory 286 1ee
-Memory 287 1ee
-Memory 288 1ee
-Memory 289 1ee
-Memory 28a 1ee
-Memory 28b 1ee
-Memory 28c 1ee
-Memory 28d 1ee
-Memory 28e 1ee
-Memory 28f 1ee
-Memory 290 1ee
-Memory 291 1ee
-Memory 292 16
-Memory 293 16
-Memory 294 16
-Memory 295 1ee
-Memory 296 1ee
-Memory 297 1ee
-Memory 298 1ee
-Memory 299 1ee
-Memory 29a 1ee
-Memory 29b 16
-Memory 29c 16
-Memory 29d 16
-Memory 29e 16
-Memory 29f 16
-Memory 2a0 16
-Memory 2a1 16
-Memory 2a2 1ee
-Memory 2a3 1ee
-Memory 2a4 1ee
-Memory 2a5 16
-Memory 2a6 16
-Memory 2a7 16
-Memory 2a8 16
-Memory 2a9 16
-Memory 2aa 16
-Memory 2ab 1ee
-Memory 2ac 1ee
-Memory 2ad 1ee
-Memory 2ae 1ee
-Memory 2af 16
-Memory 2b0 1ee
-Memory 2b1 16
-Memory 2b2 1ee
-Memory 2b3 16
-Memory 2b4 1ee
-Memory 2b5 16
-Memory 2b6 16
-Memory 2b7 1ee
-Memory 2b8 16
-Memory 2b9 16
-Memory 2ba 1ee
-Memory 2bb 16
-Memory 2bc 1ee
-Memory 2bd 16
-Memory 2be 1ee
-Memory 2bf 16
-Memory 2c0 1ee
-Memory 2c1 16
-Memory 2c2 16
-Memory 2c3 16
-Memory 2c4 16
-Memory 2c5 16
-Memory 2c6 16
-Memory 2c7 1ee
-Memory 2c8 16
-Memory 2c9 16
-Memory 2ca 1ee
-Memory 2cb 16
-Memory 2cc 16
-Memory 2cd 16
-Memory 2ce 16
-Memory 2cf 1ee
-Memory 2d0 16
-Memory 2d1 1ee
-Memory 2d2 16
-Memory 2d3 1ee
-Memory 2d4 16
-Memory 2d5 1ee
-Memory 2d6 16
-Memory 2d7 1ee
-Memory 2d8 16
-Memory 2d9 1ee
-Memory 2da 16
-Memory 2db 1ee
-Memory 2dc 16
-Memory 2dd 1ee
-Memory 2de 16
-Memory 2df 1ee
-Memory 2e0 16
-Memory 2e1 1ee
-Memory 2e2 1ee
-Memory 2e3 1ee
-Memory 2e4 1ee
-Memory 2e5 1ee
-Memory 2e6 1ee
-Memory 2e7 16
-Memory 2e8 1ee
-Memory 2e9 1ee
-Memory 2ea 16
-Memory 2eb 1ee
-Memory 2ec 1ee
-Memory 2ed 1ee
-Memory 2ee 43
-Memory 2ef 43
-Memory 2f0 43
-Memory 2f1 43
-Memory 2f2 53
-Memory 2f3 69
-Memory 2f4 93
-Memory 2f5 81
-Memory 2f6 84
-Memory 2f7 87
-Memory 2f8 8a
-Memory 2f9 1e6
-Memory 2fa 1e6
-Memory 2fb 1e6
-Memory 2fc 1e6
-Memory 2fd 53
-Memory 0 40198000 204
-Memory 2 40198000 1f3
-Memory 4 40198000 2f9
-Memory 6 180000 6
-Memory 8 8198000 4
-Memory a 491a0000
-Memory b 4b670000 1f6
-Memory d 48598000 1f7
-Memory f 49c90000 2fe
-Memory 11 48070000
-Memory 12 c8180000 1d
-Memory 14 7e480000 276
-Memory 16 49a70000
-Memory 17 c1b80000 3
-Memory 19 c9b80000 1a
-Memory 1b 4e4e8000 23a
-Memory 1d 4e4c0000 27e
-Memory 1f 4e4c0000 28e
-Memory 21 4e4c0000 29e
-Memory 23 4e4c0000 2ae
-Memory 25 4e4c0000 2be
-Memory 27 4e4c0000 2ce
-Memory 29 4e4c0000 2de
-Memory 2b 49470000
-Memory 2c c9580000 f
-Memory 2e 81580000 f
-Memory 30 8198000 b
-Memory 32 49470000
-Memory 33 c9580000 f
-Memory 35 81580000 f
-Memory 37 49670000
-Memory 38 c9780000 13
-Memory 3a 81780000 f
-Memory 3c 48180000 7800
-Memory 3e 80070000
-Memory 3f c8180000 c
-Memory 41 4e480000 2ee
-Memory 43 48070000
-Memory 44 80180000 3e00
-Memory 46 c8180000 9
-Memory 48 81d80000 1ff
-Memory 4a c1c00000
-Memory 4b a6780000 1 1b8
-Memory 4e 86780000 ffffff 1b5
-Memory 51 4e4e8000 206
-Memory 53 49270000
-Memory 54 81380000 3f
-Memory 56 48070000
-Memory 57 c0180000 14
-Memory 59 c8180000 1e
-Memory 5b c1d80000 16
-Memory 5d c9d80000 1c
-Memory 5f 49cf0000 1f6
-Memory 61 a6780000 1 1a2
-Memory 64 86780000 ffffff 19f
-Memory 67 4e480000 2f5
-Memory 69 49380000 f
-Memory 6b 81270000
-Memory 6c 492c8000 1f6
-Memory 6e 48070000
-Memory 6f c0180000 14
-Memory 71 c8180000 1e
-Memory 73 c1d80000 16
-Memory 75 c9d80000 1c
-Memory 77 49cf0000 1f6
-Memory 79 a6780000 1 18a
-Memory 7c 86780000 ffffff 187
-Memory 7f 4e480000 2f5
-Memory 81 c1c48000
-Memory 82 4e4e8000 206
-Memory 84 c9c48000
-Memory 85 4e4e8000 206
-Memory 87 d1c48000
-Memory 88 4e4e8000 206
-Memory 8a 48070000
-Memory 8b 48380000 20
-Memory 8d a8248000
-Memory 8e c0008000
-Memory 8f c9c48000
-Memory 90 a1c00000
-Memory 91 4e4e8000 206
-Memory 93 48180000 f
-Memory 95 80070000
-Memory 96 c1d80000 16
-Memory 98 c9d80000 1c
-Memory 9a 49cf0000 1f6
-Memory 9c 48080000 1f6
-Memory 9e b1c00000
-Memory 9f a6780000 1 164
-Memory a2 86780000 ffffff 161
-Memory a5 a1cd0000 1f6
-Memory a7 8198000 ffffff63
-Memory a9 48040000
-Memory aa c8180000 2
-Memory ac c0180000 1f
-Memory ae a1cd0000 1f6
-Memory b0 a1c00000
-Memory b1 8198000 ffffff59
-Memory b3 480d0000 1f6
-Memory b5 a8070000
-Memory b6 4b600000 1f6
-Memory b8 8198000 ffffff54
-Memory ba 91cd0000 1f6
-Memory bc 8198000 ffffff4e
-Memory be 89cd0000 1f6
-Memory c0 8198000 ffffff4a
-Memory c2 81cd0000 1f6
-Memory c4 8198000 ffffff46
-Memory c6 b1cd0000 1f6
-Memory c8 8198000 ffffff42
-Memory ca 480d0000 1f6
-Memory cc b8070000
-Memory cd 4b600000 1f6
-Memory cf 8198000 ffffff3d
-Memory d1 8198000 ffffff39
-Memory d3 91d80000 ffffffff
-Memory d5 8198000 ffffff35
-Memory d7 480a8000 1f6
-Memory d9 70000
-Memory da 8198000 ffffff32
-Memory dc 494d8000 1f6
-Memory de 81580000 ffffff
-Memory e0 48180000 f
-Memory e2 c1d80000 10
-Memory e4 10198000 9
-Memory e6 a8180000 1
-Memory e8 c1d80000 1
-Memory ea 38198000 fffffffb
-Memory ec 20198000 a
-Memory ee a9580000 1
-Memory f0 4a0d0000 2fe 1f6
-Memory f3 99d80000 0
-Memory f5 28198000 fffffff0
-Memory f7 4b650000 1f6
-Memory f9 48198000 10b
-Memory fb c8180000 18
-Memory fd 49000000
-Memory fe 8198000 ffffff0e
-Memory 100 48040000
-Memory 101 c0180000 18
-Memory 103 a6600000 101
-Memory 105 494d8000 1f6
-Memory 107 81580000 ffffff
-Memory 109 48180000 f
-Memory 10b c1d80000 10
-Memory 10d 10198000 9
-Memory 10f a8180000 1
-Memory 111 c1d80000 1
-Memory 113 38198000 fffffffb
-Memory 115 20198000 a
-Memory 117 a9580000 1
-Memory 119 4b480000 1f6 2fe
-Memory 11c 99d80000 0
-Memory 11e 28198000 fffffff0
-Memory 120 4b650000 1f6
-Memory 122 8198000 fffffeea
-Memory 124 a1cd0000 1f6
-Memory 126 8198000 fffffee3
-Memory 128 48040000
-Memory 129 c8180000 2
-Memory 12b c0180000 1f
-Memory 12d a1cd0000 1f6
-Memory 12f a1c00000
-Memory 130 8198000 fffffed9
-Memory 132 480d0000 1f6
-Memory 134 a8070000
-Memory 135 491a0000
-Memory 136 4b600000 1f6
-Memory 138 8198000 fffffed4
-Memory 13a 480d0000 1f6
-Memory 13c a8070000
-Memory 13d 491a0000
-Memory 13e 8198000 fffffece
-Memory 140 91cd0000 1f6
-Memory 142 8198000 fffffec7
-Memory 144 89cd0000 1f6
-Memory 146 8198000 fffffec3
-Memory 148 81cd0000 1f6
-Memory 14a 8198000 fffffebf
-Memory 14c d9cd0000 1f6
-Memory 14e 8198000 fffffebb
-Memory 150 b1cd0000 1f6
-Memory 152 8198000 fffffeb7
-Memory 154 480d0000 1f6
-Memory 156 b8070000
-Memory 157 491a0000
-Memory 158 4b600000 1f6
-Memory 15a 8198000 fffffeb2
-Memory 15c 4b670000 1f6
-Memory 15e 81c70000
-Memory 15f 491a0000
-Memory 160 8198000 fffffeac
-Memory 162 91d80000 ffffffff
-Memory 164 8198000 fffffea5
-Memory 166 70000
-Memory 167 8198000 fffffea2
-Memory 169 49470000
-Memory 16a c9580000 f
-Memory 16c 81580000 f
-Memory 16e 494d0000 1f6
-Memory 170 49670000
-Memory 171 c9780000 13
-Memory 173 81780000 f
-Memory 175 48180000 7800
-Memory 177 80070000
-Memory 178 c8180000 c
-Memory 17a a6780000 1 89
-Memory 17d 86780000 ffffff 86
-Memory 180 4e480000 2f9
-Memory 182 4b750000 2fee 1f6
-Memory 185 8198000 fffffe87
-Memory 187 4dcd8000 1f6 2feb
-Memory 18a 8198000 fffffe82
-Memory 18c 494d0000 1f6
-Memory 18e 99d88000 0
-Memory 190 38198000 9
-Memory 192 4b750000 2fee 1f6
-Memory 195 43550000 2fee 1f6
-Memory 198 8198000 fffffe74
-Memory 19a 4b6d0000 1f6 1f6
-Memory 19d 43550000 2fee 1f6
-Memory 1a0 8198000 fffffe6a
-Memory 1a2 494d0000 1f6
-Memory 1a4 99d80000 0
-Memory 1a6 38198000 9
-Memory 1a8 4d4d8000 1f6 2fee
-Memory 1ab 43550000 2fee 1f6
-Memory 1ae 8198000 fffffe5e
-Memory 1b0 4b4d8000 1f6 1f6
-Memory 1b3 43550000 2fee 1f6
-Memory 1b6 8198000 fffffe56
-Memory 1b8 43750000 2fee 1f6
-Memory 1bb 8198000 fffffe51
-Memory 1bd 4b750000 2fee 1f6
-Memory 1c0 8198000 fffffe4a
-Memory 1c2 4dcd8000 1f6 2feb
-Memory 1c5 8198000 fffffe45
-Memory 1c7 494d0000 1f6
-Memory 1c9 99d88000 0
-Memory 1cb 38198000 ffffffce
-Memory 1cd 4b750000 2fee 1f6
-Memory 1d0 43550000 2fee 1f6
-Memory 1d3 8198000 fffffe37
-Memory 1d5 a6670000 2f
-Memory 1d7 86780000 ffffff 2c
-Memory 1da 8198000 fffffe32
-Memory 1dc 4e798000 28 26
-Memory 1df a6670000 25
-Memory 1e1 86780000 ffffff 22
-Memory 1e4 8198000 fffffe28
-Memory 1e6 81d80000 3fff
-Memory 1e8 c1d80000 12
-Memory 1ea d1d80000 12
-Memory 1ec 4e4e8000 206
-Memory 1ee a6780000 1 15
-Memory 1f1 86780000 ffffff 12
-Memory 1f4 8198000 fffffe18
-Source 0         lea     wpc, work0
-Source 2         lea     REGS, work0
-Source 4         lea     WARM, work0
-Source 6         trap    $SysOverlay
-Source 8         jmp     fetch
-Source a fetch3: mov     ccr,wCCR        ;--------------------TOP-------------------;
-Source b fetch2: mov     rhs, REGS(dst)  ;--------------------TOP-------------------;
-Source d fetch:  mov     wpc,next        ;--------------------TOP-------------------;
-Source f         mov     WARM(next),ci
-Source 11         mov     ci, work0
-Source 12         shr     $29, work0      ;high 3 condition bits in work0
-Source 14         cmovg   COND(work0), rip
-Source 16 getop:  mov     ci,op
-Source 17         shl     $3,op
-Source 19         shr     $26,op
-Source 1b         mov     TYPE(op), rip
-Source 1d never:  mov     NEVER(wCCR),rip
-Source 1f equal:  mov     EQ(wCCR),rip
-Source 21 ne:     mov     NE(wCCR),rip
-Source 23 lesst:  mov     LT(wCCR),rip
-Source 25 lesse:  mov     LE(wCCR),rip
-Source 27 greate: mov     GE(wCCR),rip
-Source 29 gt:     mov     GT(wCCR),rip
-Source 2b noDST:  mov     ci, lhs         ;get dst and lhs
-Source 2c         shr     $15, lhs
-Source 2e         and     $maskLow4, lhs
-Source 30         jmp     oRHS
-Source 32 ALL3:   mov     ci, lhs         ;get dst and lhs
-Source 33         shr     $15, lhs
-Source 35         and     $maskLow4, lhs
-Source 37 oDST:   mov     ci, dst
-Source 38         shr     $19, dst
-Source 3a         and     $maskLow4, dst
-Source 3c oRHS:   mov     $maskA, work0
-Source 3e         and     ci,work0
-Source 3f         shr     $12, work0      ;work 0 holds the addressing mode
-Source 41         mov     ADDR(work0), rip
-Source 43 imd:    mov     ci, work0
-Source 44         and     $maskExp, work0 ;exponent
-Source 46         shr     $9, work0
-Source 48         and     $maskValue, rhs ;value
-Source 4a         shl     work0, rhs      ;shifted value in rhs
-Source 4b         add     $1, wpc
-Source 4e         and     $mask23to0, wpc
-Source 51         mov     INSTR(op), rip
-Source 53 rim:    mov     ci, shiftC
-Source 54         and     $maskShift, shiftC      ;shift count has the bits number to shift
-Source 56         mov     ci, work0
-Source 57         shl     $20, work0
-Source 59         shr     $30, work0      ;work0 now has the shop
-Source 5b         shl     $22, rhs
-Source 5d         shr     $28, rhs        ;now we have src reg 2 in rhs
-Source 5f         mov     REGS(rhs), rhs  ;rhs now has the value that was in register number rhs
-Source 61         add     $1, wpc
-Source 64         and     $mask23to0, wpc
-Source 67         mov     SHOP(work0), rip
-Source 69 rsr:    mov     $maskLow4, shiftC       ; shiftC := 15
-Source 6b         and     ci, shiftC      ; shiftC := shiftC & ci; to get shift register
-Source 6c         mov     REGS(shiftC), shiftC ; shiftC now has whatever was stored in the 
-Source 6e         mov     ci, work0
-Source 6f         shl     $20, work0
-Source 71         shr     $30, work0      ; work0 now has the shift op code
-Source 73         shl     $22, rhs
-Source 75         shr     $28, rhs        ; rhs has rhs register
-Source 77         mov     REGS(rhs), rhs  ; rhs now has whatever was stored in rhs (memory)
-Source 79         add     $1, wpc
-Source 7c         and     $mask23to0, wpc
-Source 7f         mov     SHOP(work0), rip
-Source 81 lsl:    shl     shiftC, rhs
-Source 82         mov     INSTR(op), rip
-Source 84 lsr:    shr     shiftC, rhs
-Source 85         mov     INSTR(op), rip
-Source 87 asr:    sar     shiftC, rhs
-Source 88         mov     INSTR(op), rip
-Source 8a ror:    mov     rhs, work0
-Source 8b         mov     $32, work1      
-Source 8d         sub     shiftC, work1   ;work0 := 32-shr
-Source 8e         shl     work1, work0    ;work0 is low shr bits shifted (32-shr) to the left
-Source 8f         shr     shiftC, rhs     ;work1 is the highest (32-shr) bits shifted shr to the right
-Source 90         add     work0, rhs
-Source 91         mov     INSTR(op), rip
-Source 93 rpm:    mov     $maskLow4, work0
-Source 95         and     ci, work0       ;work0 now has src reg 3
-Source 96         shl     $22, rhs
-Source 98         shr     $28, rhs        ; rhs now has src reg 2
-Source 9a         mov     REGS(rhs), rhs  ; rhs now has whatever was stored in the correspondent register
-Source 9c         mov     REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
-Source 9e         mul     work0, rhs
-Source 9f         add     $1, wpc
-Source a2         and     $mask23to0, wpc
-Source a5 add:    add     REGS(lhs), rhs
-Source a7         jmp     fetch2
-Source a9 adc:    mov     wCCR, work0
-Source aa         shr     $2, work0
-Source ac         shl     $31, work0
-Source ae         add     REGS(lhs), rhs
-Source b0         add     work0, rhs
-Source b1         jmp     fetch2
-Source b3 sub:    mov     REGS(lhs), work0
-Source b5         sub     rhs, work0
-Source b6         mov     work0, REGS(dst)
-Source b8         jmp     fetch
-Source ba eor:    xor     REGS(lhs), rhs
+Memory 251 2e
+Memory 252 2e
+Memory 253 2e
+Memory 254 27
+Memory 255 2e
+Memory 256 2e
+Memory 257 27
+Memory 258 2e
+Memory 259 2e
+Memory 25a 0
+Memory 25b 2e
+Memory 25c 33
+Memory 25d 33
+Memory 25e 38
+Memory 25f 2e
+Memory 260 160
+Memory 261 160
+Memory 262 160
+Memory 263 160
+Memory 264 160
+Memory 265 160
+Memory 266 0
+Memory 267 0
+Memory 268 0
+Memory 269 1cc
+Memory 26a 1cc
+Memory 26b 1d3
+Memory 26c 1d3
+Memory 26d 0
+Memory 26e 19
+Memory 26f 1b
+Memory 270 1d
+Memory 271 1f
+Memory 272 21
+Memory 273 23
+Memory 274 25
+Memory 275 1e5
+Memory 276 1e5
+Memory 277 1e5
+Memory 278 1e5
+Memory 279 1e5
+Memory 27a 1e5
+Memory 27b 1e5
+Memory 27c 1e5
+Memory 27d 1e5
+Memory 27e 1e5
+Memory 27f 1e5
+Memory 280 1e5
+Memory 281 1e5
+Memory 282 1e5
+Memory 283 1e5
+Memory 284 1e5
+Memory 285 1e5
+Memory 286 1e5
+Memory 287 1e5
+Memory 288 1e5
+Memory 289 12
+Memory 28a 12
+Memory 28b 12
+Memory 28c 1e5
+Memory 28d 1e5
+Memory 28e 1e5
+Memory 28f 1e5
+Memory 290 1e5
+Memory 291 1e5
+Memory 292 12
+Memory 293 12
+Memory 294 12
+Memory 295 12
+Memory 296 12
+Memory 297 12
+Memory 298 12
+Memory 299 1e5
+Memory 29a 1e5
+Memory 29b 1e5
+Memory 29c 12
+Memory 29d 12
+Memory 29e 12
+Memory 29f 12
+Memory 2a0 12
+Memory 2a1 12
+Memory 2a2 1e5
+Memory 2a3 1e5
+Memory 2a4 1e5
+Memory 2a5 1e5
+Memory 2a6 12
+Memory 2a7 1e5
+Memory 2a8 12
+Memory 2a9 1e5
+Memory 2aa 12
+Memory 2ab 1e5
+Memory 2ac 12
+Memory 2ad 12
+Memory 2ae 1e5
+Memory 2af 12
+Memory 2b0 12
+Memory 2b1 1e5
+Memory 2b2 12
+Memory 2b3 1e5
+Memory 2b4 12
+Memory 2b5 1e5
+Memory 2b6 12
+Memory 2b7 1e5
+Memory 2b8 12
+Memory 2b9 12
+Memory 2ba 12
+Memory 2bb 12
+Memory 2bc 12
+Memory 2bd 12
+Memory 2be 1e5
+Memory 2bf 12
+Memory 2c0 12
+Memory 2c1 1e5
+Memory 2c2 12
+Memory 2c3 12
+Memory 2c4 12
+Memory 2c5 12
+Memory 2c6 1e5
+Memory 2c7 12
+Memory 2c8 1e5
+Memory 2c9 12
+Memory 2ca 1e5
+Memory 2cb 12
+Memory 2cc 1e5
+Memory 2cd 12
+Memory 2ce 1e5
+Memory 2cf 12
+Memory 2d0 1e5
+Memory 2d1 12
+Memory 2d2 1e5
+Memory 2d3 12
+Memory 2d4 1e5
+Memory 2d5 12
+Memory 2d6 1e5
+Memory 2d7 12
+Memory 2d8 1e5
+Memory 2d9 1e5
+Memory 2da 1e5
+Memory 2db 1e5
+Memory 2dc 1e5
+Memory 2dd 1e5
+Memory 2de 12
+Memory 2df 1e5
+Memory 2e0 1e5
+Memory 2e1 12
+Memory 2e2 1e5
+Memory 2e3 1e5
+Memory 2e4 1e5
+Memory 2e5 3f
+Memory 2e6 3f
+Memory 2e7 3f
+Memory 2e8 3f
+Memory 2e9 4f
+Memory 2ea 65
+Memory 2eb 8f
+Memory 2ec 7d
+Memory 2ed 80
+Memory 2ee 83
+Memory 2ef 86
+Memory 2f0 1dd
+Memory 2f1 1dd
+Memory 2f2 1dd
+Memory 2f3 1dd
+Memory 2f4 4f
+Memory 0 40198000 2f4
+Memory 2 180000 6
+Memory 4 8198000 4
+Memory 6 491a0000
+Memory 7 4b670000 1ed
+Memory 9 48598000 1f2
+Memory b 49c90000 2f5
+Memory d 48070000
+Memory e c8180000 1d
+Memory 10 7e480000 26d
+Memory 12 49a70000
+Memory 13 c1b80000 3
+Memory 15 c9b80000 1a
+Memory 17 4e4e8000 231
+Memory 19 4e4c0000 275
+Memory 1b 4e4c0000 285
+Memory 1d 4e4c0000 295
+Memory 1f 4e4c0000 2a5
+Memory 21 4e4c0000 2b5
+Memory 23 4e4c0000 2c5
+Memory 25 4e4c0000 2d5
+Memory 27 49470000
+Memory 28 c9580000 f
+Memory 2a 81580000 f
+Memory 2c 8198000 b
+Memory 2e 49470000
+Memory 2f c9580000 f
+Memory 31 81580000 f
+Memory 33 49670000
+Memory 34 c9780000 13
+Memory 36 81780000 f
+Memory 38 48180000 7800
+Memory 3a 80070000
+Memory 3b c8180000 c
+Memory 3d 4e480000 2e5
+Memory 3f 48070000
+Memory 40 80180000 3e00
+Memory 42 c8180000 9
+Memory 44 81d80000 1ff
+Memory 46 c1c00000
+Memory 47 a6780000 1 1b3
+Memory 4a 86780000 ffffff 1b0
+Memory 4d 4e4e8000 1fd
+Memory 4f 49270000
+Memory 50 81380000 3f
+Memory 52 48070000
+Memory 53 c0180000 14
+Memory 55 c8180000 1e
+Memory 57 c1d80000 16
+Memory 59 c9d80000 1c
+Memory 5b 49cf0000 1ed
+Memory 5d a6780000 1 19d
+Memory 60 86780000 ffffff 19a
+Memory 63 4e480000 2ec
+Memory 65 49380000 f
+Memory 67 81270000
+Memory 68 492c8000 1ed
+Memory 6a 48070000
+Memory 6b c0180000 14
+Memory 6d c8180000 1e
+Memory 6f c1d80000 16
+Memory 71 c9d80000 1c
+Memory 73 49cf0000 1ed
+Memory 75 a6780000 1 185
+Memory 78 86780000 ffffff 182
+Memory 7b 4e480000 2ec
+Memory 7d c1c48000
+Memory 7e 4e4e8000 1fd
+Memory 80 c9c48000
+Memory 81 4e4e8000 1fd
+Memory 83 d1c48000
+Memory 84 4e4e8000 1fd
+Memory 86 48070000
+Memory 87 48380000 20
+Memory 89 a8248000
+Memory 8a c0008000
+Memory 8b c9c48000
+Memory 8c a1c00000
+Memory 8d 4e4e8000 1fd
+Memory 8f 48180000 f
+Memory 91 80070000
+Memory 92 c1d80000 16
+Memory 94 c9d80000 1c
+Memory 96 49cf0000 1ed
+Memory 98 48080000 1ed
+Memory 9a b1c00000
+Memory 9b a6780000 1 15f
+Memory 9e 86780000 ffffff 15c
+Memory a1 a1cd0000 1ed
+Memory a3 8198000 ffffff63
+Memory a5 48040000
+Memory a6 c8180000 2
+Memory a8 c0180000 1f
+Memory aa a1cd0000 1ed
+Memory ac a1c00000
+Memory ad 8198000 ffffff59
+Memory af 480d0000 1ed
+Memory b1 a8070000
+Memory b2 4b600000 1ed
+Memory b4 8198000 ffffff54
+Memory b6 91cd0000 1ed
+Memory b8 8198000 ffffff4e
+Memory ba 89cd0000 1ed
+Memory bc 8198000 ffffff4a
+Memory be 81cd0000 1ed
+Memory c0 8198000 ffffff46
+Memory c2 b1cd0000 1ed
+Memory c4 8198000 ffffff42
+Memory c6 480d0000 1ed
+Memory c8 b8070000
+Memory c9 4b600000 1ed
+Memory cb 8198000 ffffff3d
+Memory cd 8198000 ffffff39
+Memory cf 91d80000 ffffffff
+Memory d1 8198000 ffffff35
+Memory d3 480a8000 1ed
+Memory d5 70000
+Memory d6 8198000 ffffff32
+Memory d8 494d8000 1ed
+Memory da 81580000 ffffff
+Memory dc 48180000 f
+Memory de c1d80000 10
+Memory e0 10198000 9
+Memory e2 a8180000 1
+Memory e4 c1d80000 1
+Memory e6 38198000 fffffffb
+Memory e8 20198000 2e
+Memory ea a9580000 1
+Memory ec 4a0d0000 2f5 1ed
+Memory ef 99d80000 0
+Memory f1 28198000 fffffff0
+Memory f3 4b650000 1ed
+Memory f5 8198000 ffffff13
+Memory f7 48040000
+Memory f8 c0180000 18
+Memory fa a6600000 101
+Memory fc 494d8000 1ed
+Memory fe 81580000 ffffff
+Memory 100 48180000 f
+Memory 102 c1d80000 10
+Memory 104 10198000 9
+Memory 106 a8180000 1
+Memory 108 c1d80000 1
+Memory 10a 38198000 fffffffb
+Memory 10c 20198000 a
+Memory 10e a9580000 1
+Memory 110 4b480000 1ed 2f5
+Memory 113 99d80000 0
+Memory 115 28198000 fffffff0
+Memory 117 4b650000 1ed
+Memory 119 8198000 fffffeef
+Memory 11b a1cd0000 1ed
+Memory 11d 8198000 fffffee8
+Memory 11f 48040000
+Memory 120 c8180000 2
+Memory 122 c0180000 1f
+Memory 124 a1cd0000 1ed
+Memory 126 a1c00000
+Memory 127 8198000 fffffede
+Memory 129 480d0000 1ed
+Memory 12b a8070000
+Memory 12c 491a0000
+Memory 12d 4b600000 1ed
+Memory 12f 8198000 fffffed9
+Memory 131 480d0000 1ed
+Memory 133 a8070000
+Memory 134 491a0000
+Memory 135 8198000 fffffed3
+Memory 137 91cd0000 1ed
+Memory 139 8198000 fffffecc
+Memory 13b 89cd0000 1ed
+Memory 13d 8198000 fffffec8
+Memory 13f 81cd0000 1ed
+Memory 141 8198000 fffffec4
+Memory 143 d9cd0000 1ed
+Memory 145 8198000 fffffec0
+Memory 147 b1cd0000 1ed
+Memory 149 8198000 fffffebc
+Memory 14b 480d0000 1ed
+Memory 14d b8070000
+Memory 14e 491a0000
+Memory 14f 4b600000 1ed
+Memory 151 8198000 fffffeb7
+Memory 153 4b670000 1ed
+Memory 155 81c70000
+Memory 156 491a0000
+Memory 157 8198000 fffffeb1
+Memory 159 91d80000 ffffffff
+Memory 15b 8198000 fffffeaa
+Memory 15d 70000
+Memory 15e 8198000 fffffea7
+Memory 160 49470000
+Memory 161 c9580000 f
+Memory 163 81580000 f
+Memory 165 494d0000 1ed
+Memory 167 49670000
+Memory 168 c9780000 13
+Memory 16a 81780000 f
+Memory 16c 48180000 7800
+Memory 16e 80070000
+Memory 16f c8180000 c
+Memory 171 a6780000 1 89
+Memory 174 86780000 ffffff 86
+Memory 177 4e480000 2f0
+Memory 179 4b750000 2f5e 1ed
+Memory 17c 8198000 fffffe8c
+Memory 17e 4dcd8000 1ed 2f5b
+Memory 181 8198000 fffffe87
+Memory 183 494d0000 1ed
+Memory 185 99d88000 0
+Memory 187 38198000 9
+Memory 189 4b750000 2f5e 1ed
+Memory 18c 43550000 2f5e 1ed
+Memory 18f 8198000 fffffe79
+Memory 191 4b6d0000 1ed 1ed
+Memory 194 43550000 2f5e 1ed
+Memory 197 8198000 fffffe6f
+Memory 199 494d0000 1ed
+Memory 19b 99d80000 0
+Memory 19d 38198000 9
+Memory 19f 4d4d8000 1ed 2f5e
+Memory 1a2 43550000 2f5e 1ed
+Memory 1a5 8198000 fffffe63
+Memory 1a7 4b4d8000 1ed 1ed
+Memory 1aa 43550000 2f5e 1ed
+Memory 1ad 8198000 fffffe5b
+Memory 1af 43750000 2f5e 1ed
+Memory 1b2 8198000 fffffe56
+Memory 1b4 4b750000 2f5e 1ed
+Memory 1b7 8198000 fffffe4f
+Memory 1b9 4dcd8000 1ed 2f5b
+Memory 1bc 8198000 fffffe4a
+Memory 1be 494d0000 1ed
+Memory 1c0 99d88000 0
+Memory 1c2 38198000 ffffffce
+Memory 1c4 4b750000 2f5e 1ed
+Memory 1c7 43550000 2f5e 1ed
+Memory 1ca 8198000 fffffe3c
+Memory 1cc a6670000 2f
+Memory 1ce 86780000 ffffff 2c
+Memory 1d1 8198000 fffffe37
+Memory 1d3 4e798000 28 26
+Memory 1d6 a6670000 25
+Memory 1d8 86780000 ffffff 22
+Memory 1db 8198000 fffffe2d
+Memory 1dd 81d80000 3fff
+Memory 1df c1d80000 12
+Memory 1e1 d1d80000 12
+Memory 1e3 4e4e8000 1fd
+Memory 1e5 a6780000 1 15
+Memory 1e8 86780000 ffffff 12
+Memory 1eb 8198000 fffffe1d
+Source 0         lea     WARM, work0
+Source 2         trap    $SysOverlay
+Source 4         jmp     fetch
+Source 6 fetch3: mov     ccr,wCCR        ;--------------------TOP-------------------;
+Source 7 fetch2: mov     rhs, REGS(dst)  ;--------------------TOP-------------------;
+Source 9 fetch:  mov     wpc,next        ;--------------------TOP-------------------;
+Source b         mov     WARM(next),ci
+Source d         mov     ci, work0
+Source e         shr     $29, work0      ;high 3 condition bits in work0
+Source 10         cmovg   COND(work0), rip
+Source 12 getop:  mov     ci,op
+Source 13         shl     $3,op
+Source 15         shr     $26,op
+Source 17         mov     TYPE(op), rip
+Source 19 never:  mov     NEVER(wCCR),rip
+Source 1b equal:  mov     EQ(wCCR),rip
+Source 1d ne:     mov     NE(wCCR),rip
+Source 1f lesst:  mov     LT(wCCR),rip
+Source 21 lesse:  mov     LE(wCCR),rip
+Source 23 greate: mov     GE(wCCR),rip
+Source 25 gt:     mov     GT(wCCR),rip
+Source 27 noDST:  mov     ci, lhs         ;get dst and lhs
+Source 28         shr     $15, lhs
+Source 2a         and     $maskLow4, lhs
+Source 2c         jmp     oRHS
+Source 2e ALL3:   mov     ci, lhs         ;get dst and lhs
+Source 2f         shr     $15, lhs
+Source 31         and     $maskLow4, lhs
+Source 33 oDST:   mov     ci, dst
+Source 34         shr     $19, dst
+Source 36         and     $maskLow4, dst
+Source 38 oRHS:   mov     $maskA, work0
+Source 3a         and     ci,work0
+Source 3b         shr     $12, work0      ;work 0 holds the addressing mode
+Source 3d         mov     ADDR(work0), rip
+Source 3f imd:    mov     ci, work0
+Source 40         and     $maskExp, work0 ;exponent
+Source 42         shr     $9, work0
+Source 44         and     $maskValue, rhs ;value
+Source 46         shl     work0, rhs      ;shifted value in rhs
+Source 47         add     $1, wpc
+Source 4a         and     $mask23to0, wpc
+Source 4d         mov     INSTR(op), rip
+Source 4f rim:    mov     ci, shiftC
+Source 50         and     $maskShift, shiftC      ;shift count has the bits number to shift
+Source 52         mov     ci, work0
+Source 53         shl     $20, work0
+Source 55         shr     $30, work0      ;work0 now has the shop
+Source 57         shl     $22, rhs
+Source 59         shr     $28, rhs        ;now we have src reg 2 in rhs
+Source 5b         mov     REGS(rhs), rhs  ;rhs now has the value that was in register number rhs
+Source 5d         add     $1, wpc
+Source 60         and     $mask23to0, wpc
+Source 63         mov     SHOP(work0), rip
+Source 65 rsr:    mov     $maskLow4, shiftC       ; shiftC := 15
+Source 67         and     ci, shiftC      ; shiftC := shiftC & ci; to get shift register
+Source 68         mov     REGS(shiftC), shiftC ; shiftC now has whatever was stored in the 
+Source 6a         mov     ci, work0
+Source 6b         shl     $20, work0
+Source 6d         shr     $30, work0      ; work0 now has the shift op code
+Source 6f         shl     $22, rhs
+Source 71         shr     $28, rhs        ; rhs has rhs register
+Source 73         mov     REGS(rhs), rhs  ; rhs now has whatever was stored in rhs (memory)
+Source 75         add     $1, wpc
+Source 78         and     $mask23to0, wpc
+Source 7b         mov     SHOP(work0), rip
+Source 7d lsl:    shl     shiftC, rhs
+Source 7e         mov     INSTR(op), rip
+Source 80 lsr:    shr     shiftC, rhs
+Source 81         mov     INSTR(op), rip
+Source 83 asr:    sar     shiftC, rhs
+Source 84         mov     INSTR(op), rip
+Source 86 ror:    mov     rhs, work0
+Source 87         mov     $32, work1      
+Source 89         sub     shiftC, work1   ;work0 := 32-shr
+Source 8a         shl     work1, work0    ;work0 is low shr bits shifted (32-shr) to the left
+Source 8b         shr     shiftC, rhs     ;work1 is the highest (32-shr) bits shifted shr to the right
+Source 8c         add     work0, rhs
+Source 8d         mov     INSTR(op), rip
+Source 8f rpm:    mov     $maskLow4, work0
+Source 91         and     ci, work0       ;work0 now has src reg 3
+Source 92         shl     $22, rhs
+Source 94         shr     $28, rhs        ; rhs now has src reg 2
+Source 96         mov     REGS(rhs), rhs  ; rhs now has whatever was stored in the correspondent register
+Source 98         mov     REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
+Source 9a         mul     work0, rhs
+Source 9b         add     $1, wpc
+Source 9e         and     $mask23to0, wpc
+Source a1 add:    add     REGS(lhs), rhs
+Source a3         jmp     fetch2
+Source a5 adc:    mov     wCCR, work0
+Source a6         shr     $2, work0
+Source a8         shl     $31, work0
+Source aa         add     REGS(lhs), rhs
+Source ac         add     work0, rhs
+Source ad         jmp     fetch2
+Source af sub:    mov     REGS(lhs), work0
+Source b1         sub     rhs, work0
+Source b2         mov     work0, REGS(dst)
+Source b4         jmp     fetch
+Source b6 eor:    xor     REGS(lhs), rhs
+Source b8         jmp     fetch2
+Source ba orr:    or      REGS(lhs), rhs
 Source bc         jmp     fetch2
-Source be orr:    or      REGS(lhs), rhs
+Source be and:    and     REGS(lhs), rhs
 Source c0         jmp     fetch2
-Source c2 and:    and     REGS(lhs), rhs
+Source c2 mul:    mul     REGS(lhs), rhs
 Source c4         jmp     fetch2
-Source c6 mul:    mul     REGS(lhs), rhs
-Source c8         jmp     fetch2
-Source ca div:    mov     REGS(lhs), work0
-Source cc         div     rhs, work0
-Source cd         mov     work0, REGS(dst)
-Source cf         jmp     fetch
-Source d1 mov:    jmp     fetch2
-Source d3 mvn:    xor     $flip, rhs
-Source d5         jmp     fetch2
-Source d7 swi:    mov     REGS(alwaysZ), work0
-Source d9         trap    rhs
-Source da         jmp     fetch
-Source dc ldm:    mov     REGS(dst), lhs
-Source de         and     $mask23to0, lhs 
-Source e0         mov     $15, work0      ;work0 holds reg number
-Source e2         shl     $16, rhs
-Source e4         jl      lloading
-Source e6         sub     $1, work0
-Source e8         shl     $1, rhs
-Source ea         jg      lshifting
-Source ec         je      LDMdone
-Source ee         sub     $1, lhs
-Source f0         mov     WARM(lhs), REGS(work0)
-Source f3         cmp     $0, rhs
-Source f5         jne     lshifting
-Source f7         mov     lhs, REGS(dst)
-Source f9         mov     wpc, work0
-Source fb         shr     $24, work0
-Source fd         mov     work0, wCCR
-Source fe         jmp     fetch
-Source 100 stm:    mov     wCCR, work0
-Source 101         shl     $24, work0
-Source 103         add     work0, wpc
-Source 105         mov     REGS(dst), lhs  ;lhs now has the value stored in base register
-Source 107         and     $mask23to0, lhs ;mask low 24 bits for wraparound
-Source 109         mov     $15, work0      ;work0 holds register number
-Source 10b         shl     $16, rhs
-Source 10d         jl      sloading
-Source 10f         sub     $1, work0       ;
-Source 111         shl     $1, rhs         
-Source 113         jg      sshifting       ;is the next bit set?
-Source 115         je      STMdone
-Source 117         sub     $1, lhs
-Source 119         mov     REGS(work0), WARM(lhs)
-Source 11c         cmp     $0, rhs
-Source 11e         jne     sshifting
-Source 120         mov     lhs, REGS(dst)
-Source 122         jmp     fetch
-Source 124 addCC:  add     REGS(lhs), rhs
-Source 126         jmp     fetch3
-Source 128 adcCC:  mov     wCCR, work0
-Source 129         shr     $2, work0
-Source 12b         shl     $31, work0
-Source 12d         add     REGS(lhs), rhs
-Source 12f         add     work0, rhs
-Source 130         jmp     fetch3
-Source 132 subCC:  mov     REGS(lhs), work0
-Source 134         sub     rhs, work0
-Source 135         mov     ccr,wCCR
-Source 136         mov     work0, REGS(dst)
-Source 138         jmp     fetch
-Source 13a cmpCC:  mov     REGS(lhs), work0
-Source 13c         sub     rhs, work0
-Source 13d         mov     ccr, wCCR
-Source 13e         jmp     fetch
-Source 140 eorCC:  xor     REGS(lhs), rhs
-Source 142         jmp     fetch3
-Source 144 orrCC:  or      REGS(lhs), rhs
-Source 146         jmp     fetch3
-Source 148 andCC:  and     REGS(lhs), rhs
-Source 14a         jmp     fetch3
-Source 14c tstCC:  test    REGS(lhs), rhs
-Source 14e         jmp     fetch3
-Source 150 mulCC:  mul     REGS(lhs), rhs
-Source 152         jmp     fetch3
-Source 154 divCC:  mov     REGS(lhs), work0
-Source 156         div     rhs, work0
-Source 157         mov     ccr,wCCR                
-Source 158         mov     work0, REGS(dst)
-Source 15a         jmp     fetch
-Source 15c movCC:  mov     rhs, REGS(dst)
-Source 15e         and     rhs,rhs
-Source 15f         mov     ccr,wCCR                        
-Source 160         jmp     fetch
-Source 162 mvnCC:  xor     $flip,rhs
-Source 164         jmp     fetch3
-Source 166 swiCC:  trap    rhs
-Source 167         jmp     fetch3
-Source 169 ls:     mov     ci, lhs         ;get dst and base registers, here base is lhs
-Source 16a         shr     $15, lhs
-Source 16c         and     $maskLow4, lhs  ;lhs now has base register in it
-Source 16e         mov     REGS(lhs), lhs  ;lhs now has whatever was stored in lhs
-Source 170         mov     ci, dst
-Source 171         shr     $19, dst
-Source 173         and     $maskLow4, dst  ;dst now has dst register
-Source 175         mov     $maskA, work0
-Source 177         and     ci, work0
-Source 178         shr     $12, work0      ;work0 now has addressing mode
-Source 17a         add     $1, wpc
-Source 17d         and     $mask23to0, wpc 
-Source 180         mov     lsADDR(work0), rip
-Source 182 ldr:    mov     WARM(lhs,rhs), REGS(dst)
-Source 185         jmp     fetch
-Source 187 str:    mov     REGS(dst), WARM(rhs,dst)
-Source 18a         jmp     fetch
-Source 18c ldu:    mov     REGS(lhs), lhs
-Source 18e         cmp     0, rhs
-Source 190         jg      posldu
-Source 192         mov     WARM(lhs, rhs), REGS(dst)
-Source 195         lea     WARM(lhs, rhs), REGS(lhs)
-Source 198         jmp     fetch
-Source 19a posldu: mov     REGS(lhs), REGS(dst)
-Source 19d         lea     WARM(lhs, rhs), REGS(lhs)
-Source 1a0         jmp     fetch2
-Source 1a2 stu:    mov     REGS(lhs), lhs
-Source 1a4         cmp     $0, rhs
-Source 1a6         jg      posstu
-Source 1a8         mov     REGS(dst), WARM(lhs, rhs)
-Source 1ab         lea     WARM(lhs, rhs), REGS(lhs)
-Source 1ae         jmp     fetch
-Source 1b0 posstu: mov     REGS(dst), REGS(lhs)
-Source 1b3         lea     WARM(lhs, rhs), REGS(lhs)
-Source 1b6         jmp     fetch
-Source 1b8 adr:    lea     WARM(lhs, rhs), REGS(dst)
-Source 1bb         jmp     fetch
-Source 1bd ldrCC:  mov     WARM(lhs,rhs), REGS(dst)
-Source 1c0         jmp     fetch2
-Source 1c2 strCC:  mov     REGS(dst), WARM(rhs,dst)
-Source 1c5         jmp     fetch2
-Source 1c7 lduCC:  mov     REGS(lhs), lhs
-Source 1c9         cmp     0, rhs
-Source 1cb         jg      posldu
-Source 1cd         mov     WARM(lhs, rhs), REGS(dst)
-Source 1d0         lea     WARM(lhs, rhs), REGS(lhs)
-Source 1d3         jmp     fetch2
-Source 1d5 b:      add     ci, wpc
-Source 1d7         and     $mask23to0, wpc
-Source 1da         jmp     fetch
-Source 1dc bl:     mov     wpc, wlr
-Source 1df         add     ci, wpc
-Source 1e1         and     $mask23to0, wpc
-Source 1e4         jmp     fetch
-Source 1e6 soff:   and     $maskLow13, rhs
-Source 1e8         shl     $18, rhs
-Source 1ea         sar     $18, rhs        ; rhs now has the signed offset from base register
-Source 1ec         mov     INSTR(op), rip
-Source 1ee no:     add     $1, wpc
-Source 1f1         and     $mask23to0, wpc
-Source 1f4         jmp     fetch
+Source c6 div:    mov     REGS(lhs), work0
+Source c8         div     rhs, work0
+Source c9         mov     work0, REGS(dst)
+Source cb         jmp     fetch
+Source cd mov:    jmp     fetch2
+Source cf mvn:    xor     $flip, rhs
+Source d1         jmp     fetch2
+Source d3 swi:    mov     REGS(alwaysZ), work0
+Source d5         trap    rhs
+Source d6         jmp     fetch
+Source d8 ldm:    mov     REGS(dst), lhs  ;lhs now has the value stored in base register
+Source da         and     $mask23to0, lhs ;mask low 24 bits for wraparound
+Source dc         mov     $15, work0      ;work0 holds register number
+Source de         shl     $16, rhs
+Source e0         jl      lloading
+Source e2         sub     $1, work0       ;
+Source e4         shl     $1, rhs         
+Source e6         jg      lshifting       ;is the next bit set?
+Source e8         je      STMdone
+Source ea         sub     $1, lhs
+Source ec         mov     WARM(lhs), REGS(work0)
+Source ef         cmp     $0, rhs
+Source f1         jne     lshifting
+Source f3         mov     lhs, REGS(dst)
+Source f5         jmp     fetch
+Source f7 stm:    mov     wCCR, work0
+Source f8         shl     $24, work0
+Source fa         add     work0, wpc
+Source fc         mov     REGS(dst), lhs  ;lhs now has the value stored in base register
+Source fe         and     $mask23to0, lhs ;mask low 24 bits for wraparound
+Source 100         mov     $15, work0      ;work0 holds register number
+Source 102         shl     $16, rhs
+Source 104         jl      sloading
+Source 106         sub     $1, work0       ;
+Source 108         shl     $1, rhs         
+Source 10a         jg      sshifting       ;is the next bit set?
+Source 10c         je      STMdone
+Source 10e         sub     $1, lhs
+Source 110         mov     REGS(work0), WARM(lhs)
+Source 113         cmp     $0, rhs
+Source 115         jne     sshifting
+Source 117         mov     lhs, REGS(dst)
+Source 119         jmp     fetch
+Source 11b addCC:  add     REGS(lhs), rhs
+Source 11d         jmp     fetch3
+Source 11f adcCC:  mov     wCCR, work0
+Source 120         shr     $2, work0
+Source 122         shl     $31, work0
+Source 124         add     REGS(lhs), rhs
+Source 126         add     work0, rhs
+Source 127         jmp     fetch3
+Source 129 subCC:  mov     REGS(lhs), work0
+Source 12b         sub     rhs, work0
+Source 12c         mov     ccr,wCCR
+Source 12d         mov     work0, REGS(dst)
+Source 12f         jmp     fetch
+Source 131 cmpCC:  mov     REGS(lhs), work0
+Source 133         sub     rhs, work0
+Source 134         mov     ccr, wCCR
+Source 135         jmp     fetch
+Source 137 eorCC:  xor     REGS(lhs), rhs
+Source 139         jmp     fetch3
+Source 13b orrCC:  or      REGS(lhs), rhs
+Source 13d         jmp     fetch3
+Source 13f andCC:  and     REGS(lhs), rhs
+Source 141         jmp     fetch3
+Source 143 tstCC:  test    REGS(lhs), rhs
+Source 145         jmp     fetch3
+Source 147 mulCC:  mul     REGS(lhs), rhs
+Source 149         jmp     fetch3
+Source 14b divCC:  mov     REGS(lhs), work0
+Source 14d         div     rhs, work0
+Source 14e         mov     ccr,wCCR                
+Source 14f         mov     work0, REGS(dst)
+Source 151         jmp     fetch
+Source 153 movCC:  mov     rhs, REGS(dst)
+Source 155         and     rhs,rhs
+Source 156         mov     ccr,wCCR                        
+Source 157         jmp     fetch
+Source 159 mvnCC:  xor     $flip,rhs
+Source 15b         jmp     fetch3
+Source 15d swiCC:  trap    rhs
+Source 15e         jmp     fetch3
+Source 160 ls:     mov     ci, lhs         ;get dst and base registers, here base is lhs
+Source 161         shr     $15, lhs
+Source 163         and     $maskLow4, lhs  ;lhs now has base register in it
+Source 165         mov     REGS(lhs), lhs  ;lhs now has whatever was stored in lhs
+Source 167         mov     ci, dst
+Source 168         shr     $19, dst
+Source 16a         and     $maskLow4, dst  ;dst now has dst register
+Source 16c         mov     $maskA, work0
+Source 16e         and     ci, work0
+Source 16f         shr     $12, work0      ;work0 now has addressing mode
+Source 171         add     $1, wpc
+Source 174         and     $mask23to0, wpc 
+Source 177         mov     lsADDR(work0), rip
+Source 179 ldr:    mov     WARM(lhs,rhs), REGS(dst)
+Source 17c         jmp     fetch
+Source 17e str:    mov     REGS(dst), WARM(rhs,dst)
+Source 181         jmp     fetch
+Source 183 ldu:    mov     REGS(lhs), lhs
+Source 185         cmp     0, rhs
+Source 187         jg      posldu
+Source 189         mov     WARM(lhs, rhs), REGS(dst)
+Source 18c         lea     WARM(lhs, rhs), REGS(lhs)
+Source 18f         jmp     fetch
+Source 191 posldu: mov     REGS(lhs), REGS(dst)
+Source 194         lea     WARM(lhs, rhs), REGS(lhs)
+Source 197         jmp     fetch2
+Source 199 stu:    mov     REGS(lhs), lhs
+Source 19b         cmp     $0, rhs
+Source 19d         jg      posstu
+Source 19f         mov     REGS(dst), WARM(lhs, rhs)
+Source 1a2         lea     WARM(lhs, rhs), REGS(lhs)
+Source 1a5         jmp     fetch
+Source 1a7 posstu: mov     REGS(dst), REGS(lhs)
+Source 1aa         lea     WARM(lhs, rhs), REGS(lhs)
+Source 1ad         jmp     fetch
+Source 1af adr:    lea     WARM(lhs, rhs), REGS(dst)
+Source 1b2         jmp     fetch
+Source 1b4 ldrCC:  mov     WARM(lhs,rhs), REGS(dst)
+Source 1b7         jmp     fetch2
+Source 1b9 strCC:  mov     REGS(dst), WARM(rhs,dst)
+Source 1bc         jmp     fetch2
+Source 1be lduCC:  mov     REGS(lhs), lhs
+Source 1c0         cmp     0, rhs
+Source 1c2         jg      posldu
+Source 1c4         mov     WARM(lhs, rhs), REGS(dst)
+Source 1c7         lea     WARM(lhs, rhs), REGS(lhs)
+Source 1ca         jmp     fetch2
+Source 1cc b:      add     ci, wpc
+Source 1ce         and     $mask23to0, wpc
+Source 1d1         jmp     fetch
+Source 1d3 bl:     mov     wpc, wlr
+Source 1d6         add     ci, wpc
+Source 1d8         and     $mask23to0, wpc
+Source 1db         jmp     fetch
+Source 1dd soff:   and     $maskLow13, rhs
+Source 1df         shl     $18, rhs
+Source 1e1         sar     $18, rhs        ; rhs now has the signed offset from base register
+Source 1e3         mov     INSTR(op), rip
+Source 1e5 no:     add     $1, wpc
+Source 1e8         and     $mask23to0, wpc
+Source 1eb         jmp     fetch
 End
