@@ -21,10 +21,9 @@
 	.equ	mask23to0, 0xffffff
 	.equ	maskLow13, 0x3fff
 
-
 	lea 	wpc, work0
 	lea	REGS, work0
-	lea	WARM, work0
+	lea	WARM, work0 
 	trap	$SysOverlay
 
 ;;; N.B.
@@ -44,7 +43,8 @@
 ;;; 5 INSTRUCTIONS
 fetch3:	mov	ccr,wCCR	;--------------------TOP-------------------;
 fetch2:	mov	rhs, REGS(dst)	;--------------------TOP-------------------;
-fetch:	mov	wpc,next	;--------------------TOP-------------------;
+fetch:	and 	$mask23to0, wpc
+	mov	wpc, next
 	mov	WARM(next),ci
 	mov	ci, work0
 	shr	$29, work0	;high 3 condition bits in work0
@@ -204,8 +204,9 @@ mvn:	xor	$flip, rhs
 	jmp	fetch2
 
 ;;; 3 INSTRUCTION(S)
-swi:	mov	REGS(alwaysZ), work0
+swi:	mov	REGS, work0
 	trap 	rhs
+	mov	work0, REGS
 	jmp	fetch
 ;;; 12? INSTRUCTION(S)
 ldm:	mov	REGS(dst), lhs
@@ -295,7 +296,7 @@ mvnCC:	xor	$flip,rhs
 	jmp	fetch3
 swiCC:	trap	rhs
 	jmp 	fetch3
-ldmCC:
+ldmCC:	
 	
 ;;; LOAD STORE
 ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
@@ -308,7 +309,6 @@ ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
 	and	ci, work0
 	shr	$12, work0 	;work0 now has addressing mode
 	add	$1, wpc
-	and	$mask23to0, wpc	
 	mov	lsADDR(work0), rip
 ;;; -------------------p-------LOAD STORE INSTRUCTIONS--------------------------------
 ;;; ldr is weird. to get memory reference, it adds offset to the value
@@ -321,8 +321,7 @@ str:	add	REGS(lhs), rhs		;ADDITION
 	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
 	mov	REGS(dst), WARM(rhs) 	;CHANGE, we had WARM(rhs,dst)
 	jmp	fetch
-ldu:	cmp	0, rhs				;
-	jg	posldu
+ldu:	jge	posldu
 	add	REGS(lhs), rhs		;ADDITION
 	and	$mask23to0, rhs		;ADDITION:Masking, rhs now has the modified address
 	mov	WARM(rhs), REGS(dst) 	;CHANGE
@@ -335,8 +334,7 @@ posldu:	mov	REGS(lhs), work0
 	and	$mask23to0, rhs
 	mov	rhs, REGS(lhs)
 	jmp 	fetch		;this was fetch2 i dont know why
-stu:	cmp 	$0, rhs
-	jg 	posstu
+stu:	jge 	posstu
 	add	REGS(lhs), rhs
 	and	$mask23to0, rhs
 	mov 	REGS(dst), WARM(rhs)
@@ -362,8 +360,7 @@ strCC:	add	REGS(lhs), rhs		;ADDITION
 	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
 	mov	REGS(dst), WARM(rhs) 	;CHANGE, we had WARM(rhs,dst)
 	jmp	fetch3
-lduCC:	cmp	0, rhs				;
-	jg	poslduCC
+lduCC:	jg	poslduCC
 	add	REGS(lhs), rhs		;ADDITION
 	and	$mask23to0, rhs		;ADDITION:Masking, rhs now has the modified address
 	mov	WARM(rhs), REGS(dst) 	;CHANGE
@@ -377,8 +374,7 @@ poslduCC:
 	and	$mask23to0, rhs
 	mov	rhs, REGS(lhs)
 	jmp 	fetch3		;this was fetch2 i dont know why
-stuCC:	cmp 	$0, rhs
-	jg 	posstuCC
+stuCC:	jg 	posstuCC
 	add	REGS(lhs), rhs
 	and	$mask23to0, rhs
 	mov 	REGS(dst), WARM(rhs)
@@ -396,16 +392,11 @@ posstuCC:
 
 	
 ;;;  ----------------------------BEGIN BRANCHING---------------------------
-b:	add 	ci, wpc
-	and	$mask23to0, wpc
-	jmp	fetch
 bl:	mov	wpc, wlr
-	add	ci, wpc
-	and	$mask23to0, wpc
+b:	add 	ci, wpc
 	jmp	fetch
 ;;; Signed offset mode for load store
-soff:	and 	$maskLow13, rhs	;need this line?
-	shl	$18, rhs
+soff:	shl	$18, rhs
 	sar	$18, rhs 	; rhs now has the signed offset from base register
 	mov	INSTR(op), rip
 ;;; no we don't do it

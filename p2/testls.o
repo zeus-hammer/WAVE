@@ -44,10 +44,14 @@ Memory 0 5880045
 Memory 1 996bfff
 Memory 2 9068001
 Memory 3 6800401
-Memory 4 6800000
+Memory 4 9803fff
+Memory 5 6800401
+Memory 6 6800000
 Source 0         mov     r1, #69
 Source 1         stu     r2, [sp, #-1]   ;push
 Source 2         ldu     r0, [sp, #1]    ;pop
 Source 3         swi     #SysPutNum
-Source 4         swi     #SysHalt
+Source 4         stu     r0, [r0, #-1]
+Source 5         swi     #SysPutNum
+Source 6         swi     #SysHalt
 End
