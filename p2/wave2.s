@@ -349,7 +349,15 @@ FETCHT:
 	.bss	1
 	.data	fetch,fetch,fetch,fetch
 TYPE:
-	.data	ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,oDST,oDST,oRHS,ALL3,oDST,ls,ls,ls,ls,ls,0,0,0,b,b,bl,bl,0,0,0,0,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,noDST,ALL3,ALL3,0,ALL3,oDST,oDST,oRHS,ALL3,ls,ls,ls,ls,ls,ls,0,0,0,b,b,bl,bl
+	.data	ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,oDST,oDST,oRHS,ALL3,oDST,ls,ls,ls,ls,ls
+	.bss	3
+	.data	b,b,bl,bl
+	.bss	4
+	.data	ALL3,ALL3,ALL3,noDST,ALL3,ALL3,noDST,ALL3,ALL3
+	.bss	1
+	.data	ALL3,oDST,oDST,oRHS,ALL3,ls,ls,ls,ls,ls,ls
+	.bss	3
+	.data	b,b,bl,bl
 COND:
 	.data	0,never,equal,ne,lesst,lesse,greate,gt
 NEVER:

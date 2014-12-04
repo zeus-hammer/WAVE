@@ -230,17 +230,10 @@ Memory 229 126
 Memory 22a 126
 Memory 22b 126
 Memory 22c 126
-Memory 22d 0
-Memory 22e 0
-Memory 22f 0
 Memory 230 18b
 Memory 231 18b
 Memory 232 188
 Memory 233 188
-Memory 234 0
-Memory 235 0
-Memory 236 0
-Memory 237 0
 Memory 238 31
 Memory 239 31
 Memory 23a 31
@@ -250,7 +243,6 @@ Memory 23d 31
 Memory 23e 2a
 Memory 23f 31
 Memory 240 31
-Memory 241 0
 Memory 242 31
 Memory 243 36
 Memory 244 36
@@ -262,9 +254,6 @@ Memory 249 126
 Memory 24a 126
 Memory 24b 126
 Memory 24c 126
-Memory 24d 0
-Memory 24e 0
-Memory 24f 0
 Memory 250 18b
 Memory 251 18b
 Memory 252 188
