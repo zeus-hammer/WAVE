@@ -1,5 +1,5 @@
 WarmObjectFile2
-File ../tests/memory.as
+File ../tests/memory.s
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
@@ -9,11 +9,17 @@ Symbol SysPLA 7
 Symbol SysPutChar 3
 Symbol SysPutNum 4
 Symbol addres 69
+Symbol ldr1 27
+Symbol lduNEG 60
+Symbol lduPOS 39
 Symbol main 0
 Symbol multiple 1
 Symbol negupdate 48
 Symbol posupdate 32
 Symbol stdLoadStore 23
+Symbol str1 25
+Symbol stuNEG 50
+Symbol stuPOS 34
 Register a1 0
 Register a2 1
 Register a3 2
@@ -145,21 +151,21 @@ Source 15         mov     r0,#10
 Source 16         swi     #SysPutChar
 Source 17         mov     r1,#55
 Source 18         mov     r0,#0
-Source 19         str     r1,[r0,#-100]
+Source 19 str1:   str     r1,[r0,#-100]
 Source 1a         mov     r1,#0
-Source 1b         ldr     r1,[r0,#-100]
+Source 1b ldr1:   ldr     r1,[r0,#-100]
 Source 1c         mov     r0,r1
 Source 1d         swi     #SysPutNum      ; fourth value, 55
 Source 1e         mov     r0,#10
 Source 1f         swi     #SysPutChar
 Source 20         mvn     r3,#0x3f
 Source 21         mov     r1,#33
-Source 22         stu     r1,[r3,#1]
+Source 22 stuPOS: stu     r1,[r3,#1]
 Source 23         mov     r0,r1
-Source 24         swi     #SysPutNum ; fifth value, 33
+Source 24         swi     #SysPutNum      ; fifth value, 33
 Source 25         mov     r0,#10
 Source 26         swi     #SysPutChar
-Source 27         ldu     r1,[r3,#1]
+Source 27 lduPOS: ldu     r1,[r3,#1]
 Source 28         mov     r0,r1
 Source 29         swi     #SysPutNum      ; sixth value, 0
 Source 2a         mov     r0,#10
@@ -170,23 +176,23 @@ Source 2e         mov     r0,#10
 Source 2f         swi     #SysPutChar
 Source 30         mov     r2,#1
 Source 31         mov     r1,#99
-Source 32         stu     r1,[r2,#-6]
+Source 32 stuNEG: stu     r1,[r2,#-6]
 Source 33         mov     r0,r2
-Source 34         swi     #SysPutNum
+Source 34         swi     #SysPutNum      ;value 8, 16777211
 Source 35         mov     r0,#10
 Source 36         swi     #SysPutChar
 Source 37         mov     r0,r1
-Source 38         swi     #SysPutNum
-Source 39         mov     r0,#10
+Source 38         swi     #SysPutNum      ;value 9, 99
+Source 39         mov     r0,#10  
 Source 3a         swi     #SysPutChar
 Source 3b         mov     r1,#0
-Source 3c         ldu     r1,[r2,#-6]
+Source 3c lduNEG: ldu     r1,[r2,#-6]
 Source 3d         mov     r0,r2
-Source 3e         swi     #SysPutNum
+Source 3e         swi     #SysPutNum      ;value 10, 16777205
 Source 3f         mov     r0,#10
 Source 40         swi     #SysPutChar
 Source 41         mov     r0,r1
-Source 42         swi     #SysPutNum
+Source 42         swi     #SysPutNum      ;value 11, 0
 Source 43         mov     r0,#10
 Source 44         swi     #SysPutChar
 Source 45 addres: mvn     r1,#0x3f

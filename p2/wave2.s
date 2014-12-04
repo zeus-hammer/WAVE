@@ -39,7 +39,8 @@
 ;;; --------------------BEGIN FETCHING THE INSTRUCTION-------------------
 ;;; 5 INSTRUCTIONS
 fetch3:	mov	ccr,wCCR	;--------------------TOP-------------------;
-fetch2:	mov	rhs, REGS(dst)	;--------------------TOP-------------------;
+fetch2:	add	$1, wpc
+	mov	rhs, REGS(dst)	;--------------------TOP-------------------;
 fetch:	and 	$mask23to0, wpc
 	mov	wpc, next
 	mov	WARM(next),ci
@@ -89,7 +90,7 @@ imd:	mov	ci, work0
 	shr	$9, work0
 	and	$maskValue, rhs	;value
 	shl	work0, rhs	;shifted value in rhs
-	add	$1, wpc
+
 	mov     INSTR(op), rip
 ;;; Register Shifted by Immediate Mode
 rim:	mov	ci, shiftC
@@ -100,7 +101,7 @@ rim:	mov	ci, shiftC
 	shl	$22, rhs
 	shr	$28, rhs 	;now we have src reg 2 in rhs
 	mov	REGS(rhs), rhs	;rhs now has the value that was in register number rhs
-	add	$1, wpc
+
 	mov 	SHOP(work0), rip
 ;;; Register Shifted by Register Mode
 rsr:	mov	$maskLow4, shiftC	; shiftC := 15
@@ -112,7 +113,7 @@ rsr:	mov	$maskLow4, shiftC	; shiftC := 15
 	shl	$22, rhs
 	shr	$28, rhs	; rhs has rhs register
 	mov	REGS(rhs), rhs	; rhs now has whatever was stored in rhs (memory)
-	add	$1, wpc
+
 	mov	SHOP(work0), rip
 ;;; --------------------------BEGIN SHIFTING MODES-------------------------
 ;;; logical shift left
@@ -141,7 +142,6 @@ rpm:	mov	$maskLow4, work0
 	mov	REGS(rhs), rhs	; rhs now has whatever was stored in the correspondent register
 	mov	REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
 	mul	work0, rhs
-	add	$1, wpc
 ;;; -------------------------END ADDRESSING MODES-------------------
 
 
@@ -162,6 +162,7 @@ adc:	mov	wCCR, work0
 ;;; 4 INSTRUCTION(S)
 sub:	mov	REGS(lhs), work0
 	sub	rhs, work0
+	add	$1, wpc
 	mov	work0, REGS(dst)
 	mov	FETCHT(op), rip
 ;;; 2 INSTRUCTION(S)
@@ -179,6 +180,7 @@ mul:	mul	REGS(lhs), rhs
 ;;; 4 INSTRUCTION(S)
 div:	mov 	REGS(lhs), work0
 	div	rhs, work0
+	add	$1, wpc
 	mov	work0, REGS(dst)
 	mov	FETCHT(op), rip
 ;;; 1 INSTRUCTION(S)
@@ -189,10 +191,12 @@ mvn:	xor	$flip, rhs
 ;;; 3 INSTRUCTION(S)
 swi:	mov	REGS, work0
 	trap 	rhs
+	add	$1, wpc
 	mov	work0, REGS
 	mov	FETCHT(op), rip
 ;;; 12? INSTRUCTION(S)
 ldm:	mov	REGS(dst), lhs
+	add	$1, wpc
 	and	$mask23to0, lhs	;lhs is base register
 	mov	$0, work0 	;work0 holds reg number
 	test	$1, rhs
@@ -232,6 +236,7 @@ sloading:
 	cmp 	$0, rhs
 	jne 	sshifting
 STMdone:
+	add	$1, wpc
 	mov	lhs, REGS(dst)
 	mov	FETCHT(op), rip
 
@@ -264,22 +269,26 @@ ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
 ;;;	in the program counter.
 ldr:	add	REGS(lhs), rhs		;ADDITION, might be able to do this in the preparation so we dont have to type it a bunch of times
 	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
-	mov	WARM(rhs), REGS(dst) 	;changed WARM(lhs, rhs) to WARM(rhs)
-	mov	FETCHT(op), rip
+	mov	WARM(rhs), REGS(dst)
+ 	add	$1, wpc			;changed WARM(lhs, rhs) to WARM(rhs)
+	jmp 	fetch
 str:	add	REGS(lhs), rhs		;ADDITION
 	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
 	mov	REGS(dst), WARM(rhs) 	;CHANGE, we had WARM(rhs,dst)
-	mov	FETCHT(op), rip
+	add 	$1, wpc
+	jmp	fetch
 ldu:	jge	posldu
 	add	REGS(lhs), rhs		;ADDITION
-	and	$mask23to0, rhs		;ADDITION:Masking, rhs now has the modified address
+	and	$mask23to0, rhs
+	add	$1, wpc			;ADDITION:Masking, rhs now has the modified address
 	mov	WARM(rhs), REGS(dst) 	;CHANGE
 	mov	rhs, REGS(lhs)
 	mov	FETCHT(op), rip
 posldu:	mov	REGS(lhs), work0
 	and	$mask23to0, work0
-	mov	WARM(work0), REGS(dst) ;load base register
 	add	REGS(lhs), rhs
+	add	$1, wpc
+	mov	WARM(work0), REGS(dst) ;load base register
 	and	$mask23to0, rhs
 	mov	rhs, REGS(lhs)
 	mov	FETCHT(op), rip		;this was fetch2 i dont know why
@@ -287,17 +296,20 @@ stu:	jge 	posstu
 	add	REGS(lhs), rhs
 	and	$mask23to0, rhs
 	mov 	REGS(dst), WARM(rhs)
+	add	$1, wpc
 	mov 	rhs, REGS(lhs)
 	mov	FETCHT(op), rip
 posstu:	mov	REGS(lhs), work0
 	and	$mask23to0, work0 ;warm has effective address
 	mov 	REGS(dst), WARM(work0)
+	add	$1, wpc
 	add	work0, rhs
 	and	$mask23to0, rhs
 	mov	rhs, REGS(lhs)
 	mov	FETCHT(op), rip	
 adr:	add	REGS(lhs), rhs
 	and	$mask23to0, rhs
+	add	$1, wpc
 	mov	rhs, REGS(dst)
 	mov	FETCHT(op), rip
 ;;; ------------------------------END LOAD STORE--------------------------
@@ -310,7 +322,6 @@ b:	add 	ci, wpc
 ;;; Signed offset mode for load store
 soff:	shl	$18, rhs
 	sar	$18, rhs 	; rhs now has the signed offset from base register
-	add 	$1, wpc
 	mov	INSTR(op), rip
 ;;; no we don't do it
 no:	add	$1, wpc
