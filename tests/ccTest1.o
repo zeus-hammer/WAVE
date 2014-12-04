@@ -1,5 +1,5 @@
 WarmObjectFile2
-File ccTest1.s
+File ../tests/ccTest1.s
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2

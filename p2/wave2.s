@@ -20,7 +20,6 @@
 	.equ	mask23to0, 0xffffff
 	.equ	maskLow13, 0x3fff
 
-	lea	REGS, work0
 	lea	WARM, work0
 	trap	$SysOverlay
 
@@ -151,47 +150,47 @@ rpm:	mov	$maskLow4, work0
 ;;; -------------------------BEGIN OPERATIONS------------------------
 ;;; 2 INSTRUCTION(S)
 add:	add	REGS(lhs), rhs
-	jmp 	fetch2
+	mov	FETCHT(op), rip
 ;;; 6 INSTRUCTION(S)
 adc:	mov	wCCR, work0
 	shr	$2, work0
 	shl	$31, work0
 	add	REGS(lhs), rhs
 	add	work0, rhs
-	jmp	fetch2
+	mov	FETCHT(op), rip
 ;;; backwards (like div)
 ;;; 4 INSTRUCTION(S)
 sub:	mov	REGS(lhs), work0
 	sub	rhs, work0
 	mov	work0, REGS(dst)
-	jmp 	fetch
+	mov	FETCHT(op), rip
 ;;; 2 INSTRUCTION(S)
 eor:	xor	REGS(lhs), rhs
-	jmp 	fetch2
+	mov	FETCHT(op), rip
 ;;; 2 INSTRUCTION(S)	
 orr:	or	REGS(lhs), rhs
-	jmp	fetch2
+	mov	FETCHT(op), rip
 ;;; 2 INSTRUCTION(S)	
 and:	and	REGS(lhs), rhs
-	jmp 	fetch2
+	mov	FETCHT(op), rip
 ;;; 2 INSTRUCTION(S)	
 mul:	mul	REGS(lhs), rhs
-	jmp	fetch2
+	mov	FETCHT(op), rip
 ;;; 4 INSTRUCTION(S)
 div:	mov 	REGS(lhs), work0
 	div	rhs, work0
 	mov	work0, REGS(dst)
-	jmp	fetch
+	mov	FETCHT(op), rip
 ;;; 1 INSTRUCTION(S)
-mov:	jmp 	fetch2
+mov:	mov	FETCHT(op), rip
 ;;; 2 INSTRUCTION(S)	
 mvn:	xor	$flip, rhs
-	jmp	fetch2
+	mov	FETCHT(op), rip
 ;;; 3 INSTRUCTION(S)
 swi:	mov	REGS, work0
 	trap 	rhs
 	mov	work0, REGS
-	jmp	fetch
+	mov	FETCHT(op), rip
 ;;; 12? INSTRUCTION(S)
 ldm:	mov	REGS(dst), lhs
 	and	$mask23to0, lhs	;lhs is base register
@@ -212,7 +211,7 @@ lloading:
 ;;; when LDMdone, if base register popped, do nothing. Otherwise increment.
 LDMdone:
 	mov	lhs, REGS(dst)
-	jmp 	fetch
+	mov	FETCHT(op), rip
 ;;; 18? INSTRUCTION(S)
 stm:	mov	wCCR, work0
 	shl	$24, work0
@@ -234,50 +233,20 @@ sloading:
 	jne 	sshifting
 STMdone:
 	mov	lhs, REGS(dst)
-	jmp 	fetch
-;;; second set of instrucions. for use when we don't 
-addCC:	add	REGS(lhs), rhs
-	jmp 	fetch3
-adcCC:	mov	wCCR, work0
-	shr	$2, work0
-	shl	$31, work0
-	add	REGS(lhs), rhs
-	add	work0, rhs
-	jmp	fetch3
-;;; backwards (like div)
-subCC:	mov	REGS(lhs), work0
+	mov	FETCHT(op), rip
+
+cmpCC:	mov	REGS(lhs), work0
 	sub	rhs, work0
-	mov	ccr,wCCR
-	mov	work0, REGS(dst)
-	jmp 	fetch
-cmpCC:	mov 	REGS(lhs), work0
-	sub 	rhs, work0
 	mov	ccr, wCCR
-	jmp 	fetch
-eorCC:	xor	REGS(lhs), rhs
-	jmp 	fetch3
-orrCC:	or	REGS(lhs), rhs
-	jmp	fetch3
-andCC:	and	REGS(lhs), rhs
-	jmp 	fetch3
+	jmp	fetch
+
 tstCC:	test	REGS(lhs), rhs
 	jmp	fetch3
-mulCC:	mul	REGS(lhs), rhs
-	jmp	fetch3
-divCC:	mov 	REGS(lhs), work0
-	div	rhs, work0
-	mov	ccr,wCCR		
-	mov	work0, REGS(dst)
-	jmp	fetch
+	
 movCC:	mov	rhs, REGS(dst)
- 	and	rhs,rhs
-	mov	ccr,wCCR			
+	and	rhs, rhs
+	mov	ccr, wCCR
 	jmp	fetch
-mvnCC:	xor	$flip,rhs
-	jmp	fetch3
-swiCC:	trap	rhs
-	jmp 	fetch3
-ldmCC:	
 	
 ;;; LOAD STORE
 ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
@@ -296,81 +265,44 @@ ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
 ldr:	add	REGS(lhs), rhs		;ADDITION, might be able to do this in the preparation so we dont have to type it a bunch of times
 	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
 	mov	WARM(rhs), REGS(dst) 	;changed WARM(lhs, rhs) to WARM(rhs)
-	jmp 	fetch
+	mov	FETCHT(op), rip
 str:	add	REGS(lhs), rhs		;ADDITION
 	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
 	mov	REGS(dst), WARM(rhs) 	;CHANGE, we had WARM(rhs,dst)
-	jmp	fetch
+	mov	FETCHT(op), rip
 ldu:	jge	posldu
 	add	REGS(lhs), rhs		;ADDITION
 	and	$mask23to0, rhs		;ADDITION:Masking, rhs now has the modified address
 	mov	WARM(rhs), REGS(dst) 	;CHANGE
 	mov	rhs, REGS(lhs)
-	jmp 	fetch
+	mov	FETCHT(op), rip
 posldu:	mov	REGS(lhs), work0
 	and	$mask23to0, work0
 	mov	WARM(work0), REGS(dst) ;load base register
 	add	REGS(lhs), rhs
 	and	$mask23to0, rhs
 	mov	rhs, REGS(lhs)
-	jmp 	fetch		;this was fetch2 i dont know why
+	mov	FETCHT(op), rip		;this was fetch2 i dont know why
 stu:	jge 	posstu
 	add	REGS(lhs), rhs
 	and	$mask23to0, rhs
 	mov 	REGS(dst), WARM(rhs)
 	mov 	rhs, REGS(lhs)
-	jmp 	fetch
+	mov	FETCHT(op), rip
 posstu:	mov	REGS(lhs), work0
 	and	$mask23to0, work0 ;warm has effective address
 	mov 	REGS(dst), WARM(work0)
 	add	work0, rhs
 	and	$mask23to0, rhs
 	mov	rhs, REGS(lhs)
-	jmp 	fetch
+	mov	FETCHT(op), rip	
 adr:	add	REGS(lhs), rhs
 	and	$mask23to0, rhs
 	mov	rhs, REGS(dst)
-	jmp	fetch
-;;; CONDITION CODES
-ldrCC:	add	REGS(lhs), rhs		;ADDITION, might be able to do this in the preparation so we dont have to type it a bunch of times
-	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
-	mov	WARM(rhs), REGS(dst) 	;changed WARM(lhs, rhs) to WARM(rhs)
-	jmp 	fetch3
-strCC:	add	REGS(lhs), rhs		;ADDITION
-	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
-	mov	REGS(dst), WARM(rhs) 	;CHANGE, we had WARM(rhs,dst)
-	jmp	fetch3
-lduCC:	jg	poslduCC
-	add	REGS(lhs), rhs		;ADDITION
-	and	$mask23to0, rhs		;ADDITION:Masking, rhs now has the modified address
-	mov	WARM(rhs), REGS(dst) 	;CHANGE
-	mov	rhs, REGS(lhs)
-	jmp 	fetch3
-poslduCC:
-	mov	REGS(lhs), work0
-	and	$mask23to0, work0
-	mov	WARM(work0), REGS(dst) ;load base register
-	add	REGS(lhs), rhs
-	and	$mask23to0, rhs
-	mov	rhs, REGS(lhs)
-	jmp 	fetch3		;this was fetch2 i dont know why
-stuCC:	jg 	posstuCC
-	add	REGS(lhs), rhs
-	and	$mask23to0, rhs
-	mov 	REGS(dst), WARM(rhs)
-	mov 	rhs, REGS(lhs)
-	jmp 	fetch3
-posstuCC:
-	mov	REGS(lhs), work0
-	and	$mask23to0, work0 ;warm has effective address
-	mov 	REGS(dst), WARM(work0)
-	add	work0, rhs
-	and	$mask23to0, rhs
-	mov	rhs, REGS(lhs)
-	jmp 	fetch3
+	mov	FETCHT(op), rip
 ;;; ------------------------------END LOAD STORE--------------------------
 
-	
+
 ;;;  ----------------------------BEGIN BRANCHING--------------------------
 bl:	mov	wpc, wlr
 b:	add 	ci, wpc
@@ -391,7 +323,31 @@ wlr:
 wpc:
 	.data	0
 INSTR:
-	.data 	add,adc,sub,0,eor,orr,and,0,mul,0,div,mov,mvn,swi,ldm,stm,ldr,str,ldu,stu,adr,0,0,0,0,0,0,0,0,0,0,0,addCC,adcCC,subCC,cmpCC,eorCC,orrCC,andCC,tstCC,mulCC,0,divCC,movCC,mvnCC,swiCC,ldmCC,0,ldrCC,strCC,lduCC,stuCC
+	.data 	add,adc,sub
+	.bss	1
+	.data	eor,orr,and
+	.bss	1
+	.data	mul
+	.bss	1
+	.data	div,mov,mvn,swi,ldm,stm,ldr,str,ldu,stu,adr
+	.bss	11
+	.data	add,adc,sub,cmpCC,eor,orr,and,tstCC,mul
+	.bss	1
+	.data	div,movCC,mvn,swi,ldm
+	.bss	1
+	.data	ldr,str,ldu,stu
+FETCHT:
+	.data	fetch2,fetch2,fetch
+	.bss	1
+	.data	fetch2,fetch2,fetch2
+	.bss	1
+	.data	fetch2,fetch2,fetch,fetch2,fetch2,fetch,fetch,fetch,fetch,fetch,fetch,fetch,fetch
+	.bss	11
+	.data	fetch3,fetch3,fetch,fetch,fetch3,fetch3,fetch3,fetch3,fetch3,
+	.bss	1
+	.data	fetch,fetch,fetch3,fetch3,fetch,
+	.bss	1
+	.data	fetch,fetch,fetch,fetch
 TYPE:
 	.data	ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,oDST,oDST,oRHS,ALL3,oDST,ls,ls,ls,ls,ls,0,0,0,b,b,bl,bl,0,0,0,0,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,noDST,ALL3,ALL3,0,ALL3,oDST,oDST,oRHS,ALL3,ls,ls,ls,ls,ls,ls,0,0,0,b,b,bl,bl
 COND:
