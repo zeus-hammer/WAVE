@@ -54,32 +54,35 @@ Memory a 5804080
 Memory b 6800401
 Memory c 5800205
 Memory d 6800003
-Memory e 7800007
-Memory f 6800401
-Memory 10 5880000
-Memory 11 5804040
-Memory 12 6800401
-Memory 13 5800205
-Memory 14 6800003
-Memory 15 5900000
-Memory 16 5804080
-Memory 17 6800401
-Memory 18 5800205
-Memory 19 6800003
-Memory 1a 5800061
-Memory 1b 7000007
-Memory 1c 6800401
-Memory 1d 5800205
-Memory 1e 6800003
-Memory 1f 5804040
-Memory 20 6800401
-Memory 21 5800205
-Memory 22 6800003
-Memory 23 5804080
-Memory 24 6800401
-Memory 25 5800205
-Memory 26 6800003
-Memory 27 6800000
+Memory e 5800419
+Memory f 7800007
+Memory 10 6800401
+Memory 11 5800205
+Memory 12 6800003
+Memory 13 5880000
+Memory 14 5804040
+Memory 15 6800401
+Memory 16 5800205
+Memory 17 6800003
+Memory 18 5900000
+Memory 19 5804080
+Memory 1a 6800401
+Memory 1b 5800205
+Memory 1c 6800003
+Memory 1d 5800061
+Memory 1e 7000203
+Memory 1f 6800401
+Memory 20 5800205
+Memory 21 6800003
+Memory 22 5804040
+Memory 23 6800401
+Memory 24 5800205
+Memory 25 6800003
+Memory 26 5804080
+Memory 27 6800401
+Memory 28 5800205
+Memory 29 6800003
+Memory 2a 6800000
 Source 0         mov     r0, #100
 Source 1         swi     #SysPutNum
 Source 2         mov     r0, #'\n
@@ -94,30 +97,33 @@ Source a         mov     r0, r2
 Source b         swi     #SysPutNum
 Source c         mov     r0, #'\n
 Source d         swi     #SysPutChar
-Source e         stm     r0, #7
-Source f         swi     #SysPutNum
-Source 10         mov     r1, #0
-Source 11         mov     r0, r1
-Source 12         swi     #SysPutNum
-Source 13         mov     r0, #'\n
-Source 14         swi     #SysPutChar
-Source 15         mov     r2, #0
-Source 16         mov     r0, r2
-Source 17         swi     #SysPutNum
-Source 18         mov     r0, #'\n
-Source 19         swi     #SysPutChar
-Source 1a         mov     r0, #97
-Source 1b         ldm     r0, #7
-Source 1c         swi     #SysPutNum
-Source 1d         mov     r0, #'\n
-Source 1e         swi     #SysPutChar
-Source 1f         mov     r0, r1
-Source 20         swi     #SysPutNum
-Source 21         mov     r0, #'\n
-Source 22         swi     #SysPutChar
-Source 23         mov     r0, r2
-Source 24         swi     #SysPutNum
-Source 25         mov     r0, #'\n
-Source 26         swi     #SysPutChar
-Source 27         swi     #SysHalt
+Source e         mov     r0, #100
+Source f         stm     r0, #7
+Source 10         swi     #SysPutNum
+Source 11         mov     r0, #'\n
+Source 12         swi     #SysPutChar
+Source 13         mov     r1, #0
+Source 14         mov     r0, r1  
+Source 15         swi     #SysPutNum
+Source 16         mov     r0, #'\n
+Source 17         swi     #SysPutChar
+Source 18         mov     r2, #0
+Source 19         mov     r0, r2
+Source 1a         swi     #SysPutNum
+Source 1b         mov     r0, #'\n
+Source 1c         swi     #SysPutChar
+Source 1d         mov     r0, #97
+Source 1e         ldm     r0, #6
+Source 1f         swi     #SysPutNum
+Source 20         mov     r0, #'\n
+Source 21         swi     #SysPutChar
+Source 22         mov     r0, r1
+Source 23         swi     #SysPutNum
+Source 24         mov     r0, #'\n
+Source 25         swi     #SysPutChar
+Source 26         mov     r0, r2
+Source 27         swi     #SysPutNum
+Source 28         mov     r0, #'\n
+Source 29         swi     #SysPutChar
+Source 2a         swi     #SysHalt
 End

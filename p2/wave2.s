@@ -211,22 +211,25 @@ swi:	mov	REGS(alwaysZ), work0
 ldm:	mov	REGS(dst), lhs
 	and	$mask23to0, lhs	;lhs is base register
 	mov	$0, work0 	;work0 holds reg number
-	cmp	$0, rhs
-	jg	lloading
+	test	$1, rhs
+	jne	lloading
 lshifting:
 	add	$1, work0
 	shr	$1, rhs
-	jne	lloading
 	je	LDMdone
+	test	$1, rhs
+	jne	lloading
+	jmp	lshifting
 lloading:
-	mov	WARM(lhs), REGS(work0)
 	add	$1, lhs
-	cmp	$0, rhs
-	jne	lshifting
+	mov	WARM(lhs), REGS(work0)
+	jmp	lshifting
+;;; when LDMdone, if base register popped, do nothing. Otherwise increment.
 LDMdone:
- 	mov 	wpc, work0
+	mov	lhs, REGS(dst)
+	mov 	wpc, work0
 	shr	$24, work0
- 	mov 	work0, wCCR
+	mov 	work0, wCCR
 	jmp 	fetch
 ;;; 18? INSTRUCTION(S)
 stm:	mov	wCCR, work0
@@ -243,8 +246,8 @@ sshifting:
 	jg 	sshifting	;is the next bit set?
 	je	STMdone
 sloading:
-	sub	$1, lhs
 	mov	REGS(work0), WARM(lhs)
+	sub	$1, lhs
 	cmp 	$0, rhs
 	jne 	sshifting
 STMdone:
