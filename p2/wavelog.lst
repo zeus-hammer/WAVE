@@ -1,1001 +1,143 @@
 Debugging.  Type "help" for more help. 
-[0x0]	         lea     WARM,work0
-[0x2]	         trap    $SysOverlay
-[0x4]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x2c]	 ALL3:   mov     ci, lhs         ;get dst and lhs
-[0x2d]	         shr     $15, lhs
-[0x2f]	         and     $maskLow4, lhs
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x56]	 rim:    mov     ci, shiftC
-[0x57]	         and     $maskShift, shiftC      ;shift count has the bits number to shift
-[0x59]	         mov     ci, work0
-[0x5a]	         shl     $20, work0
-[0x5c]	         shr     $30, work0      ;work0 now has the shop
-[0x5e]	         shl     $22, rhs
-[0x60]	         shr     $28, rhs        ;now we have src reg 2 in rhs
-[0x62]	         mov     REGS(rhs), rhs  ;rhs now has the value that was in register number rhs
-[0x64]	         mov     SHOP(work0), rip
-[0x78]	 lsl:    shl     shiftC, rhs
-[0x79]	         mov     INSTR(op), rip
-[0x9a]	 adc:    mov     wCCR, work0
-[0x9b]	         shr     $2, work0
-[0x9d]	         shl     $31, work0
-[0x9f]	         add     REGS(lhs), rhs
-[0xa1]	         add     work0, rhs
-[0xa2]	         jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc8]	 swi:    mov     REGS(alwaysZ), work0
-[0xca]	         trap    rhs
-[0xcb]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc2]	 mov:    jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc8]	 swi:    mov     REGS(alwaysZ), work0
-[0xca]	         trap    rhs
-[0xcb]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc2]	 mov:    jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x56]	 rim:    mov     ci, shiftC
-[0x57]	         and     $maskShift, shiftC      ;shift count has the bits number to shift
-[0x59]	         mov     ci, work0
-[0x5a]	         shl     $20, work0
-[0x5c]	         shr     $30, work0      ;work0 now has the shop
-[0x5e]	         shl     $22, rhs
-[0x60]	         shr     $28, rhs        ;now we have src reg 2 in rhs
-[0x62]	         mov     REGS(rhs), rhs  ;rhs now has the value that was in register number rhs
-[0x64]	         mov     SHOP(work0), rip
-[0x78]	 lsl:    shl     shiftC, rhs
-[0x79]	         mov     INSTR(op), rip
-[0xc2]	 mov:    jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc8]	 swi:    mov     REGS(alwaysZ), work0
-[0xca]	         trap    rhs
-[0xcb]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc2]	 mov:    jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc8]	 swi:    mov     REGS(alwaysZ), work0
-[0xca]	         trap    rhs
-[0xcb]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc2]	 mov:    jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x56]	 rim:    mov     ci, shiftC
-[0x57]	         and     $maskShift, shiftC      ;shift count has the bits number to shift
-[0x59]	         mov     ci, work0
-[0x5a]	         shl     $20, work0
-[0x5c]	         shr     $30, work0      ;work0 now has the shop
-[0x5e]	         shl     $22, rhs
-[0x60]	         shr     $28, rhs        ;now we have src reg 2 in rhs
-[0x62]	         mov     REGS(rhs), rhs  ;rhs now has the value that was in register number rhs
-[0x64]	         mov     SHOP(work0), rip
-[0x78]	 lsl:    shl     shiftC, rhs
-[0x79]	         mov     INSTR(op), rip
-[0xc2]	 mov:    jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x2c]	 ALL3:   mov     ci, lhs         ;get dst and lhs
-[0x2d]	         shr     $15, lhs
-[0x2f]	         and     $maskLow4, lhs
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x56]	 rim:    mov     ci, shiftC
-[0x57]	         and     $maskShift, shiftC      ;shift count has the bits number to shift
-[0x59]	         mov     ci, work0
-[0x5a]	         shl     $20, work0
-[0x5c]	         shr     $30, work0      ;work0 now has the shop
-[0x5e]	         shl     $22, rhs
-[0x60]	         shr     $28, rhs        ;now we have src reg 2 in rhs
-[0x62]	         mov     REGS(rhs), rhs  ;rhs now has the value that was in register number rhs
-[0x64]	         mov     SHOP(work0), rip
-[0x78]	 lsl:    shl     shiftC, rhs
-[0x79]	         mov     INSTR(op), rip
-[0x96]	 add:    add     REGS(lhs), rhs
-[0x98]	         jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc8]	 swi:    mov     REGS(alwaysZ), work0
-[0xca]	         trap    rhs
-[0xcb]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc2]	 mov:    jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc8]	 swi:    mov     REGS(alwaysZ), work0
-[0xca]	         trap    rhs
-[0xcb]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc2]	 mov:    jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x2c]	 ALL3:   mov     ci, lhs         ;get dst and lhs
-[0x2d]	         shr     $15, lhs
-[0x2f]	         and     $maskLow4, lhs
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x56]	 rim:    mov     ci, shiftC
-[0x57]	         and     $maskShift, shiftC      ;shift count has the bits number to shift
-[0x59]	         mov     ci, work0
-[0x5a]	         shl     $20, work0
-[0x5c]	         shr     $30, work0      ;work0 now has the shop
-[0x5e]	         shl     $22, rhs
-[0x60]	         shr     $28, rhs        ;now we have src reg 2 in rhs
-[0x62]	         mov     REGS(rhs), rhs  ;rhs now has the value that was in register number rhs
-[0x64]	         mov     SHOP(work0), rip
-[0x78]	 lsl:    shl     shiftC, rhs
-[0x79]	         mov     INSTR(op), rip
-[0x96]	 add:    add     REGS(lhs), rhs
-[0x98]	         jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc8]	 swi:    mov     REGS(alwaysZ), work0
-[0xca]	         trap    rhs
-[0xcb]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc2]	 mov:    jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc8]	 swi:    mov     REGS(alwaysZ), work0
-[0xca]	         trap    rhs
-[0xcb]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc2]	 mov:    jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x2c]	 ALL3:   mov     ci, lhs         ;get dst and lhs
-[0x2d]	         shr     $15, lhs
-[0x2f]	         and     $maskLow4, lhs
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xbb]	 div:    mov     REGS(lhs), work0
-[0xbd]	         div     rhs, work0
-[0xbe]	         mov     work0, REGS(dst)
-[0xc0]	         jmp     fetch   
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc8]	 swi:    mov     REGS(alwaysZ), work0
-[0xca]	         trap    rhs
-[0xcb]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc2]	 mov:    jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc8]	 swi:    mov     REGS(alwaysZ), work0
-[0xca]	         trap    rhs
-[0xcb]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc4]	 mvn:    xor     $flip, rhs
-[0xc6]	         jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x2c]	 ALL3:   mov     ci, lhs         ;get dst and lhs
-[0x2d]	         shr     $15, lhs
-[0x2f]	         and     $maskLow4, lhs
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0x96]	 add:    add     REGS(lhs), rhs
-[0x98]	         jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc4]	 mvn:    xor     $flip, rhs
-[0xc6]	         jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x2c]	 ALL3:   mov     ci, lhs         ;get dst and lhs
-[0x2d]	         shr     $15, lhs
-[0x2f]	         and     $maskLow4, lhs
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x56]	 rim:    mov     ci, shiftC
-[0x57]	         and     $maskShift, shiftC      ;shift count has the bits number to shift
-[0x59]	         mov     ci, work0
-[0x5a]	         shl     $20, work0
-[0x5c]	         shr     $30, work0      ;work0 now has the shop
-[0x5e]	         shl     $22, rhs
-[0x60]	         shr     $28, rhs        ;now we have src reg 2 in rhs
-[0x62]	         mov     REGS(rhs), rhs  ;rhs now has the value that was in register number rhs
-[0x64]	         mov     SHOP(work0), rip
-[0x78]	 lsl:    shl     shiftC, rhs
-[0x79]	         mov     INSTR(op), rip
-[0xb7]	 mul:    mul     REGS(lhs), rhs
-[0xb9]	         jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc8]	 swi:    mov     REGS(alwaysZ), work0
-[0xca]	         trap    rhs
-[0xcb]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc2]	 mov:    jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc8]	 swi:    mov     REGS(alwaysZ), work0
-[0xca]	         trap    rhs
-[0xcb]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc4]	 mvn:    xor     $flip, rhs
-[0xc6]	         jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc4]	 mvn:    xor     $flip, rhs
-[0xc6]	         jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc2]	 mov:    jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x2c]	 ALL3:   mov     ci, lhs         ;get dst and lhs
-[0x2d]	         shr     $15, lhs
-[0x2f]	         and     $maskLow4, lhs
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x8a]	 rpm:    mov     $maskLow4, work0
-[0x8c]	         and     ci, work0       ;work0 now has src reg 3
-[0x8d]	         shl     $22, rhs
-[0x8f]	         shr     $28, rhs        ; rhs now has src reg 2
-[0x91]	         mov     REGS(rhs), rhs  ; rhs now has whatever was stored in the correspondent register
-[0x93]	         mov     REGS(work0), work0 ;work0 now has whatever was stored in the correspondent register
-[0x95]	         mul     work0, rhs
-[0x96]	 add:    add     REGS(lhs), rhs
-[0x98]	         jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc8]	 swi:    mov     REGS(alwaysZ), work0
-[0xca]	         trap    rhs
-[0xcb]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc2]	 mov:    jmp     fetch2
-[0x7]	 fetch2: mov     rhs, REGS(dst)  ;----------------------------TOP-------------------;
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x4c]	 imd:    mov     ci, work0
-[0x4d]	         and     $maskExp, work0 ;exponent
-[0x4f]	         shr     $9, work0
-[0x51]	         and     $maskValue, rhs ;value
-[0x53]	         shl     work0, rhs      ;shifted value in rhs
-[0x54]	         mov     INSTR(op), rip
-[0xc8]	 swi:    mov     REGS(alwaysZ), work0
-[0xca]	         trap    rhs
-[0xcb]	         jmp     fetch
-[0x9]	 fetch:  mov     WARM(wpc),ci    ;----------------------------TOP-------------------;
-[0xb]	         mov     ci, work0
-[0xc]	         shr     $29, work0      ;high 3 condition bits in work0
-[0xe]	         cmovg   COND(work0), rip
-[0x10]	 getop:  mov     ci,op
-[0x11]	         shl     $3,op
-[0x13]	         shr     $26,op
-[0x15]	         mov     TYPE(op), rip
-[0x31]	 oDST:   mov     ci, dst
-[0x32]	         shr     $19, dst
-[0x34]	         and     $maskLow4, dst
-[0x36]	 oRHS:   mov     $maskA, work0
-[0x38]	         and     ci,work0
-[0x39]	         shr     $12, work0      ;work 0 holds the addressing mode
-[0x3b]	         add     $1, wpc
-[0x3d]	         mov     ADDR(work0), rip
-[0x56]	 rim:    mov     ci, shiftC
-[0x57]	         and     $maskShift, shiftC      ;shift count has the bits number to shift
-[0x59]	         mov     ci, work0
-[0x5a]	         shl     $20, work0
-[0x5c]	         shr     $30, work0      ;work0 now has the shop
+[0x0]	         lea     wpc, work0
+[0x2]	         lea     REGS, work0
+[0x4]	         lea     WARM, work0
+[0x6]	         trap    $SysOverlay
+[0x8]	         jmp     fetch
+[0xd]	 fetch:  mov     wpc,next        ;--------------------TOP-------------------;
+[0xf]	         mov     WARM(next),ci
+[0x11]	         mov     ci, work0
+[0x12]	         shr     $29, work0      ;high 3 condition bits in work0
+[0x14]	         cmovg   COND(work0), rip
+[0x16]	 getop:  mov     ci,op
+[0x17]	         shl     $3,op
+[0x19]	         shr     $26,op
+[0x1b]	         mov     TYPE(op), rip
+[0x37]	 oDST:   mov     ci, dst
+[0x38]	         shr     $19, dst
+[0x3a]	         and     $maskLow4, dst
+[0x3c]	 oRHS:   mov     $maskA, work0
+[0x3e]	         and     ci,work0
+[0x3f]	         shr     $12, work0      ;work 0 holds the addressing mode
+[0x41]	         mov     ADDR(work0), rip
+[0x43]	 imd:    mov     ci, work0
+[0x44]	         and     $maskExp, work0 ;exponent
+[0x46]	         shr     $9, work0
+[0x48]	         and     $maskValue, rhs ;value
+[0x4a]	         shl     work0, rhs      ;shifted value in rhs
+[0x4b]	         add     $1, wpc
+[0x4e]	         and     $mask23to0, wpc
+[0x51]	         mov     INSTR(op), rip
+[0x15c]	 movCC:  mov     rhs, REGS(dst)
+[0x15e]	         and     rhs,rhs
+[0x15f]	         mov     ccr,wCCR                        
+[0x160]	         jmp     fetch
+[0xd]	 fetch:  mov     wpc,next        ;--------------------TOP-------------------;
+[0xf]	         mov     WARM(next),ci
+[0x11]	         mov     ci, work0
+[0x12]	         shr     $29, work0      ;high 3 condition bits in work0
+[0x14]	         cmovg   COND(work0), rip
+[0x21]	 ne:     mov     NE(wCCR),rip
+[0x23b]	 no:     add     $1, wpc
+[0x23e]	         and     $mask23to0, wpc
+[0x241]	         jmp     fetch
+[0xd]	 fetch:  mov     wpc,next        ;--------------------TOP-------------------;
+[0xf]	         mov     WARM(next),ci
+[0x11]	         mov     ci, work0
+[0x12]	         shr     $29, work0      ;high 3 condition bits in work0
+[0x14]	         cmovg   COND(work0), rip
+[0x16]	 getop:  mov     ci,op
+[0x17]	         shl     $3,op
+[0x19]	         shr     $26,op
+[0x1b]	         mov     TYPE(op), rip
+[0x37]	 oDST:   mov     ci, dst
+[0x38]	         shr     $19, dst
+[0x3a]	         and     $maskLow4, dst
+[0x3c]	 oRHS:   mov     $maskA, work0
+[0x3e]	         and     ci,work0
+[0x3f]	         shr     $12, work0      ;work 0 holds the addressing mode
+[0x41]	         mov     ADDR(work0), rip
+[0x43]	 imd:    mov     ci, work0
+[0x44]	         and     $maskExp, work0 ;exponent
+[0x46]	         shr     $9, work0
+[0x48]	         and     $maskValue, rhs ;value
+[0x4a]	         shl     work0, rhs      ;shifted value in rhs
+[0x4b]	         add     $1, wpc
+[0x4e]	         and     $mask23to0, wpc
+[0x51]	         mov     INSTR(op), rip
+[0x15c]	 movCC:  mov     rhs, REGS(dst)
+[0x15e]	         and     rhs,rhs
+[0x15f]	         mov     ccr,wCCR                        
+[0x160]	         jmp     fetch
+[0xd]	 fetch:  mov     wpc,next        ;--------------------TOP-------------------;
+[0xf]	         mov     WARM(next),ci
+[0x11]	         mov     ci, work0
+[0x12]	         shr     $29, work0      ;high 3 condition bits in work0
+[0x14]	         cmovg   COND(work0), rip
+[0x16]	 getop:  mov     ci,op
+[0x17]	         shl     $3,op
+[0x19]	         shr     $26,op
+[0x1b]	         mov     TYPE(op), rip
+[0x222]	 b:      add     ci, wpc
+[0x224]	         and     $mask23to0, wpc
+[0x227]	         jmp     fetch
+[0xd]	 fetch:  mov     wpc,next        ;--------------------TOP-------------------;
+[0xf]	         mov     WARM(next),ci
+[0x11]	         mov     ci, work0
+[0x12]	         shr     $29, work0      ;high 3 condition bits in work0
+[0x14]	         cmovg   COND(work0), rip
+[0x21]	 ne:     mov     NE(wCCR),rip
+[0x16]	 getop:  mov     ci,op
+[0x17]	         shl     $3,op
+[0x19]	         shr     $26,op
+[0x1b]	         mov     TYPE(op), rip
+[0x222]	 b:      add     ci, wpc
+[0x224]	         and     $mask23to0, wpc
+[0x227]	         jmp     fetch
+[0xd]	 fetch:  mov     wpc,next        ;--------------------TOP-------------------;
+[0xf]	         mov     WARM(next),ci
+[0x11]	         mov     ci, work0
+[0x12]	         shr     $29, work0      ;high 3 condition bits in work0
+[0x14]	         cmovg   COND(work0), rip
+[0x16]	 getop:  mov     ci,op
+[0x17]	         shl     $3,op
+[0x19]	         shr     $26,op
+[0x1b]	         mov     TYPE(op), rip
+[0x3c]	 oRHS:   mov     $maskA, work0
+[0x3e]	         and     ci,work0
+[0x3f]	         shr     $12, work0      ;work 0 holds the addressing mode
+[0x41]	         mov     ADDR(work0), rip
+[0x43]	 imd:    mov     ci, work0
+[0x44]	         and     $maskExp, work0 ;exponent
+[0x46]	         shr     $9, work0
+[0x48]	         and     $maskValue, rhs ;value
+[0x4a]	         shl     work0, rhs      ;shifted value in rhs
+[0x4b]	         add     $1, wpc
+[0x4e]	         and     $mask23to0, wpc
+[0x51]	         mov     INSTR(op), rip
+[0xd7]	 swi:    mov     REGS(alwaysZ), work0
+[0xd9]	         trap    rhs
+[0xda]	         jmp     fetch
+[0xd]	 fetch:  mov     wpc,next        ;--------------------TOP-------------------;
+[0xf]	         mov     WARM(next),ci
+[0x11]	         mov     ci, work0
+[0x12]	         shr     $29, work0      ;high 3 condition bits in work0
+[0x14]	         cmovg   COND(work0), rip
+[0x16]	 getop:  mov     ci,op
+[0x17]	         shl     $3,op
+[0x19]	         shr     $26,op
+[0x1b]	         mov     TYPE(op), rip
+[0x3c]	 oRHS:   mov     $maskA, work0
+[0x3e]	         and     ci,work0
+[0x3f]	         shr     $12, work0      ;work 0 holds the addressing mode
+[0x41]	         mov     ADDR(work0), rip
+[0x43]	 imd:    mov     ci, work0
+[0x44]	         and     $maskExp, work0 ;exponent
+[0x46]	         shr     $9, work0
+[0x48]	         and     $maskValue, rhs ;value
+[0x4a]	         shl     work0, rhs      ;shifted value in rhs
+[0x4b]	         add     $1, wpc
+[0x4e]	         and     $mask23to0, wpc
+[0x51]	         mov     INSTR(op), rip
+[0xd7]	 swi:    mov     REGS(alwaysZ), work0
+[0xd9]	         trap    rhs
