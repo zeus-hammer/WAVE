@@ -22,6 +22,7 @@
 	.equ	maskLow13, 0x3fff
 	.equ	opMask, 0x1F800000
 	.equ	shopMask, 0xc00
+	.equ	maskAddr, 0x7000
 
 	lea	WARM, work0
 	trap	$SysOverlay
@@ -71,9 +72,8 @@ ALL3:	mov     ci, lhs		;get dst and lhs
 oDST:	mov     ci, dst
 	shr     $19, dst
 	and     $maskLow4, dst
-oRHS:	mov 	$maskA, work0
-	and 	ci,work0
-	shr	$12, work0	;work 0 holds the addressing mode
+oRHS:	mov 	$maskAddr, work0
+	and 	ci,work0	;work 0 holds the addressing mode
 	mov	ADDR(work0), rip
 ;;; --------------------ADDRESSING MODES OF ARITHMETIC--------------------
 ;;; Immediate Mode
@@ -256,9 +256,8 @@ ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
 	mov	ci, dst
 	shr	$19, dst
 	and 	$maskLow4, dst 	;dst now has dst register
-	mov	$maskA, work0
-	and	ci, work0
-	shr	$12, work0 	;work0 now has addressing mode
+	mov	$maskAddr, work0
+	and	ci, work0 	;work0 now has addressing mode
 	mov	lsADDR(work0), rip
 ;;; ---------------------LOAD STORE INSTRUCTIONS----------------------------
 ;;; ldr is weird. to get memory reference, it adds offset to the value
@@ -596,7 +595,19 @@ GE:
 GT:
 	.data	getop,no,getop,no,no,no,no,no,no,getop,no,no,getop,no,no,no
 ADDR:
-	.data 	imd, imd, imd, imd, rim, rsr, rpm
+	.data 	imd
+	.bss	4095
+	.data	imd
+	.bss	4095
+	.data	imd
+        .bss	4095
+	.data	imd
+        .bss	4095
+	.data	rim
+        .bss	4095
+	.data	rsr
+        .bss	4095
+	.data	rpm
 SHOP:
 	.data	lsl
 	.bss	1023
@@ -606,5 +617,13 @@ SHOP:
 	.bss	1023
 	.data	ror
 lsADDR:
-	.data	soff, soff, soff, soff, rim
+	.data	soff
+	.bss	4095
+	.data	soff
+	.bss	4095
+	.data	soff
+	.bss	4095
+	.data	soff
+	.bss	4095
+	.data	rim
 WARM:	 
