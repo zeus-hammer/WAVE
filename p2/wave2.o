@@ -619,7 +619,7 @@ Memory 1a3 a6780000 1 40
 Memory 1a6 a1c00000
 Memory 1a7 81d80000 ffffff
 Memory 1a9 4b470000 1d6
-Memory 1ab 83cf0000 5080a5cc 5080a5cc
+Memory 1ab 82080000 5080a5cc 5080a5cc
 Memory 1ae 4e4e8000 198001e7
 Memory 1b0 a1cd0000 1d6
 Memory 1b2 81d80000 ffffff
@@ -857,7 +857,7 @@ Source 1a3         add     $1, wpc
 Source 1a6         add     work0, rhs
 Source 1a7         and     $mask23to0, rhs
 Source 1a9         mov     rhs, REGS(lhs)
-Source 1ab         and     WARM(rhs),WARM(rhs)
+Source 1ab         and     WARM(work0),WARM(work0)
 Source 1ae         mov     FETCHT(op), rip 
 Source 1b0 adr:    add     REGS(lhs), rhs
 Source 1b2         and     $mask23to0, rhs 

@@ -307,7 +307,7 @@ posstu:	mov	REGS(lhs), work0
 	add	work0, rhs
 	and	$mask23to0, rhs
 	mov	rhs, REGS(lhs)
-	and	WARM(rhs),WARM(rhs)
+	and	WARM(work0),WARM(work0)
 	mov	FETCHT(op), rip	
 adr:	add	REGS(lhs), rhs
 	and	$mask23to0, rhs	
