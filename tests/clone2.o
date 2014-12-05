@@ -1,5 +1,5 @@
 WarmObjectFile2
-File clone2.as
+File ../tests/clone2.as
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2

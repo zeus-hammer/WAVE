@@ -1,5 +1,5 @@
 WarmObjectFile2
-File gcd.as
+File ../tests/gcd.as
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2

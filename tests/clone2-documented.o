@@ -1,5 +1,5 @@
 WarmObjectFile2
-File clone2-documented.as
+File ../tests/clone2-documented.as
 Symbol OPCB 24
 Symbol OPCCMP 3
 Symbol OPCLDR 16
