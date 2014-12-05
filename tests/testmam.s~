@@ -1,0 +1,7 @@
+;;; what does -512 look like in a register
+;;;
+
+	mov	r1, #-64
+	mov	r2, #3
+	mov	r0, r1,r2,lsl #0
+	mov 	r0, #-512

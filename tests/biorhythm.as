@@ -33,7 +33,7 @@ main:
 	bl	puts
 	
 	;; compute age
-	adr	r0,birthday
+back:	adr	r0,birthday
 	bl	since
 	mov	r1,r0
 	adr	r0,today
@@ -205,7 +205,7 @@ since:	stu	lr,[sp,#-1]
 	addgt	r0,r0,r1	; curry in another leap day after leap feb
 	add	r0,r0,r3	; add in days
 	ldm	sp,#0xfe	
-	ldu	pc,[sp,#1]
+bnd:	ldu	pc,[sp,#1]
 	
 ;;; compute r1 mod r0.  Result in r0
 mod:	stm	sp,#0xe

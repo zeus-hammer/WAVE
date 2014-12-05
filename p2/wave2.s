@@ -7,6 +7,7 @@
 	.requ	lhs, r10	
 	.requ	shiftC, r9
 	.requ	wCCR, r8
+	.requ	temp, r3
 	.requ	work0, r0
  	.requ	work1, r1
 	.requ	next, r2
@@ -38,6 +39,8 @@
 	jmp	fetch
 ;;; --------------------BEGIN FETCHING THE INSTRUCTION-------------------
 ;;; 5 INSTRUCTIONS
+fetch4:	mov	ccr,wCCR
+	jmp	fetch
 fetch3:	mov	ccr,wCCR	;--------------------TOP-------------------;
 fetch2:	add	$1, wpc
 	mov	rhs, REGS(dst)	;--------------------TOP-------------------;
@@ -241,6 +244,7 @@ STMdone:
 	mov	FETCHT(op), rip
 
 cmpCC:	mov	REGS(lhs), work0
+	add	$1, wpc	
 	sub	rhs, work0
 	mov	ccr, wCCR
 	jmp	fetch
@@ -249,6 +253,7 @@ tstCC:	test	REGS(lhs), rhs
 	jmp	fetch3
 	
 movCC:	mov	rhs, REGS(dst)
+	add	$1, wpc	
 	and	rhs, rhs
 	mov	ccr, wCCR
 	jmp	fetch
@@ -281,16 +286,18 @@ ldu:	jge	posldu
 	add	REGS(lhs), rhs		;ADDITION
 	and	$mask23to0, rhs
 	add	$1, wpc			;ADDITION:Masking, rhs now has the modified address
-	mov	WARM(rhs), REGS(dst) 	;CHANGE
-	mov	rhs, REGS(lhs)
+	mov	WARM(rhs), REGS(dst)	;CHANGE
+	mov	rhs, REGS(lhs)	
+	and	REGS(dst), REGS(dst)
 	mov	FETCHT(op), rip
 posldu:	mov	REGS(lhs), work0
 	and	$mask23to0, work0
 	add	REGS(lhs), rhs
 	add	$1, wpc
-	mov	WARM(work0), REGS(dst) ;load base register
 	and	$mask23to0, rhs
 	mov	rhs, REGS(lhs)
+	mov	WARM(work0),REGS(dst)
+	and	REGS(dst),REGS(dst)
 	mov	FETCHT(op), rip		;this was fetch2 i dont know why
 stu:	jge 	posstu
 	add	REGS(lhs), rhs
@@ -298,6 +305,7 @@ stu:	jge 	posstu
 	mov 	REGS(dst), WARM(rhs)
 	add	$1, wpc
 	mov 	rhs, REGS(lhs)
+	and	WARM(rhs),WARM(rhs)
 	mov	FETCHT(op), rip
 posstu:	mov	REGS(lhs), work0
 	and	$mask23to0, work0 ;warm has effective address
@@ -306,9 +314,10 @@ posstu:	mov	REGS(lhs), work0
 	add	work0, rhs
 	and	$mask23to0, rhs
 	mov	rhs, REGS(lhs)
+	and	WARM(rhs),WARM(rhs)
 	mov	FETCHT(op), rip	
 adr:	add	REGS(lhs), rhs
-	and	$mask23to0, rhs
+	and	$mask23to0, rhs	
 	add	$1, wpc
 	mov	rhs, REGS(dst)
 	mov	FETCHT(op), rip
@@ -317,6 +326,8 @@ adr:	add	REGS(lhs), rhs
 
 ;;;  ----------------------------BEGIN BRANCHING--------------------------
 bl:	mov	wpc, wlr
+	add 	$1, wlr
+	and 	$mask23to0, wlr
 b:	add 	ci, wpc
 	jmp	fetch
 ;;; Signed offset mode for load store
@@ -358,7 +369,7 @@ FETCHT:
 	.bss	1
 	.data	fetch,fetch,fetch3,fetch3,fetch,
 	.bss	1
-	.data	fetch,fetch,fetch,fetch
+	.data	fetch4,fetch4,fetch4,fetch4
 TYPE:
 	.data	ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,oDST,oDST,oRHS,ALL3,oDST,ls,ls,ls,ls,ls
 	.bss	3

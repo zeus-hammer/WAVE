@@ -1,5 +1,5 @@
 WarmObjectFile2
-File binary.s
+File ../tests/binary.as
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
