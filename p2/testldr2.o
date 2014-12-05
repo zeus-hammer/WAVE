@@ -41,11 +41,33 @@ Register v5 8
 Register v6 9
 Register v7 10
 Memory 0 5800011
-Memory 1 8878063
-Memory 2 5800000
-Memory 3 8078061
+Memory 1 6800401
+Memory 2 5800205
+Memory 3 6800003
+Memory 4 5800011
+Memory 5 887805f
+Memory 6 5800000
+Memory 7 6800401
+Memory 8 5800205
+Memory 9 6800003
+Memory a 807805a
+Memory b 6800401
+Memory c 5800205
+Memory d 6800003
+Memory e 6800000
 Source 0         mov     r0, #17
-Source 1         str     r0, 100
-Source 2         mov     r0, #0
-Source 3         ldr     r0, 100
+Source 1         swi     #SysPutNum
+Source 2         mov     r0, #'\n
+Source 3         swi     #SysPutChar
+Source 4         mov     r0, #17
+Source 5         str     r0, 100
+Source 6         mov     r0, #0
+Source 7         swi     #SysPutNum
+Source 8         mov     r0, #'\n
+Source 9         swi     #SysPutChar
+Source a         ldr     r0, 100
+Source b         swi     #SysPutNum
+Source c         mov     r0, #'\n
+Source d         swi     #SysPutChar
+Source e         swi     #SysHalt
 End

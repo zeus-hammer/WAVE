@@ -143,8 +143,7 @@ add:	add	REGS(lhs), rhs
 	mov	FETCHT(op), rip
 ;;; 6 INSTRUCTION(S)
 adc:	mov	wCCR, work0
-	shr	$2, work0
-	shl	$31, work0
+	shr	$1, work0
 	add	REGS(lhs), rhs
 	add	work0, rhs
 	mov	FETCHT(op), rip
@@ -207,12 +206,12 @@ lloading:
 LDMdone:
 	mov	lhs, REGS(dst)
 	mov	wpc, work0
-	shl	$27, work0
+	shl	$28, work0
 	mov	work0, wCCR
 	mov	FETCHT(op), rip
 ;;; 18? INSTRUCTION(S)
 stm:	mov	wCCR, work0
-	shl	$27, work0
+	shl	$28, work0
 	or	work0, wpc
 	mov	REGS(dst), lhs	;lhs now has the value stored in base register
 	and	$mask23to0, lhs	;mask low 24 bits for wraparound
