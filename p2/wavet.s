@@ -1,5 +1,5 @@
-;;; Emulator for warm processer - phase 3
-;;; (c) d.r.smith modsoussi bijan (Dan Smith, Mo Soussi and Bijan Mazaheri)
+;;; emulator for warm - phase2p
+;;; (c) d.r.smith modsoussi bijan
 	.requ	ci, r14
 	.requ	rhs, r14
 	.requ	op, r13
@@ -143,7 +143,6 @@ add:	add	REGS(lhs), rhs
 	mov	FETCHT(op), rip
 ;;; 6 INSTRUCTION(S)
 adc:	mov	wCCR, work0
-	and	$2, work0
 	shr	$1, work0
 	add	REGS(lhs), rhs
 	add	work0, rhs
@@ -174,6 +173,7 @@ div:	mov 	REGS(lhs), work0
 	mov	work0, REGS(dst)
 	mov	FETCHT(op), rip
 ;;; 1 INSTRUCTION(S)
+mov:	mov	FETCHT(op), rip
 ;;; 2 INSTRUCTION(S)	
 mvn:	xor	$flip, rhs
 	mov	FETCHT(op), rip
@@ -186,9 +186,6 @@ swi:	mov	REGS, work0
 	mov	FETCHT(op), rip
 ;;; 12? INSTRUCTION(S)
 ldm:	mov	REGS(dst), lhs
-	mov	wCCR, work1
-	shl	$28, work1
-	or	work1, wpc
 	add	$1, wpc
 	and	$mask23to0, lhs	;lhs is base register
 	mov	$0, work0 	;work0 holds reg number
@@ -209,7 +206,7 @@ lloading:
 LDMdone:
 	mov	lhs, REGS(dst)
 	mov	wpc, work0
-	shr	$28, work0
+	shl	$28, work0
 	mov	work0, wCCR
 	mov	FETCHT(op), rip
 ;;; 18? INSTRUCTION(S)
@@ -266,8 +263,8 @@ ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
 ;;;	in the program counter.
 ldr:	add	REGS(lhs), rhs		;ADDITION, might be able to do this in the preparation so we dont have to type it a bunch of times
 	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
+	mov	WARM(rhs), REGS(dst)
  	add	$1, wpc			;changed WARM(lhs, rhs) to WARM(rhs)
-	mov     WARM(rhs), REGS(dst)	
 	jmp 	fetch
 str:	add	REGS(lhs), rhs		;ADDITION
 	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
@@ -306,7 +303,7 @@ posstu:	mov	REGS(lhs), work0
 	add	work0, rhs
 	and	$mask23to0, rhs
 	mov	rhs, REGS(lhs)
-	and	WARM(work0),WARM(work0)
+	and	WARM(rhs),WARM(rhs)
 	mov	FETCHT(op), rip	
 adr:	add	REGS(lhs), rhs
 	and	$mask23to0, rhs	
@@ -353,7 +350,7 @@ INSTR:
 	.bss	16777215
 	.data	div
 	.bss    8388607		;10
-	.data   fetch2
+	.data   mov
 	.bss    8388607
 	.data   mvn
 	.bss    8388607
@@ -545,9 +542,7 @@ TYPE:
 	.bss	8388607
 	.data   ALL3
 	.bss	8388607
-	.data   ALL3		;ands should be ALL3
-	.bss	8388607
-	.data	noDST
+	.data   noDST
 	.bss	8388607
 	.data   ALL3
 	.bss	8388607
@@ -561,9 +556,9 @@ TYPE:
 	.bss	8388607
 	.data   oRHS
 	.bss	8388607
-	.data   oDST
+	.data   ALL3
 	.bss	8388607
-	.data   oDST		;changed from 
+	.data   ls
 	.bss	8388607
 	.data   ls
 	.bss	8388607

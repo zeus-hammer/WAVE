@@ -1,5 +1,5 @@
 WarmObjectFile2
-File fortune.as
+File ../p2/fortune.as
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2
