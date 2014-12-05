@@ -24,18 +24,6 @@
 	lea	WARM, work0
 	trap	$SysOverlay
 
-;;; N.B.
-;;; - RHS and CI are the same register, this allows us to cut the
-;;; mv ci, rhs      instruction that was common to all addressing
-;;; modes. we save an instruction with this, but it's not exactly
-;;; clear when you see RHS being manipulated and we didn't put 
-;;; anything in it. we are manipulating the CI and then throwing
-;;; it away because the next instruction gets its own CI
-	
-;;; SADS
-;;; 
-;;; HAPPIES
-;;; 
 	jmp	fetch
 ;;; --------------------BEGIN FETCHING THE INSTRUCTION-------------------
 ;;; 5 INSTRUCTIONS
@@ -367,7 +355,7 @@ FETCHT:
 	.bss	11
 	.data	fetch3,fetch3,fetch,fetch,fetch3,fetch3,fetch3,fetch3,fetch3,
 	.bss	1
-	.data	fetch,fetch,fetch3,fetch3,fetch,
+	.data	fetch,fetch,fetch3,fetch4,fetch,
 	.bss	1
 	.data	fetch4,fetch4,fetch4,fetch4
 TYPE:
