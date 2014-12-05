@@ -143,6 +143,7 @@ add:	add	REGS(lhs), rhs
 	mov	FETCHT(op), rip
 ;;; 6 INSTRUCTION(S)
 adc:	mov	wCCR, work0
+	and	$2, work0
 	shr	$1, work0
 	add	REGS(lhs), rhs
 	add	work0, rhs
@@ -186,6 +187,9 @@ swi:	mov	REGS, work0
 	mov	FETCHT(op), rip
 ;;; 12? INSTRUCTION(S)
 ldm:	mov	REGS(dst), lhs
+	mov	wCCR, work1
+	shl	$28, work1
+	or	work1, wpc
 	add	$1, wpc
 	and	$mask23to0, lhs	;lhs is base register
 	mov	$0, work0 	;work0 holds reg number
@@ -206,7 +210,7 @@ lloading:
 LDMdone:
 	mov	lhs, REGS(dst)
 	mov	wpc, work0
-	shl	$28, work0
+	shr	$28, work0
 	mov	work0, wCCR
 	mov	FETCHT(op), rip
 ;;; 18? INSTRUCTION(S)
@@ -263,8 +267,8 @@ ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
 ;;;	in the program counter.
 ldr:	add	REGS(lhs), rhs		;ADDITION, might be able to do this in the preparation so we dont have to type it a bunch of times
 	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
-	mov	WARM(rhs), REGS(dst)
  	add	$1, wpc			;changed WARM(lhs, rhs) to WARM(rhs)
+	mov     WARM(rhs), REGS(dst)	
 	jmp 	fetch
 str:	add	REGS(lhs), rhs		;ADDITION
 	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
