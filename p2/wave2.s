@@ -447,7 +447,7 @@ FETCHT:
 	.bss	8388607
 	.data   fetch3
 	.bss	8388607
-	.data   fetch
+	.data   fetch4
 	.bss	8388607
 	.data   fetch
 	.bss	8388607
