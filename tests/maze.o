@@ -1,5 +1,5 @@
 WarmObjectFile2
-File ../tests/maze.as
+File maze.as
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2

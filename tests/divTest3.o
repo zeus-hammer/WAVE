@@ -1,5 +1,5 @@
 WarmObjectFile2
-File divTest3.s
+File ../tests/divTest3.s
 Symbol SysEntropy 5
 Symbol SysGetChar 1
 Symbol SysGetNum 2

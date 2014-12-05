@@ -1,0 +1,8 @@
+*** ../tests/fortune.out	2014-12-05 10:20:20.000000000 -0500
+--- ./wave2.out	2014-12-05 10:20:20.000000000 -0500
+***************
+*** 1 ****
+! A closed mouth gathers no feet.
+--- 1 ----
+! A cN
+\ No newline at end of file

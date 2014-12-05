@@ -20,6 +20,9 @@
 	.equ	flip, 0xffffffff
 	.equ	mask23to0, 0xffffff
 	.equ	maskLow13, 0x3fff
+	.equ	opMask, 0x1F800000
+	.equ	shopMask, 0xc00
+	.equ	maskAddr, 0x7000
 
 	lea	WARM, work0
 	trap	$SysOverlay
@@ -41,8 +44,7 @@ fetch:	and 	$mask23to0, wpc
 	cmovg	COND(work0), rip
 ;;; yes, we do it
 getop:	mov 	ci,op
-	shl	$3,op
-	shr	$26,op
+	and	$opMask, op
 ;;; switch on the opcode to get type
 	mov	TYPE(op), rip
 ;;; switch on the condition code to find out 	
@@ -70,9 +72,8 @@ ALL3:	mov     ci, lhs		;get dst and lhs
 oDST:	mov     ci, dst
 	shr     $19, dst
 	and     $maskLow4, dst
-oRHS:	mov 	$maskA, work0
-	and 	ci,work0
-	shr	$12, work0	;work 0 holds the addressing mode
+oRHS:	mov 	$maskAddr, work0
+	and 	ci,work0	;work 0 holds the addressing mode
 	mov	ADDR(work0), rip
 ;;; --------------------ADDRESSING MODES OF ARITHMETIC--------------------
 ;;; Immediate Mode
@@ -87,8 +88,7 @@ imd:	mov	ci, work0
 rim:	mov	ci, shiftC
 	and	$maskShift, shiftC	;shift count has the bits number to shift
 	mov	ci, work0
-	shl	$20, work0
-	shr	$30, work0	;work0 now has the shop
+	and	$shopMask, work0	;work0 now has the shop
 	shl	$22, rhs
 	shr	$28, rhs 	;now we have src reg 2 in rhs
 	mov	REGS(rhs), rhs	;rhs now has the value that was in register number rhs
@@ -99,8 +99,7 @@ rsr:	mov	$maskLow4, shiftC	; shiftC := 15
 	and 	ci, shiftC	; shiftC := shiftC & ci; to get shift register
 	mov	REGS(shiftC), shiftC ; shiftC now has whatever was stored in the 
 	mov 	ci, work0
-	shl	$20, work0
-	shr	$30, work0	; work0 now has the shift op code
+	and	$shopMask, work0	; work0 now has the shift op code
 	shl	$22, rhs
 	shr	$28, rhs	; rhs has rhs register
 	mov	REGS(rhs), rhs	; rhs now has whatever was stored in rhs (memory)
@@ -144,16 +143,16 @@ add:	add	REGS(lhs), rhs
 	mov	FETCHT(op), rip
 ;;; 6 INSTRUCTION(S)
 adc:	mov	wCCR, work0
-	shr	$2, work0
-	shl	$31, work0
+	and	$2, work0
+	shr	$1, work0
 	add	REGS(lhs), rhs
 	add	work0, rhs
 	mov	FETCHT(op), rip
 ;;; backwards (like div)
 ;;; 4 INSTRUCTION(S)
 sub:	mov	REGS(lhs), work0
-	sub	rhs, work0
 	add	$1, wpc
+	sub	rhs, work0	
 	mov	work0, REGS(dst)
 	mov	FETCHT(op), rip
 ;;; 2 INSTRUCTION(S)
@@ -184,9 +183,13 @@ swi:	mov	REGS, work0
 	trap 	rhs
 	add	$1, wpc
 	mov	work0, REGS
+	and 	REGS, REGS
 	mov	FETCHT(op), rip
 ;;; 12? INSTRUCTION(S)
 ldm:	mov	REGS(dst), lhs
+	mov	wCCR, work1
+	shl	$28, work1
+	or	work1, wpc
 	add	$1, wpc
 	and	$mask23to0, lhs	;lhs is base register
 	mov	$0, work0 	;work0 holds reg number
@@ -206,10 +209,13 @@ lloading:
 ;;; when LDMdone, if base register popped, do nothing. Otherwise increment.
 LDMdone:
 	mov	lhs, REGS(dst)
+	mov	wpc, work0
+	shr	$28, work0
+	mov	work0, wCCR
 	mov	FETCHT(op), rip
 ;;; 18? INSTRUCTION(S)
 stm:	mov	wCCR, work0
-	shl	$24, work0
+	shl	$28, work0
 	or	work0, wpc
 	mov	REGS(dst), lhs	;lhs now has the value stored in base register
 	and	$mask23to0, lhs	;mask low 24 bits for wraparound
@@ -253,17 +259,16 @@ ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
 	mov	ci, dst
 	shr	$19, dst
 	and 	$maskLow4, dst 	;dst now has dst register
-	mov	$maskA, work0
-	and	ci, work0
-	shr	$12, work0 	;work0 now has addressing mode
+	mov	$maskAddr, work0
+	and	ci, work0 	;work0 now has addressing mode
 	mov	lsADDR(work0), rip
 ;;; ---------------------LOAD STORE INSTRUCTIONS----------------------------
-;;; ldr is weird. to get memory reference, it adds offset to the value
+;;; ldr is weird. if only given a memory reference, to decode memory reference, we add offset to the value
 ;;;	in the program counter.
 ldr:	add	REGS(lhs), rhs		;ADDITION, might be able to do this in the preparation so we dont have to type it a bunch of times
 	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
-	mov	WARM(rhs), REGS(dst)
  	add	$1, wpc			;changed WARM(lhs, rhs) to WARM(rhs)
+	mov     WARM(rhs), REGS(dst)	
 	jmp 	fetch
 str:	add	REGS(lhs), rhs		;ADDITION
 	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
@@ -302,7 +307,7 @@ posstu:	mov	REGS(lhs), work0
 	add	work0, rhs
 	and	$mask23to0, rhs
 	mov	rhs, REGS(lhs)
-	and	WARM(rhs),WARM(rhs)
+	and	WARM(work0),WARM(work0)
 	mov	FETCHT(op), rip	
 adr:	add	REGS(lhs), rhs
 	and	$mask23to0, rhs	
@@ -333,41 +338,251 @@ wlr:
 wpc:
 	.data	0
 INSTR:
-	.data 	add,adc,sub
-	.bss	1
-	.data	eor,orr,and
-	.bss	1
+	.data 	add		;0
+	.bss    8388607
+	.data   adc
+	.bss    8388607
+	.data   sub
+	.bss	16777215
+	.data	eor
+	.bss    8388607
+	.data   orr
+	.bss    8388607
+	.data   and
+	.bss	16777215
 	.data	mul
-	.bss	1
-	.data	div,mov,mvn,swi,ldm,stm,ldr,str,ldu,stu,adr
-	.bss	11
-	.data	add,adc,sub,cmpCC,eor,orr,and,tstCC,mul
-	.bss	1
-	.data	div,movCC,mvn,swi,ldm
-	.bss	1
-	.data	ldr,str,ldu,stu
+	.bss	16777215
+	.data	div
+	.bss    8388607		;10
+	.data   mov
+	.bss    8388607
+	.data   mvn
+	.bss    8388607
+	.data   swi		
+	.bss    8388607
+	.data   ldm
+	.bss    8388607
+	.data   stm
+	.bss    8388607
+	.data   ldr
+	.bss    8388607
+	.data   str
+	.bss    8388607
+	.data   ldu
+	.bss    8388607
+	.data   stu
+	.bss    8388607
+	.data   adr
+	.bss	100663295
+	.data	add
+	.bss    8388607
+	.data   adc
+	.bss    8388607
+	.data   sub
+	.bss    8388607
+	.data   cmpCC
+	.bss    8388607
+	.data   eor
+	.bss    8388607
+	.data   orr
+	.bss    8388607
+	.data   and
+	.bss    8388607
+	.data   tstCC
+	.bss    8388607
+	.data   mul
+	.bss	16777215
+	.data	div
+	.bss    8388607
+	.data   movCC
+	.bss    8388607
+	.data   mvn
+	.bss    8388607
+	.data   swi
+	.bss    8388607
+	.data   ldm
+	.bss	16777215
+	.data	ldr
+	.bss    8388607
+	.data   str
+	.bss    8388607
+	.data   ldu
+	.bss    8388607
+	.data   stu
 FETCHT:
-	.data	fetch2,fetch2,fetch
-	.bss	1
-	.data	fetch2,fetch2,fetch2
-	.bss	1
-	.data	fetch2,fetch2,fetch,fetch2,fetch2,fetch,fetch,fetch,fetch,fetch,fetch,fetch,fetch
-	.bss	11
-	.data	fetch3,fetch3,fetch,fetch,fetch3,fetch3,fetch3,fetch3,fetch3,
-	.bss	1
-	.data	fetch,fetch,fetch3,fetch4,fetch,
-	.bss	1
-	.data	fetch4,fetch4,fetch4,fetch4
+	.data	fetch2
+	.bss	8388607
+	.data   fetch2
+	.bss	8388607
+	.data   fetch
+	.bss	16777215
+	.data	fetch2
+	.bss	8388607
+	.data   fetch2
+	.bss	8388607
+	.data   fetch2
+	.bss	16777215
+	.data	fetch2
+	.bss	8388607
+	.data   fetch2
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch2
+	.bss	8388607
+	.data   fetch2
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	100663295
+	.data	fetch3
+	.bss	8388607
+	.data   fetch3
+	.bss	8388607
+	.data   fetch4
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch3
+	.bss	8388607
+	.data   fetch3
+	.bss	8388607
+	.data   fetch3
+	.bss	8388607
+	.data   fetch3
+	.bss	8388607
+	.data   fetch3
+	.bss	16777215
+	.data	fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch3
+	.bss	8388607
+	.data   fetch4
+	.bss	8388607
+	.data   fetch
+	.bss	16777215
+	.data	fetch4
+	.bss	8388607
+	.data   fetch4
+	.bss	8388607
+	.data   fetch4
+	.bss	8388607
+	.data   fetch4
 TYPE:
-	.data	ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,oDST,oDST,oRHS,ALL3,oDST,ls,ls,ls,ls,ls
-	.bss	3
-	.data	b,b,bl,bl
-	.bss	4
-	.data	ALL3,ALL3,ALL3,noDST,ALL3,ALL3,noDST,ALL3,ALL3
-	.bss	1
-	.data	ALL3,oDST,oDST,oRHS,ALL3,ls,ls,ls,ls,ls,ls
-	.bss	3
-	.data	b,b,bl,bl
+	.data	ALL3
+	.bss	8388607
+	.data	ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   noDST
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   noDST
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   oDST
+	.bss	8388607
+	.data   oDST
+	.bss	8388607
+	.data   oRHS
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   oDST
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	33554431
+	.data	b
+	.bss	8388607
+	.data   b
+	.bss	8388607
+	.data   bl
+	.bss	8388607
+	.data   bl
+	.bss	41943039
+	.data	ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   noDST
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3		;ands should be ALL3
+	.bss	8388607
+	.data	noDST
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	16777215
+	.data	ALL3
+	.bss	8388607
+	.data   oDST
+	.bss	8388607
+	.data   oDST
+	.bss	8388607
+	.data   oRHS
+	.bss	8388607
+	.data   oDST
+	.bss	8388607
+	.data   oDST		;changed from 
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	33552231
+	.data	b
+	.bss	8388607
+	.data   b
+	.bss	8388607
+	.data   bl
+	.bss	8388607
+	.data   bl
 COND:
 	.data	0,never,equal,ne,lesst,lesse,greate,gt
 NEVER:
@@ -381,13 +596,39 @@ LT:
 LE:
 	.data	no,getop,no,getop,getop,getop,getop,getop,getop,no,getop,getop,no,getop,getop,getop
 GE:
-	.data	getop,no,getop,no,getop,no,getop,no,getop,no,getop,no,getop,no,getop,no
+	.data	getop,no,getop,no,getop,no,getop,no,no,no,getop,no,getop,no,getop,no
 GT:
 	.data	getop,no,getop,no,no,no,no,no,no,getop,no,no,getop,no,no,no
 ADDR:
-	.data 	imd, imd, imd, imd, rim, rsr, rpm
+	.data 	imd
+	.bss	4095
+	.data	imd
+	.bss	4095
+	.data	imd
+        .bss	4095
+	.data	imd
+        .bss	4095
+	.data	rim
+        .bss	4095
+	.data	rsr
+        .bss	4095
+	.data	rpm
 SHOP:
-	.data	lsl, lsr, asr, ror
+	.data	lsl
+	.bss	1023
+	.data	lsr
+	.bss	1023
+	.data	asr
+	.bss	1023
+	.data	ror
 lsADDR:
-	.data	soff, soff, soff, soff, rim
+	.data	soff
+	.bss	4095
+	.data	soff
+	.bss	4095
+	.data	soff
+	.bss	4095
+	.data	soff
+	.bss	4095
+	.data	rim
 WARM:	 
