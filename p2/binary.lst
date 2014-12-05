@@ -1,4 +1,4 @@
-WARM Assembly of ../tests/binary.as                                     Page 1
+WARM Assembly of binary.s                                               Page 1
 
 Line [ Addr ]
 0001           ;;; A simple solution to the binary.s problem of Computer Science
@@ -61,7 +61,7 @@ Line [ Addr ]
      [0x0019]: 0x06800003 = 0b00000110100000000000000000000011
 0033 [0x001a]: _done:
 0034 [0x001a]:         ldm     sp,#0x6 
-WARM Assembly of ../tests/binary.as                                     Page 2
+WARM Assembly of binary.s                                               Page 2
 
 Line [ Addr ]
      [0x001a]: 0x07680203 = 0b00000111011010000000001000000011
@@ -81,4 +81,4 @@ Line [ Addr ]
 Symbols defined:
         main=0           newline=28           putbin=6      
 -------------------------------------------------------------------------------
-Assembled 31 instructions at 516.67 instructions per second.
+Assembled 31 instructions at 659.57 instructions per second.

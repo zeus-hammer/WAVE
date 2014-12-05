@@ -22,6 +22,7 @@
 	.equ	maskLow13, 0x3fff
 	.equ	opMask, 0x1F800000
 	.equ	shopMask, 0xc00
+	.equ	maskAddr, 0x7000
 
 	lea	WARM, work0
 	trap	$SysOverlay
@@ -71,9 +72,8 @@ ALL3:	mov     ci, lhs		;get dst and lhs
 oDST:	mov     ci, dst
 	shr     $19, dst
 	and     $maskLow4, dst
-oRHS:	mov 	$maskA, work0
-	and 	ci,work0
-	shr	$12, work0	;work 0 holds the addressing mode
+oRHS:	mov 	$maskAddr, work0
+	and 	ci,work0	;work 0 holds the addressing mode
 	mov	ADDR(work0), rip
 ;;; --------------------ADDRESSING MODES OF ARITHMETIC--------------------
 ;;; Immediate Mode
@@ -143,8 +143,7 @@ add:	add	REGS(lhs), rhs
 	mov	FETCHT(op), rip
 ;;; 6 INSTRUCTION(S)
 adc:	mov	wCCR, work0
-	shr	$2, work0
-	shl	$31, work0
+	shr	$1, work0
 	add	REGS(lhs), rhs
 	add	work0, rhs
 	mov	FETCHT(op), rip
@@ -207,12 +206,12 @@ lloading:
 LDMdone:
 	mov	lhs, REGS(dst)
 	mov	wpc, work0
-	shl	$27, work0
+	shl	$28, work0
 	mov	work0, wCCR
 	mov	FETCHT(op), rip
 ;;; 18? INSTRUCTION(S)
 stm:	mov	wCCR, work0
-	shl	$27, work0
+	shl	$28, work0
 	or	work0, wpc
 	mov	REGS(dst), lhs	;lhs now has the value stored in base register
 	and	$mask23to0, lhs	;mask low 24 bits for wraparound
@@ -256,12 +255,11 @@ ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
 	mov	ci, dst
 	shr	$19, dst
 	and 	$maskLow4, dst 	;dst now has dst register
-	mov	$maskA, work0
-	and	ci, work0
-	shr	$12, work0 	;work0 now has addressing mode
+	mov	$maskAddr, work0
+	and	ci, work0 	;work0 now has addressing mode
 	mov	lsADDR(work0), rip
 ;;; ---------------------LOAD STORE INSTRUCTIONS----------------------------
-;;; ldr is weird. to get memory reference, it adds offset to the value
+;;; ldr is weird. if only given a memory reference, to decode memory reference, we add offset to the value
 ;;;	in the program counter.
 ldr:	add	REGS(lhs), rhs		;ADDITION, might be able to do this in the preparation so we dont have to type it a bunch of times
 	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
@@ -596,7 +594,19 @@ GE:
 GT:
 	.data	getop,no,getop,no,no,no,no,no,no,getop,no,no,getop,no,no,no
 ADDR:
-	.data 	imd, imd, imd, imd, rim, rsr, rpm
+	.data 	imd
+	.bss	4095
+	.data	imd
+	.bss	4095
+	.data	imd
+        .bss	4095
+	.data	imd
+        .bss	4095
+	.data	rim
+        .bss	4095
+	.data	rsr
+        .bss	4095
+	.data	rpm
 SHOP:
 	.data	lsl
 	.bss	1023
@@ -606,5 +616,13 @@ SHOP:
 	.bss	1023
 	.data	ror
 lsADDR:
-	.data	soff, soff, soff, soff, rim
+	.data	soff
+	.bss	4095
+	.data	soff
+	.bss	4095
+	.data	soff
+	.bss	4095
+	.data	soff
+	.bss	4095
+	.data	rim
 WARM:	 
