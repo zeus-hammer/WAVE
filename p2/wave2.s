@@ -260,7 +260,7 @@ ls:	mov	ci, lhs 	;get dst and base registers, here base is lhs
 	shr	$12, work0 	;work0 now has addressing mode
 	mov	lsADDR(work0), rip
 ;;; ---------------------LOAD STORE INSTRUCTIONS----------------------------
-;;; ldr is weird. to get memory reference, it adds offset to the value
+;;; ldr is weird. if only given a memory reference, to decode memory reference, we add offset to the value
 ;;;	in the program counter.
 ldr:	add	REGS(lhs), rhs		;ADDITION, might be able to do this in the preparation so we dont have to type it a bunch of times
 	and	$mask23to0, rhs 	;ADDITION: RHS now has the masked address, should only need to do WARM(rhs) now
