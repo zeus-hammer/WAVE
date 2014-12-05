@@ -20,6 +20,8 @@
 	.equ	flip, 0xffffffff
 	.equ	mask23to0, 0xffffff
 	.equ	maskLow13, 0x3fff
+	.equ	opMask, 0x1F800000
+	.equ	shopMask, 0xc00
 
 	lea	WARM, work0
 	trap	$SysOverlay
@@ -41,8 +43,7 @@ fetch:	and 	$mask23to0, wpc
 	cmovg	COND(work0), rip
 ;;; yes, we do it
 getop:	mov 	ci,op
-	shl	$3,op
-	shr	$26,op
+	and	$opMask, op
 ;;; switch on the opcode to get type
 	mov	TYPE(op), rip
 ;;; switch on the condition code to find out 	
@@ -87,8 +88,7 @@ imd:	mov	ci, work0
 rim:	mov	ci, shiftC
 	and	$maskShift, shiftC	;shift count has the bits number to shift
 	mov	ci, work0
-	shl	$20, work0
-	shr	$30, work0	;work0 now has the shop
+	and	$shopMask, work0	;work0 now has the shop
 	shl	$22, rhs
 	shr	$28, rhs 	;now we have src reg 2 in rhs
 	mov	REGS(rhs), rhs	;rhs now has the value that was in register number rhs
@@ -99,8 +99,7 @@ rsr:	mov	$maskLow4, shiftC	; shiftC := 15
 	and 	ci, shiftC	; shiftC := shiftC & ci; to get shift register
 	mov	REGS(shiftC), shiftC ; shiftC now has whatever was stored in the 
 	mov 	ci, work0
-	shl	$20, work0
-	shr	$30, work0	; work0 now has the shift op code
+	and	$shopMask, work0	; work0 now has the shift op code
 	shl	$22, rhs
 	shr	$28, rhs	; rhs has rhs register
 	mov	REGS(rhs), rhs	; rhs now has whatever was stored in rhs (memory)
@@ -334,41 +333,249 @@ wlr:
 wpc:
 	.data	0
 INSTR:
-	.data 	add,adc,sub
-	.bss	1
-	.data	eor,orr,and
-	.bss	1
+	.data 	add		;0
+	.bss    8388607
+	.data   adc
+	.bss    8388607
+	.data   sub
+	.bss	16777215
+	.data	eor
+	.bss    8388607
+	.data   orr
+	.bss    8388607
+	.data   and
+	.bss	16777215
 	.data	mul
-	.bss	1
-	.data	div,mov,mvn,swi,ldm,stm,ldr,str,ldu,stu,adr
-	.bss	11
-	.data	add,adc,sub,cmpCC,eor,orr,and,tstCC,mul
-	.bss	1
-	.data	div,movCC,mvn,swi,ldm
-	.bss	1
-	.data	ldr,str,ldu,stu
+	.bss	16777215
+	.data	div
+	.bss    8388607		;10
+	.data   mov
+	.bss    8388607
+	.data   mvn
+	.bss    8388607
+	.data   swi		
+	.bss    8388607
+	.data   ldm
+	.bss    8388607
+	.data   stm
+	.bss    8388607
+	.data   ldr
+	.bss    8388607
+	.data   str
+	.bss    8388607
+	.data   ldu
+	.bss    8388607
+	.data   stu
+	.bss    8388607
+	.data   adr
+	.bss	100663295
+	.data	add
+	.bss    8388607
+	.data   adc
+	.bss    8388607
+	.data   sub
+	.bss    8388607
+	.data   cmpCC
+	.bss    8388607
+	.data   eor
+	.bss    8388607
+	.data   orr
+	.bss    8388607
+	.data   and
+	.bss    8388607
+	.data   tstCC
+	.bss    8388607
+	.data   mul
+	.bss	16777215
+	.data	div
+	.bss    8388607
+	.data   movCC
+	.bss    8388607
+	.data   mvn
+	.bss    8388607
+	.data   swi
+	.bss    8388607
+	.data   ldm
+	.bss	16777215
+	.data	ldr
+	.bss    8388607
+	.data   str
+	.bss    8388607
+	.data   ldu
+	.bss    8388607
+	.data   stu
 FETCHT:
-	.data	fetch2,fetch2,fetch
-	.bss	1
-	.data	fetch2,fetch2,fetch2
-	.bss	1
-	.data	fetch2,fetch2,fetch,fetch2,fetch2,fetch,fetch,fetch,fetch,fetch,fetch,fetch,fetch
-	.bss	11
-	.data	fetch3,fetch3,fetch4,fetch,fetch3,fetch3,fetch3,fetch3,fetch3,
-	.bss	1
-	.data	fetch,fetch,fetch3,fetch4,fetch3,
-	.bss	1
-	.data	fetch4,fetch4,fetch4,fetch4
+	.data	fetch2
+	.bss	8388607
+	.data   fetch2
+	.bss	8388607
+	.data   fetch
+	.bss	16777215
+	.data	fetch2
+	.bss	8388607
+	.data   fetch2
+	.bss	8388607
+	.data   fetch2
+	.bss	16777215
+	.data	fetch2
+	.bss	8388607
+	.data   fetch2
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch2
+	.bss	8388607
+	.data   fetch2
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	100663295
+	.data	fetch3
+	.bss	8388607
+	.data   fetch3
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch3
+	.bss	8388607
+	.data   fetch3
+	.bss	8388607
+	.data   fetch3
+	.bss	8388607
+	.data   fetch3
+	.bss	8388607
+	.data   fetch3
+	.bss	16777215
+	.data	fetch
+	.bss	8388607
+	.data   fetch
+	.bss	8388607
+	.data   fetch3
+	.bss	8388607
+	.data   fetch4
+	.bss	8388607
+	.data   fetch
+	.bss	16777215
+	.data	fetch4
+	.bss	8388607
+	.data   fetch4
+	.bss	8388607
+	.data   fetch4
+	.bss	8388607
+	.data   fetch4
 TYPE:
-	.data	ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,noDST,ALL3,ALL3,ALL3,oDST,oDST,oRHS,ALL3,oDST,ls,ls,ls,ls,ls
-	.bss	3
-	.data	b,b,bl,bl
-	.bss	4
-	.data	ALL3,ALL3,ALL3,noDST,ALL3,ALL3,noDST,ALL3,ALL3
-	.bss	1
-	.data	ALL3,oDST,oDST,oRHS,ALL3,ls,ls,ls,ls,ls,ls
-	.bss	3
-	.data	b,b,bl,bl
+	.data	ALL3
+	.bss	8388607
+	.data	ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   noDST
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   noDST
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   oDST
+	.bss	8388607
+	.data   oDST
+	.bss	8388607
+	.data   oRHS
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   oDST
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	33554431
+	.data	b
+	.bss	8388607
+	.data   b
+	.bss	8388607
+	.data   bl
+	.bss	8388607
+	.data   bl
+	.bss	41943039
+	.data	ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   noDST
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   noDST
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ALL3
+	.bss	16777215
+	.data	ALL3
+	.bss	8388607
+	.data   oDST
+	.bss	8388607
+	.data   oDST
+	.bss	8388607
+	.data   oRHS
+	.bss	8388607
+	.data   ALL3
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	8388607
+	.data   ls
+	.bss	33552231
+	.data	b
+	.bss	8388607
+	.data   b
+	.bss	8388607
+	.data   bl
+	.bss	8388607
+	.data   bl
 COND:
 	.data	0,never,equal,ne,lesst,lesse,greate,gt
 NEVER:
@@ -388,7 +595,13 @@ GT:
 ADDR:
 	.data 	imd, imd, imd, imd, rim, rsr, rpm
 SHOP:
-	.data	lsl, lsr, asr, ror
+	.data	lsl
+	.bss	1023
+	.data	lsr
+	.bss	1023
+	.data	asr
+	.bss	1023
+	.data	ror
 lsADDR:
 	.data	soff, soff, soff, soff, rim
 WARM:	 
