@@ -152,8 +152,8 @@ adc:	mov	wCCR, work0
 ;;; backwards (like div)
 ;;; 4 INSTRUCTION(S)
 sub:	mov	REGS(lhs), work0
-	sub	rhs, work0
 	add	$1, wpc
+	sub	rhs, work0	
 	mov	work0, REGS(dst)
 	mov	FETCHT(op), rip
 ;;; 2 INSTRUCTION(S)
@@ -354,7 +354,7 @@ FETCHT:
 	.bss	1
 	.data	fetch2,fetch2,fetch,fetch2,fetch2,fetch,fetch,fetch,fetch,fetch,fetch,fetch,fetch
 	.bss	11
-	.data	fetch3,fetch3,fetch,fetch,fetch3,fetch3,fetch3,fetch3,fetch3,
+	.data	fetch3,fetch3,fetch4,fetch,fetch3,fetch3,fetch3,fetch3,fetch3,
 	.bss	1
 	.data	fetch,fetch,fetch3,fetch4,fetch3,
 	.bss	1

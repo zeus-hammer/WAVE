@@ -195,7 +195,7 @@ Memory 22d f
 Memory 22e f
 Memory 23a 9
 Memory 23b 9
-Memory 23c f
+Memory 23c 6
 Memory 23d f
 Memory 23e 9
 Memory 23f 9
@@ -489,8 +489,8 @@ Memory 9b a1cd0000 1d6
 Memory 9d a1c00000
 Memory 9e 4e4e8000 21a
 Memory a0 480d0000 1d6
-Memory a2 a8070000
-Memory a3 a6780000 1 140
+Memory a2 a6780000 1 141
+Memory a5 a8070000
 Memory a6 4b600000 1d6
 Memory a8 4e4e8000 21a
 Memory aa 91cd0000 1d6
@@ -726,8 +726,8 @@ Source 9b         add     REGS(lhs), rhs
 Source 9d         add     work0, rhs
 Source 9e         mov     FETCHT(op), rip
 Source a0 sub:    mov     REGS(lhs), work0
-Source a2         sub     rhs, work0
-Source a3         add     $1, wpc
+Source a2         add     $1, wpc
+Source a5         sub     rhs, work0      
 Source a6         mov     work0, REGS(dst)
 Source a8         mov     FETCHT(op), rip
 Source aa eor:    xor     REGS(lhs), rhs
