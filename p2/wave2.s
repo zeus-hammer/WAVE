@@ -206,10 +206,13 @@ lloading:
 ;;; when LDMdone, if base register popped, do nothing. Otherwise increment.
 LDMdone:
 	mov	lhs, REGS(dst)
+	mov	wpc, work0
+	shl	$27, work0
+	mov	work0, wCCR
 	mov	FETCHT(op), rip
 ;;; 18? INSTRUCTION(S)
 stm:	mov	wCCR, work0
-	shl	$24, work0
+	shl	$27, work0
 	or	work0, wpc
 	mov	REGS(dst), lhs	;lhs now has the value stored in base register
 	and	$mask23to0, lhs	;mask low 24 bits for wraparound
